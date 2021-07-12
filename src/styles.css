@@ -1,0 +1,97 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+	/* フォント （一部のフォントは上手く適用されない） */
+	/*font-family: "Meiryo";*/
+	font-family:      "Noto Sans Condensed", Arial, sans-serif;
+}
+
+body, html {
+	margin: 0;
+}
+
+html {
+	height:           100%;
+	background-color: transparent;
+	font-size:        12pt;
+	font-family:      "Noto Sans Condensed", Arial, sans-serif;
+}
+
+.resizeHandle {
+	/* リサイズ用のハンドル
+	 * リサイズができる場所はウィンドウ右下の16x16ピクセルの場所
+	 * この部分が完全に透明だとマウス入力が透過してしまってサイズを変更できなくなる */
+	background-image:    url(https://i.imgur.com/R2erClF.png);
+	background-position: bottom right;
+	background-repeat:   no-repeat;
+	box-sizing:          border-box;
+}
+
+.hp {
+	width:            100%;
+	background-color: black;
+	position:         relative;
+}
+
+.mana {
+	width:            100%;
+	background-color: black;
+	position:         relative;
+}
+
+.bar-fill {
+	height:   100%;
+	position: absolute;
+	top:      0;
+	left:     0;
+}
+
+.bar-text {
+	color:       white;
+	text-align:  center;
+	z-index:     100;
+	position:    absolute;
+	width:       100%;
+}
+
+.bar-text-left {
+	text-align: left;
+}
+
+.bar-text-right {
+	text-align: right;
+}
+
+.settings-icon {
+	width:    20px;
+	height:   20px;
+	position: absolute;
+	right:    5px;
+	top:      5px;
+	color:    white;
+	z-index:  99999;
+	cursor:   pointer;
+}
+
+.settings-icon:hover {
+	display: inline-block;
+}
+
+#settings-window {
+	width:            100%;
+	height:           100%;
+	background-color: #fff;
+	position:         relative;
+	overflow-y:       auto;
+}
+
+#settings-window table {
+	font-size: 10pt !important;
+}
+#main #main-settings-icon {
+	display: none;
+}
+
+#main:hover #main-settings-icon {
+	display: block;
+}
