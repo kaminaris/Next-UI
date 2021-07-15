@@ -39,8 +39,8 @@ export class AuraGainedHandler implements HandlerInterface {
 		if (!targetId) {
 			return;
 		}
-
-		const combatant = this.parser.combatants.value.find(c => c.id === targetId);
+		const combatants = this.parser.combatants;
+		const combatant = combatants.value.find(c => c.id === targetId);
 		if (!combatant) {
 			console.log('WOT?', targetId, targetName);
 			return;
@@ -58,9 +58,10 @@ export class AuraGainedHandler implements HandlerInterface {
 		aura.isBuff = true;
 
 		combatant.updateAura(aura);
+		combatant.updateHp(targetHp);
 
 		if (this.parser.debugMode) {
-			console.log(`Combatant: ${combatant.name} gained aura ${abilityName}`, combatant, aura);
+			console.log(`Combatant: ${combatant.name} gained aura ${abilityName}`, combatant, aura, event);
 		}
 	}
 }

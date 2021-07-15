@@ -1,3 +1,8 @@
+export interface FrameConfigInterface {
+	position: { x: number, y: number };
+	size: { width: number, height: number };
+}
+
 export interface ConfigInterface {
 	showMana: boolean;
 	displayCharName: boolean;
@@ -8,4 +13,7 @@ export interface ConfigInterface {
 	hpColor: string;
 	manaColor: string;
 	numberFormat: string;
+	frames: {
+		[name: string]: FrameConfigInterface
+	}
 }

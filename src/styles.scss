@@ -1,36 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 
-* {
-	/* フォント （一部のフォントは上手く適用されない） */
-	/*font-family: "Meiryo";*/
-	font-family:      "Noto Sans Condensed", Arial, sans-serif;
-}
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/reboot";
 
-body, html {
-	margin: 0;
-}
+@import '~angular2-draggable/css/resizable.min.css';
 
-html {
-	height:           100%;
-	background-color: transparent;
-	font-size:        12pt;
-	font-family:      "Noto Sans Condensed", Arial, sans-serif;
+body {
+	background-color:  transparent;
+	background-repeat: repeat;
+
+	&.grid {
+		background-image: url('https://i.imgur.com/RVRX2Qy.png');
+	}
 }
 
 .resizeHandle {
-	/* リサイズ用のハンドル
-	 * リサイズができる場所はウィンドウ右下の16x16ピクセルの場所
-	 * この部分が完全に透明だとマウス入力が透過してしまってサイズを変更できなくなる */
 	background-image:    url(https://i.imgur.com/R2erClF.png);
 	background-position: bottom right;
 	background-repeat:   no-repeat;
 	box-sizing:          border-box;
 }
 
+.draggable {
+	position: relative;
+}
+
+.grab-handle {
+	border:      1px dashed white;
+	position:    absolute;
+	right:       5px;
+	top:         5px;
+	cursor:      grab;
+	width:       20px;
+	height:      20px;
+	text-align:  center;
+	line-height: 20px;
+	z-index:     1000;
+}
+
+.d-block { display: block; }
+.pos-r { position: relative; }
+
+.party-frame {
+	background-color: rgba(0, 0, 0, 0.32);
+	border: 1px solid rgba(255, 255, 255, 0.32);
+}
+
 .hp {
 	width:            100%;
+	height:           100%;
 	background-color: black;
 	position:         relative;
+}
+
+.control-bar {
+	background-color: white;
+	padding: 5px;
 }
 
 .mana {
@@ -47,11 +74,11 @@ html {
 }
 
 .bar-text {
-	color:       white;
-	text-align:  center;
-	z-index:     100;
-	position:    absolute;
-	width:       100%;
+	color:      white;
+	text-align: center;
+	z-index:    100;
+	position:   absolute;
+	width:      100%;
 }
 
 .bar-text-left {
@@ -88,6 +115,7 @@ html {
 #settings-window table {
 	font-size: 10pt !important;
 }
+
 #main #main-settings-icon {
 	display: none;
 }

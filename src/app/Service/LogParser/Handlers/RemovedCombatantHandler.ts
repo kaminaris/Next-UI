@@ -21,10 +21,10 @@ export class RemovedCombatantHandler implements HandlerInterface {
 			combatants.splice(combatantIdx, 1);
 
 			if (this.parser.debugMode) {
-				console.log(
-					':Removed combatant ' + id +
-					combatants[combatantIdx]
-				);
+				// console.log(
+				// 	':Removed combatant ' + id +
+				// 	combatants[combatantIdx]
+				// );
 			}
 			this.parser.combatants.next(combatants);
 		}

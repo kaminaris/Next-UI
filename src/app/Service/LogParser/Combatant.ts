@@ -4,14 +4,30 @@ import { Aura }            from './Aura';
 export class Combatant {
 	id: string = '';
 	name: string = '';
-	job: string = '';
+	job = new BehaviorSubject<string>('NONE');
 	isPlayer = false;
+	inParty = new BehaviorSubject<boolean>(false);
 
-	hp = new BehaviorSubject<number>(0);
-	hpMax = new BehaviorSubject<number>(0);
-	mana = new BehaviorSubject<number>(0);
-	manaMax = new BehaviorSubject<number>(0);
+	hp = new BehaviorSubject<number>(100);
+	hpMax = new BehaviorSubject<number>(100);
+	mana = new BehaviorSubject<number>(10000);
+	manaMax = new BehaviorSubject<number>(10000);
 	auras = new BehaviorSubject<Aura[]>([]);
+
+	updateHp(hp: number, hpMax?: number) {
+		if (this.hp.value === hp) {
+			return;
+		}
+
+		this.hp.next(hp);
+		if (hpMax) {
+			if (this.hpMax.value !== hpMax) {
+				this.hpMax.next(hpMax);
+			}
+		} else if (this.hpMax.value < this.hp.value) {
+			this.hpMax.next(this.hp.value);
+		}
+	}
 
 	updateAura(newAura: Aura) {
 		const auras = this.auras.value;
@@ -30,7 +46,8 @@ export class Combatant {
 			if (
 				newExpire === null && aura.expiresAt.value !== null ||
 				newExpire !== null && aura.expiresAt.value === null ||
-				newExpire !== null && aura.expiresAt.value !== null && newExpire.valueOf() !== aura.expiresAt.value.valueOf()
+				newExpire !== null && aura.expiresAt.value !== null && newExpire.valueOf()
+				!== aura.expiresAt.value.valueOf()
 			) {
 				aura.expiresAt.next(newExpire);
 			}

@@ -10,12 +10,15 @@ export class ZoneChangedHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event !== 1) {
+		if (+event[0] !== 1) {
 			return;
 		}
 
 		this.parser.zoneId.next(event[this.indexes.id] ?? '');
 		this.parser.zoneName.next(event[this.indexes.name] ?? '');
+
+		const combatants = this.parser.combatants.value;
+		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));
 
 		if (this.parser.debugMode) {
 			console.log(`Changed Zone to ${ this.parser.zoneName.value } (${ this.parser.zoneId.value }).`);

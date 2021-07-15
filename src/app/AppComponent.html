@@ -1,108 +1,48 @@
-<div id="main-content" *ngIf="!configVisible">
-	<div class="hp" id="main"
-			[style.height]="config.hpHeight"
+<div id="main-content" *ngIf="!configVisible" style="position:relative;">
+	<player class="draggable d-block"
+			style="display: block"
+			[style.width.px]="config.frames.player.size.width"
+			[style.height.px]="config.frames.player.size.height"
+			[ngDraggable]="moveMode"
+			[ngResizable]="moveMode"
+			[rzGrid]="[5, 5]"
+			[handle]="playerDragHandle"
+			[gridSize]="5"
+			rzHandles="all"
+			[position]="config.frames.player.position"
+			(rzStop)="saveFrameSize('player', $event)"
+			(endOffset)="saveFramePosition('player', $event)"
 	>
-		<settings-icon class="settings-icon" id="main-settings-icon"
-				fill="#fff"
-				(click)="toggleSettings()"
-		></settings-icon>
-		<div class="bar-text bar-text-left" id="hp-text-left"
-				[style.line-height]="config.hpHeight"
-		>
-			{{ leftHpText }}
-		</div>
-		<div class="bar-text" id="hp-text"
-				[style.line-height]="config.hpHeight"
-		>
-			{{ hpText }}
-		</div>
-		<div class="bar-text bar-text-right" id="hp-text-right"
-				[style.line-height]="config.hpHeight"
-		>
-			{{ rightHpText }}
-		</div>
-		<div class="bar-fill hp-fill" id="hp-progress"
-				[style.background-color]="config.hpColor"
-				[style.width.%]="hpPct"
-		></div>
-	</div>
-	<div class="mana" *ngIf="config.showMana"
-			[style.height]="config.manaHeight"
+		<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+	</player>
+
+	<party class="draggable party-frame d-block"
+			[style.width.px]="config.frames.party.size.width"
+			[style.height.px]="config.frames.party.size.height"
+			[ngDraggable]="moveMode"
+			[ngResizable]="moveMode"
+			[rzGrid]="[5, 5]"
+			[handle]="partyDragHandle"
+			[gridSize]="5"
+			rzHandles="all"
+			[position]="config.frames.party.position"
+			(rzStop)="saveFrameSize('party', $event)"
+			(endOffset)="saveFramePosition('party', $event)"
 	>
-		<div class="bar-text" id="mana-text"
-				[style.line-height]="config.manaHeight"
-		>
-			{{ manaText }}
-		</div>
-		<div class="bar-fill mana-fill" id="mana-progress"
-				[style.background-color]="config.manaColor"
-				[style.width.%]="manaPct"
-		></div>
-	</div>
+		<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+	</party>
+
+	<control class="d-block control-bar"
+			[style.width.px]="config.frames.control.size.width"
+			[style.height.px]="config.frames.control.size.height"
+			[ngDraggable]="moveMode"
+			[handle]="controlDragHandle"
+			[position]="config.frames.control.position"
+			[gridSize]="5"
+			(endOffset)="saveFramePosition('control', $event)"
+	>
+		<div #controlDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+	</control>
 </div>
 
-<div id="settings-window" *ngIf="configVisible">
-	<settings-icon class="settings-icon" [fill]="'#000'" (click)="configVisible = false;"></settings-icon>
-	<table style="width: 100%; padding-top: 20px">
-		<tr>
-			<td>Show mana</td>
-			<td><input type="checkbox" [(ngModel)]="config.showMana"></td>
-			<td>
-				<button type="button" (click)="resetConfig('showMana')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Display Char Name</td>
-			<td><input type="checkbox" [(ngModel)]="config.displayCharName"></td>
-			<td>
-				<button type="button" (click)="resetConfig('displayCharName')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Font family</td>
-			<td><input type="text" [(ngModel)]="config.fontFamily"></td>
-			<td>
-				<button type="button" (click)="resetConfig('fontFamily')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Hp Height</td>
-			<td><input type="text" [(ngModel)]="config.hpHeight"></td>
-			<td>
-				<button type="button" (click)="resetConfig('hpHeight')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Mana Height</td>
-			<td><input type="text" [(ngModel)]="config.manaHeight"></td>
-			<td>
-				<button type="button" (click)="resetConfig('manaHeight')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Hp Color</td>
-			<td><input type="text" [(ngModel)]="config.hpColor"></td>
-			<td>
-				<button type="button" (click)="resetConfig('hpColor')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Mana Color</td>
-			<td><input type="text" [(ngModel)]="config.manaColor"></td>
-			<td>
-				<button type="button" (click)="resetConfig('manaColor')">Reset</button>
-			</td>
-		</tr>
-		<tr>
-			<td>Number Format</td>
-			<td>
-				<select [(ngModel)]="config.numberFormat">
-					<option *ngFor="let f of numberFormats" [ngValue]="f.value">{{ f.name }}</option>
-				</select>
-			</td>
-			<td>
-				<button type="button" (click)="resetConfig('numberFormat')">Reset</button>
-			</td>
-		</tr>
-	</table>
-</div>
+<config-window id="settings-window" *ngIf="configVisible"></config-window>

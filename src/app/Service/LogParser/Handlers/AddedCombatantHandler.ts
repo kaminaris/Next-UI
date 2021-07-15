@@ -15,7 +15,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		npcNameId: 9,
 		npcBaseId: 10,
 		currentHp: 11,
-		maxHpString: 14,
+		hpMaxString: 12,
 		currentMp: 13,
 		maxMpString: 14,
 		currentTp: 15,
@@ -45,7 +45,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const npcNameId = event[this.indexes.npcNameId] ?? '';
 		const npcBaseId = event[this.indexes.npcBaseId] ?? '';
 		const hp = parseFloat(event[this.indexes.currentHp] ?? '');
-		const hpMax = parseFloat(event[this.indexes.maxHpString] ?? '');
+		const hpMax = parseFloat(event[this.indexes.hpMaxString] ?? '');
 		const mana = parseFloat(event[this.indexes.currentMp] ?? '');
 		const manaMax = parseFloat(event[this.indexes.maxMpString] ?? '');
 		const tp = parseFloat(event[this.indexes.currentTp] ?? '');
@@ -66,30 +66,34 @@ export class AddedCombatantHandler implements HandlerInterface {
 			combatant = new Combatant();
 			combatant.id = id;
 			combatant.name = name;
-			combatant.job = job;
+			combatant.job.next(job);
 			combatant.hp.next(hp);
 			combatant.hpMax.next(hpMax);
+			// if (hpMax === 10000 ) console.log('WTFFFFFFFFFFFFFFF1', event)
 			combatant.mana.next(mana);
 			combatant.manaMax.next(manaMax);
 			combatants.push(combatant);
 			this.parser.combatants.next(combatants);
 		} else {
+			combatant.name = name;
+			combatant.job.next(job);
 			combatant.hp.next(hp);
 			combatant.hpMax.next(hpMax);
+			if (hpMax === 10000 && combatant.isPlayer ) console.log('WTFFFFFFFFFFFFFFF2', event)
 			combatant.mana.next(mana);
 			combatant.manaMax.next(manaMax);
 		}
 
 		if (this.parser.debugMode) {
-			console.log(
-				':Added new combatant ' + name +
-				'.  Job: ' + job +
-				' Level: ' + levelString +
-				' HP: ' + hp +
-				' MP: ' + mana +
-				' Pos: (' + xString + ',' + yString + ',' + zString + ')',
-				this.parser.combatants.value
-			);
+			// console.log(
+			// 	':Added new combatant ' + name +
+			// 	'.  Job: ' + job +
+			// 	' Level: ' + levelString +
+			// 	' HP: ' + hp +
+			// 	' MP: ' + mana +
+			// 	' Pos: (' + xString + ',' + yString + ',' + zString + ')',
+			// 	this.parser.combatants.value
+			// );
 		}
 
 
