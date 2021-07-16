@@ -50,39 +50,15 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const manaMax = parseFloat(event[this.indexes.maxMpString] ?? '');
 		const tp = parseFloat(event[this.indexes.currentTp] ?? '');
 		const maxTp = parseFloat(event[this.indexes.maxTp] ?? '');
-		const xString = event[this.indexes.xString] ?? '';
-		const x = parseFloat(xString);
-		const yString = event[this.indexes.yString] ?? '';
-		const y = parseFloat(yString);
-		const zString = event[this.indexes.zString] ?? '';
-		const z = parseFloat(zString);
+		const x = parseFloat(event[this.indexes.xString] ?? '');
+		const y = parseFloat(event[this.indexes.yString] ?? '');
+		const z = parseFloat(event[this.indexes.zString] ?? '');
 		const heading = parseFloat(event[this.indexes.heading] ?? '');
 		const timestamp = new Date(event[1] ?? '0');
 
-		const combatants = this.parser.combatants.value;
-		let combatant = combatants.find((c) => c.id === id);
-
-		if (!combatant) {
-			combatant = new Combatant();
-			combatant.id = id;
-			combatant.name = name;
-			combatant.job.next(job);
-			combatant.hp.next(hp);
-			combatant.hpMax.next(hpMax);
-			// if (hpMax === 10000 ) console.log('WTFFFFFFFFFFFFFFF1', event)
-			combatant.mana.next(mana);
-			combatant.manaMax.next(manaMax);
-			combatants.push(combatant);
-			this.parser.combatants.next(combatants);
-		} else {
-			combatant.name = name;
-			combatant.job.next(job);
-			combatant.hp.next(hp);
-			combatant.hpMax.next(hpMax);
-			if (hpMax === 10000 && combatant.isPlayer ) console.log('WTFFFFFFFFFFFFFFF2', event)
-			combatant.mana.next(mana);
-			combatant.manaMax.next(manaMax);
-		}
+		this.parser.updateCombatant(
+			id, name, hp, hpMax, mana, manaMax, job, level
+		);
 
 		if (this.parser.debugMode) {
 			// console.log(

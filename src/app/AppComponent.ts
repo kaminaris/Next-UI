@@ -1,9 +1,10 @@
 import { Component, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { IResizeEvent }                         from 'angular2-draggable/lib/models/resize-event';
-import { ConfigInterface }           from 'src/app/ConfigInterface';
-import { ConfigService }             from 'src/app/Service/ConfigService';
-import { LogParser }                 from 'src/app/Service/LogParser/LogParser';
-import { PartyMember }               from 'src/app/Service/LogParser/PartyMember';
+import { ConfigInterface }                      from 'src/app/ConfigInterface';
+import { EnmityTargetData }                     from 'src/app/EnmityTargetData';
+import { ConfigService }                        from 'src/app/Service/ConfigService';
+import { LogParser }                            from 'src/app/Service/LogParser/LogParser';
+import { PartyMember }                          from 'src/app/Service/LogParser/PartyMember';
 
 @Component({
 	selector: 'app-root',
@@ -36,7 +37,12 @@ export class AppComponent implements OnInit {
 		(window as any).addOverlayListener('ChangePrimaryPlayer', this.changePrimaryPlayer.bind(this));
 		(window as any).addOverlayListener('LogLine', this.logLine.bind(this));
 		(window as any).addOverlayListener('PartyChanged', this.partyChanged.bind(this));
+		(window as any).addOverlayListener('EnmityTargetData', this.enmityTargetData.bind(this));
 		(window as any).startOverlayEvents();
+	}
+
+	enmityTargetData(e: EnmityTargetData) {
+		this.parser.targetUpdate(e);
 	}
 
 	overlayStateUpdate(e: any) {

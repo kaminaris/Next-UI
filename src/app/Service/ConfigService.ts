@@ -18,7 +18,13 @@ export class ConfigService {
 		frames: {
 			player: {
 				position: { x: 200, y: 400 },
-				size: { width: 200, height: 40 }
+				size: { width: 200, height: 40 },
+				hpColor: '#02A502',
+			},
+			target: {
+				position: { x: 400, y: 400 },
+				size: { width: 200, height: 40 },
+				hpColor: '#02A502',
 			},
 			control: {
 				position: { x: 0, y: 0 },
@@ -42,6 +48,7 @@ export class ConfigService {
 
 	visible = false;
 	moveMode = new BehaviorSubject<boolean>(false);
+	configMode = new BehaviorSubject<boolean>(false);
 	renderer: Renderer2;
 
 	constructor(
@@ -90,6 +97,19 @@ export class ConfigService {
 			this.renderer.addClass(document.body, 'grid');
 		} else {
 			this.renderer.removeClass(document.body, 'grid');
+		}
+	}
+
+	toggleConfigMode() {
+		this.moveMode.next(false);
+		this.renderer.removeClass(document.body, 'grid');
+
+		this.configMode.next(!this.configMode.value);
+
+		if (this.moveMode.value) {
+			this.renderer.addClass(document.body, 'config-bg');
+		} else {
+			this.renderer.removeClass(document.body, 'config-bg');
 		}
 	}
 }

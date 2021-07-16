@@ -9,6 +9,7 @@ import { LogParser }     from 'src/app/Service/LogParser/LogParser';
 			<ng-content></ng-content>
 			<button (click)="toggleTTS()" title="Toggle TTS">{{ parser.tts.disabled ? '0' : '1' }}</button>
 			<button (click)="conf.toggleMoveMode()">⚙</button>
+			<button (click)="conf.toggleConfigMode()">⚙</button>
 		</div>
 	`
 })

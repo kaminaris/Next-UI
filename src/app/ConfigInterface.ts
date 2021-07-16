@@ -1,6 +1,8 @@
 export interface FrameConfigInterface {
 	position: { x: number, y: number };
 	size: { width: number, height: number };
+
+	[name: string]: any;
 }
 
 export interface ConfigInterface {

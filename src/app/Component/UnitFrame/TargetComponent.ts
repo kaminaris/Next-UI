@@ -1,32 +1,24 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
+import { Combatant }                                       from 'src/app/Service/LogParser/Combatant';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
 
 @Component({
-	selector: 'player',
+	selector: 'target',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column; height: 100%">
+		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="target">
 			<progress-bar [percent]="hpPct">
-<!--				<div class="bar-text bar-text-left" id="hp-text-left">-->
-<!--					{{ leftHpText }}-->
-<!--				</div>-->
 				<div class="pos-a w100p h100p z10 ta-c">
 					{{ hpText }}
 				</div>
-<!--				<div class="bar-text bar-text-right" id="hp-text-right">-->
-<!--					{{ rightHpText }}-->
-<!--				</div>-->
 			</progress-bar>
 			<progress-bar 
 				[style.height]="config.manaHeight" 
 				[percent]="manaPct"
 				[fillColor]="config.manaColor"
 			>
-<!--				<div class="bar-text" id="hp-text">-->
-<!--					{{ manaText }}-->
-<!--				</div>-->
 				<div class="pos-a w100p h100p z10 ta-c">
 					{{ manaText }}
 				</div>
@@ -34,7 +26,7 @@ import { LogParser }                                       from 'src/app/Service
 		</div>
 	`
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export class TargetComponent implements OnInit, OnDestroy {
 	hp = 100;
 	hpMax = 100;
 	hpPct = 100;
@@ -50,8 +42,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	manaText = '10000 / 10000 (100%)';
 	subs: Subscription[] = [];
 
+	hpSub: Subscription;
+	manaSub: Subscription;
+
 	config = this.conf.config;
-	player = this.parser.player;
+	target: Combatant;
 
 	constructor(
 		public conf: ConfigService,
@@ -60,17 +55,29 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.subs.push(this.player.hp.subscribe((hp) => {
-			this.hp = hp;
-			this.hpMax = this.player.hpMax;
-			this.calcHp();
-		}));
+		this.subs.push(this.parser.target.subscribe(t => {
 
+			if (!t) {
+				this.hpSub?.unsubscribe();
+				this.manaSub?.unsubscribe();
+				this.target = t;
+				this.cd.detectChanges();
 
-		this.subs.push(this.player.mana.subscribe((mana) => {
-			this.mana = mana;
-			this.manaMax = this.player.manaMax;
-			this.calcMana();
+				return;
+			}
+			this.target = t;
+			this.hpSub = this.target.hp.subscribe((hp) => {
+				console.log('taret hp up', hp)
+				this.hp = hp;
+				this.hpMax = this.target.hpMax;
+				this.calcHp();
+			});
+
+			this.manaSub = this.target.mana.subscribe((mana) => {
+				this.mana = mana;
+				this.manaMax = this.target.manaMax;
+				this.calcMana();
+			});
 		}));
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
@@ -102,5 +109,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		for (const sub of this.subs) {
 			sub.unsubscribe();
 		}
+
+		this.hpSub.unsubscribe();
+		this.manaSub.unsubscribe();
 	}
 }

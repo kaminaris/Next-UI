@@ -16,6 +16,23 @@
 		<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
 	</player>
 
+	<target class="draggable d-block"
+			style="display: block"
+			[style.width.px]="config.frames.target.size.width"
+			[style.height.px]="config.frames.target.size.height"
+			[ngDraggable]="moveMode"
+			[ngResizable]="moveMode"
+			[rzGrid]="[5, 5]"
+			[handle]="targetDragHandle"
+			[gridSize]="5"
+			rzHandles="all"
+			[position]="config.frames.target.position"
+			(rzStop)="saveFrameSize('target', $event)"
+			(endOffset)="saveFramePosition('target', $event)"
+	>
+		<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+	</target>
+
 	<party class="draggable party-frame d-block"
 			[style.width.px]="config.frames.party.size.width"
 			[style.height.px]="config.frames.party.size.height"

@@ -7,8 +7,8 @@ import { LogParser }                    from 'src/app/Service/LogParser/LogParse
 	selector: 'party',
 	template: `
 		<ng-content></ng-content>
-		<div style="display: flex; flex-direction: column">
-			<party-member style="display: block; background-color: brown; margin-bottom: 1px; height: 40px; width: 100%"
+		<div class="d-flex" style="flex-direction: column">
+			<party-member class="d-block" style="margin-bottom: 1px; height: 40px"
 				*ngFor="let c of party"
 				[combatant]="c"
 			></party-member>

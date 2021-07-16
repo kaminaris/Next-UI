@@ -1,5 +1,8 @@
 import { Injectable }              from '@angular/core';
 import { BehaviorSubject }         from 'rxjs';
+import { EnmityTargetData }        from 'src/app/EnmityTargetData';
+import { ActionSyncHandler }       from 'src/app/Service/LogParser/Handlers/ActionSyncHandler';
+import { NetworkStatusHandler }    from 'src/app/Service/LogParser/Handlers/NetworkStatusHandler';
 import { PartyMember }             from 'src/app/Service/LogParser/PartyMember';
 import { Util }                    from 'src/app/Service/LogParser/Util';
 import { TTSService }              from '../TTSService';
@@ -31,6 +34,8 @@ export class LogParser {
 	playerId = new BehaviorSubject<string>('');
 	playerName = new BehaviorSubject<string>('');
 
+	target = new BehaviorSubject<Combatant>(null);
+
 	/**
 	 * Combatants
 	 */
@@ -45,7 +50,9 @@ export class LogParser {
 		new RemovedCombatantHandler(this),
 		new AuraGainedHandler(this),
 		new AuraLostHandler(this),
-		new HpUpdatedHandler(this)
+		new HpUpdatedHandler(this),
+		new NetworkStatusHandler(this),
+		new ActionSyncHandler(this),
 	];
 
 	constructor(
@@ -74,6 +81,41 @@ export class LogParser {
 		else {
 			combatants.push(this.player);
 			this.combatants.next(combatants);
+		}
+	}
+
+	updateCombatant(
+		id: string,
+		name: string,
+		hp: number,
+		hpMax: number,
+		mana: number,
+		manaMax: number,
+		job?: string,
+		level?: number
+	) {
+		const combatants = this.combatants.value;
+		let combatant = combatants.find((c: Combatant) => c.id === id);
+
+		if (!combatant) {
+			combatant = new Combatant();
+			combatant.id = id;
+			combatant.name = name;
+			combatant.updateJob(job);
+			combatant.updateLevel(level);
+
+			combatant.updateHp(hp, hpMax);
+			combatant.updateMana(mana, manaMax);
+
+			combatants.push(combatant);
+			this.combatants.next(combatants);
+		}
+		else {
+			combatant.name = name;
+			combatant.updateJob(job);
+			combatant.updateLevel(level);
+			combatant.updateHp(hp, hpMax);
+			combatant.updateMana(mana, manaMax);
 		}
 	}
 
@@ -128,5 +170,29 @@ export class LogParser {
 			}
 		}
 
+	}
+
+	targetUpdate(e: EnmityTargetData) {
+		if (!e.Target) {
+			if (this.target.value) {
+				console.log('target null');
+				this.target.next(null);
+			}
+			return;
+		}
+
+		const id = e.Target.ID.toString(16).toUpperCase();
+
+		const combatant = this.combatants.value.find(c => c.id === id)
+		if (!combatant) {
+			return;
+		}
+
+		if (this.target.value === combatant) {
+			return;
+		}
+
+		console.log('target changed', combatant.id, combatant.name, combatant.hp.value);
+		this.target.next(combatant);
 	}
 }

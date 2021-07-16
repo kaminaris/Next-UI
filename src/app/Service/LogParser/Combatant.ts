@@ -5,28 +5,64 @@ export class Combatant {
 	id: string = '';
 	name: string = '';
 	job = new BehaviorSubject<string>('NONE');
+	level = new BehaviorSubject<number>(1);
 	isPlayer = false;
 	inParty = new BehaviorSubject<boolean>(false);
 
 	hp = new BehaviorSubject<number>(100);
-	hpMax = new BehaviorSubject<number>(100);
+	hpMax = 100;
+
 	mana = new BehaviorSubject<number>(10000);
-	manaMax = new BehaviorSubject<number>(10000);
+	manaMax = 10000;
+
 	auras = new BehaviorSubject<Aura[]>([]);
 
+	updateJob(job: string) {
+		if (job && job !== this.job.value) {
+			this.job.next(job);
+		}
+	}
+
+	updateLevel(level: number) {
+		if (level && level !== this.level.value) {
+			this.level.next(level);
+		}
+	}
+
 	updateHp(hp: number, hpMax?: number) {
-		if (this.hp.value === hp) {
+		let hpMaxChanged = false;
+		if (hpMax) {
+			// first update hpMax if it changed
+			if (this.hpMax !== hpMax) {
+				hpMaxChanged = true;
+				this.hpMax = hpMax;
+			}
+		}
+
+		if (this.hp.value === hp && !hpMaxChanged) {
+			// no changes, dont send the event
 			return;
 		}
 
 		this.hp.next(hp);
-		if (hpMax) {
-			if (this.hpMax.value !== hpMax) {
-				this.hpMax.next(hpMax);
+	}
+
+	updateMana(mana: number, manaMax?: number) {
+		let manaMaxChanged = false;
+		if (manaMax) {
+			// first update manaMax if it changed
+			if (this.manaMax !== manaMax) {
+				manaMaxChanged = true;
+				this.manaMax = manaMax;
 			}
-		} else if (this.hpMax.value < this.hp.value) {
-			this.hpMax.next(this.hp.value);
 		}
+
+		if (this.mana.value === mana && !manaMaxChanged) {
+			// no changes, dont send the event
+			return;
+		}
+
+		this.mana.next(mana);
 	}
 
 	updateAura(newAura: Aura) {

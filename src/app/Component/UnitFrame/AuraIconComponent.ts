@@ -21,7 +21,7 @@ export class AuraIconComponent implements OnChanges {
 	ngOnChanges(changes: SimpleChanges) {
 		console.log(changes)
 		if (changes.aura) {
-			if (this.auraId !== changes.aura.currentValue.aura.id) {
+			if (changes.aura.currentValue.aura && this.auraId !== changes.aura.currentValue.aura.id) {
 				this.auraId = changes.aura.currentValue.aura.id;
 				this.src = Util.getAbilityIcon(this.auraId);
 			}
