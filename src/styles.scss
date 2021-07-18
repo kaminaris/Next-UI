@@ -6,6 +6,7 @@
 @import "~bootstrap/scss/reboot";
 
 @import '~angular2-draggable/css/resizable.min.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 body {
 	background-color:  transparent;
@@ -18,6 +19,10 @@ body {
 	&.config-bg {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
+}
+
+input, button {
+	vertical-align: middle;
 }
 
 .resizeHandle {
@@ -44,6 +49,7 @@ body {
 	z-index:     1000;
 }
 
+// @formatter:off
 .d-block { display: block; }
 .d-flex { display: flex; }
 .pos-r { position: relative; }
@@ -53,6 +59,10 @@ body {
 .z10 { z-index: 10; }
 .ta-c { text-align: center }
 .fz-10 { font-size: 10px; }
+.flex-col { flex-direction: column }
+.flex-row { flex-direction: row }
+.flex-grow { flex-grow: 1 }
+// @formatter:on
 
 .party-frame {
 	background-color: rgba(0, 0, 0, 0.32);
@@ -77,60 +87,115 @@ body {
 	position:         relative;
 }
 
-.bar-fill {
-	height:   100%;
-	position: absolute;
-	top:      0;
-	left:     0;
+.btn-icon {
+	width:  12px;
+	height: 12px;
+}
+.color-btn {
+	height: 28px;
+	width: 40px;
+	border: 1px solid white;
+	vertical-align: middle;
 }
 
-.bar-text {
-	color:      white;
-	text-align: center;
-	z-index:    100;
-	position:   absolute;
-	width:      100%;
+.simple-btn {
+	box-shadow:       inset 0px 1px 0px 0px #cf866c;
+	background-color: #d0451b;
+	border-radius:    3px;
+	border:           1px solid #942911;
+	display:          inline-block;
+	cursor:           pointer;
+	color:            #ffffff;
+	height:           24px;
+	padding:          3px 3px;
+	font-size:        13px;
+	text-decoration:  none;
+	text-shadow:      0px 1px 0px #854629;
+
+	&:hover {
+		background-color: #bc3315;
+	}
+
+	&:active {
+		position: relative;
+		top:      1px;
+	}
+}
+.ng-select .ng-select-container {
+	min-height: 28px;
 }
 
-.bar-text-left {
-	text-align: left;
+.ng-select.ng-select-single .ng-select-container {
+	height: 28px;
 }
 
-.bar-text-right {
-	text-align: right;
+$config-border-color: rgba(255, 255, 255, 0.6);
+$config-border: 1px solid $config-border-color;
+$config-color: white;
+
+.config-window {
+	width:            800px;
+	height:           600px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border:           $config-border;
+	color:            $config-color;
+
+	table {
+		color: $config-color;
+	}
+
+	.config-content {
+		align-items: stretch;
+		height:      100%;
+	}
+
+	.config-bar {
+		height:        40px;
+		border-bottom: $config-border;
+	}
+
+	.config-pane {
+		width:        200px;
+		border-right: $config-border;
+
+		button {
+			width: 100%;
+			height: 30px;
+			display: block;
+			line-height: 30px;
+			border: 0;
+			outline: 0;
+			border-bottom: $config-border;
+			background-color: transparent;
+			color: $config-color;
+
+			&:hover {
+				box-shadow: inset 0px -5px 20px 0 $config-border-color;
+			}
+
+			&.active {
+				background-color: $config-border-color;
+			}
+		}
+	}
 }
 
-.settings-icon {
-	width:    20px;
-	height:   20px;
-	position: absolute;
-	right:    5px;
-	top:      5px;
-	color:    white;
-	z-index:  99999;
-	cursor:   pointer;
+@mixin stroke($color: #000, $size: 1px) {
+	text-shadow:
+		-#{$size} -#{$size} 0 $color,
+		0        -#{$size} 0 $color,
+		#{$size} -#{$size} 0 $color,
+		#{$size}  0        0 $color,
+		#{$size}  #{$size} 0 $color,
+		0         #{$size} 0 $color,
+		-#{$size}  #{$size} 0 $color,
+		-#{$size}  0        0 $color;
 }
 
-.settings-icon:hover {
-	display: inline-block;
+.text-outline-1 {
+	@include stroke();
 }
 
-#settings-window {
-	width:            100%;
-	height:           100%;
-	background-color: #fff;
-	position:         relative;
-	overflow-y:       auto;
-}
-
-#settings-window table {
-	font-size: 10pt !important;
-}
-
-#main #main-settings-icon {
-	display: none;
-}
-
-#main:hover #main-settings-icon {
-	display: block;
+.text-outline-2 {
+	@include stroke(#000, 2px);
 }

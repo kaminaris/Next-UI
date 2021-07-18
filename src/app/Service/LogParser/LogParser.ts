@@ -1,12 +1,12 @@
 import { Injectable }              from '@angular/core';
 import { BehaviorSubject }         from 'rxjs';
 import { EnmityTargetData }        from 'src/app/EnmityTargetData';
+import { PartyMember }             from 'src/app/Interface/PartyMember';
+import { Combatant }               from 'src/app/Model/Combatant';
 import { ActionSyncHandler }       from 'src/app/Service/LogParser/Handlers/ActionSyncHandler';
 import { NetworkStatusHandler }    from 'src/app/Service/LogParser/Handlers/NetworkStatusHandler';
-import { PartyMember }             from 'src/app/Service/LogParser/PartyMember';
 import { Util }                    from 'src/app/Service/LogParser/Util';
 import { TTSService }              from '../TTSService';
-import { Combatant }               from './Combatant';
 import { HpUpdatedHandler }        from './Handlers/HpUpdatedHandler';
 import { AuraGainedHandler }       from './Handlers/AuraGainedHandler';
 import { AuraLostHandler }         from './Handlers/AuraLostHandler';
@@ -100,12 +100,14 @@ export class LogParser {
 		if (!combatant) {
 			combatant = new Combatant();
 			combatant.id = id;
+			combatant.isNPC = !id.startsWith('1');
 			combatant.name = name;
 			combatant.updateJob(job);
 			combatant.updateLevel(level);
 
 			combatant.updateHp(hp, hpMax);
 			combatant.updateMana(mana, manaMax);
+
 
 			combatants.push(combatant);
 			this.combatants.next(combatants);

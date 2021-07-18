@@ -1,8 +1,7 @@
-import { ChangeDetection }                                        from '@angular/cli/lib/config/workspace-schema';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                           from 'rxjs';
-import { Aura }                                from 'src/app/Service/LogParser/Aura';
-import { Combatant }                           from 'src/app/Service/LogParser/Combatant';
+import { Aura }                                                   from 'src/app/Model/Aura';
+import { Combatant }                                              from 'src/app/Model/Combatant';
 
 @Component({
 	selector: 'party-member',
@@ -13,7 +12,7 @@ import { Combatant }                           from 'src/app/Service/LogParser/C
 			</div>
 
 			<div class="pos-a z10">
-				 {{ combatant.name }}
+				{{ combatant.name }}
 			</div>
 			<div class="pos-a z10 ta-c w100p">
 				{{ hp }} / {{ combatant.hpMax }}
@@ -56,7 +55,7 @@ export class PartyMemberComponent implements OnInit, OnDestroy {
 				console.log('AURAS CHANGED', auras);
 				this.cd.detectChanges();
 			})
-		)
+		);
 	}
 
 	ngOnDestroy() {

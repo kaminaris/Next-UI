@@ -1,4 +1,4 @@
-import { Aura }             from 'src/app/Service/LogParser/Aura';
+import { Aura }             from 'src/app/Model/Aura';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
@@ -23,7 +23,7 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const abilityId = parseInt(event[this.indexes.abilityId]?.toUpperCase() ?? '');
+		const abilityId = parseInt(event[this.indexes.abilityId]?.toUpperCase() ?? '', 16);
 		const abilityName = event[this.indexes.abilityName] ?? '';
 		const duration = parseFloat(event[this.indexes.durationString] ?? '');
 		const id = event[this.indexes.id]?.toUpperCase() ?? '';
@@ -34,11 +34,14 @@ export class AuraGainedHandler implements HandlerInterface {
 		const targetHp = parseInt(event[this.indexes.targetHp] ?? '');
 		const hp = parseInt(event[this.indexes.sourceHp] ?? '');
 
-		const timestamp = new Date(event[1] ?? '0');
+		// TODO: Figure this out
+		// const timestamp = new Date(event[1] ?? '0');
+		const timestamp = new Date();
 
-		if (!targetId) {
+		if (!targetId || !id) {
 			return;
 		}
+
 		const combatants = this.parser.combatants;
 		const combatant = combatants.value.find(c => c.id === targetId);
 		if (!combatant) {
@@ -48,8 +51,16 @@ export class AuraGainedHandler implements HandlerInterface {
 
 		const aura = new Aura();
 		aura.id = abilityId;
+		aura.appliedBy = id;
 		aura.name = abilityName;
-		const gainedAt = new Date(timestamp);
+		const gainedAt = timestamp;
+		// TODO: remove this
+		if (abilityId === 1199) {
+console.log(id, this.parser.player.id)
+			console.log(event[1] ?? '0');
+			console.log(new Date().toISOString());
+			console.log(duration);
+		}
 		aura.gainedAt.next(gainedAt);
 		aura.expiresAt.next(duration > 9990 ? null : new Date(gainedAt.valueOf() + duration * 1000));
 		aura.stacks.next(stacks);
@@ -58,10 +69,10 @@ export class AuraGainedHandler implements HandlerInterface {
 		aura.isBuff = true;
 
 		combatant.updateAura(aura);
-		combatant.updateHp(targetHp);
+		// combatant.updateHp(targetHp);
 
 		if (this.parser.debugMode) {
-			console.log(`Combatant: ${combatant.name} gained aura ${abilityName}`, combatant, aura, event);
+			console.log(`Combatant: ${ combatant.name } gained aura ${ abilityName }`, combatant, aura, event);
 		}
 	}
 }

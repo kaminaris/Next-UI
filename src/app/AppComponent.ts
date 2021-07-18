@@ -1,20 +1,21 @@
 import { Component, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { IResizeEvent }                         from 'angular2-draggable/lib/models/resize-event';
-import { ConfigInterface }                      from 'src/app/ConfigInterface';
 import { EnmityTargetData }                     from 'src/app/EnmityTargetData';
+import { PartyMember }                          from 'src/app/Interface/PartyMember';
+import { Aura }                                 from 'src/app/Model/Aura';
 import { ConfigService }                        from 'src/app/Service/ConfigService';
 import { LogParser }                            from 'src/app/Service/LogParser/LogParser';
-import { PartyMember }                          from 'src/app/Service/LogParser/PartyMember';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './AppComponent.html'
 })
 export class AppComponent implements OnInit {
+	size = 40;
+	aura = new Aura();
 
 	charName = 'YOU';
 
-	configVisible = false;
 	moveMode = false;
 	settingIconVisible = false;
 
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit {
 		// DEBUG
 		this.parser.debugMode = false;
 		this.conf.moveMode.subscribe(mm => this.moveMode = mm);
+
+		this.aura.id = 1199;
 	}
 
 	ngOnInit() {
@@ -73,11 +76,6 @@ export class AppComponent implements OnInit {
 
 	hideResizeHandle() {
 		document.documentElement.classList.remove('resizeHandle');
-	}
-
-	toggleSettings() {
-		this.configVisible = !this.configVisible;
-		(window as any).OverlayPluginApi.setAcceptFocus(this.configVisible);
 	}
 
 	saveFramePosition(unitFrame: string, $event: { x: number, y: number }) {

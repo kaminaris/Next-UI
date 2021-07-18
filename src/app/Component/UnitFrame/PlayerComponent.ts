@@ -1,33 +1,51 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
+import { Aura }                                            from 'src/app/Model/Aura';
+import { Combatant }                                       from 'src/app/Model/Combatant';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
+import { Util }                                            from 'src/app/Service/LogParser/Util';
 
 @Component({
 	selector: 'player',
 	template: `
 		<ng-content></ng-content>
 		<div class="d-flex" style="flex-direction: column; height: 100%">
-			<progress-bar [percent]="hpPct">
-<!--				<div class="bar-text bar-text-left" id="hp-text-left">-->
-<!--					{{ leftHpText }}-->
-<!--				</div>-->
-				<div class="pos-a w100p h100p z10 ta-c">
+			<div class="pos-a z10" style="display:flex; bottom: 0">
+				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+			</div>
+			<progress-bar
+				[percent]="hpPct"
+				[fillColor]="ownConfig.barColor"
+			>
+				<div class="pos-a z10 fz-10"
+					style="right: 5px; top: 2px;"
+					[style.color]="ownConfig.fontColor"
+				>
+					{{ job }}
+				</div>
+				<div class="pos-a z10 fz-10"
+					style="right: 5px; bottom: 2px;"
+					[style.color]="ownConfig.fontColor"
+				>
+					{{ level }}
+				</div>
+				<div class="pos-a w100p h100p z10 ta-c"
+					[style.color]="ownConfig.fontColor"
+					[style.font-size]="ownConfig.fontSize"
+				>
 					{{ hpText }}
 				</div>
-<!--				<div class="bar-text bar-text-right" id="hp-text-right">-->
-<!--					{{ rightHpText }}-->
-<!--				</div>-->
 			</progress-bar>
-			<progress-bar 
-				[style.height]="config.manaHeight" 
+			<progress-bar
+				*ngIf="ownConfig.showMana"
+				[style.height]="ownConfig.manaHeight"
+				[fillColor]="ownConfig.manaColor"
 				[percent]="manaPct"
-				[fillColor]="config.manaColor"
 			>
-<!--				<div class="bar-text" id="hp-text">-->
-<!--					{{ manaText }}-->
-<!--				</div>-->
-				<div class="pos-a w100p h100p z10 ta-c">
+				<div class="pos-a w100p h100p z10 ta-c"
+					[style.color]="ownConfig.fontColor"
+					[style.font-size]="ownConfig.fontSize">
 					{{ manaText }}
 				</div>
 			</progress-bar>
@@ -43,6 +61,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	manaMax = 10000;
 	manaPct = 100;
 
+	job = 'NONE';
+	level = 1;
+
 	leftHpText = '';
 	hpText = '100 / 100 (100%)';
 	rightHpText = '';
@@ -51,7 +72,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	subs: Subscription[] = [];
 
 	config = this.conf.config;
+	ownConfig = this.config.frames.player;
 	player = this.parser.player;
+	auras: Aura[] = [];
 
 	constructor(
 		public conf: ConfigService,
@@ -60,12 +83,23 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
+		this.copyFrom(this.player);
+
+		this.subs.push(this.player.job.subscribe((job) => {
+			this.job = job;
+			this.cd.detectChanges();
+		}));
+
+		this.subs.push(this.player.level.subscribe((level) => {
+			this.level = level;
+			this.cd.detectChanges();
+		}));
+
 		this.subs.push(this.player.hp.subscribe((hp) => {
 			this.hp = hp;
 			this.hpMax = this.player.hpMax;
 			this.calcHp();
 		}));
-
 
 		this.subs.push(this.player.mana.subscribe((mana) => {
 			this.mana = mana;
@@ -73,9 +107,16 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			this.calcMana();
 		}));
 
+		this.subs.push(
+			this.player.auras.subscribe((auras) => {
+				this.auras = auras;
+				this.cd.detectChanges();
+			})
+		);
+
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
 			this.cd.detectChanges();
-		}))
+		}));
 	}
 
 	calcHp() {
@@ -84,7 +125,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			this.hpPct = 100;
 		}
 
-		this.hpText = this.hp + ' / ' + this.hpMax + ' (' + this.hpPct + '%)';
+		this.hpText =
+			Util.formatNumber(this.hp, this.config.numberFormat) +
+			' / ' +
+			Util.formatNumber(this.hpMax, this.config.numberFormat) +
+			' (' + this.hpPct + '%)';
 		this.cd.detectChanges();
 	}
 
@@ -94,7 +139,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			this.manaPct = 100;
 		}
 
-		this.manaText = this.mana + ' / ' + this.manaMax + ' (' + this.manaPct + '%)';
+		this.manaText =
+			Util.formatNumber(this.mana, this.config.numberFormat) +
+			' / ' +
+			Util.formatNumber(this.manaMax, this.config.numberFormat) +
+			' (' + this.manaPct + '%)';
 		this.cd.detectChanges();
 	}
 
@@ -102,5 +151,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		for (const sub of this.subs) {
 			sub.unsubscribe();
 		}
+	}
+
+	copyFrom(c: Combatant) {
+		this.hp = c.hp.value;
+		this.hpMax = c.hpMax;
+		this.mana = c.mana.value;
+		this.manaMax = c.manaMax;
+		this.job = c.job.value;
+		this.level = c.level.value;
 	}
 }

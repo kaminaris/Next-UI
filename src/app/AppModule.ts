@@ -1,8 +1,16 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule }               from '@angular/forms';
 import { BrowserModule }             from '@angular/platform-browser';
+import { NgSelectModule }            from '@ng-select/ng-select';
 import { AngularDraggableModule }    from 'angular2-draggable';
+import { ColorPickerModule }         from 'ngx-color-picker';
 import { AppComponent }              from 'src/app/AppComponent';
+import { ConfigAuraComponent }       from 'src/app/Component/Config/ConfigAuraComponent';
+import { ConfigTargetComponent }     from 'src/app/Component/Config/ConfigTargetComponent';
+import { RowCheckboxComponent }      from 'src/app/Component/Config/Row/RowCheckboxComponent';
+import { RowColorComponent }         from 'src/app/Component/Config/Row/RowColorComponent';
+import { RowInputComponent }         from 'src/app/Component/Config/Row/RowInputComponent';
+import { RowSelectComponent }        from 'src/app/Component/Config/Row/RowSelectComponent';
 import { ConfigComponent }           from 'src/app/Component/ConfigComponent';
 import { ControlComponent }          from 'src/app/Component/ControlComponent';
 import { ProgressBarComponent }      from 'src/app/Component/ProgressBarComponent';
@@ -12,6 +20,9 @@ import { PartyMemberComponent }      from 'src/app/Component/UnitFrame/PartyMemb
 import { PlayerComponent }           from 'src/app/Component/UnitFrame/PlayerComponent';
 import { TargetComponent }           from 'src/app/Component/UnitFrame/TargetComponent';
 import { SettingsIcon }              from 'src/app/SettingsIcon';
+import { ConfigMainComponent }       from './Component/Config/ConfigMainComponent';
+import { ConfigPartyComponent }      from './Component/Config/ConfigPartyComponent';
+import { ConfigPlayerComponent }     from './Component/Config/ConfigPlayerComponent';
 
 @NgModule({
 	declarations: [
@@ -21,12 +32,18 @@ import { SettingsIcon }              from 'src/app/SettingsIcon';
 		TargetComponent,
 		PlayerComponent,
 		ControlComponent,
-		ProgressBarComponent
+		ProgressBarComponent,
+
+		ConfigMainComponent, ConfigPlayerComponent, ConfigTargetComponent, ConfigPartyComponent, ConfigAuraComponent,
+
+		RowInputComponent, RowCheckboxComponent, RowSelectComponent, RowColorComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
-		AngularDraggableModule
+		AngularDraggableModule,
+		NgSelectModule,
+		ColorPickerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

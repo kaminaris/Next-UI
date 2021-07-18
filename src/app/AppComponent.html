@@ -1,4 +1,9 @@
-<div id="main-content" *ngIf="!configVisible" style="position:relative;">
+<div id="main-content" style="position:relative;">
+<!--	<div class="pos-a" style="left: 900px; top: 200px;">-->
+<!--		<input type="text" [(ngModel)]="size">-->
+<!--		<aura-icon [aura]="aura" [size]="size"></aura-icon>-->
+<!--	</div>-->
+
 	<player class="draggable d-block"
 			style="display: block"
 			[style.width.px]="config.frames.player.size.width"
@@ -33,7 +38,7 @@
 		<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
 	</target>
 
-	<party class="draggable party-frame d-block"
+	<party class="draggable d-block" [class.party-frame]="moveMode"
 			[style.width.px]="config.frames.party.size.width"
 			[style.height.px]="config.frames.party.size.height"
 			[ngDraggable]="moveMode"
@@ -49,7 +54,7 @@
 		<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
 	</party>
 
-	<control class="d-block control-bar"
+	<control class="draggable d-block control-bar"
 			[style.width.px]="config.frames.control.size.width"
 			[style.height.px]="config.frames.control.size.height"
 			[ngDraggable]="moveMode"
@@ -60,6 +65,12 @@
 	>
 		<div #controlDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
 	</control>
-</div>
 
-<config-window id="settings-window" *ngIf="configVisible"></config-window>
+	<config-window class="draggable d-block" id="settings-window"
+			*ngIf="conf.configMode.value"
+			[handle]="configDragHandle"
+			ngDraggable
+	>
+		<div #configDragHandle class="grab-handle">⇅</div>
+	</config-window>
+</div>

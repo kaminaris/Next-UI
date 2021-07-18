@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
-import { Combatant }                    from 'src/app/Service/LogParser/Combatant';
-import { LogParser }                    from 'src/app/Service/LogParser/LogParser';
+import { Combatant }                                       from 'src/app/Model/Combatant';
+import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
 
 @Component({
 	selector: 'party',
@@ -22,7 +22,7 @@ export class PartyComponent implements OnInit, OnDestroy {
 
 	constructor(
 		protected parser: LogParser,
-		protected cd: ChangeDetectorRef,
+		protected cd: ChangeDetectorRef
 	) {}
 
 	ngOnInit(): void {

@@ -1,4 +1,3 @@
-import { Aura }             from 'src/app/Service/LogParser/Aura';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
@@ -46,10 +45,14 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
+		if (combatant.isPlayer) {
+			console.log(`Combatant: ${ combatant.name } lost aura ${ abilityName }`, combatant);
+		}
+
 		combatant.removeAura(abilityId, abilityName);
 
 		if (this.parser.debugMode) {
-			console.log(`Combatant: ${combatant.name} lost aura ${abilityName}`, combatant);
+			console.log(`Combatant: ${ combatant.name } lost aura ${ abilityName }`, combatant);
 		}
 	}
 }

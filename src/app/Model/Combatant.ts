@@ -7,6 +7,7 @@ export class Combatant {
 	job = new BehaviorSubject<string>('NONE');
 	level = new BehaviorSubject<number>(1);
 	isPlayer = false;
+	isNPC = false;
 	inParty = new BehaviorSubject<boolean>(false);
 
 	hp = new BehaviorSubject<number>(100);
@@ -39,7 +40,7 @@ export class Combatant {
 			}
 		}
 
-		if (this.hp.value === hp && !hpMaxChanged) {
+		if (hp === null || this.hp.value === hp && !hpMaxChanged) {
 			// no changes, dont send the event
 			return;
 		}
@@ -48,6 +49,9 @@ export class Combatant {
 	}
 
 	updateMana(mana: number, manaMax?: number) {
+		if (this.isNPC) {
+			return;
+		}
 		let manaMaxChanged = false;
 		if (manaMax) {
 			// first update manaMax if it changed
@@ -57,7 +61,7 @@ export class Combatant {
 			}
 		}
 
-		if (this.mana.value === mana && !manaMaxChanged) {
+		if (mana === null || this.mana.value === mana && !manaMaxChanged) {
 			// no changes, dont send the event
 			return;
 		}
@@ -98,6 +102,19 @@ export class Combatant {
 		}
 
 		auras.splice(auraIdx, 1);
+		this.auras.next(auras);
+	}
+
+	clearAuras() {
+		if (this.auras.value.length === 0) {
+			return;
+		}
+
+		this.auras.next([]);
+	}
+
+	clearPermaAuras() {
+		const auras = this.auras.value.filter(a => a.expiresAt.value);
 		this.auras.next(auras);
 	}
 }

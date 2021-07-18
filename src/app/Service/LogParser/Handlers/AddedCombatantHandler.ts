@@ -1,4 +1,3 @@
-import { Combatant }        from 'src/app/Service/LogParser/Combatant';
 import { Util }             from '../Util';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
@@ -37,8 +36,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const jobIdHex = event[this.indexes.jobIdHex]?.toUpperCase() ?? '';
 		const jobId = parseInt(jobIdHex, 16);
 		const job = Util.jobEnumToJob(jobId);
-		const levelString = event[this.indexes.levelString] ?? '';
-		const level = parseFloat(levelString);
+		const level = parseInt(event[this.indexes.levelString] ?? '', 16);
 		const ownerId = event[this.indexes.ownerId]?.toUpperCase() ?? '';
 		const worldId = event[this.indexes.worldId] ?? '';
 		const worldName = event[this.indexes.worldName] ?? '';

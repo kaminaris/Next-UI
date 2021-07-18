@@ -1,4 +1,3 @@
-import { Combatant }        from 'src/app/Service/LogParser/Combatant';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
@@ -25,7 +24,7 @@ export class HpUpdatedHandler implements HandlerInterface {
 		if (+event[0] !== 0x27) {
 			return;
 		}
-		
+
 		const id = event[indexes.id]?.toUpperCase() ?? '';
 		const name = event[indexes.name] ?? '';
 		const hp = parseInt(event[indexes.currentHp] ?? '');
@@ -39,7 +38,7 @@ export class HpUpdatedHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
-		this.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax)
+		this.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax);
 
 		if (this.parser.debugMode) {
 			// console.log(`HP updated: ${name} (${id}): ${hp} / ${hpMax}`);

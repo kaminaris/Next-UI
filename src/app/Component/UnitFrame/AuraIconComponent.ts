@@ -1,30 +1,84 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Aura }                                       from 'src/app/Service/LogParser/Aura';
-import { Util }                                       from 'src/app/Service/LogParser/Util';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Aura }                                                                  from 'src/app/Model/Aura';
+import { ConfigService }                                                         from 'src/app/Service/ConfigService';
 
 @Component({
 	selector: 'aura-icon',
 	template: `
-		<div style="width: 20px; height: 20px; background-color: white">
-			{{ aura.id }}
-			{{ aura.name }} 
-			{{ aura.stacks.value }}
-			<img [src]="src" alt="">
+		<div class="pos-r" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}" 
+			style="border: 1px solid black;
+				background-repeat: no-repeat; 
+			 	background-position: 40% 48%;
+			 	background-size: 124%;"
+			[style.background-image]="'url(' + src + ')'"
+		>
+			<div class="pos-a" *ngIf="timer > 0"
+				[class.text-outline-1]="ownConfig.cooldownOutline"
+				[style.top.px]="top"
+				[style.left.px]="left"
+				[style.font-size]="ownConfig.fontSize"
+				[style.color]="ownConfig.fontColor"
+			>
+				{{ timer | number: numberPrec }}
+			</div>
 		</div>
+	
 	`
 })
-export class AuraIconComponent implements OnChanges {
+export class AuraIconComponent implements OnInit {
 	@Input() aura: Aura;
+	@Input() size = 30;
 	auraId = 0;
 	src = '';
 
-	ngOnChanges(changes: SimpleChanges) {
-		console.log(changes)
-		if (changes.aura) {
-			if (changes.aura.currentValue.aura && this.auraId !== changes.aura.currentValue.aura.id) {
-				this.auraId = changes.aura.currentValue.aura.id;
-				this.src = Util.getAbilityIcon(this.auraId);
-			}
+	top = 5;
+	left = 5;
+	fontSize = '10px';
+
+	timer = 0;
+	interval: number;
+	ownConfig = this.conf.config.frames.aura;
+	updateInterval = 1000 / 2;
+	numberPrec = '1';
+
+	constructor(
+		protected cd: ChangeDetectorRef,
+		protected conf: ConfigService,
+	) {}
+
+	ngOnInit() {
+		this.src = '/assets/status/' + this.aura.id + '.png';
+		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
+		this.numberPrec = '1.' + this.ownConfig.cooldownPrecision + '-' + this.ownConfig.cooldownPrecision;
+		console.log('this.updateInterval', this.updateInterval);
+		this.startTimeout();
+	}
+
+	startTimeout() {
+		if (this.interval) {
+			return;
+		}
+
+		if (!this.aura.expiresAt.value) {
+			return;
+		}
+
+		this.tick();
+
+		this.interval = setInterval(this.tick.bind(this), this.updateInterval);
+	}
+
+	tick() {
+		const nd = new Date();
+		let exp = (this.aura.expiresAt.value.valueOf() - nd.valueOf()) / 1000;
+		if (exp <= 0) {
+			exp = 0;
+		}
+
+		this.timer = exp;
+		this.cd.detectChanges();
+		if (exp === 0) {
+			clearInterval(this.interval);
 		}
 	}
 }

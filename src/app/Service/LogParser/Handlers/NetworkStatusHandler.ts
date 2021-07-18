@@ -1,4 +1,3 @@
-import { Combatant }        from 'src/app/Service/LogParser/Combatant';
 import { Util }             from '../Util';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
@@ -47,13 +46,11 @@ export class NetworkStatusHandler implements HandlerInterface {
 
 		const padded = jobLevelData.toString().padStart(8, '0');
 
-console.log('jobLevelData', jobLevelData)
 		const jobIdHex = padded.substr(6, 2).toUpperCase();
 		const jobId = parseInt(jobIdHex, 16);
 		const job = Util.jobEnumToJob(jobId);
 
 		const level = parseInt(padded.substr(4, 2), 16);
-
 		this.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax, job, level
 		);

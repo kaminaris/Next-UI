@@ -1,73 +1,102 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
+import { Aura }                                            from 'src/app/Model/Aura';
+import { Combatant }                                       from 'src/app/Model/Combatant';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
-import { Combatant }                                       from 'src/app/Service/LogParser/Combatant';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
+import { PlayerComponent }                                 from './PlayerComponent';
 
 @Component({
 	selector: 'target',
 	template: `
 		<ng-content></ng-content>
 		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="target">
-			<progress-bar [percent]="hpPct">
-				<div class="pos-a w100p h100p z10 ta-c">
+			<div class="pos-a z10" style="display:flex; bottom: 0">
+				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+			</div>
+			<progress-bar
+				[percent]="hpPct"
+				[fillColor]="ownConfig.barColor"
+			>
+				<div class="pos-a z10 fz-10" 
+					style="right: 5px; top: 2px;"
+					*ngIf="!target.isNPC"
+					[style.color]="ownConfig.fontColor"
+				>
+					{{ job }}
+				</div>
+				<div class="pos-a z10 fz-10" 
+					style="right: 5px; bottom: 2px;"
+					[style.color]="ownConfig.fontColor"
+				>
+					{{ level }}
+				</div>
+				<div class="pos-a w100p h100p z10 ta-c"
+					[style.color]="ownConfig.fontColor"
+					[style.font-size]="ownConfig.fontSize">
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar 
-				[style.height]="config.manaHeight" 
+			<progress-bar
+				[style.height]="ownConfig.manaHeight"
 				[percent]="manaPct"
-				[fillColor]="config.manaColor"
+				[fillColor]="ownConfig.manaColor"
 			>
-				<div class="pos-a w100p h100p z10 ta-c">
+				<div class="pos-a w100p h100p z10 ta-c"
+					[style.color]="ownConfig.fontColor"
+					[style.font-size]="ownConfig.fontSize">
 					{{ manaText }}
 				</div>
 			</progress-bar>
 		</div>
 	`
 })
-export class TargetComponent implements OnInit, OnDestroy {
-	hp = 100;
-	hpMax = 100;
-	hpPct = 100;
-
-	mana = 10000;
-	manaMax = 10000;
-	manaPct = 100;
-
-	leftHpText = '';
-	hpText = '100 / 100 (100%)';
-	rightHpText = '';
-
-	manaText = '10000 / 10000 (100%)';
-	subs: Subscription[] = [];
+export class TargetComponent extends PlayerComponent implements OnInit, OnDestroy {
 
 	hpSub: Subscription;
 	manaSub: Subscription;
+	auraSub: Subscription;
+	jobSub: Subscription;
+	levelSub: Subscription;
 
 	config = this.conf.config;
+	ownConfig = this.config.frames.target;
 	target: Combatant;
 
 	constructor(
-		public conf: ConfigService,
-		protected parser: LogParser,
-		protected cd: ChangeDetectorRef
-	) {}
+		conf: ConfigService,
+		parser: LogParser,
+		cd: ChangeDetectorRef
+	) {
+		super(conf, parser, cd);
+	}
 
 	ngOnInit(): void {
 		this.subs.push(this.parser.target.subscribe(t => {
+			this.targetUnsub();
 
 			if (!t) {
-				this.hpSub?.unsubscribe();
-				this.manaSub?.unsubscribe();
+				// this.targetUnsub();
 				this.target = t;
 				this.cd.detectChanges();
 
 				return;
 			}
+
 			this.target = t;
+			this.copyFrom(this.target);
+
+			this.jobSub = this.target.job.subscribe((job) => {
+				this.job = job;
+				this.cd.detectChanges();
+			});
+
+			this.levelSub = this.target.level.subscribe((level) => {
+				this.level = level;
+				this.cd.detectChanges();
+			});
+
 			this.hpSub = this.target.hp.subscribe((hp) => {
-				console.log('taret hp up', hp)
 				this.hp = hp;
 				this.hpMax = this.target.hpMax;
 				this.calcHp();
@@ -78,31 +107,22 @@ export class TargetComponent implements OnInit, OnDestroy {
 				this.manaMax = this.target.manaMax;
 				this.calcMana();
 			});
+
+			this.auraSub = this.target.auras.subscribe((auras) => {
+				this.auras = this.auraFilter(auras);
+				this.cd.detectChanges();
+			});
 		}));
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
 			this.cd.detectChanges();
-		}))
+		}));
 	}
 
-	calcHp() {
-		this.hpPct = Math.round((this.hp / this.hpMax) * 100);
-		if (this.hpPct > 100) {
-			this.hpPct = 100;
-		}
-
-		this.hpText = this.hp + ' / ' + this.hpMax + ' (' + this.hpPct + '%)';
-		this.cd.detectChanges();
-	}
-
-	calcMana() {
-		this.manaPct = Math.round((this.mana / this.manaMax) * 100);
-		if (this.manaPct > 100) {
-			this.manaPct = 100;
-		}
-
-		this.manaText = this.mana + ' / ' + this.manaMax + ' (' + this.manaPct + '%)';
-		this.cd.detectChanges();
+	auraFilter(auras: Aura[]) {
+		return auras.filter((a) => {
+			return a.appliedBy === this.player.id;
+		});
 	}
 
 	ngOnDestroy() {
@@ -110,7 +130,14 @@ export class TargetComponent implements OnInit, OnDestroy {
 			sub.unsubscribe();
 		}
 
-		this.hpSub.unsubscribe();
-		this.manaSub.unsubscribe();
+		this.targetUnsub();
+	}
+
+	targetUnsub() {
+		this.hpSub?.unsubscribe();
+		this.manaSub?.unsubscribe();
+		this.auraSub?.unsubscribe();
+		this.jobSub?.unsubscribe();
+		this.levelSub?.unsubscribe();
 	}
 }

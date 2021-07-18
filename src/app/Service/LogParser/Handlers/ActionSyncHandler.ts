@@ -1,5 +1,3 @@
-import { Combatant }        from 'src/app/Service/LogParser/Combatant';
-import { Util }             from '../Util';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
@@ -16,8 +14,8 @@ const indexes = {
 	x: 11,
 	y: 12,
 	z: 13,
-	heading: 14,
-}
+	heading: 14
+};
 
 export class ActionSyncHandler implements HandlerInterface {
 
@@ -43,6 +41,9 @@ export class ActionSyncHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
+		if (hp > 10000) {
+			console.log('ERROR!!!!!!!!!')
+		}
 		this.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax
 		);
