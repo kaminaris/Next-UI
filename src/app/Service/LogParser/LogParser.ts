@@ -1,7 +1,7 @@
 import { Injectable }              from '@angular/core';
-import { BehaviorSubject }         from 'rxjs';
-import { EnmityTargetData }        from 'src/app/EnmityTargetData';
-import { PartyMember }             from 'src/app/Interface/PartyMember';
+import { BehaviorSubject }              from 'rxjs';
+import { EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
+import { PartyMember }                  from 'src/app/Interface/PartyMember';
 import { Combatant }               from 'src/app/Model/Combatant';
 import { ActionSyncHandler }       from 'src/app/Service/LogParser/Handlers/ActionSyncHandler';
 import { NetworkStatusHandler }    from 'src/app/Service/LogParser/Handlers/NetworkStatusHandler';
@@ -106,7 +106,9 @@ export class LogParser {
 			combatant.updateLevel(level);
 
 			combatant.updateHp(hp, hpMax);
-			combatant.updateMana(mana, manaMax);
+			if (mana || manaMax) {
+				combatant.updateMana(mana, manaMax);
+			}
 
 
 			combatants.push(combatant);
@@ -119,6 +121,8 @@ export class LogParser {
 			combatant.updateHp(hp, hpMax);
 			combatant.updateMana(mana, manaMax);
 		}
+
+		return combatant;
 	}
 
 	partyChanged(party: PartyMember[]) {
@@ -177,24 +181,48 @@ export class LogParser {
 	targetUpdate(e: EnmityTargetData) {
 		if (!e.Target) {
 			if (this.target.value) {
-				console.log('target null');
 				this.target.next(null);
 			}
 			return;
 		}
 
-		const id = e.Target.ID.toString(16).toUpperCase();
-
-		const combatant = this.combatants.value.find(c => c.id === id)
-		if (!combatant) {
-			return;
+		let id = e.Target.ID.toString(16).toUpperCase();
+		let hp = e.Target.CurrentHP;
+		let hpMax = e.Target.MaxHP;
+		if (id === 'E0000000') {
+			id = e.Target.Name;
+			hp = 1;
+			hpMax = 1;
 		}
+
+		let combatant = this.combatants.value.find(c => c.id === id)
+
+		if (!combatant) {
+			combatant = this.updateCombatant(
+				id,
+				e.Target.Name,
+				hp,
+				hpMax,
+				null,
+				null,
+				Util.jobEnumToJob(e.Target.Job),
+			);
+		}
+
+		this.updateEffectsFromEnmity(combatant, e.Target.Effects);
 
 		if (this.target.value === combatant) {
 			return;
 		}
-
+		console.log(combatant)
 		console.log('target changed', combatant.id, combatant.name, combatant.hp.value);
 		this.target.next(combatant);
+	}
+
+	updateEffectsFromEnmity(c: Combatant, effects: EffectData[]) {
+		for (const effect of effects) {
+			const appliedBy = effect.ActorID.toString(16).toUpperCase();
+			c.updateAura(effect.BuffID, null, effect.Stack, appliedBy, null, null);
+		}
 	}
 }

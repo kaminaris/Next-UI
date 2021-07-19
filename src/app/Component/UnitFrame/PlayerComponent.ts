@@ -61,6 +61,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	manaMax = 10000;
 	manaPct = 100;
 
+	name = '';
 	job = 'NONE';
 	level = 1;
 
@@ -154,11 +155,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	}
 
 	copyFrom(c: Combatant) {
+		this.name = c.name;
 		this.hp = c.hp.value;
 		this.hpMax = c.hpMax;
 		this.mana = c.mana.value;
 		this.manaMax = c.manaMax;
 		this.job = c.job.value;
 		this.level = c.level.value;
+		this.cd.detectChanges();
 	}
 }

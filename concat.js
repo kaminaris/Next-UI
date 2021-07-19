@@ -25,6 +25,7 @@ for (const file of files) {
 	// console.log(data)
 	concated.push({
 		id: data.ID,
+		name: data.Name,
 		category: data.Category,
 		isPermanent: data.IsPermanent,
 		maxStacks: data.MaxStacks,
@@ -32,5 +33,11 @@ for (const file of files) {
 	});
 }
 
-const out = `export const statuses = ${JSON.stringify(concated, null, 4)};`;
+let json = JSON.stringify(concated, null, 4);
+json = json
+	.replace(/"([^"]+)":/g, '$1:')
+	.replace(/\'/g, "\\'")
+	.replace(/\"/g, "'");
+
+const out = `export const statuses = ${ json };`;
 fs.writeFileSync(path.join('src', 'app', 'Data', 'status.ts'), out);

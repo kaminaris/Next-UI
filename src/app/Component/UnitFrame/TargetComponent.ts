@@ -18,6 +18,12 @@ import { PlayerComponent }                                 from './PlayerCompone
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 			>
+				<div class="pos-a z10"
+					style="right: 0; top: -20px;"
+					[style.color]="ownConfig.fontColor"
+				>
+					{{ name }}
+				</div>
 				<div class="pos-a z10 fz-10" 
 					style="right: 5px; top: 2px;"
 					*ngIf="!target.isNPC"
@@ -120,6 +126,10 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	auraFilter(auras: Aura[]) {
+		if (!this.target.isNPC) {
+			return auras;
+		}
+
 		return auras.filter((a) => {
 			return a.appliedBy === this.player.id;
 		});

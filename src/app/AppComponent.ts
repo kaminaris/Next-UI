@@ -12,7 +12,7 @@ import { LogParser }                            from 'src/app/Service/LogParser/
 })
 export class AppComponent implements OnInit {
 	size = 40;
-	aura = new Aura();
+	aura = new Aura(1199);
 
 	charName = 'YOU';
 

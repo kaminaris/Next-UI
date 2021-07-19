@@ -1,3 +1,11 @@
+export interface EffectData {
+	ActorID: number;
+	BuffID: number;
+	Stack: number;
+	Timer: number;
+	isOwner: boolean;
+}
+
 export interface ActorInterface {
 	ID: number;
 	OwnerID: number;
@@ -13,7 +21,7 @@ export interface ActorInterface {
 	Rotation: number;
 	Distance: number;
 	EffectiveDistance: number;
-	Effects: any[]
+	Effects: EffectData[]
 }
 
 export interface EnmityTargetData {

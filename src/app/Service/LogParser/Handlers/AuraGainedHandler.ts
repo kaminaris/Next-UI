@@ -49,27 +49,7 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const aura = new Aura();
-		aura.id = abilityId;
-		aura.appliedBy = id;
-		aura.name = abilityName;
-		const gainedAt = timestamp;
-		// TODO: remove this
-		if (abilityId === 1199) {
-console.log(id, this.parser.player.id)
-			console.log(event[1] ?? '0');
-			console.log(new Date().toISOString());
-			console.log(duration);
-		}
-		aura.gainedAt.next(gainedAt);
-		aura.expiresAt.next(duration > 9990 ? null : new Date(gainedAt.valueOf() + duration * 1000));
-		aura.stacks.next(stacks);
-		aura.duration.next(duration);
-		// WUT?
-		aura.isBuff = true;
-
-		combatant.updateAura(aura);
-		// combatant.updateHp(targetHp);
+		const aura = combatant.updateAura(abilityId, abilityName, stacks, id, duration, timestamp);
 
 		if (this.parser.debugMode) {
 			console.log(`Combatant: ${ combatant.name } gained aura ${ abilityName }`, combatant, aura, event);

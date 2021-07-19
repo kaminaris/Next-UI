@@ -69,29 +69,32 @@ export class Combatant {
 		this.mana.next(mana);
 	}
 
-	updateAura(newAura: Aura) {
+	updateAura(
+		id: number,
+		name: string,
+		stacks: number,
+		appliedBy: string,
+		duration: number,
+		gainedAt?: Date
+	) {
 		const auras = this.auras.value;
-		let aura = auras.find(a => a.id === newAura.id || a.name === newAura.name);
+		let aura = auras.find(a => a.id === id || a.name === name);
 		if (!aura) {
+			const newAura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);
 			auras.push(newAura);
 			this.auras.next(auras);
 		}
 		else {
-			aura.stacks.next(newAura.stacks.value);
-			aura.gainedAt.next(newAura.gainedAt.value);
-			const newExpire =
-				newAura.duration.value >= 9990 ?
-				null : new Date(aura.gainedAt.value.valueOf() + newAura.duration.value * 1000);
-
-			if (
-				newExpire === null && aura.expiresAt.value !== null ||
-				newExpire !== null && aura.expiresAt.value === null ||
-				newExpire !== null && aura.expiresAt.value !== null && newExpire.valueOf()
-				!== aura.expiresAt.value.valueOf()
-			) {
-				aura.expiresAt.next(newExpire);
-			}
+			aura.updateAura(
+				name,
+				stacks,
+				appliedBy,
+				duration,
+				gainedAt
+			);
 		}
+
+		return aura;
 	}
 
 	removeAura(id: number, name: string) {
