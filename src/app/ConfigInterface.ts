@@ -1,6 +1,18 @@
+import { TextWidgetConfig } from 'src/app/Interface/TextWidgetConfig';
+
+export interface FramePositionInterface {
+	x: number;
+	y: number;
+}
+
+export interface FrameSizeInterface {
+	width: number;
+	height: number;
+}
+
 export interface FrameConfigInterface {
-	position: { x: number, y: number };
-	size: { width: number, height: number };
+	position: FramePositionInterface;
+	size: FrameSizeInterface;
 
 	fontSize?: string;
 	fontColor?: string;
@@ -17,6 +29,19 @@ export interface PlayerConfigInterface extends FrameConfigInterface {
 
 	fontSize: string;
 	fontColor: string;
+
+	showName: boolean;
+	namePosition: FramePositionInterface;
+
+	showLevel: boolean;
+	levelPosition: FramePositionInterface;
+
+	showJob: boolean;
+	jobPosition: FramePositionInterface;
+
+	widgets: {
+		job: TextWidgetConfig
+	}
 }
 
 export interface TargetConfigInterface extends PlayerConfigInterface {

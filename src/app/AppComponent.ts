@@ -1,5 +1,5 @@
-import { Component, NgZone, OnInit, Renderer2 } from '@angular/core';
-import { IResizeEvent }                         from 'angular2-draggable/lib/models/resize-event';
+import { ChangeDetectorRef, Component, NgZone, OnInit, Renderer2 } from '@angular/core';
+import { IResizeEvent }                                            from 'angular2-draggable/lib/models/resize-event';
 import { EnmityTargetData }                     from 'src/app/EnmityTargetData';
 import { PartyMember }                          from 'src/app/Interface/PartyMember';
 import { Aura }                                 from 'src/app/Model/Aura';
@@ -25,13 +25,20 @@ export class AppComponent implements OnInit {
 		protected zone: NgZone,
 		public conf: ConfigService,
 		public parser: LogParser,
-		protected renderer: Renderer2
+		protected renderer: Renderer2,
+		protected cd: ChangeDetectorRef
 	) {
 		// DEBUG
 		this.parser.debugMode = false;
 		this.conf.moveMode.subscribe(mm => this.moveMode = mm);
 
 		this.aura.id = 1199;
+
+		this.conf.configChanged.subscribe(() => {
+			// console.log('changes detected', this.config.frames.player.position);
+
+			// cd.detectChanges();
+		})
 	}
 
 	ngOnInit() {
@@ -86,5 +93,9 @@ export class AppComponent implements OnInit {
 	saveFrameSize(unitFrame: string, $event: IResizeEvent) {
 		this.config.frames[unitFrame].size = $event.size;
 		this.conf.applyConfig();
+	}
+
+	test() {
+		this.config.frames.player.position = {x: 100, y: 100};
 	}
 }

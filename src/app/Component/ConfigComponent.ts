@@ -11,7 +11,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<div class="config-content d-flex flex-row">
 				<div class="config-pane">
 					<div>
-						<button *ngFor="let cat of categories" 
+						<button *ngFor="let cat of categories"
 							[class.active]="currentCategory === cat.value"
 							(click)="switchWindow(cat.value)">
 							{{ cat.label }}
@@ -30,13 +30,12 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	`
 })
 export class ConfigComponent {
-
 	categories = [
-		{value: 'main', label: 'General settings'},
-		{value: 'player', label: 'Player'},
-		{value: 'target', label: 'Target'},
-		{value: 'party', label: 'Party'},
-		{value: 'aura', label: 'Aura'},
+		{ value: 'main', label: 'General settings' },
+		{ value: 'player', label: 'Player' },
+		{ value: 'target', label: 'Target' },
+		{ value: 'party', label: 'Party' },
+		{ value: 'aura', label: 'Aura' }
 	];
 
 	currentCategory = 'main';

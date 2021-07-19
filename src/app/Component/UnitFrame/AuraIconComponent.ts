@@ -19,7 +19,7 @@ import { ConfigService }                                                        
 				[style.font-size]="ownConfig.fontSize"
 				[style.color]="ownConfig.fontColor"
 			>
-				{{ timer | number: numberPrec }}
+				{{ timer | duration: this.ownConfig.cooldownPrecision }}
 			</div>
 		</div>
 	
@@ -49,7 +49,6 @@ export class AuraIconComponent implements OnInit {
 	ngOnInit() {
 		this.src = '/assets/status/' + this.aura.id + '.png';
 		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
-		this.numberPrec = '1.' + this.ownConfig.cooldownPrecision + '-' + this.ownConfig.cooldownPrecision;
 		console.log('this.updateInterval', this.updateInterval);
 		this.startTimeout();
 	}

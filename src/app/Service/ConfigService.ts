@@ -1,7 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject }                         from 'rxjs';
-import { ConfigInterface }       from 'src/app/ConfigInterface';
-import extend                    from 'just-extend';
+import { BehaviorSubject, Subject }                from 'rxjs';
+import { ConfigInterface }                         from 'src/app/ConfigInterface';
+import extend                                      from 'just-extend';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -17,7 +17,26 @@ export class ConfigService {
 				showMana: true,
 				manaHeight: '20px',
 				fontSize: '12px',
-				fontColor: '#ffffff'
+				fontColor: '#ffffff',
+
+				showName: false,
+				namePosition: { x: 0, y: -20 },
+
+				showJob: true,
+				jobPosition: { x: 5, y: 2 },
+
+				showLevel: true,
+				levelPosition: { x: 5, y: 2 },
+
+				widgets: {
+					job: {
+						show: true,
+						anchor: 'topRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					}
+				}
 			},
 			target: {
 				position: { x: 400, y: 400 },
@@ -27,7 +46,26 @@ export class ConfigService {
 				showMana: true,
 				manaHeight: '20px',
 				fontSize: '12px',
-				fontColor: '#ffffff'
+				fontColor: '#ffffff',
+
+				showName: false,
+				namePosition: { x: 0, y: -20 },
+
+				showJob: true,
+				jobPosition: { x: 5, y: 2 },
+
+				showLevel: true,
+				levelPosition: { x: 5, y: 2 },
+
+				widgets: {
+					job: {
+						show: true,
+						anchor: 'topRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					}
+				}
 			},
 			control: {
 				position: { x: 0, y: 0 },
@@ -63,6 +101,8 @@ export class ConfigService {
 	configMode = new BehaviorSubject<boolean>(false);
 	renderer: Renderer2;
 
+	configChanged = new Subject();
+
 	constructor(
 		protected rendererFactory: RendererFactory2
 	) {
@@ -82,24 +122,37 @@ export class ConfigService {
 			target[key] = value;
 			this.applyConfig();
 			return true;
-		}
+		};
 
 		// Wrap settings in proxy
 		this.config = new Proxy(config, { set: proxySet });
+
 		for (const frameName in this.config.frames) {
-			this.config.frames[frameName] = new Proxy(this.config.frames[frameName], { set: proxySet })
+			this.config.frames[frameName] = new Proxy(this.config.frames[frameName], { set: proxySet });
+
+			if (this.config.frames[frameName].widgets) {
+				for (const widgetName in this.config.frames[frameName].widgets) {
+					this.config.frames[frameName].widgets[widgetName] =
+						new Proxy(this.config.frames[frameName].widgets[widgetName], { set: proxySet });
+				}
+			}
 		}
 
 		this.applyConfig();
 	}
 
-	resetConfig(prop: string, frameName?: string) {
+	resetConfig(prop: string, frameName?: string, widgetName?: string) {
 		let obj = this.config as any;
 		let defObj = this.defaultConfig as any;
 
-		if (!frameName) {
-			obj = this.config.frames[frameName] as any;
-			defObj = this.defaultConfig.frames[frameName] as any;
+		if (frameName) {
+			if (widgetName) {
+				obj = this.config.frames[frameName].widgets[widgetName] as any;
+				defObj = this.defaultConfig.frames[frameName].widgets[widgetName] as any;
+			} else {
+				obj = this.config.frames[frameName] as any;
+				defObj = this.defaultConfig.frames[frameName] as any;
+			}
 		}
 
 		obj[prop] = defObj[prop];
@@ -109,6 +162,7 @@ export class ConfigService {
 		localStorage.setItem('config', JSON.stringify(this.config));
 		console.log('config saved', this.config);
 		document.body.style.fontFamily = this.config.fontFamily;
+		this.configChanged.next(true);
 	}
 
 	closeConfig() {
@@ -124,7 +178,8 @@ export class ConfigService {
 
 		if (this.moveMode.value) {
 			this.renderer.addClass(document.body, 'grid');
-		} else {
+		}
+		else {
 			this.renderer.removeClass(document.body, 'grid');
 		}
 	}
@@ -137,7 +192,8 @@ export class ConfigService {
 
 		if (this.configMode.value) {
 			this.renderer.addClass(document.body, 'config-bg');
-		} else {
+		}
+		else {
 			this.renderer.removeClass(document.body, 'config-bg');
 		}
 		(window as any).OverlayPluginApi.setAcceptFocus(this.configMode.value);

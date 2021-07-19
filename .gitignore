@@ -46,4 +46,4 @@ Thumbs.db
 
 # custom
 yarn.lock
-data
+/data
