@@ -1,7 +1,6 @@
-import { Component, Input, OnInit }                   from '@angular/core';
-import { BaseRowComponent }                           from 'src/app/Component/Config/Row/BaseRowComponent';
-import { FramePositionInterface, FrameSizeInterface } from 'src/app/ConfigInterface';
-import { ConfigService }                              from 'src/app/Service/ConfigService';
+import { Component, Input, OnInit } from '@angular/core';
+import { BaseRowComponent }         from 'src/app/Component/Config/Row/BaseRowComponent';
+import { FrameSizeInterface }       from 'src/app/Interface/ConfigInterface';
 
 @Component({
 	selector: 'tr[row-size]',

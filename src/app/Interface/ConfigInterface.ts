@@ -1,4 +1,4 @@
-import { TextWidgetConfig } from 'src/app/Interface/TextWidgetConfig';
+import { TextWidgetConfigInterface } from 'src/app/Interface/TextWidgetConfigInterface';
 
 export interface FramePositionInterface {
 	x: number;
@@ -40,7 +40,7 @@ export interface PlayerConfigInterface extends FrameConfigInterface {
 	jobPosition: FramePositionInterface;
 
 	widgets: {
-		job: TextWidgetConfig
+		job: TextWidgetConfigInterface
 	}
 }
 
@@ -57,6 +57,7 @@ export interface AuraBarInterface extends FrameConfigInterface {
 export interface ConfigInterface {
 	fontFamily: string;
 	numberFormat: string;
+
 	frames: {
 		player: PlayerConfigInterface,
 		target: TargetConfigInterface,

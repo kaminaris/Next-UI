@@ -1,0 +1,77 @@
+import { BehaviorSubject, merge }  from 'rxjs';
+import { debounceTime }            from 'rxjs/operators';
+import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
+import { AuraBarFrameConfig }      from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ControlFrameConfig }      from 'src/app/Model/Config/ControlFrameConfig';
+import { PartyFrameConfig }        from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }       from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }       from 'src/app/Model/Config/TargetFrameConfig';
+import { TTSConfig }               from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
+
+export class MainConfig implements SerializableConfig {
+	// @formatter:off
+	get fontFamily(): string { return this.fontFamilySub.value; }
+	set fontFamily(v: string) { this.fontFamilySub.next(v); }
+
+	get numberFormat(): string { return this.numberFormatSub.value; }
+	set numberFormat(v: string) { this.numberFormatSub.next(v); }
+	// @formatter:on
+
+	ttsConfig = new TTSConfig();
+
+	fontFamilySub = new DistinctBehaviorSubject<string>('');
+	numberFormatSub = new DistinctBehaviorSubject<string>('');
+
+	frames = {
+		control: new ControlFrameConfig(),
+		player: new PlayerFrameConfig(),
+		target: new TargetFrameConfig(),
+		party: new PartyFrameConfig(),
+		auraBar: new AuraBarFrameConfig(),
+	};
+
+	anyChanged = new BehaviorSubject<MainConfig>(null);
+
+	constructor() {
+		this.init();
+	}
+
+	init() {
+		merge(
+			this.fontFamilySub,
+			this.numberFormatSub
+		)
+			.pipe(debounceTime(10))
+			.subscribe((v) => {
+				this.anyChanged.next(this);
+			});
+	}
+
+	unserialize(value: Partial<MainConfig>) {
+		this.fontFamily = value.fontFamily;
+		this.numberFormat = value.numberFormat;
+		this.ttsConfig.unserialize(value.ttsConfig);
+		this.frames.control.unserialize(value.frames.control);
+		this.frames.player.unserialize(value.frames.player);
+		this.frames.target.unserialize(value.frames.target);
+		this.frames.party.unserialize(value.frames.party);
+		this.frames.auraBar.unserialize(value.frames.auraBar);
+	}
+
+	serialize() {
+		return {
+			fontFamily: this.fontFamily,
+			numberFormat: this.numberFormat,
+			ttsConfig: this.ttsConfig.serialize(),
+			frames: {
+				control: this.frames.control.serialize(),
+				player: this.frames.player.serialize(),
+				target: this.frames.target.serialize(),
+				party: this.frames.party.serialize(),
+				auraBar: this.frames.auraBar.serialize(),
+			}
+		};
+	}
+
+}

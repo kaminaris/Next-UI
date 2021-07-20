@@ -1,10 +1,10 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule }               from '@angular/core';
 import { FormsModule }            from '@angular/forms';
 import { BrowserModule }          from '@angular/platform-browser';
 import { NgSelectModule }         from '@ng-select/ng-select';
 import { AngularDraggableModule } from 'angular2-draggable';
-import { ColorPickerModule }      from 'ngx-color-picker';
-import { AppComponent }           from 'src/app/AppComponent';
+import { ColorSketchModule }      from 'ngx-color/sketch';
+import { AppComponent }          from 'src/app/AppComponent';
 import { ConfigAuraComponent }   from 'src/app/Component/Config/ConfigAuraComponent';
 import { ConfigTargetComponent } from 'src/app/Component/Config/ConfigTargetComponent';
 import { RowCheckboxComponent }  from 'src/app/Component/Config/Row/RowCheckboxComponent';
@@ -15,6 +15,8 @@ import { RowSelectComponent }    from 'src/app/Component/Config/Row/RowSelectCom
 import { RowSizeComponent }      from 'src/app/Component/Config/Row/RowSizeComponent';
 import { ConfigComponent }       from 'src/app/Component/ConfigComponent';
 import { ControlComponent }      from 'src/app/Component/ControlComponent';
+import { IconCog }               from 'src/app/Component/Icon/IconCog';
+import { IconMover }             from 'src/app/Component/Icon/IconMover';
 import { ProgressBarComponent }  from 'src/app/Component/ProgressBarComponent';
 import { TextWidget }            from 'src/app/Component/TextWidget';
 import { AuraIconComponent }     from 'src/app/Component/UnitFrame/AuraIconComponent';
@@ -25,8 +27,8 @@ import { TargetComponent }       from 'src/app/Component/UnitFrame/TargetCompone
 import { DurationPipe }          from 'src/app/Pipe/DurationPipe';
 import { SettingsIcon }          from 'src/app/SettingsIcon';
 import { ConfigMainComponent }   from './Component/Config/ConfigMainComponent';
-import { ConfigPartyComponent }  from './Component/Config/ConfigPartyComponent';
-import { ConfigPlayerComponent } from './Component/Config/ConfigPlayerComponent';
+import { ConfigPartyComponent }   from './Component/Config/ConfigPartyComponent';
+import { ConfigPlayerComponent }  from './Component/Config/ConfigPlayerComponent';
 
 @NgModule({
 	declarations: [
@@ -45,14 +47,16 @@ import { ConfigPlayerComponent } from './Component/Config/ConfigPlayerComponent'
 		RowInputComponent, RowCheckboxComponent, RowSelectComponent, RowColorComponent, RowPositionComponent,
 		RowSizeComponent,
 
-		DurationPipe
+		DurationPipe,
+
+		IconMover, IconCog
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		AngularDraggableModule,
 		NgSelectModule,
-		ColorPickerModule
+		ColorSketchModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

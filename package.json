@@ -1,5 +1,5 @@
 {
-	"name": "player-unitframe",
+	"name": "next-ui",
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
@@ -22,7 +22,7 @@
 		"angular2-draggable": "^2.3.2",
 		"bootstrap": "5",
 		"just-extend": "^4.2.1",
-		"ngx-color-picker": "^11.0.0",
+		"ngx-color": "^7.2.0",
 		"rxjs": "~6.6.0",
 		"tslib": "^2.1.0",
 		"zone.js": "~0.11.4"

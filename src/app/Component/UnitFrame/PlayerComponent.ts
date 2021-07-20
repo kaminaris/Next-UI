@@ -15,41 +15,23 @@ import { Util }                                            from 'src/app/Service
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar
+				style="flex-grow: 1"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 			>
-				<div class="pos-a z10"
-					style="right: 0; top: -20px;"
-					*ngIf="ownConfig.showName"
-					[style.color]="ownConfig.fontColor"
-				>
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
 				</div>
-
-<!--				<div class="pos-a z10 fz-10" -->
-<!--					*ngIf="ownConfig.showJob"-->
-<!--					style="right: 5px; top: 2px;"-->
-<!--					[style.color]="ownConfig.fontColor"-->
-<!--				>-->
-<!--					{{ job }}-->
-<!--				</div>-->
 				
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
 					{{ job }}
 				</div>
 
-				<div class="pos-a z10 fz-10"
-					style="right: 5px; bottom: 2px;"
-					*ngIf="ownConfig.showLevel"
-					[style.color]="ownConfig.fontColor"
-				>
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.level">
 					{{ level }}
 				</div>
 
-				<div class="pos-a w100p h100p z10 ta-c"
-					[style.color]="ownConfig.fontColor"
-					[style.font-size]="ownConfig.fontSize"
-				>
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.hp">
 					{{ hpText }}
 				</div>
 			</progress-bar>
@@ -59,9 +41,7 @@ import { Util }                                            from 'src/app/Service
 				[fillColor]="ownConfig.manaColor"
 				[percent]="manaPct"
 			>
-				<div class="pos-a w100p h100p z10 ta-c"
-					[style.color]="ownConfig.fontColor"
-					[style.font-size]="ownConfig.fontSize">
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
 				</div>
 			</progress-bar>

@@ -1,7 +1,7 @@
-import { FramePositionInterface } from 'src/app/ConfigInterface';
 import { Anchor }                 from 'src/app/Interface/Anchor';
+import { FramePositionInterface } from 'src/app/Interface/ConfigInterface';
 
-export interface TextWidgetConfig {
+export interface TextWidgetConfigInterface {
 	show: boolean;
 	position: FramePositionInterface;
 	fontSize: string;

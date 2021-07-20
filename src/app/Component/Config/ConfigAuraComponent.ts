@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component }  from '@angular/core';
+import { MainConfig } from 'src/app/Model/Config/MainConfig';
 
 @Component({
 	selector: 'config-aura',
@@ -17,7 +18,7 @@ import { Component } from '@angular/core';
 	`
 })
 export class ConfigAuraComponent {
-	frameName = 'aura';
+	frameName: keyof MainConfig['frames'] = 'auraBar';
 
 	precisions = [
 		{ label: '0 digits', value: 0 },

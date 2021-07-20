@@ -26,6 +26,6 @@ export class ProgressBarComponent {
 	@Input() percent = 100;
 	@Input() width = '100%';
 	@Input() height = '100%';
-	@Input() bgColor = 'rgba(0,0,0,0.5)';
+	@Input() bgColor = 'rgba(0,0,0,0.0)';
 	@Input() fillColor = 'rgb(69,226,0)';
 }

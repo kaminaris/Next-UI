@@ -8,12 +8,14 @@
 @import '~angular2-draggable/css/resizable.min.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+$red-border:          rgba(255, 10, 10, 1);
+
 body {
 	background-color:  transparent;
 	background-repeat: repeat;
 
 	&.grid {
-		background-image: url('https://i.imgur.com/RVRX2Qy.png');
+		background-image: url(assets/bg2.png);
 	}
 
 	&.config-bg {
@@ -37,16 +39,17 @@ input, button {
 }
 
 .grab-handle {
-	border:      1px dashed white;
+	border:      2px dashed $red-border;
 	position:    absolute;
-	right:       5px;
-	top:         5px;
+	right:       -2px;
+	top:         -2px;
 	cursor:      grab;
-	width:       20px;
-	height:      20px;
+	width:       25px;
+	height:      25px;
 	text-align:  center;
 	line-height: 20px;
 	z-index:     1000;
+	background:  white;
 }
 
 // @formatter:off
@@ -64,9 +67,35 @@ input, button {
 .flex-grow { flex-grow: 1 }
 // @formatter:on
 
-.party-frame {
-	background-color: rgba(0, 0, 0, 0.32);
-	border:           1px solid rgba(255, 255, 255, 0.32);
+
+@mixin frameName($text) {
+	content:     $text;
+	text-shadow: 0 0 5px white;
+	position:    absolute;
+	z-index:     1000;
+	top:         -24px;
+	color:       $red-border;
+}
+
+.frame-bg {
+	background-color: rgba(0, 0, 0, 0.5);
+	outline:          2px dashed $red-border;
+
+	&.frame-player::before {
+		@include frameName('Player Frame')
+	}
+
+	&.frame-target::before {
+		@include frameName('Target Frame')
+	}
+
+	&.frame-party::before {
+		@include frameName('Party Frame')
+	}
+
+	&.frame-control::before {
+		@include frameName('Control Frame')
+	}
 }
 
 .hp {
@@ -91,10 +120,11 @@ input, button {
 	width:  12px;
 	height: 12px;
 }
+
 .color-btn {
-	height: 28px;
-	width: 40px;
-	border: 1px solid white;
+	height:         28px;
+	width:          40px;
+	border:         1px solid white;
 	vertical-align: middle;
 }
 
@@ -121,6 +151,7 @@ input, button {
 		top:      1px;
 	}
 }
+
 .ng-select .ng-select-container {
 	min-height: 28px;
 }
@@ -130,8 +161,8 @@ input, button {
 }
 
 $config-border-color: rgba(255, 255, 255, 0.6);
-$config-border: 1px solid $config-border-color;
-$config-color: white;
+$config-border:       1px solid $config-border-color;
+$config-color:        white;
 
 .config-window {
 	width:            800px;
@@ -159,15 +190,15 @@ $config-color: white;
 		border-right: $config-border;
 
 		button {
-			width: 100%;
-			height: 30px;
-			display: block;
-			line-height: 30px;
-			border: 0;
-			outline: 0;
-			border-bottom: $config-border;
+			width:            100%;
+			height:           30px;
+			display:          block;
+			line-height:      30px;
+			border:           0;
+			outline:          0;
+			border-bottom:    $config-border;
 			background-color: transparent;
-			color: $config-color;
+			color:            $config-color;
 
 			&:hover {
 				box-shadow: inset 0px -5px 20px 0 $config-border-color;
@@ -181,15 +212,14 @@ $config-color: white;
 }
 
 @mixin stroke($color: #000, $size: 1px) {
-	text-shadow:
-		-#{$size} -#{$size} 0 $color,
-		0        -#{$size} 0 $color,
-		#{$size} -#{$size} 0 $color,
-		#{$size}  0        0 $color,
-		#{$size}  #{$size} 0 $color,
-		0         #{$size} 0 $color,
-		-#{$size}  #{$size} 0 $color,
-		-#{$size}  0        0 $color;
+	text-shadow: -#{$size} -#{$size} 0 $color,
+				 0        -#{$size} 0 $color,
+				 #{$size} -#{$size} 0 $color,
+				 #{$size}  0 0 $color,
+				 #{$size}  #{$size} 0 $color,
+				 0         #{$size} 0 $color,
+				 -#{$size}  #{$size} 0 $color,
+				 -#{$size} 0 0 $color;
 }
 
 .text-outline-1 {

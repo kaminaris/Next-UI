@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component }  from '@angular/core';
+import { MainConfig } from 'src/app/Model/Config/MainConfig';
 
 @Component({
 	selector: 'config-target',
@@ -15,11 +16,15 @@ import { Component } from '@angular/core';
 			<tr row-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></tr>
 			<tr row-input [frameName]="frameName" prop="fontSize" label="Font Size"></tr>
 			<tr row-color [frameName]="frameName" prop="fontColor" label="Font Color"></tr>
-			<tr><td colspan="4"><hr></td></tr>
+			<tr>
+				<td colspan="4">
+					<hr>
+				</td>
+			</tr>
 			<tr row-checkbox [frameName]="frameName" prop="showName" label="Show Name"></tr>
 		</table>
 	`
 })
 export class ConfigTargetComponent {
-	frameName = 'target';
+	frameName: keyof MainConfig['frames'] = 'target';
 }

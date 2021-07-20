@@ -1,14 +1,6 @@
 <div id="main-content" style="position:relative;">
-<!--	<div class="pos-a" style="left: 900px; top: 200px;">-->
-<!--		<input type="text" [(ngModel)]="size">-->
-<!--		<aura-icon [aura]="aura" [size]="size"></aura-icon>-->
-<!--	</div>-->
-	<div class="pos-a">
-		<button (click)="test()">xxx</button>
-	</div>
-
-	<player class="draggable d-block"
-			style="display: block"
+	<player class="draggable d-block frame-player"
+			[class.frame-bg]="moveMode"
 			[style.width.px]="config.frames.player.size.width"
 			[style.height.px]="config.frames.player.size.height"
 			[ngDraggable]="moveMode"
@@ -21,11 +13,13 @@
 			(rzStop)="saveFrameSize('player', $event)"
 			(endOffset)="saveFramePosition('player', $event)"
 	>
-		<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+		<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
 	</player>
 
-	<target class="draggable d-block"
-			style="display: block"
+	<target class="draggable d-block frame-target"
+			[class.frame-bg]="moveMode"
 			[style.width.px]="config.frames.target.size.width"
 			[style.height.px]="config.frames.target.size.height"
 			[ngDraggable]="moveMode"
@@ -38,10 +32,13 @@
 			(rzStop)="saveFrameSize('target', $event)"
 			(endOffset)="saveFramePosition('target', $event)"
 	>
-		<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+		<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
 	</target>
 
-	<party class="draggable d-block" [class.party-frame]="moveMode"
+	<party class="draggable d-block frame-party"
+			[class.frame-bg]="moveMode"
 			[style.width.px]="config.frames.party.size.width"
 			[style.height.px]="config.frames.party.size.height"
 			[ngDraggable]="moveMode"
@@ -54,10 +51,13 @@
 			(rzStop)="saveFrameSize('party', $event)"
 			(endOffset)="saveFramePosition('party', $event)"
 	>
-		<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+		<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
 	</party>
 
-	<control class="draggable d-block control-bar"
+	<control class="draggable d-block control-bar frame-control"
+			[class.frame-bg]="moveMode"
 			[style.width.px]="config.frames.control.size.width"
 			[style.height.px]="config.frames.control.size.height"
 			[ngDraggable]="moveMode"
@@ -66,14 +66,18 @@
 			[gridSize]="5"
 			(endOffset)="saveFramePosition('control', $event)"
 	>
-		<div #controlDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">⇅</div>
+		<div #controlDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
 	</control>
 
-	<config-window class="draggable d-block" id="settings-window"
+	<config-window class="draggable d-block"
 			*ngIf="conf.configMode.value"
 			[handle]="configDragHandle"
 			ngDraggable
 	>
-		<div #configDragHandle class="grab-handle">⇅</div>
+		<div #configDragHandle class="grab-handle">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
 	</config-window>
 </div>

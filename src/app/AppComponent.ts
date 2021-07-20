@@ -86,13 +86,11 @@ export class AppComponent implements OnInit {
 	}
 
 	saveFramePosition(unitFrame: string, $event: { x: number, y: number }) {
-		this.config.frames[unitFrame].position = $event;
-		this.conf.applyConfig();
+		(this.config.frames as any)[unitFrame].position = $event;
 	}
 
 	saveFrameSize(unitFrame: string, $event: IResizeEvent) {
-		this.config.frames[unitFrame].size = $event.size;
-		this.conf.applyConfig();
+		(this.config.frames as any)[unitFrame].size = $event.size;
 	}
 
 	test() {

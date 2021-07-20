@@ -1,32 +1,31 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject, Subject }                from 'rxjs';
-import { ConfigInterface }                         from 'src/app/ConfigInterface';
+import { BehaviorSubject, merge, Subject }         from 'rxjs';
 import extend                                      from 'just-extend';
+import { debounceTime }                            from 'rxjs/operators';
+import { RecursivePartial }                        from 'src/app/Interface/RecursivePartial';
+import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
+import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-	defaultConfig: ConfigInterface = {
+	defaultConfig: RecursivePartial<MainConfig> = {
 		fontFamily: 'Noto Sans Condensed',
 		numberFormat: 'full',
+		ttsConfig: {
+			enabled: false
+		},
 		frames: {
+			control: {
+				position: { x: 600, y: 600 },
+				size: { width: 200, height: 60 },
+			},
 			player: {
-				position: { x: 200, y: 400 },
-				size: { width: 200, height: 40 },
+				position: { x: 600, y: 500 },
+				size: { width: 260, height: 60 },
 				barColor: '#02A502',
 				manaColor: '#02a597',
 				showMana: true,
 				manaHeight: '20px',
-				fontSize: '12px',
-				fontColor: '#ffffff',
-
-				showName: false,
-				namePosition: { x: 0, y: -20 },
-
-				showJob: true,
-				jobPosition: { x: 5, y: 2 },
-
-				showLevel: true,
-				levelPosition: { x: 5, y: 2 },
 
 				widgets: {
 					job: {
@@ -35,27 +34,44 @@ export class ConfigService {
 						fontColor: '#ffffff',
 						fontSize: '12px',
 						position: { x: 5, y: 2 }
+					},
+					hp: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					},
+					mana: {
+						show: true,
+						anchor: 'center',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 0, y: 0 }
+					},
+					level: {
+						show: true,
+						anchor: 'bottomRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					},
+					name: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '14px',
+						position: { x: 0, y: -20 }
 					}
 				}
 			},
 			target: {
-				position: { x: 400, y: 400 },
-				size: { width: 200, height: 40 },
+				position: { x: 900, y: 500 },
+				size: { width: 260, height: 60 },
 				barColor: '#02A502',
 				manaColor: '#02a597',
 				showMana: true,
 				manaHeight: '20px',
-				fontSize: '12px',
-				fontColor: '#ffffff',
-
-				showName: false,
-				namePosition: { x: 0, y: -20 },
-
-				showJob: true,
-				jobPosition: { x: 5, y: 2 },
-
-				showLevel: true,
-				levelPosition: { x: 5, y: 2 },
 
 				widgets: {
 					job: {
@@ -64,20 +80,42 @@ export class ConfigService {
 						fontColor: '#ffffff',
 						fontSize: '12px',
 						position: { x: 5, y: 2 }
+					},
+					hp: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					},
+					mana: {
+						show: true,
+						anchor: 'center',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 0, y: 0 }
+					},
+					level: {
+						show: true,
+						anchor: 'bottomRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 }
+					},
+					name: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '14px',
+						position: { x: 0, y: -20 }
 					}
 				}
 			},
-			control: {
-				position: { x: 0, y: 0 },
-				size: { width: 100, height: 40 }
-			},
 			party: {
-				position: { x: 100, y: 400 },
-				size: { width: 100, height: 600 }
+				position: { x: 100, y: 200 },
+				size: { width: 100, height: 300 }
 			},
-			aura: {
-				position: { x: 0, y: 0 },
-				size: { width: 40, height: 40 },
+			auraBar: {
 				iconSize: '30px',
 				fontSize: '14px',
 				fontColor: '#FFFFFF',
@@ -94,7 +132,7 @@ export class ConfigService {
 		{ name: '2.13k', value: 'prec2' }
 	];
 
-	config: ConfigInterface;
+	config: MainConfig;
 
 	visible = false;
 	moveMode = new BehaviorSubject<boolean>(false);
@@ -108,7 +146,7 @@ export class ConfigService {
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
 
-		let c: any = localStorage.getItem('config') || '';
+		let c: any = localStorage.getItem('cfg') || '';
 		try {
 			c = JSON.parse(c);
 		}
@@ -118,39 +156,69 @@ export class ConfigService {
 
 		const config = extend(true, extend(true, {}, this.defaultConfig), c) as any;
 
-		const proxySet = (target: any, key: string, value: any) => {
-			target[key] = value;
-			this.applyConfig();
-			return true;
-		};
+		this.config = new MainConfig();
+		this.config.unserialize(config);
 
-		// Wrap settings in proxy
-		this.config = new Proxy(config, { set: proxySet });
+		const subs: BehaviorSubject<any>[] = [];
+		this.findObservers(this.config, subs);
+console.log(subs)
+console.log('uns', this.config)
+		merge(...subs)
+			.pipe(debounceTime(10))
+			.subscribe(() => {
+				this.applyConfig();
+			});
 
-		for (const frameName in this.config.frames) {
-			this.config.frames[frameName] = new Proxy(this.config.frames[frameName], { set: proxySet });
-
-			if (this.config.frames[frameName].widgets) {
-				for (const widgetName in this.config.frames[frameName].widgets) {
-					this.config.frames[frameName].widgets[widgetName] =
-						new Proxy(this.config.frames[frameName].widgets[widgetName], { set: proxySet });
-				}
-			}
-		}
+		// for (const frameName in this.config.frames) {
+		// 	this.config.frames[frameName] = new Proxy(this.config.frames[frameName], { set: proxySet });
+		//
+		// 	if (this.config.frames[frameName].widgets) {
+		// 		for (const widgetName in this.config.frames[frameName].widgets) {
+		// 			this.config.frames[frameName].widgets[widgetName] =
+		// 				new Proxy(this.config.frames[frameName].widgets[widgetName], { set: proxySet });
+		// 		}
+		// 	}
+		// }
 
 		this.applyConfig();
 	}
 
-	resetConfig(prop: string, frameName?: string, widgetName?: string) {
+	findObservers(obj: any, subs: BehaviorSubject<any>[]) {
+		if (typeof obj !== 'object') {
+			return;
+		}
+
+		if (obj.anyChanged) {
+			subs.push(obj.anyChanged);
+		}
+
+		for (const k in obj) {
+			if (!obj.hasOwnProperty(k)) {
+				continue;
+			}
+
+			const val = obj[k];
+			if (val instanceof DistinctBehaviorSubject || val instanceof BehaviorSubject) {
+				continue;
+			}
+
+			if (typeof val === 'object') {
+				this.findObservers(val, subs);
+			}
+		}
+	}
+
+	resetConfig(prop: string, frameName?: keyof MainConfig['frames'], widgetName?: string) {
 		let obj = this.config as any;
 		let defObj = this.defaultConfig as any;
 
 		if (frameName) {
 			if (widgetName) {
-				obj = this.config.frames[frameName].widgets[widgetName] as any;
-				defObj = this.defaultConfig.frames[frameName].widgets[widgetName] as any;
-			} else {
-				obj = this.config.frames[frameName] as any;
+				obj = (this.config.frames[frameName] as any).widgets[widgetName];
+				defObj = (this.defaultConfig.frames[frameName] as any).widgets[widgetName];
+			}
+			else {
+				obj = (this.config.frames as any)[frameName] as any;
 				defObj = this.defaultConfig.frames[frameName] as any;
 			}
 		}
@@ -159,7 +227,8 @@ export class ConfigService {
 	}
 
 	applyConfig() {
-		localStorage.setItem('config', JSON.stringify(this.config));
+		localStorage.setItem('cfg', JSON.stringify(this.config.serialize()));
+
 		console.log('config saved', this.config);
 		document.body.style.fontFamily = this.config.fontFamily;
 		this.configChanged.next(true);

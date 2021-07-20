@@ -1,5 +1,6 @@
 import { Component }     from '@angular/core';
 import { anchors }       from 'src/app/Component/Config/anchors';
+import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
@@ -29,7 +30,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	`
 })
 export class ConfigPlayerComponent {
-	frameName = 'player';
+	frameName: keyof MainConfig['frames'] = 'player';
 	configObj = this.conf.config.frames.player;
 	anchors = anchors;
 

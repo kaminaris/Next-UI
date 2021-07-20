@@ -37,7 +37,7 @@ export class AuraIconComponent implements OnInit {
 
 	timer = 0;
 	interval: number;
-	ownConfig = this.conf.config.frames.aura;
+	ownConfig = this.conf.config.frames.auraBar;
 	updateInterval = 1000 / 2;
 	numberPrec = '1';
 

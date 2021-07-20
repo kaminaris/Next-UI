@@ -1,8 +1,8 @@
 import {
 	Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges
-}                           from '@angular/core';
-import { TextWidgetConfig } from 'src/app/Interface/TextWidgetConfig';
-import { ConfigService }    from 'src/app/Service/ConfigService';
+}                                    from '@angular/core';
+import { TextWidgetConfig }          from 'src/app/Model/Config/TextWidgetConfig';
+import { ConfigService }             from 'src/app/Service/ConfigService';
 
 @Directive({
 	selector: '[text-widget]'
@@ -26,15 +26,13 @@ export class TextWidget implements OnChanges, OnInit {
 	) {}
 
 	ngOnInit() {
-		console.log(this.config);
-		this.conf.configChanged.subscribe(() => {
+		this.config.anyChanged.subscribe(() => {
 			this.applyStyle();
 		})
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		this.applyStyle();
-		console.log('changes!');
 	}
 
 	applyStyle() {

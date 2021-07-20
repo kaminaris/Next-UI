@@ -1,6 +1,6 @@
 import { Component, OnInit }      from '@angular/core';
 import { BaseRowComponent }       from 'src/app/Component/Config/Row/BaseRowComponent';
-import { FramePositionInterface } from 'src/app/ConfigInterface';
+import { FramePositionInterface } from 'src/app/Interface/ConfigInterface';
 
 @Component({
 	selector: 'tr[row-position]',
