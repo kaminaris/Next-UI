@@ -134,6 +134,7 @@ export class ConfigService {
 
 	config: MainConfig;
 
+	uiVisible = true;
 	visible = false;
 	moveMode = new BehaviorSubject<boolean>(false);
 	configMode = new BehaviorSubject<boolean>(false);
@@ -266,5 +267,9 @@ console.log('uns', this.config)
 			this.renderer.removeClass(document.body, 'config-bg');
 		}
 		(window as any).OverlayPluginApi.setAcceptFocus(this.configMode.value);
+	}
+
+	toggleUi() {
+		this.uiVisible = !this.uiVisible;
 	}
 }

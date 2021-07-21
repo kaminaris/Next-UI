@@ -8,19 +8,19 @@ import { DistinctBehaviorSubject }   from 'src/app/Model/DistinctBehaviorSubject
 
 export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInterface {
 	// @formatter:off
-	get show() { return this.showSub.value; }
+	get show(): boolean { return this.showSub.value; }
 	set show(v: boolean) { this.showSub.next(v); }
 
-	get anchor() { return this.anchorSub.value; }
+	get anchor(): Anchor { return this.anchorSub.value; }
 	set anchor(v: Anchor) { this.anchorSub.next(v); }
 
-	get fontColor() { return this.fontColorSub.value; }
+	get fontColor(): string { return this.fontColorSub.value; }
 	set fontColor(v: string) { this.fontColorSub.next(v); }
 
-	get fontSize() { return this.fontSizeSub.value; }
+	get fontSize(): string { return this.fontSizeSub.value; }
 	set fontSize(v: string) { this.fontSizeSub.next(v); }
 
-	get position() { return this.positionSub.value; }
+	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
 	// @formatter:on
 

@@ -1,6 +1,7 @@
 import { HandlerInterface } from './HandlerInterface';
 import { LogParser }        from '../LogParser';
 
+// 0x01
 export class ZoneChangedHandler implements HandlerInterface {
 	indexes = {
 		id: 2,
@@ -10,7 +11,7 @@ export class ZoneChangedHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 1) {
+		if (+event[0] !== 0x01) {
 			return;
 		}
 
@@ -21,7 +22,6 @@ export class ZoneChangedHandler implements HandlerInterface {
 		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));
 
 		for (const c of this.parser.combatants.value) {
-			console.log(c);
 			c.clearPermaAuras();
 		}
 

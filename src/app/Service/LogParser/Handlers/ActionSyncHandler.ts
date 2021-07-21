@@ -41,9 +41,6 @@ export class ActionSyncHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
-		if (hp > 10000) {
-			console.log('ERROR!!!!!!!!!')
-		}
 		this.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax
 		);

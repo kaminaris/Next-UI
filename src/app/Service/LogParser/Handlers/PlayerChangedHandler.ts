@@ -10,7 +10,7 @@ export class PlayerChangedHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 2) {
+		if (+event[0] !== 0x02) {
 			return;
 		}
 

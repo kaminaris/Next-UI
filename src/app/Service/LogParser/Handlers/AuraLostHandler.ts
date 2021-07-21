@@ -45,10 +45,6 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		if (combatant.isPlayer) {
-			console.log(`Combatant: ${ combatant.name } lost aura ${ abilityName }`, combatant);
-		}
-
 		combatant.removeAura(abilityId, abilityName);
 
 		if (this.parser.debugMode) {

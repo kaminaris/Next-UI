@@ -1,21 +1,33 @@
-import { Injectable }              from '@angular/core';
+import { Injectable }                   from '@angular/core';
 import { BehaviorSubject }              from 'rxjs';
 import { EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
 import { PartyMember }                  from 'src/app/Interface/PartyMember';
-import { Combatant }               from 'src/app/Model/Combatant';
-import { ActionSyncHandler }       from 'src/app/Service/LogParser/Handlers/ActionSyncHandler';
-import { NetworkStatusHandler }    from 'src/app/Service/LogParser/Handlers/NetworkStatusHandler';
-import { Util }                    from 'src/app/Service/LogParser/Util';
-import { TTSService }              from '../TTSService';
-import { HpUpdatedHandler }        from './Handlers/HpUpdatedHandler';
-import { AuraGainedHandler }       from './Handlers/AuraGainedHandler';
-import { AuraLostHandler }         from './Handlers/AuraLostHandler';
-import { PlayerChangedHandler }    from './Handlers/PlayerChangedHandler';
-import { RemovedCombatantHandler } from './Handlers/RemovedCombatantHandler';
-import { AddedCombatantHandler }   from './Handlers/AddedCombatantHandler';
-import { ChatEventHandler }        from './Handlers/ChatEventHandler';
-import { HandlerInterface }        from './Handlers/HandlerInterface';
-import { ZoneChangedHandler }      from './Handlers/ZoneChangedHandler';
+import { Util }                         from 'src/app/Service/LogParser/Util';
+import { TTSService }                   from '../TTSService';
+import { Combatant }                    from 'src/app/Model/Combatant';
+import { FloorMarkerHandler }           from './Handlers/FloorMarkerHandler';
+import { HeadMarkerHandler }            from './Handlers/HeadMarkerHandler';
+import { JobGaugeHandler }              from './Handlers/JobGaugeHandler';
+import { HpUpdatedHandler }             from './Handlers/HpUpdatedHandler';
+import { AuraGainedHandler }            from './Handlers/AuraGainedHandler';
+import { AuraLostHandler }              from './Handlers/AuraLostHandler';
+import { PlayerChangedHandler }         from './Handlers/PlayerChangedHandler';
+import { RemovedCombatantHandler }      from './Handlers/RemovedCombatantHandler';
+import { AddedCombatantHandler }        from './Handlers/AddedCombatantHandler';
+import { ChatEventHandler }             from './Handlers/ChatEventHandler';
+import { HandlerInterface }             from './Handlers/HandlerInterface';
+import { ZoneChangedHandler }           from './Handlers/ZoneChangedHandler';
+import { AbilityHitHandler }            from './Handlers/AbilityHitHandler';
+import { AbilityUseHandler }            from './Handlers/AbilityUseHandler';
+import { ActionSyncHandler }            from './Handlers/ActionSyncHandler';
+import { CancelAbilityHandler }         from './Handlers/CancelAbilityHandler';
+import { CombatantDefeatedHandler }     from './Handlers/CombatantDefeatedHandler';
+import { NetworkStatusHandler }         from './Handlers/NetworkStatusHandler';
+import { OverTimeTickHandler }          from './Handlers/OverTimeTickHandler';
+import { PlayerStatsHandler }           from './Handlers/PlayerStatsHandler';
+import { LimitGaugeHandler }            from './Handlers/LimitGaugeHandler';
+import { NameplateToggleHandler }       from './Handlers/NameplateToggleHandler';
+import { TetherHandler }                from './Handlers/TetherHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -43,16 +55,28 @@ export class LogParser {
 	party = new BehaviorSubject<Combatant[]>([]);
 
 	handlers: HandlerInterface[] = [
-		new ChatEventHandler(this),
-		new ZoneChangedHandler(this),
-		new PlayerChangedHandler(this),
-		new AddedCombatantHandler(this),
-		new RemovedCombatantHandler(this),
-		new AuraGainedHandler(this),
-		new AuraLostHandler(this),
-		new HpUpdatedHandler(this),
-		new NetworkStatusHandler(this),
-		new ActionSyncHandler(this),
+		new ChatEventHandler(this), // 0x00
+		new ZoneChangedHandler(this), // 0x01
+		new PlayerChangedHandler(this), // 0x02
+		new AddedCombatantHandler(this), // 0x03
+		new RemovedCombatantHandler(this), // 0x04
+		new PlayerStatsHandler(this), // 0x0C
+		new AbilityUseHandler(this), // 0x14
+		new AbilityHitHandler(this), // 0x15, 0x16
+		new CancelAbilityHandler(this), // 0x17
+		new OverTimeTickHandler(this), // 0x18
+		new CombatantDefeatedHandler(this), // 0x19
+		new AuraGainedHandler(this), // 0x1A
+		new HeadMarkerHandler(this), // 0x1B
+		new FloorMarkerHandler(this), // 0x1C
+		new AuraLostHandler(this), // 0x1E
+		new JobGaugeHandler(this), // 0x1F
+		new NameplateToggleHandler(this), // 0x22
+		new TetherHandler(this), // 0x23
+		new LimitGaugeHandler(this), // 0x24
+		new ActionSyncHandler(this), // 0x25
+		new NetworkStatusHandler(this), // 0x26
+		new HpUpdatedHandler(this) // 0x27
 	];
 
 	constructor(
@@ -109,7 +133,6 @@ export class LogParser {
 			if (mana || manaMax) {
 				combatant.updateMana(mana, manaMax);
 			}
-
 
 			combatants.push(combatant);
 			this.combatants.next(combatants);
@@ -195,7 +218,7 @@ export class LogParser {
 			hpMax = 1;
 		}
 
-		let combatant = this.combatants.value.find(c => c.id === id)
+		let combatant = this.combatants.value.find(c => c.id === id);
 
 		if (!combatant) {
 			combatant = this.updateCombatant(
@@ -205,17 +228,16 @@ export class LogParser {
 				hpMax,
 				null,
 				null,
-				Util.jobEnumToJob(e.Target.Job),
+				Util.jobEnumToJob(e.Target.Job)
 			);
 		}
-
-		this.updateEffectsFromEnmity(combatant, e.Target.Effects);
 
 		if (this.target.value === combatant) {
 			return;
 		}
-		console.log(combatant)
-		console.log('target changed', combatant.id, combatant.name, combatant.hp.value);
+
+		//this.updateEffectsFromEnmity(combatant, e.Target.Effects);
+		// console.log(e.Target.Effects);
 		this.target.next(combatant);
 	}
 

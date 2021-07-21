@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { IResizeEvent }                                            from 'angular2-draggable/lib/models/resize-event';
-import { EnmityTargetData }                     from 'src/app/EnmityTargetData';
-import { PartyMember }                          from 'src/app/Interface/PartyMember';
-import { Aura }                                 from 'src/app/Model/Aura';
-import { ConfigService }                        from 'src/app/Service/ConfigService';
-import { LogParser }                            from 'src/app/Service/LogParser/LogParser';
+import { EnmityTargetData }                                        from 'src/app/EnmityTargetData';
+import { PartyMember }                                             from 'src/app/Interface/PartyMember';
+import { Aura }                                                    from 'src/app/Model/Aura';
+import { ConfigService }                                           from 'src/app/Service/ConfigService';
+import { LogParser }                                               from 'src/app/Service/LogParser/LogParser';
 
 @Component({
 	selector: 'app-root',

@@ -58,6 +58,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 
 	serialize(): any {
 		return {
+			position: Object.assign({}, this.position),
+			size: Object.assign({}, this.size),
 			barColor: this.barColor,
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,

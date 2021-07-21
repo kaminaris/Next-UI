@@ -28,7 +28,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 3) {
+		if (+event[0] !== 0x03) {
 			return;
 		}
 		const id = event[this.indexes.id]?.toUpperCase() ?? '';

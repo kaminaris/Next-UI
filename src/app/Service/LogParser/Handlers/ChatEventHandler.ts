@@ -3,17 +3,10 @@ import { HandlerInterface } from './HandlerInterface';
 
 export class ChatEventHandler implements HandlerInterface {
 
-	constructor(public parser: LogParser) {
-		// console.log('do we have voices?')
-		// window.speechSynthesis.onvoiceschanged = () => {
-		// 	console.log('VOICES', window.speechSynthesis.getVoices())
-		// }
-		// window.speechSynthesis.getVoices()
-		// console.log('do we?', window.speechSynthesis.getVoices())
-	}
+	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0) {
+		if (+event[0] !== 0x00) {
 			return;
 		}
 

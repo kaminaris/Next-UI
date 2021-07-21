@@ -9,7 +9,7 @@ export class RemovedCombatantHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 4) {
+		if (+event[0] !== 0x04) {
 			return;
 		}
 

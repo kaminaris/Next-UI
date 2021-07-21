@@ -1,60 +1,64 @@
 <div id="main-content" style="position:relative;">
-	<player class="draggable d-block frame-player"
-			[class.frame-bg]="moveMode"
-			[style.width.px]="config.frames.player.size.width"
-			[style.height.px]="config.frames.player.size.height"
-			[ngDraggable]="moveMode"
-			[ngResizable]="moveMode"
-			[rzGrid]="[5, 5]"
-			[handle]="playerDragHandle"
-			[gridSize]="5"
-			rzHandles="all"
-			[position]="config.frames.player.position"
-			(rzStop)="saveFrameSize('player', $event)"
-			(endOffset)="saveFramePosition('player', $event)"
-	>
-		<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
-			<icon-mover [size]="20"></icon-mover>
-		</div>
-	</player>
+	<ng-container *ngIf="conf.uiVisible">
 
-	<target class="draggable d-block frame-target"
-			[class.frame-bg]="moveMode"
-			[style.width.px]="config.frames.target.size.width"
-			[style.height.px]="config.frames.target.size.height"
-			[ngDraggable]="moveMode"
-			[ngResizable]="moveMode"
-			[rzGrid]="[5, 5]"
-			[handle]="targetDragHandle"
-			[gridSize]="5"
-			rzHandles="all"
-			[position]="config.frames.target.position"
-			(rzStop)="saveFrameSize('target', $event)"
-			(endOffset)="saveFramePosition('target', $event)"
-	>
-		<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
-			<icon-mover [size]="20"></icon-mover>
-		</div>
-	</target>
 
-	<party class="draggable d-block frame-party"
-			[class.frame-bg]="moveMode"
-			[style.width.px]="config.frames.party.size.width"
-			[style.height.px]="config.frames.party.size.height"
-			[ngDraggable]="moveMode"
-			[ngResizable]="moveMode"
-			[rzGrid]="[5, 5]"
-			[handle]="partyDragHandle"
-			[gridSize]="5"
-			rzHandles="all"
-			[position]="config.frames.party.position"
-			(rzStop)="saveFrameSize('party', $event)"
-			(endOffset)="saveFramePosition('party', $event)"
-	>
-		<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
-			<icon-mover [size]="20"></icon-mover>
-		</div>
-	</party>
+		<player class="draggable d-block frame-player no-sel"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.player.size.width"
+				[style.height.px]="config.frames.player.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[rzGrid]="[5, 5]"
+				[handle]="playerDragHandle"
+				[gridSize]="5"
+				rzHandles="all"
+				[position]="config.frames.player.position"
+				(rzStop)="saveFrameSize('player', $event)"
+				(endOffset)="saveFramePosition('player', $event)"
+		>
+			<div #playerDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</player>
+
+		<target class="draggable d-block frame-target"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.target.size.width"
+				[style.height.px]="config.frames.target.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[rzGrid]="[5, 5]"
+				[handle]="targetDragHandle"
+				[gridSize]="5"
+				rzHandles="all"
+				[position]="config.frames.target.position"
+				(rzStop)="saveFrameSize('target', $event)"
+				(endOffset)="saveFramePosition('target', $event)"
+		>
+			<div #targetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</target>
+
+		<party class="draggable d-block frame-party"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.party.size.width"
+				[style.height.px]="config.frames.party.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[rzGrid]="[5, 5]"
+				[handle]="partyDragHandle"
+				[gridSize]="5"
+				rzHandles="all"
+				[position]="config.frames.party.position"
+				(rzStop)="saveFrameSize('party', $event)"
+				(endOffset)="saveFramePosition('party', $event)"
+		>
+			<div #partyDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</party>
+	</ng-container>
 
 	<control class="draggable d-block control-bar frame-control"
 			[class.frame-bg]="moveMode"
