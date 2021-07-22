@@ -7,10 +7,10 @@ import { LogParser }                                       from 'src/app/Service
 import { PlayerComponent }                                 from './PlayerComponent';
 
 @Component({
-	selector: 'target',
+	selector: 'target-of-target',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="target">
+		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="targetOfTarget">
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
@@ -47,7 +47,7 @@ import { PlayerComponent }                                 from './PlayerCompone
 		</div>
 	`
 })
-export class TargetComponent extends PlayerComponent implements OnInit, OnDestroy {
+export class TargetOfTargetComponent extends PlayerComponent implements OnInit, OnDestroy {
 
 	hpSub: Subscription;
 	manaSub: Subscription;
@@ -56,8 +56,8 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	levelSub: Subscription;
 
 	config = this.conf.config;
-	ownConfig = this.config.frames.target;
-	target: Combatant;
+	ownConfig = this.config.frames.targetOfTarget;
+	targetOfTarget: Combatant;
 
 	constructor(
 		conf: ConfigService,
@@ -68,43 +68,43 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	ngOnInit(): void {
-		this.subs.push(this.parser.target.subscribe(t => {
+		this.subs.push(this.parser.targetOfTarget.subscribe(t => {
 			this.targetUnsub();
 
 			if (!t) {
 				// this.targetUnsub();
-				this.target = t;
+				this.targetOfTarget = t;
 				this.cd.detectChanges();
 
 				return;
 			}
 
-			this.target = t;
-			this.copyFrom(this.target);
+			this.targetOfTarget = t;
+			this.copyFrom(this.targetOfTarget);
 
-			this.jobSub = this.target.job.subscribe((job) => {
+			this.jobSub = this.targetOfTarget.job.subscribe((job) => {
 				this.job = job;
 				this.cd.detectChanges();
 			});
 
-			this.levelSub = this.target.level.subscribe((level) => {
+			this.levelSub = this.targetOfTarget.level.subscribe((level) => {
 				this.level = level;
 				this.cd.detectChanges();
 			});
 
-			this.hpSub = this.target.hp.subscribe((hp) => {
+			this.hpSub = this.targetOfTarget.hp.subscribe((hp) => {
 				this.hp = hp;
-				this.hpMax = this.target.hpMax;
+				this.hpMax = this.targetOfTarget.hpMax;
 				this.calcHp();
 			});
 
-			this.manaSub = this.target.mana.subscribe((mana) => {
+			this.manaSub = this.targetOfTarget.mana.subscribe((mana) => {
 				this.mana = mana;
-				this.manaMax = this.target.manaMax;
+				this.manaMax = this.targetOfTarget.manaMax;
 				this.calcMana();
 			});
 
-			this.auraSub = this.target.auras.subscribe((auras) => {
+			this.auraSub = this.targetOfTarget.auras.subscribe((auras) => {
 				this.auras = this.auraFilter(auras);
 				this.cd.detectChanges();
 			});
@@ -116,7 +116,7 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	auraFilter(auras: Aura[]) {
-		if (!this.target.isNPC) {
+		if (!this.targetOfTarget.isNPC) {
 			return auras;
 		}
 

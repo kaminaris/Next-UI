@@ -4,9 +4,9 @@ import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
-	selector: 'config-player',
+	selector: 'config-target-of-target',
 	template: `
-		<h3 class="ta-c">Player Frame Configuration</h3>
+		<h3 class="ta-c">Target Of Target Frame Configuration</h3>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
@@ -29,9 +29,9 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
 	`
 })
-export class ConfigPlayerComponent {
-	frameName: keyof MainConfig['frames'] = 'player';
-	configObj = this.conf.config.frames.player;
+export class ConfigTargetOfTargetComponent {
+	frameName: keyof MainConfig['frames'] = 'targetOfTarget';
+	configObj = this.conf.config.frames.targetOfTarget;
 	anchors = anchors;
 
 	constructor(public conf: ConfigService) {}

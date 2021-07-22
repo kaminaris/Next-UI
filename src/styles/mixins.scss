@@ -1,0 +1,21 @@
+@import 'variables';
+
+@mixin frameName($text) {
+	content:     $text;
+	text-shadow: 0 0 5px white;
+	position:    absolute;
+	z-index:     1000;
+	top:         -24px;
+	color:       $red-border;
+}
+
+@mixin stroke($color: #000, $size: 1px) {
+	text-shadow: -#{$size} -#{$size} 0 $color,
+				 0        -#{$size} 0 $color,
+				 #{$size} -#{$size} 0 $color,
+				 #{$size}  0 0 $color,
+				 #{$size}  #{$size} 0 $color,
+				 0         #{$size} 0 $color,
+				 -#{$size}  #{$size} 0 $color,
+				 -#{$size} 0 0 $color;
+}

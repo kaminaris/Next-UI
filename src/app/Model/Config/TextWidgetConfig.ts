@@ -20,6 +20,9 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	get fontSize(): string { return this.fontSizeSub.value; }
 	set fontSize(v: string) { this.fontSizeSub.next(v); }
 
+	get outline(): boolean { return this.outlineSub.value; }
+	set outline(v: boolean) { this.outlineSub.next(v); }
+
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
 	// @formatter:on
@@ -28,6 +31,7 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	anchorSub = new DistinctBehaviorSubject<Anchor>('topLeft');
 	fontColorSub = new DistinctBehaviorSubject<string>('');
 	fontSizeSub = new DistinctBehaviorSubject<string>('');
+	outlineSub = new DistinctBehaviorSubject<boolean>(true);
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	anyChanged = new BehaviorSubject<TextWidgetConfig>(this);
@@ -42,7 +46,8 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 			this.anchorSub,
 			this.fontColorSub,
 			this.fontSizeSub,
-			this.positionSub
+			this.positionSub,
+			this.outlineSub,
 		)
 			.pipe(debounceTime(10))
 			.subscribe((v) => {
@@ -50,21 +55,23 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 			});
 	}
 
-	serialize(): any {
+	serialize(): Partial<TextWidgetConfig> {
 		return {
 			show: this.show,
 			anchor: this.anchor,
 			fontColor: this.fontColor,
 			fontSize: this.fontSize,
-			position: this.position
+			position: this.position,
+			outline: this.outline,
 		};
 	}
 
-	unserialize(value: any): void {
+	unserialize(value: Partial<TextWidgetConfig>): void {
 		this.show = value.show;
 		this.anchor = value.anchor;
 		this.fontColor = value.fontColor;
 		this.fontSize = value.fontSize;
+		this.outline = value.outline;
 		this.position = Object.assign({}, value.position);
 	}
 

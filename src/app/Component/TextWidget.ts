@@ -19,6 +19,7 @@ export class TextWidget implements OnChanges, OnInit {
 
 	@HostBinding('style.font-size') fontSize: string;
 	@HostBinding('style.color') fontColor: string;
+	@HostBinding('class.text-outline-1') outline: boolean;
 
 	constructor(
 		el: ElementRef,
@@ -95,5 +96,6 @@ export class TextWidget implements OnChanges, OnInit {
 
 		this.fontColor = this.config.fontColor;
 		this.fontSize = this.config.fontSize;
+		this.outline = this.config.outline;
 	}
 }

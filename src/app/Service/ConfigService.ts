@@ -33,35 +33,40 @@ export class ConfigService {
 						anchor: 'topRight',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					hp: {
 						show: true,
 						anchor: 'topLeft',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					mana: {
 						show: true,
 						anchor: 'center',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 0, y: 0 }
+						position: { x: 0, y: 0 },
+						outline: true
 					},
 					level: {
 						show: true,
 						anchor: 'bottomRight',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					name: {
 						show: true,
 						anchor: 'topLeft',
 						fontColor: '#ffffff',
 						fontSize: '14px',
-						position: { x: 0, y: -20 }
+						position: { x: 0, y: -20 },
+						outline: true
 					}
 				}
 			},
@@ -79,35 +84,91 @@ export class ConfigService {
 						anchor: 'topRight',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					hp: {
 						show: true,
 						anchor: 'topLeft',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					mana: {
 						show: true,
 						anchor: 'center',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 0, y: 0 }
+						position: { x: 0, y: 0 },
+						outline: true
 					},
 					level: {
 						show: true,
 						anchor: 'bottomRight',
 						fontColor: '#ffffff',
 						fontSize: '12px',
-						position: { x: 5, y: 2 }
+						position: { x: 5, y: 2 },
+						outline: true
 					},
 					name: {
 						show: true,
 						anchor: 'topLeft',
 						fontColor: '#ffffff',
 						fontSize: '14px',
-						position: { x: 0, y: -20 }
+						position: { x: 0, y: -20 },
+						outline: true
+					}
+				}
+			},
+			targetOfTarget: {
+				position: { x: 1180, y: 500 },
+				size: { width: 200, height: 20 },
+				barColor: '#02A502',
+				manaColor: '#02a597',
+				showMana: true,
+				manaHeight: '20px',
+
+				widgets: {
+					job: {
+						show: false,
+						anchor: 'topRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					hp: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					mana: {
+						show: false,
+						anchor: 'center',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 0, y: 0 },
+						outline: true
+					},
+					level: {
+						show: false,
+						anchor: 'bottomRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					name: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '14px',
+						position: { x: 0, y: -20 },
+						outline: true
 					}
 				}
 			},

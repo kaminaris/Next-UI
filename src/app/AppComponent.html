@@ -1,7 +1,5 @@
 <div id="main-content" style="position:relative;">
 	<ng-container *ngIf="conf.uiVisible">
-
-
 		<player class="draggable d-block frame-player no-sel"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.player.size.width"
@@ -39,6 +37,25 @@
 				<icon-mover [size]="20"></icon-mover>
 			</div>
 		</target>
+
+		<target-of-target class="draggable d-block frame-target-of-target"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.targetOfTarget.size.width"
+				[style.height.px]="config.frames.targetOfTarget.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[rzGrid]="[5, 5]"
+				[handle]="targetOfTargetDragHandle"
+				[gridSize]="5"
+				rzHandles="all"
+				[position]="config.frames.targetOfTarget.position"
+				(rzStop)="saveFrameSize('targetOfTarget', $event)"
+				(endOffset)="saveFramePosition('targetOfTarget', $event)"
+		>
+			<div #targetOfTargetDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</target-of-target>
 
 		<party class="draggable d-block frame-party"
 				[class.frame-bg]="moveMode"

@@ -10,14 +10,14 @@ import { Util }                                            from 'src/app/Service
 	selector: 'player',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column; height: 100%">
+		<div class="d-flex flex-col" style="height: 100%">
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-			<progress-bar
-				style="flex-grow: 1"
+			<progress-bar style="flex: 1 1; height: 1px;"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
+				[bgColor]="ownConfig.backgroundColor"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -35,10 +35,11 @@ import { Util }                                            from 'src/app/Service
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar
+			<progress-bar style="flex: 0 0;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[fillColor]="ownConfig.manaColor"
+				[bgColor]="ownConfig.backgroundColor"
 				[percent]="manaPct"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
@@ -61,9 +62,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	job = 'NONE';
 	level = 1;
 
-	leftHpText = '';
 	hpText = '100 / 100 (100%)';
-	rightHpText = '';
 
 	manaText = '10000 / 10000 (100%)';
 	subs: Subscription[] = [];
@@ -88,6 +87,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(this.player.level.subscribe((level) => {
+			this.name = this.player.name;
 			this.level = level;
 			this.cd.detectChanges();
 		}));

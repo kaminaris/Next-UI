@@ -1,7 +1,7 @@
 import { Injectable }                   from '@angular/core';
-import { BehaviorSubject }              from 'rxjs';
-import { EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
-import { PartyMember }                  from 'src/app/Interface/PartyMember';
+import { BehaviorSubject }                              from 'rxjs';
+import { ActorInterface, EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
+import { PartyMember }                                  from 'src/app/Interface/PartyMember';
 import { Util }                         from 'src/app/Service/LogParser/Util';
 import { TTSService }                   from '../TTSService';
 import { Combatant }                    from 'src/app/Model/Combatant';
@@ -47,6 +47,7 @@ export class LogParser {
 	playerName = new BehaviorSubject<string>('');
 
 	target = new BehaviorSubject<Combatant>(null);
+	targetOfTarget = new BehaviorSubject<Combatant>(null);
 
 	/**
 	 * Combatants
@@ -67,7 +68,7 @@ export class LogParser {
 		new OverTimeTickHandler(this), // 0x18
 		new CombatantDefeatedHandler(this), // 0x19
 		new AuraGainedHandler(this), // 0x1A
-		new HeadMarkerHandler(this), // 0x1B
+		new HeadMarkerHandler(this), // 0x1D
 		new FloorMarkerHandler(this), // 0x1C
 		new AuraLostHandler(this), // 0x1E
 		new JobGaugeHandler(this), // 0x1F
@@ -203,42 +204,73 @@ export class LogParser {
 
 	targetUpdate(e: EnmityTargetData) {
 		if (!e.Target) {
+			console.log('clear')
+			// clear if there is no target and target is set
 			if (this.target.value) {
 				this.target.next(null);
 			}
-			return;
-		}
 
-		let id = e.Target.ID.toString(16).toUpperCase();
-		let hp = e.Target.CurrentHP;
-		let hpMax = e.Target.MaxHP;
-		if (id === 'E0000000') {
-			id = e.Target.Name;
+			// also clear target of target
+			if (this.targetOfTarget.value) {
+				this.target.next(null);
+			}
+		} else {
+			// there is target set and its different from the one in memory
+			if (this.target.value && this.target.value.id === this.combatantIdFromEnmityActor(e.Target)) {
+
+			} else {
+				let target = this.combatantFromEnmityActor(e.Target);
+				console.log('target changed', target, 'prev', this.target.value)
+				this.target.next(target);
+			}
+
+			if (!e.TargetOfTarget) {
+				if (this.targetOfTarget.value) {
+					this.targetOfTarget.next(null);
+				}
+			} else {
+				if (
+					this.targetOfTarget.value &&
+					this.targetOfTarget.value.id === this.combatantIdFromEnmityActor(e.TargetOfTarget)
+				) {
+
+				} else {
+					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget);
+					this.targetOfTarget.next(targetOfTarget);
+					console.log('target of target changed', targetOfTarget)
+				}
+			}
+		}
+	}
+
+	combatantIdFromEnmityActor(actor: ActorInterface) {
+		return actor.ID.toString(16).toUpperCase();
+	}
+
+	combatantFromEnmityActor(actor: ActorInterface) {
+		let targetId = this.combatantIdFromEnmityActor(actor);
+		let hp = actor.CurrentHP;
+		let hpMax = actor.MaxHP;
+		if (targetId === 'E0000000') {
+			targetId = actor.Name;
 			hp = 1;
 			hpMax = 1;
 		}
 
-		let combatant = this.combatants.value.find(c => c.id === id);
-
+		let combatant = this.combatants.value.find(c => c.id === targetId);
 		if (!combatant) {
 			combatant = this.updateCombatant(
-				id,
-				e.Target.Name,
+				targetId,
+				actor.Name,
 				hp,
 				hpMax,
 				null,
 				null,
-				Util.jobEnumToJob(e.Target.Job)
+				Util.jobEnumToJob(actor.Job)
 			);
 		}
 
-		if (this.target.value === combatant) {
-			return;
-		}
-
-		//this.updateEffectsFromEnmity(combatant, e.Target.Effects);
-		// console.log(e.Target.Effects);
-		this.target.next(combatant);
+		return combatant;
 	}
 
 	updateEffectsFromEnmity(c: Combatant, effects: EffectData[]) {

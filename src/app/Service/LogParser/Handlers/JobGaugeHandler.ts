@@ -1,4 +1,3 @@
-import { Brd }              from 'src/app/Service/LogParser/Handlers/JobGauge/Brd';
 import { Util }             from 'src/app/Service/LogParser/Util';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
@@ -9,6 +8,16 @@ const reverseBytes = (s: string) => {
 
 const zeroPad = (str: string, len = 2) => {
 	return ('' + str).padStart(len, '0');
+};
+
+const littleEndian32bit = (str: string) => {
+	const number = parseInt(str, 16);
+	return [
+		0xff & number,
+		0xff & (number >> 8),
+		0xff & (number >> 16),
+		0xff & (number >> 24)
+	];
 };
 
 const fields = {
@@ -31,24 +40,17 @@ export class JobGaugeHandler implements HandlerInterface {
 		const id = event[fields.id]?.toUpperCase() ?? '';
 
 		// last byte is job
-		const dataBytes1 = reverseBytes(zeroPad(event[fields.dataBytes1] ?? '', 8));
-		const dataBytes2 = reverseBytes(zeroPad(event[fields.dataBytes2] ?? '', 8));
+		const dataBytes1 = littleEndian32bit(event[fields.dataBytes1] ?? '');
+		const dataBytes2 = littleEndian32bit(event[fields.dataBytes2] ?? '');
+		const bytes = [...dataBytes1, ...dataBytes2];
 
-		const jobId = parseInt(dataBytes1.substr(0, 2), 16);
+		const jobId = bytes.shift();
 		const job = Util.jobEnumToJob(jobId);
 
-		let data: any = {};
-		switch (jobId) {
-			// @formatter: off
-			case 0x17:
-				data = Brd.parse(dataBytes1, dataBytes2);
-				break;
-			// @formatter: on
-		}
+		const data = this.parseByteData(jobId, bytes);
 
 		const dataBytes3 = zeroPad(event[fields.dataBytes3] ?? '');
 		const dataBytes4 = zeroPad(event[fields.dataBytes4] ?? '');
-
 
 		// if (this.parser.debugMode) {
 		console.log(
@@ -61,5 +63,45 @@ export class JobGaugeHandler implements HandlerInterface {
 			data
 		);
 		// }
+	}
+
+	/**
+	 * Total of 8 bytes
+	 *
+	 * jobId + 7 bytes
+	 */
+	parseByteData(jobId: number, bytes: number[]): any {
+		switch (jobId) {
+			case 0x17: // BRD
+				return {
+					songTimer: (bytes[0] << 8) | bytes[1],
+					numSongStacks: bytes[2],
+					soulVoiceValue: bytes[3],
+					activeSong: bytes[4]
+				};
+			case 0x23: // RDM
+				return {
+					whiteGauge: bytes[0],
+					blackGauge: bytes[1]
+				};
+			case 0x1C: // SCH
+				return {
+					numAetherflowStacks: bytes[2],
+					fairyGaugeAmount: bytes[3],
+					seraphTimer: (bytes[4] << 8) | bytes[5],
+					dismissedFairy: bytes[6],
+				};
+			case 0x26: // DNC
+				return {
+					numFeathers: bytes[0],
+					esprit: bytes[1],
+					stepOrder1: bytes[2],
+					stepOrder2: bytes[3],
+					stepOrder3: bytes[4],
+					stepOrder4: bytes[5],
+					numCompleteSteps: bytes[6],
+				}
+		}
+
 	}
 }

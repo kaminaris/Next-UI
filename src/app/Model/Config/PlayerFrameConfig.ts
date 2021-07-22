@@ -1,13 +1,18 @@
-import { BehaviorSubject, merge }                     from 'rxjs';
-import { debounceTime }                               from 'rxjs/operators';
-import { FramePositionInterface, FrameSizeInterface } from 'src/app/Interface/ConfigInterface';
-import { SerializableConfig }                         from 'src/app/Interface/SerializableConfig';
-import { TextWidgetConfig }                           from 'src/app/Model/Config/TextWidgetConfig';
-import { DistinctBehaviorSubject }                    from 'src/app/Model/DistinctBehaviorSubject';
-import { BaseFrameConfig }                            from './BaseFrameConfig';
+import { BehaviorSubject, merge }  from 'rxjs';
+import { debounceTime }            from 'rxjs/operators';
+import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
+import { TextWidgetConfig }        from 'src/app/Model/Config/TextWidgetConfig';
+import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
+import { BaseFrameConfig }         from './BaseFrameConfig';
 
 export class PlayerFrameConfig extends BaseFrameConfig implements SerializableConfig {
 	// @formatter:off
+	get enabled(): boolean { return this.enabledSub.value; }
+	set enabled(v: boolean) { this.enabledSub.next(v); }
+
+	get backgroundColor(): string { return this.backgroundColorSub.value; }
+	set backgroundColor(v: string) { this.backgroundColorSub.next(v); }
+
 	get barColor(): string { return this.barColorSub.value; }
 	set barColor(v: string) { this.barColorSub.next(v); }
 
@@ -21,6 +26,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	set showMana(v: boolean) { this.showManaSub.next(v); }
 	// @formatter:on
 
+	enabledSub = new DistinctBehaviorSubject<boolean>(true);
+	backgroundColorSub = new DistinctBehaviorSubject<string>('');
 	barColorSub = new DistinctBehaviorSubject<string>('');
 	manaColorSub = new DistinctBehaviorSubject<string>('');
 	manaHeightSub = new DistinctBehaviorSubject<string>('');
@@ -43,23 +50,27 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 
 	init() {
 		merge(
+			this.enabledSub,
 			this.positionSub,
 			this.sizeSub,
+			this.backgroundColorSub,
 			this.barColorSub,
 			this.manaColorSub,
 			this.manaHeightSub,
 			this.showManaSub
 		)
 			.pipe(debounceTime(10))
-			.subscribe((v) => {
+			.subscribe(() => {
 				this.anyChanged.next(this);
 			});
 	}
 
 	serialize(): any {
 		return {
+			enabled: this.enabled,
 			position: Object.assign({}, this.position),
 			size: Object.assign({}, this.size),
+			backgroundColor: this.backgroundColor,
 			barColor: this.barColor,
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,
@@ -75,8 +86,10 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	}
 
 	unserialize(value: Partial<PlayerFrameConfig>): void {
+		this.enabled = value.enabled;
 		this.position = Object.assign({}, value.position);
 		this.size = Object.assign({}, value.size);
+		this.backgroundColor = value.backgroundColor;
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;
 		this.manaHeight = value.manaHeight;

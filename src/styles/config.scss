@@ -1,0 +1,89 @@
+@import 'variables';
+
+.config-group {
+	margin:  5px;
+	padding: 5px;
+	border:  1px solid $config-border-color;
+}
+
+config-input, config-size, config-position, config-checkbox, config-color, config-select {
+	display:        flex;
+	flex-direction: row;
+	margin-bottom:  5px;
+}
+
+.config-label {
+	flex:         0 0 110px;
+	margin-right: 5px;
+}
+
+.config-reset {
+	flex:        0 0 50px;
+	margin-left: 5px;
+}
+
+.config-input {
+	flex-grow: 1;
+}
+
+.color-btn {
+	height:         28px;
+	width:          40px;
+	border:         1px solid white;
+	vertical-align: middle;
+	margin-right:   5px;
+	flex:           0 0 40px;
+}
+
+.color-input-field {
+	flex: 1 1 40px;
+}
+
+.config-window {
+	width:            800px;
+	height:           600px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border:           $config-border;
+	color:            $config-color;
+
+	table {
+		color: $config-color;
+	}
+
+	.config-content {
+		flex:        1 0 100px;
+		align-items: stretch;
+		height:      100px;
+	}
+
+	.config-bar {
+		height:        40px;
+		flex:          0 0 40px;
+		border-bottom: $config-border;
+	}
+
+	.config-pane {
+		width:        200px;
+		border-right: $config-border;
+
+		button {
+			width:            100%;
+			height:           30px;
+			display:          block;
+			line-height:      30px;
+			border:           0;
+			outline:          0;
+			border-bottom:    $config-border;
+			background-color: transparent;
+			color:            $config-color;
+
+			&:hover {
+				box-shadow: inset 0px -5px 20px 0 $config-border-color;
+			}
+
+			&.active {
+				background-color: $config-border-color;
+			}
+		}
+	}
+}

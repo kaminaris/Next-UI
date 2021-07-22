@@ -31,6 +31,17 @@ export class AbilityUseHandler implements HandlerInterface {
 
 		const target = targetName.length === 0 ? 'Unknown' : targetName;
 
+		const combatant = this.parser.combatants.value.find(c => c.id === id);
+		if (!combatant) {
+			return;
+		}
+
+		if (combatant.isPlayer) {
+			console.log(
+				`Cast start: ${abilityName} on ${target} (${duration})`
+			);
+		}
+
 		if (this.parser.debugMode) {
 			console.log(
 				abilityIdHex +

@@ -18,10 +18,11 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 						</button>
 					</div>
 				</div>
-				<div class="flex-grow">
+				<div class="flex-grow" style="overflow-y: auto;">
 					<config-main *ngIf="currentCategory === 'main'"></config-main>
 					<config-player *ngIf="currentCategory === 'player'"></config-player>
 					<config-target *ngIf="currentCategory === 'target'"></config-target>
+					<config-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-target-of-target>
 					<config-party *ngIf="currentCategory === 'party'"></config-party>
 					<config-aura *ngIf="currentCategory === 'aura'"></config-aura>
 				</div>
@@ -34,6 +35,7 @@ export class ConfigComponent {
 		{ value: 'main', label: 'General settings' },
 		{ value: 'player', label: 'Player' },
 		{ value: 'target', label: 'Target' },
+		{ value: 'targetOfTarget', label: 'Target Of Target' },
 		{ value: 'party', label: 'Party' },
 		{ value: 'aura', label: 'Aura' }
 	];

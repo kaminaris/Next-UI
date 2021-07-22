@@ -3083,8 +3083,8 @@ export class Util {
 		}
 	];
 
-	static jobEnumToJob(id: number) {
-		const job = Object.keys(Util.jobs)[id];
+	static jobEnumToJob(id: number): keyof typeof Util.jobs | 'NONE' {
+		const job = Object.keys(Util.jobs)[id] as keyof typeof Util.jobs;
 		return job ?? 'NONE';
 	}
 

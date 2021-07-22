@@ -28,11 +28,10 @@ export class FloorMarkerHandler implements HandlerInterface {
 		const y = event[indexes.y] ?? '';
 		const z = event[indexes.z] ?? '';
 
-		// if (this.parser.debugMode) {
+		if (this.parser.debugMode) {
 			console.log(
-				`Floor marker ${ operation }: ${ waymark } by ${ id } ${ name }`
+				`Floor marker ${ operation }: ${ waymark } by ${ id } ${ name } (${x}:${y}:${z})`
 			);
-		// }
-
+		}
 	}
 }
