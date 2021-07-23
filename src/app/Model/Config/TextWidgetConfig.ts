@@ -1,10 +1,10 @@
-import { BehaviorSubject, merge }    from 'rxjs';
-import { debounceTime }              from 'rxjs/operators';
-import { Anchor }                    from 'src/app/Interface/Anchor';
-import { FramePositionInterface }    from 'src/app/Interface/ConfigInterface';
-import { SerializableConfig }        from 'src/app/Interface/SerializableConfig';
-import { TextWidgetConfigInterface } from 'src/app/Interface/TextWidgetConfigInterface';
-import { DistinctBehaviorSubject }   from 'src/app/Model/DistinctBehaviorSubject';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { debounceTime }                                from 'rxjs/operators';
+import { Anchor }                             from 'src/app/Interface/Anchor';
+import { FramePositionInterface }             from 'src/app/Interface/ConfigInterface';
+import { SerializableConfig }                 from 'src/app/Interface/SerializableConfig';
+import { TextWidgetConfigInterface }          from 'src/app/Interface/TextWidgetConfigInterface';
+import { DistinctBehaviorSubject }            from 'src/app/Model/DistinctBehaviorSubject';
 
 export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInterface {
 	// @formatter:off
@@ -34,25 +34,21 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	outlineSub = new DistinctBehaviorSubject<boolean>(true);
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
-	anyChanged = new BehaviorSubject<TextWidgetConfig>(this);
+	anyChangedCache: Observable<any>;
+	get anyChanged(): Observable<any> {
+		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
+		return this.anyChangedCache;
+	};
 
-	constructor() {
-		this.init();
-	}
-
-	init() {
-		merge(
+	getSubjects(): Subject<any>[] {
+		return [
 			this.showSub,
 			this.anchorSub,
 			this.fontColorSub,
 			this.fontSizeSub,
 			this.positionSub,
-			this.outlineSub,
-		)
-			.pipe(debounceTime(10))
-			.subscribe((v) => {
-				this.anyChanged.next(this);
-			});
+			this.outlineSub
+		]
 	}
 
 	serialize(): Partial<TextWidgetConfig> {
@@ -62,7 +58,7 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 			fontColor: this.fontColor,
 			fontSize: this.fontSize,
 			position: this.position,
-			outline: this.outline,
+			outline: this.outline
 		};
 	}
 

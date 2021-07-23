@@ -6,14 +6,14 @@ import { FrameSizeInterface }  from 'src/app/Interface/ConfigInterface';
 	selector: 'config-size',
 	template: `
 		<div class="config-label">{{ label }}</div>
-		<div class="config-input">
+		<div class="config-input d-flex flex-row">
 			<label class="ta-r" style="width: 20%">Width: </label>
-			<input style="width: 30%" type="number" [(ngModel)]="size.width" (ngModelChange)="apply()">
+			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="size.width" (ngModelChange)="apply()">
 			<label class="ta-r" style="width: 20%">Height: </label>
-			<input style="width: 30%" type="number" [(ngModel)]="size.height" (ngModelChange)="apply()">
+			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="size.height" (ngModelChange)="apply()">
 		</div>
 		<div class="config-reset">
-			<button type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

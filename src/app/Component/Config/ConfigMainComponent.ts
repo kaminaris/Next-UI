@@ -4,7 +4,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-main',
 	template: `
-		<h3 class="ta-c">Main Configuration</h3>
+		<h4 class="ta-c">Main Configuration</h4>
 		<hr>
 
 		<table style="width: 100%;">
@@ -12,7 +12,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 				<td>Font family</td>
 				<td><input type="text" [(ngModel)]="config.fontFamily"></td>
 				<td>
-					<button type="button" (click)="resetConfig('fontFamily')">Reset</button>
+					<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig('fontFamily')">Reset</button>
 				</td>
 			</tr>
 			<tr>

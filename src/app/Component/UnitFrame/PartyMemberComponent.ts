@@ -1,53 +1,69 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription }                                           from 'rxjs';
-import { Aura }                                                   from 'src/app/Model/Aura';
-import { Combatant }                                              from 'src/app/Model/Combatant';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Combatant }                                                                       from 'src/app/Model/Combatant';
+import { PlayerComponent }                                                                 from './PlayerComponent';
 
 @Component({
 	selector: 'party-member',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<progress-bar [percent]="hpPct">
-			<div class="pos-a z10 fz-10" style="right: 5px; top: 2px;">
-				{{ job }}
-			</div>
-
-			<div class="pos-a z10">
-				{{ combatant.name }}
-			</div>
-			<div class="pos-a z10 ta-c w100p">
-				{{ hp }} / {{ combatant.hpMax }}
-			</div>
+		<div class="d-flex flex-column" style="height: 100%">
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-		</progress-bar>
+			<progress-bar style="flex: 1 1 auto;"
+				[percent]="hpPct"
+				[fillColor]="ownConfig.barColor"
+				[bgColor]="ownConfig.backgroundColor"
+			>
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
+					{{ name }}
+				</div>
+
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
+					{{ job }}
+				</div>
+
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.level">
+					{{ level }}
+				</div>
+
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.hp">
+					{{ hpText }}
+				</div>
+			</progress-bar>
+			<progress-bar style="flex: 0 0 auto;"
+				*ngIf="ownConfig.showMana"
+				[style.height]="ownConfig.manaHeight"
+				[fillColor]="ownConfig.manaColor"
+				[bgColor]="ownConfig.backgroundColor"
+				[percent]="manaPct"
+			>
+				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
+					{{ manaText }}
+				</div>
+			</progress-bar>
+		</div>
 	`
 })
-export class PartyMemberComponent implements OnInit, OnDestroy {
+export class PartyMemberComponent extends PlayerComponent implements OnInit, OnDestroy {
 	@Input() combatant: Combatant;
 
-	job = 'NONE';
-	hp = 100;
-	hpMax = 100;
-	hpPct = 100;
-	hpText = '100 / 100 (100%)';
-	auras: Aura[] = [];
-	subs: Subscription[] = [];
-
-	constructor(protected cd: ChangeDetectorRef) {}
+	// constructor(protected cd: ChangeDetectorRef) {}
+	ownConfig = this.config.frames.party;
 
 	ngOnInit() {
-		this.hp = this.combatant.hp.value;
-		this.subs.push(this.combatant.job.subscribe((job) => {
-			this.job = job;
-			this.cd.detectChanges();
+		// this.cd.detach();
+
+		this.copyFrom(this.combatant);
+
+		this.subs.push(this.combatant.anyChanged.subscribe(() => {
+			this.copyFrom(this.combatant);
 		}));
 
-		this.subs.push(this.combatant.hp.subscribe((hp) => {
-			this.hp = hp;
-			this.hpMax = this.combatant.hpMax;
-			this.calcHp();
-		}));
+		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
+			console.log('party conf changed')
+			this.cd.detectChanges();
+		}))
 
 		this.subs.push(
 			this.combatant.auras.subscribe((auras) => {
@@ -62,15 +78,5 @@ export class PartyMemberComponent implements OnInit, OnDestroy {
 		for (const sub of this.subs) {
 			sub.unsubscribe();
 		}
-	}
-
-	calcHp() {
-		this.hpPct = Math.round((this.hp / this.hpMax) * 100);
-		if (this.hpPct > 100) {
-			this.hpPct = 100;
-		}
-
-		this.hpText = this.hp + ' / ' + this.hpMax + ' (' + this.hpPct + '%)';
-		this.cd.detectChanges();
 	}
 }

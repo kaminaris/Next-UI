@@ -4,7 +4,7 @@ import { MainConfig } from 'src/app/Model/Config/MainConfig';
 @Component({
 	selector: 'config-target',
 	template: `
-		<h3 class="ta-c">Target Frame Configuration</h3>
+		<h4 class="ta-c">Target Frame Configuration</h4>
 		<hr>
 
 		<table style="width: 100%;">

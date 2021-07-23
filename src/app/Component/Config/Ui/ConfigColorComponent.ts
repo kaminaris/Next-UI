@@ -16,14 +16,14 @@ import { BaseConfigComponent }   from 'src/app/Component/Config/Ui/BaseConfigCom
 					></color-sketch>
 				</div>
 			</div>
-			<button class="color-btn" type="button"
+			<button class="btn btn-sm color-btn" type="button"
 				[style.background]="color"
 				(click)="toggleWidget()"
 			></button>
-			<input type="text" class="color-input-field" [(ngModel)]="color">
+			<input type="text" class="form-control form-control-sm color-input-field" [(ngModel)]="color">
 		</div>
 		<div class="config-reset">
-			<button type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

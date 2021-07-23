@@ -9,7 +9,7 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 			<input type="checkbox" [(ngModel)]="configObj[prop]">
 		</div>
 		<div class="config-reset">
-			<button type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

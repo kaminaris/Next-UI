@@ -6,7 +6,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-player',
 	template: `
-		<h3 class="ta-c">Player Frame Configuration</h3>
+		<h4 class="ta-c">Player Frame Configuration</h4>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>

@@ -1,14 +1,15 @@
-import { BehaviorSubject, merge }    from 'rxjs';
-import { debounceTime }              from 'rxjs/operators';
-import { SerializableConfig }        from 'src/app/Interface/SerializableConfig';
-import { AuraBarFrameConfig }        from 'src/app/Model/Config/AuraBarFrameConfig';
-import { ControlFrameConfig }        from 'src/app/Model/Config/ControlFrameConfig';
-import { PartyFrameConfig }          from 'src/app/Model/Config/PartyFrameConfig';
-import { PlayerFrameConfig }         from 'src/app/Model/Config/PlayerFrameConfig';
-import { TargetFrameConfig }         from 'src/app/Model/Config/TargetFrameConfig';
-import { TargetOfTargetFrameConfig } from 'src/app/Model/Config/TargetOfTargetFrameConfig';
-import { TTSConfig }                 from 'src/app/Model/Config/TTSConfig';
-import { DistinctBehaviorSubject }   from 'src/app/Model/DistinctBehaviorSubject';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { debounceTime }                                from 'rxjs/operators';
+import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
+import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ConfigFrameConfig }                           from 'src/app/Model/Config/ConfigFrameConfig';
+import { ControlFrameConfig }                          from 'src/app/Model/Config/ControlFrameConfig';
+import { PartyFrameConfig }                            from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }                           from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }                           from 'src/app/Model/Config/TargetFrameConfig';
+import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
 	// @formatter:off
@@ -26,28 +27,22 @@ export class MainConfig implements SerializableConfig {
 
 	frames = {
 		control: new ControlFrameConfig(),
+		config: new ConfigFrameConfig(),
 		player: new PlayerFrameConfig(),
 		target: new TargetFrameConfig(),
 		targetOfTarget: new TargetOfTargetFrameConfig(),
 		party: new PartyFrameConfig(),
-		auraBar: new AuraBarFrameConfig(),
+		auraBar: new AuraBarFrameConfig()
 	};
 
-	anyChanged = new BehaviorSubject<MainConfig>(null);
+	anyChangedCache: Observable<any>;
+	get anyChanged(): Observable<any> {
+		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
+		return this.anyChangedCache;
+	};
 
-	constructor() {
-		this.init();
-	}
-
-	init() {
-		merge(
-			this.fontFamilySub,
-			this.numberFormatSub
-		)
-			.pipe(debounceTime(10))
-			.subscribe((v) => {
-				this.anyChanged.next(this);
-			});
+	getSubjects(): Subject<any>[] {
+		return [this.fontFamilySub, this.numberFormatSub];
 	}
 
 	unserialize(value: Partial<MainConfig>) {
@@ -55,6 +50,7 @@ export class MainConfig implements SerializableConfig {
 		this.numberFormat = value.numberFormat;
 		this.ttsConfig.unserialize(value.ttsConfig);
 		this.frames.control.unserialize(value.frames.control);
+		this.frames.config.unserialize(value.frames.config);
 		this.frames.player.unserialize(value.frames.player);
 		this.frames.target.unserialize(value.frames.target);
 		this.frames.targetOfTarget.unserialize(value.frames.targetOfTarget);
@@ -69,11 +65,12 @@ export class MainConfig implements SerializableConfig {
 			ttsConfig: this.ttsConfig.serialize(),
 			frames: {
 				control: this.frames.control.serialize(),
+				config: this.frames.config.serialize(),
 				player: this.frames.player.serialize(),
 				target: this.frames.target.serialize(),
 				targetOfTarget: this.frames.targetOfTarget.serialize(),
 				party: this.frames.party.serialize(),
-				auraBar: this.frames.auraBar.serialize(),
+				auraBar: this.frames.auraBar.serialize()
 			}
 		};
 	}

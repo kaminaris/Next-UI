@@ -49,7 +49,6 @@ export class AuraIconComponent implements OnInit {
 	ngOnInit() {
 		this.src = '/assets/status/' + this.aura.id + '.png';
 		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
-		console.log('this.updateInterval', this.updateInterval);
 		this.startTimeout();
 	}
 

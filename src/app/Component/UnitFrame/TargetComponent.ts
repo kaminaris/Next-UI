@@ -1,20 +1,21 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription }                                    from 'rxjs';
-import { Aura }                                            from 'src/app/Model/Aura';
-import { Combatant }                                       from 'src/app/Model/Combatant';
-import { ConfigService }                                   from 'src/app/Service/ConfigService';
-import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
-import { PlayerComponent }                                 from './PlayerComponent';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription }                                                             from 'rxjs';
+import { Aura }                                                                     from 'src/app/Model/Aura';
+import { Combatant }                                                                from 'src/app/Model/Combatant';
+import { ConfigService }                                                            from 'src/app/Service/ConfigService';
+import { LogParser }                                                                from 'src/app/Service/LogParser/LogParser';
+import { PlayerComponent }                                                          from './PlayerComponent';
 
 @Component({
 	selector: 'target',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
 		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="target">
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-			<progress-bar style="flex: 1 1; height: 1px;"
+			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 			>
@@ -34,7 +35,7 @@ import { PlayerComponent }                                 from './PlayerCompone
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0;"
+			<progress-bar style="flex: 0 0 auto;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[percent]="manaPct"
@@ -49,11 +50,8 @@ import { PlayerComponent }                                 from './PlayerCompone
 })
 export class TargetComponent extends PlayerComponent implements OnInit, OnDestroy {
 
-	hpSub: Subscription;
-	manaSub: Subscription;
 	auraSub: Subscription;
-	jobSub: Subscription;
-	levelSub: Subscription;
+	anyChangedSub: Subscription;
 
 	config = this.conf.config;
 	ownConfig = this.config.frames.target;
@@ -68,6 +66,8 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	ngOnInit(): void {
+		this.cd.detach();
+
 		this.subs.push(this.parser.target.subscribe(t => {
 			this.targetUnsub();
 
@@ -82,27 +82,9 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 			this.target = t;
 			this.copyFrom(this.target);
 
-			this.jobSub = this.target.job.subscribe((job) => {
-				this.job = job;
-				this.cd.detectChanges();
-			});
-
-			this.levelSub = this.target.level.subscribe((level) => {
-				this.level = level;
-				this.cd.detectChanges();
-			});
-
-			this.hpSub = this.target.hp.subscribe((hp) => {
-				this.hp = hp;
-				this.hpMax = this.target.hpMax;
-				this.calcHp();
-			});
-
-			this.manaSub = this.target.mana.subscribe((mana) => {
-				this.mana = mana;
-				this.manaMax = this.target.manaMax;
-				this.calcMana();
-			});
+			this.anyChangedSub = this.target.anyChanged.subscribe(() => {
+				this.copyFrom(this.target);
+			})
 
 			this.auraSub = this.target.auras.subscribe((auras) => {
 				this.auras = this.auraFilter(auras);
@@ -134,10 +116,7 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	targetUnsub() {
-		this.hpSub?.unsubscribe();
-		this.manaSub?.unsubscribe();
+		this.anyChangedSub?.unsubscribe();
 		this.auraSub?.unsubscribe();
-		this.jobSub?.unsubscribe();
-		this.levelSub?.unsubscribe();
 	}
 }

@@ -1,4 +1,4 @@
-import { BehaviorSubject, merge }                     from 'rxjs';
+import { merge, Observable, Subject }                 from 'rxjs';
 import { debounceTime }                               from 'rxjs/operators';
 import { FramePositionInterface, FrameSizeInterface } from 'src/app/Interface/ConfigInterface';
 import { SerializableConfig }                         from 'src/app/Interface/SerializableConfig';
@@ -16,22 +16,15 @@ export class BaseFrameConfig implements SerializableConfig {
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 	sizeSub = new DistinctBehaviorSubject<FrameSizeInterface>({ width: 0, height: 0 });
 
-	anyChanged = new BehaviorSubject<any>(this);
-	//
-	// constructor() {
-	// 	this.init();
-	// }
-	//
-	// protected init() {
-	// 	merge(
-	// 		this.positionSub,
-	// 		this.sizeSub
-	// 	)
-	// 		.pipe(debounceTime(10))
-	// 		.subscribe((v) => {
-	// 			this.anyChanged.next(this);
-	// 		});
-	// }
+	anyChangedCache: Observable<any>;
+	get anyChanged(): Observable<any> {
+		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
+		return this.anyChangedCache;
+	};
+
+	getSubjects(): Subject<any>[] {
+		return [this.positionSub, this.sizeSub];
+	}
 
 	serialize(): any {
 		return {
@@ -44,5 +37,4 @@ export class BaseFrameConfig implements SerializableConfig {
 		this.position = Object.assign({}, value.position);
 		this.size = Object.assign({}, value.size);
 	}
-
 }

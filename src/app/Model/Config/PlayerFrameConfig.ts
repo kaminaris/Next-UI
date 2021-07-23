@@ -1,5 +1,4 @@
-import { BehaviorSubject, merge }  from 'rxjs';
-import { debounceTime }            from 'rxjs/operators';
+import { Subject }                 from 'rxjs';
 import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
 import { TextWidgetConfig }        from 'src/app/Model/Config/TextWidgetConfig';
 import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
@@ -41,28 +40,16 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		level: new TextWidgetConfig()
 	};
 
-	anyChanged = new BehaviorSubject<PlayerFrameConfig>(this);
-
-	constructor() {
-		super();
-		this.init();
-	}
-
-	init() {
-		merge(
+	getSubjects(): Subject<any>[] {
+		return [
+			...super.getSubjects(),
 			this.enabledSub,
-			this.positionSub,
-			this.sizeSub,
 			this.backgroundColorSub,
 			this.barColorSub,
 			this.manaColorSub,
 			this.manaHeightSub,
 			this.showManaSub
-		)
-			.pipe(debounceTime(10))
-			.subscribe(() => {
-				this.anyChanged.next(this);
-			});
+		];
 	}
 
 	serialize(): any {
@@ -86,9 +73,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	}
 
 	unserialize(value: Partial<PlayerFrameConfig>): void {
+		super.unserialize(value);
 		this.enabled = value.enabled;
-		this.position = Object.assign({}, value.position);
-		this.size = Object.assign({}, value.size);
 		this.backgroundColor = value.backgroundColor;
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;

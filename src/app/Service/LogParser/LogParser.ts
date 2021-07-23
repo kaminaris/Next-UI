@@ -1,33 +1,33 @@
-import { Injectable }                   from '@angular/core';
+import { Injectable }                                   from '@angular/core';
 import { BehaviorSubject }                              from 'rxjs';
 import { ActorInterface, EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
 import { PartyMember }                                  from 'src/app/Interface/PartyMember';
-import { Util }                         from 'src/app/Service/LogParser/Util';
-import { TTSService }                   from '../TTSService';
-import { Combatant }                    from 'src/app/Model/Combatant';
-import { FloorMarkerHandler }           from './Handlers/FloorMarkerHandler';
-import { HeadMarkerHandler }            from './Handlers/HeadMarkerHandler';
-import { JobGaugeHandler }              from './Handlers/JobGaugeHandler';
-import { HpUpdatedHandler }             from './Handlers/HpUpdatedHandler';
-import { AuraGainedHandler }            from './Handlers/AuraGainedHandler';
-import { AuraLostHandler }              from './Handlers/AuraLostHandler';
-import { PlayerChangedHandler }         from './Handlers/PlayerChangedHandler';
-import { RemovedCombatantHandler }      from './Handlers/RemovedCombatantHandler';
-import { AddedCombatantHandler }        from './Handlers/AddedCombatantHandler';
-import { ChatEventHandler }             from './Handlers/ChatEventHandler';
-import { HandlerInterface }             from './Handlers/HandlerInterface';
-import { ZoneChangedHandler }           from './Handlers/ZoneChangedHandler';
-import { AbilityHitHandler }            from './Handlers/AbilityHitHandler';
-import { AbilityUseHandler }            from './Handlers/AbilityUseHandler';
-import { ActionSyncHandler }            from './Handlers/ActionSyncHandler';
-import { CancelAbilityHandler }         from './Handlers/CancelAbilityHandler';
-import { CombatantDefeatedHandler }     from './Handlers/CombatantDefeatedHandler';
-import { NetworkStatusHandler }         from './Handlers/NetworkStatusHandler';
-import { OverTimeTickHandler }          from './Handlers/OverTimeTickHandler';
-import { PlayerStatsHandler }           from './Handlers/PlayerStatsHandler';
-import { LimitGaugeHandler }            from './Handlers/LimitGaugeHandler';
-import { NameplateToggleHandler }       from './Handlers/NameplateToggleHandler';
-import { TetherHandler }                from './Handlers/TetherHandler';
+import { Util }                                         from 'src/app/Service/LogParser/Util';
+import { TTSService }                                   from '../TTSService';
+import { Combatant }                                    from 'src/app/Model/Combatant';
+import { FloorMarkerHandler }                           from './Handlers/FloorMarkerHandler';
+import { HeadMarkerHandler }                            from './Handlers/HeadMarkerHandler';
+import { JobGaugeHandler }                              from './Handlers/JobGaugeHandler';
+import { HpUpdatedHandler }                             from './Handlers/HpUpdatedHandler';
+import { AuraGainedHandler }                            from './Handlers/AuraGainedHandler';
+import { AuraLostHandler }                              from './Handlers/AuraLostHandler';
+import { PlayerChangedHandler }                         from './Handlers/PlayerChangedHandler';
+import { RemovedCombatantHandler }                      from './Handlers/RemovedCombatantHandler';
+import { AddedCombatantHandler }                        from './Handlers/AddedCombatantHandler';
+import { ChatEventHandler }                             from './Handlers/ChatEventHandler';
+import { HandlerInterface }                             from './Handlers/HandlerInterface';
+import { ZoneChangedHandler }                           from './Handlers/ZoneChangedHandler';
+import { AbilityHitHandler }                            from './Handlers/AbilityHitHandler';
+import { AbilityUseHandler }                            from './Handlers/AbilityUseHandler';
+import { ActionSyncHandler }                            from './Handlers/ActionSyncHandler';
+import { CancelAbilityHandler }                         from './Handlers/CancelAbilityHandler';
+import { CombatantDefeatedHandler }                     from './Handlers/CombatantDefeatedHandler';
+import { NetworkStatusHandler }                         from './Handlers/NetworkStatusHandler';
+import { OverTimeTickHandler }                          from './Handlers/OverTimeTickHandler';
+import { PlayerStatsHandler }                           from './Handlers/PlayerStatsHandler';
+import { LimitGaugeHandler }                            from './Handlers/LimitGaugeHandler';
+import { NameplateToggleHandler }                       from './Handlers/NameplateToggleHandler';
+import { TetherHandler }                                from './Handlers/TetherHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -204,7 +204,6 @@ export class LogParser {
 
 	targetUpdate(e: EnmityTargetData) {
 		if (!e.Target) {
-			console.log('clear')
 			// clear if there is no target and target is set
 			if (this.target.value) {
 				this.target.next(null);
@@ -214,13 +213,15 @@ export class LogParser {
 			if (this.targetOfTarget.value) {
 				this.target.next(null);
 			}
-		} else {
+		}
+		else {
 			// there is target set and its different from the one in memory
 			if (this.target.value && this.target.value.id === this.combatantIdFromEnmityActor(e.Target)) {
 
-			} else {
+			}
+			else {
 				let target = this.combatantFromEnmityActor(e.Target);
-				console.log('target changed', target, 'prev', this.target.value)
+				console.log('target changed', target, 'prev', this.target.value);
 				this.target.next(target);
 			}
 
@@ -228,16 +229,18 @@ export class LogParser {
 				if (this.targetOfTarget.value) {
 					this.targetOfTarget.next(null);
 				}
-			} else {
+			}
+			else {
 				if (
 					this.targetOfTarget.value &&
 					this.targetOfTarget.value.id === this.combatantIdFromEnmityActor(e.TargetOfTarget)
 				) {
 
-				} else {
+				}
+				else {
 					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget);
 					this.targetOfTarget.next(targetOfTarget);
-					console.log('target of target changed', targetOfTarget)
+					console.log('target of target changed', targetOfTarget);
 				}
 			}
 		}

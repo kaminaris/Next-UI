@@ -1,14 +1,17 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
 import { Combatant }                                       from 'src/app/Model/Combatant';
+import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
 
 @Component({
 	selector: 'party',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column">
-			<party-member class="d-block" style="margin-bottom: 1px; height: 40px"
+		<div class="d-flex flex-column">
+			<party-member class="d-block"
+				[style.margin-bottom.px]="ownConfig.unitFrameMargin"
+				[style.height]="ownConfig.unitFrameHeight"
 				*ngFor="let c of party"
 				[combatant]="c"
 			></party-member>
@@ -20,7 +23,10 @@ export class PartyComponent implements OnInit, OnDestroy {
 
 	subs: Subscription[] = [];
 
+	ownConfig = this.conf.config.frames.party;
+
 	constructor(
+		protected conf: ConfigService,
 		protected parser: LogParser,
 		protected cd: ChangeDetectorRef
 	) {}

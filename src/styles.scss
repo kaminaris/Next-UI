@@ -1,9 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+$enable-rounded: false;
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/helpers";
+
+// Utilities
+@import "~bootstrap/scss/utilities/api";
+
+@import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/forms";
 
 @import '~angular2-draggable/css/resizable.min.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -55,8 +65,8 @@ input, button {
 }
 
 // @formatter:off
-.d-block { display: block; }
-.d-flex { display: flex; }
+//.d-block { display: block; }
+//.d-flex { display: flex; }
 .pos-r { position: relative; }
 .pos-a { position: absolute; }
 .w100p { width: 100%; }
@@ -66,8 +76,6 @@ input, button {
 .ta-c { text-align: center }
 .ta-r { text-align: right }
 .fz-10 { font-size: 10px; }
-.flex-col { flex-direction: column }
-.flex-row { flex-direction: row }
 .flex-grow { flex-grow: 1 }
 // @formatter:on
 

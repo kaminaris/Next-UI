@@ -1,6 +1,7 @@
 import {
+	ChangeDetectorRef,
 	Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges
-}                                    from '@angular/core';
+} from '@angular/core';
 import { TextWidgetConfig }          from 'src/app/Model/Config/TextWidgetConfig';
 import { ConfigService }             from 'src/app/Service/ConfigService';
 
@@ -22,7 +23,7 @@ export class TextWidget implements OnChanges, OnInit {
 	@HostBinding('class.text-outline-1') outline: boolean;
 
 	constructor(
-		el: ElementRef,
+		protected cd: ChangeDetectorRef,
 		protected conf: ConfigService
 	) {}
 
@@ -97,5 +98,7 @@ export class TextWidget implements OnChanges, OnInit {
 		this.fontColor = this.config.fontColor;
 		this.fontSize = this.config.fontSize;
 		this.outline = this.config.outline;
+
+		this.cd.detectChanges();
 	}
 }

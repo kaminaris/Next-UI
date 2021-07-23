@@ -31,14 +31,14 @@ export class AppComponent implements OnInit {
 		// DEBUG
 		this.parser.debugMode = false;
 		this.conf.moveMode.subscribe(mm => this.moveMode = mm);
-
-		this.aura.id = 1199;
-
-		this.conf.configChanged.subscribe(() => {
-			// console.log('changes detected', this.config.frames.player.position);
-
-			// cd.detectChanges();
-		})
+		//
+		// this.aura.id = 1199;
+		//
+		// this.conf.configChanged.subscribe(() => {
+		// 	// console.log('changes detected', this.config.frames.player.position);
+		//
+		// 	// cd.detectChanges();
+		// })
 	}
 
 	ngOnInit() {

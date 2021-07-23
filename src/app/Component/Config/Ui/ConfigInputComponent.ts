@@ -6,10 +6,10 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 	template: `
 		<div class="config-label">{{ label }}</div>
 		<div class="config-input">
-			<input class="w100p" [type]="inputType" [(ngModel)]="configObj[prop]">
+			<input class="form-control form-control-sm w100p" [type]="inputType" [(ngModel)]="configObj[prop]">
 		</div>
 		<div class="config-reset">
-			<button type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

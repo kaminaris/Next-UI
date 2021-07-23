@@ -1,5 +1,6 @@
-import { BehaviorSubject } from 'rxjs';
-import { Aura }            from './Aura';
+import { BehaviorSubject, merge, Observable } from 'rxjs';
+import { debounceTime }                       from 'rxjs/operators';
+import { Aura }                               from './Aura';
 
 export class Combatant {
 	id: string = '';
@@ -17,6 +18,22 @@ export class Combatant {
 	manaMax = 10000;
 
 	auras = new BehaviorSubject<Aura[]>([]);
+
+	anyChanged: Observable<any>;
+	anyChangedDelayed: Observable<any>;
+
+	constructor() {
+		this.anyChanged = merge(
+			this.job,
+			this.level,
+			this.inParty,
+			this.hp,
+			this.mana,
+			this.auras
+		);
+
+		this.anyChangedDelayed = this.anyChanged.pipe(debounceTime(1));
+	}
 
 	updateJob(job: string) {
 		if (job && job !== this.job.value) {

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
 	selector: 'config-group',
 	template:`
 		<div class="config-group">
-			<h4 class="ta-c">{{ title }}</h4>
+			<h5 class="ta-c">{{ title }}</h5>
 			<div class="config-group-content">
 				<ng-content></ng-content>
 			</div>

@@ -9,16 +9,18 @@ export abstract class BaseConfigComponent {
 
 	@Input() widgetName: string;
 	@Input() frameName: keyof MainConfig['frames'];
-	configObj: any = {};
+	@Input() configObj: any = {};
 
 	constructor(public conf: ConfigService) {}
 
 	ngOnInit() {
-		if (this.widgetName) {
-			this.configObj = (this.conf.config.frames as any)[this.frameName].widgets[this.widgetName];
-		}
-		else {
-			this.configObj = (this.conf.config.frames as any)[this.frameName];
+		if (this.frameName) {
+			if (this.widgetName) {
+				this.configObj = (this.conf.config.frames as any)[this.frameName].widgets[this.widgetName];
+			}
+			else {
+				this.configObj = (this.conf.config.frames as any)[this.frameName];
+			}
 		}
 	}
 

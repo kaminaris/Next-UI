@@ -14,7 +14,7 @@ import { PlayerComponent }                                 from './PlayerCompone
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-			<progress-bar style="flex: 1 1; height: 1px;"
+			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 			>
@@ -34,7 +34,7 @@ import { PlayerComponent }                                 from './PlayerCompone
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0;"
+			<progress-bar style="flex: 0 0 auto;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[percent]="manaPct"
@@ -49,11 +49,8 @@ import { PlayerComponent }                                 from './PlayerCompone
 })
 export class TargetOfTargetComponent extends PlayerComponent implements OnInit, OnDestroy {
 
-	hpSub: Subscription;
-	manaSub: Subscription;
 	auraSub: Subscription;
-	jobSub: Subscription;
-	levelSub: Subscription;
+	anyChangedSub: Subscription;
 
 	config = this.conf.config;
 	ownConfig = this.config.frames.targetOfTarget;
@@ -82,27 +79,9 @@ export class TargetOfTargetComponent extends PlayerComponent implements OnInit, 
 			this.targetOfTarget = t;
 			this.copyFrom(this.targetOfTarget);
 
-			this.jobSub = this.targetOfTarget.job.subscribe((job) => {
-				this.job = job;
-				this.cd.detectChanges();
-			});
-
-			this.levelSub = this.targetOfTarget.level.subscribe((level) => {
-				this.level = level;
-				this.cd.detectChanges();
-			});
-
-			this.hpSub = this.targetOfTarget.hp.subscribe((hp) => {
-				this.hp = hp;
-				this.hpMax = this.targetOfTarget.hpMax;
-				this.calcHp();
-			});
-
-			this.manaSub = this.targetOfTarget.mana.subscribe((mana) => {
-				this.mana = mana;
-				this.manaMax = this.targetOfTarget.manaMax;
-				this.calcMana();
-			});
+			this.anyChangedSub = this.targetOfTarget.anyChanged.subscribe(() => {
+				this.copyFrom(this.targetOfTarget);
+			})
 
 			this.auraSub = this.targetOfTarget.auras.subscribe((auras) => {
 				this.auras = this.auraFilter(auras);
@@ -134,10 +113,7 @@ export class TargetOfTargetComponent extends PlayerComponent implements OnInit, 
 	}
 
 	targetUnsub() {
-		this.hpSub?.unsubscribe();
-		this.manaSub?.unsubscribe();
 		this.auraSub?.unsubscribe();
-		this.jobSub?.unsubscribe();
-		this.levelSub?.unsubscribe();
+		this.anyChangedSub?.unsubscribe();
 	}
 }

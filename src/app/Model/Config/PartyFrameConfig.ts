@@ -1,26 +1,38 @@
-import { BehaviorSubject, merge }  from 'rxjs';
-import { debounceTime }            from 'rxjs/operators';
+import { Subject }                 from 'rxjs';
 import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
-import { TextWidgetConfig }        from 'src/app/Model/Config/TextWidgetConfig';
+import { PlayerFrameConfig }       from 'src/app/Model/Config/PlayerFrameConfig';
 import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
-import { BaseFrameConfig }         from './BaseFrameConfig';
 
-export class PartyFrameConfig extends BaseFrameConfig implements SerializableConfig {
+export class PartyFrameConfig extends PlayerFrameConfig implements SerializableConfig {
 	// @formatter:off
+	get unitFrameHeight(): string { return this.unitFrameHeightSub.value; }
+	set unitFrameHeight(v: string) { this.unitFrameHeightSub.next(v); }
+
+	get unitFrameMargin(): number { return this.unitFrameMarginSub.value; }
+	set unitFrameMargin(v: number) { this.unitFrameMarginSub.next(v); }
 	// @formatter:on
-	constructor() {
-		super();
-		this.init();
+
+	unitFrameHeightSub = new DistinctBehaviorSubject<string>('');
+	unitFrameMarginSub = new DistinctBehaviorSubject<number>(1);
+
+	getSubjects(): Subject<any>[] {
+		return [
+			...super.getSubjects(),
+			this.unitFrameHeightSub,
+			this.unitFrameMarginSub,
+		];
 	}
 
-	protected init() {
-		merge(
-			this.positionSub,
-			this.sizeSub
-		)
-			.pipe(debounceTime(10))
-			.subscribe((v) => {
-				this.anyChanged.next(this);
-			});
+	serialize(): any {
+		const obj = super.serialize();
+		obj.unitFrameHeight = this.unitFrameHeight;
+		obj.unitFrameMargin = this.unitFrameMargin;
+		return obj;
+	}
+
+	unserialize(value: Partial<PartyFrameConfig>) {
+		super.unserialize(value);
+		this.unitFrameHeight = value.unitFrameHeight;
+		this.unitFrameMargin = value.unitFrameMargin;
 	}
 }

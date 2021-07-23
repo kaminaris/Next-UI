@@ -4,7 +4,7 @@ import { MainConfig } from 'src/app/Model/Config/MainConfig';
 @Component({
 	selector: 'config-aura',
 	template: `
-		<h3 class="ta-c">Aura Icons</h3>
+		<h4 class="ta-c">Aura Icons</h4>
 		<hr>
 
 		<table style="width: 100%;">

@@ -19,6 +19,10 @@ export class ConfigService {
 				position: { x: 600, y: 600 },
 				size: { width: 200, height: 60 },
 			},
+			config: {
+				position: { x: 0, y: 0 },
+				size: { width: 800, height: 600 },
+			},
 			player: {
 				position: { x: 600, y: 500 },
 				size: { width: 260, height: 60 },
@@ -174,7 +178,56 @@ export class ConfigService {
 			},
 			party: {
 				position: { x: 100, y: 200 },
-				size: { width: 100, height: 300 }
+				size: { width: 100, height: 300 },
+				barColor: '#02A502',
+				manaColor: '#02a597',
+				showMana: true,
+				manaHeight: '20px',
+				unitFrameHeight: '40px',
+				unitFrameMargin: 1,
+
+				widgets: {
+					job: {
+						show: false,
+						anchor: 'topRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					hp: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					mana: {
+						show: false,
+						anchor: 'center',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 0, y: 0 },
+						outline: true
+					},
+					level: {
+						show: false,
+						anchor: 'bottomRight',
+						fontColor: '#ffffff',
+						fontSize: '12px',
+						position: { x: 5, y: 2 },
+						outline: true
+					},
+					name: {
+						show: true,
+						anchor: 'topLeft',
+						fontColor: '#ffffff',
+						fontSize: '14px',
+						position: { x: 0, y: -20 },
+						outline: true
+					}
+				}
 			},
 			auraBar: {
 				iconSize: '30px',
@@ -224,7 +277,6 @@ export class ConfigService {
 		const subs: BehaviorSubject<any>[] = [];
 		this.findObservers(this.config, subs);
 console.log(subs)
-console.log('uns', this.config)
 		merge(...subs)
 			.pipe(debounceTime(10))
 			.subscribe(() => {

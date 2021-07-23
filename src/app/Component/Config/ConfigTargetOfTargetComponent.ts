@@ -6,7 +6,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-target-of-target',
 	template: `
-		<h3 class="ta-c">Target Of Target Frame Configuration</h3>
+		<h4 class="ta-c">Target Of Target Frame Configuration</h4>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>

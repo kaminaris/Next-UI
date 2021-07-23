@@ -1,20 +1,27 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription }                                    from 'rxjs';
-import { Aura }                                            from 'src/app/Model/Aura';
-import { Combatant }                                       from 'src/app/Model/Combatant';
-import { ConfigService }                                   from 'src/app/Service/ConfigService';
-import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
-import { Util }                                            from 'src/app/Service/LogParser/Util';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	OnDestroy,
+	OnInit
+}                        from '@angular/core';
+import { Subscription }  from 'rxjs';
+import { Aura }          from 'src/app/Model/Aura';
+import { Combatant }     from 'src/app/Model/Combatant';
+import { ConfigService } from 'src/app/Service/ConfigService';
+import { LogParser }     from 'src/app/Service/LogParser/LogParser';
+import { Util }          from 'src/app/Service/LogParser/Util';
 
 @Component({
 	selector: 'player',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-col" style="height: 100%">
+		<div class="d-flex flex-column" style="height: 100%">
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-			<progress-bar style="flex: 1 1; height: 1px;"
+			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 				[bgColor]="ownConfig.backgroundColor"
@@ -22,7 +29,7 @@ import { Util }                                            from 'src/app/Service
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
 				</div>
-				
+
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
 					{{ job }}
 				</div>
@@ -35,7 +42,7 @@ import { Util }                                            from 'src/app/Service
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0;"
+			<progress-bar style="flex: 0 0 auto;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[fillColor]="ownConfig.manaColor"
@@ -79,29 +86,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
+		this.cd.detach();
+
 		this.copyFrom(this.player);
 
-		this.subs.push(this.player.job.subscribe((job) => {
-			this.job = job;
-			this.cd.detectChanges();
-		}));
-
-		this.subs.push(this.player.level.subscribe((level) => {
-			this.name = this.player.name;
-			this.level = level;
-			this.cd.detectChanges();
-		}));
-
-		this.subs.push(this.player.hp.subscribe((hp) => {
-			this.hp = hp;
-			this.hpMax = this.player.hpMax;
-			this.calcHp();
-		}));
-
-		this.subs.push(this.player.mana.subscribe((mana) => {
-			this.mana = mana;
-			this.manaMax = this.player.manaMax;
-			this.calcMana();
+		this.subs.push(this.player.anyChanged.subscribe(() => {
+			this.copyFrom(this.player);
 		}));
 
 		this.subs.push(
@@ -110,6 +100,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
 				this.cd.detectChanges();
 			})
 		);
+
+		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
+			this.cd.detectChanges();
+		}))
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
 			this.cd.detectChanges();
@@ -127,7 +121,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			' / ' +
 			Util.formatNumber(this.hpMax, this.config.numberFormat) +
 			' (' + this.hpPct + '%)';
-		this.cd.detectChanges();
+		// this.cd.detectChanges();
 	}
 
 	calcMana() {
@@ -141,7 +135,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			' / ' +
 			Util.formatNumber(this.manaMax, this.config.numberFormat) +
 			' (' + this.manaPct + '%)';
-		this.cd.detectChanges();
+		// this.cd.detectChanges();
 	}
 
 	ngOnDestroy() {
@@ -158,6 +152,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		this.manaMax = c.manaMax;
 		this.job = c.job.value;
 		this.level = c.level.value;
+		this.calcHp();
+		this.calcMana();
 		this.cd.detectChanges();
 	}
 }

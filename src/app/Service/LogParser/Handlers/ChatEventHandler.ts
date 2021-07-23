@@ -1,6 +1,11 @@
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
+const indexes = {
+	type: 2,
+	speaker: 3,
+}
+
 export class ChatEventHandler implements HandlerInterface {
 
 	constructor(public parser: LogParser) {}
@@ -10,9 +15,13 @@ export class ChatEventHandler implements HandlerInterface {
 			return;
 		}
 
+		const type = event[indexes.type] ?? '';
+		const speaker = event[indexes.speaker] ?? '';
+		const message = event.slice(4, -1).join('|');
+
 		// so far we don't need that
-		if (event[3].length > 0) {
-			this.parser.tts.say(event[4]);
+		if (speaker) {
+			this.parser.tts.say(type, speaker, message);
 		}
 	}
 }

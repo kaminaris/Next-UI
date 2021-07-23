@@ -6,7 +6,14 @@
 	border:  1px solid $config-border-color;
 }
 
-config-input, config-size, config-position, config-checkbox, config-color, config-select {
+config-input,
+config-size,
+config-position,
+config-checkbox,
+config-color,
+config-select,
+config-range,
+.custom-config-row {
 	display:        flex;
 	flex-direction: row;
 	margin-bottom:  5px;
@@ -27,12 +34,17 @@ config-input, config-size, config-position, config-checkbox, config-color, confi
 }
 
 .color-btn {
-	height:         28px;
 	width:          40px;
-	border:         1px solid white;
 	vertical-align: middle;
 	margin-right:   5px;
 	flex:           0 0 40px;
+}
+
+.config-close-btn {
+	right: 6px;
+	top: 7px;
+	width: 30px;
+	height: 26px;
 }
 
 .color-input-field {
