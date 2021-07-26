@@ -117,7 +117,8 @@ export class LogParser {
 		mana: number,
 		manaMax: number,
 		job?: string,
-		level?: number
+		level?: number,
+		isNpc = false,
 	) {
 		const combatants = this.combatants.value;
 		let combatant = combatants.find((c: Combatant) => c.id === id);
@@ -125,7 +126,7 @@ export class LogParser {
 		if (!combatant) {
 			combatant = new Combatant();
 			combatant.id = id;
-			combatant.isNPC = !id.startsWith('1');
+			combatant.isNPC = isNpc || !id.startsWith('1');
 			combatant.name = name;
 			combatant.updateJob(job);
 			combatant.updateLevel(level);
@@ -215,13 +216,14 @@ export class LogParser {
 			}
 		}
 		else {
+			const targetId = this.combatantIdFromEnmityActor(e.Target);
 			// there is target set and its different from the one in memory
-			if (this.target.value && this.target.value.id === this.combatantIdFromEnmityActor(e.Target)) {
+			if (this.target.value && this.target.value.id === targetId) {
 
 			}
 			else {
-				let target = this.combatantFromEnmityActor(e.Target);
-				console.log('target changed', target, 'prev', this.target.value);
+				let target = this.combatantFromEnmityActor(e.Target, targetId);
+				console.log('target changed', targetId,  target, 'prev', this.target.value);
 				this.target.next(target);
 			}
 
@@ -231,14 +233,15 @@ export class LogParser {
 				}
 			}
 			else {
+				const targetOfTargetId = this.combatantIdFromEnmityActor(e.TargetOfTarget);
 				if (
 					this.targetOfTarget.value &&
-					this.targetOfTarget.value.id === this.combatantIdFromEnmityActor(e.TargetOfTarget)
+					this.targetOfTarget.value.id === targetOfTargetId
 				) {
 
 				}
 				else {
-					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget);
+					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget, targetOfTargetId);
 					this.targetOfTarget.next(targetOfTarget);
 					console.log('target of target changed', targetOfTarget);
 				}
@@ -247,17 +250,22 @@ export class LogParser {
 	}
 
 	combatantIdFromEnmityActor(actor: ActorInterface) {
-		return actor.ID.toString(16).toUpperCase();
-	}
-
-	combatantFromEnmityActor(actor: ActorInterface) {
-		let targetId = this.combatantIdFromEnmityActor(actor);
-		let hp = actor.CurrentHP;
-		let hpMax = actor.MaxHP;
+		let targetId = actor.ID.toString(16).toUpperCase();
 		if (targetId === 'E0000000') {
 			targetId = actor.Name;
+		}
+
+		return targetId;
+	}
+
+	combatantFromEnmityActor(actor: ActorInterface, targetId: string) {
+		let hp = actor.CurrentHP;
+		let hpMax = actor.MaxHP;
+		let isNpc = false;
+		if (actor.ID === 3758096384) {
 			hp = 1;
 			hpMax = 1;
+			isNpc = true;
 		}
 
 		let combatant = this.combatants.value.find(c => c.id === targetId);
@@ -269,7 +277,9 @@ export class LogParser {
 				hpMax,
 				null,
 				null,
-				Util.jobEnumToJob(actor.Job)
+				Util.jobEnumToJob(actor.Job),
+				null,
+				isNpc
 			);
 		}
 

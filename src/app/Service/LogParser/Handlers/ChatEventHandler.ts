@@ -21,6 +21,7 @@ export class ChatEventHandler implements HandlerInterface {
 
 		// so far we don't need that
 		if (speaker) {
+			console.log(speaker);
 			this.parser.tts.say(type, speaker, message);
 		}
 	}

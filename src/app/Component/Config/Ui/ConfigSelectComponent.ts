@@ -7,6 +7,7 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 		<div class="config-label">{{ label }}</div>
 		<div class="config-input">
 			<ng-select
+				class="form-control form-control-sm"
 				[(ngModel)]="configObj[prop]"
 				[items]="items"
 				[clearable]="false"

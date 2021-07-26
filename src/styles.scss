@@ -16,7 +16,8 @@ $enable-rounded: false;
 @import "~bootstrap/scss/forms";
 
 @import '~angular2-draggable/css/resizable.min.css';
-@import "~@ng-select/ng-select/themes/default.theme.css";
+//@import "~@ng-select/ng-select/themes/default.theme.css";
+@import 'styles/ngselect-bootstrap';
 
 @import 'styles/variables';
 @import 'styles/mixins';
