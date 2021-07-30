@@ -1,15 +1,16 @@
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { debounceTime }                                from 'rxjs/operators';
-import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
-import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
-import { ConfigFrameConfig }                           from 'src/app/Model/Config/ConfigFrameConfig';
-import { ControlFrameConfig }                          from 'src/app/Model/Config/ControlFrameConfig';
-import { PartyFrameConfig }                            from 'src/app/Model/Config/PartyFrameConfig';
-import { PlayerFrameConfig }                           from 'src/app/Model/Config/PlayerFrameConfig';
-import { TargetFrameConfig }                           from 'src/app/Model/Config/TargetFrameConfig';
-import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
-import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
-import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
+import { merge, Observable, Subject } from 'rxjs';
+import { debounceTime }               from 'rxjs/operators';
+import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
+import { AggroListFrameConfig }       from 'src/app/Model/Config/AggroListFrameConfig';
+import { AuraBarFrameConfig }         from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ConfigFrameConfig }          from 'src/app/Model/Config/ConfigFrameConfig';
+import { ControlFrameConfig }         from 'src/app/Model/Config/ControlFrameConfig';
+import { PartyFrameConfig }           from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }          from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }          from 'src/app/Model/Config/TargetFrameConfig';
+import { TargetOfTargetFrameConfig }  from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { TTSConfig }                  from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject }    from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
 	// @formatter:off
@@ -32,10 +33,12 @@ export class MainConfig implements SerializableConfig {
 		target: new TargetFrameConfig(),
 		targetOfTarget: new TargetOfTargetFrameConfig(),
 		party: new PartyFrameConfig(),
+		aggroList: new AggroListFrameConfig(),
 		auraBar: new AuraBarFrameConfig()
 	};
 
 	anyChangedCache: Observable<any>;
+
 	get anyChanged(): Observable<any> {
 		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
 		return this.anyChangedCache;
@@ -55,6 +58,7 @@ export class MainConfig implements SerializableConfig {
 		this.frames.target.unserialize(value.frames.target);
 		this.frames.targetOfTarget.unserialize(value.frames.targetOfTarget);
 		this.frames.party.unserialize(value.frames.party);
+		this.frames.aggroList.unserialize(value.frames.aggroList);
 		this.frames.auraBar.unserialize(value.frames.auraBar);
 	}
 
@@ -70,6 +74,7 @@ export class MainConfig implements SerializableConfig {
 				target: this.frames.target.serialize(),
 				targetOfTarget: this.frames.targetOfTarget.serialize(),
 				party: this.frames.party.serialize(),
+				aggroList: this.frames.aggroList.serialize(),
 				auraBar: this.frames.auraBar.serialize()
 			}
 		};

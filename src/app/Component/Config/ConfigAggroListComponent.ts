@@ -4,10 +4,10 @@ import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
-	selector: 'config-party',
+	selector: 'config-aggro-list',
 	template: `
-		<h4 class="ta-c">Party Frame Configuration</h4>
-
+		<h4 class="ta-c">Aggro List Frame Configuration</h4>
+		<config-button buttonLabel="Reset All Settings" (click)="resetAll()"></config-button>
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
 
@@ -32,10 +32,14 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
 	`
 })
-export class ConfigPartyComponent {
-	frameName: keyof MainConfig['frames'] = 'party';
-	configObj = this.conf.config.frames.party;
+export class ConfigAggroListComponent {
+	frameName: keyof MainConfig['frames'] = 'aggroList';
+	configObj = this.conf.config.frames.aggroList;
 	anchors = anchors;
 
 	constructor(public conf: ConfigService) {}
+
+	resetAll() {
+		this.conf.config.frames.aggroList.unserialize(this.conf.defaultConfig.frames.aggroList as any);
+	}
 }

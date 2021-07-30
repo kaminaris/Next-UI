@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { IResizeEvent }                                            from 'angular2-draggable/lib/models/resize-event';
-import { EnmityTargetData }                                        from 'src/app/EnmityTargetData';
+import { EnmityAggroList }                                         from 'src/app/Interface/EnmityAggroList';
+import { EnmityTargetData }                                        from 'src/app/Interface/EnmityTargetData';
 import { PartyMember }                                             from 'src/app/Interface/PartyMember';
 import { Aura }                                                    from 'src/app/Model/Aura';
+import { MainConfig }                                              from 'src/app/Model/Config/MainConfig';
 import { ConfigService }                                           from 'src/app/Service/ConfigService';
 import { LogParser }                                               from 'src/app/Service/LogParser/LogParser';
 
@@ -48,7 +50,13 @@ export class AppComponent implements OnInit {
 		(window as any).addOverlayListener('LogLine', this.logLine.bind(this));
 		(window as any).addOverlayListener('PartyChanged', this.partyChanged.bind(this));
 		(window as any).addOverlayListener('EnmityTargetData', this.enmityTargetData.bind(this));
+		(window as any).addOverlayListener('EnmityAggroList', this.enmityAggroList.bind(this));
+
 		(window as any).startOverlayEvents();
+	}
+
+	enmityAggroList(e: EnmityAggroList) {
+		this.parser.aggroListUpdate(e);
 	}
 
 	enmityTargetData(e: EnmityTargetData) {
@@ -85,12 +93,12 @@ export class AppComponent implements OnInit {
 		document.documentElement.classList.remove('resizeHandle');
 	}
 
-	saveFramePosition(unitFrame: string, $event: { x: number, y: number }) {
-		(this.config.frames as any)[unitFrame].position = $event;
+	saveFramePosition(unitFrame: keyof MainConfig['frames'], $event: { x: number, y: number }) {
+		(this.config.frames[unitFrame] as any).position = $event;
 	}
 
-	saveFrameSize(unitFrame: string, $event: IResizeEvent) {
-		(this.config.frames as any)[unitFrame].size = $event.size;
+	saveFrameSize(unitFrame: keyof MainConfig['frames'], $event: IResizeEvent) {
+		(this.config.frames[unitFrame] as any).size = $event.size;
 	}
 
 	test() {

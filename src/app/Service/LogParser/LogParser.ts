@@ -1,33 +1,35 @@
-import { Injectable }                                   from '@angular/core';
-import { BehaviorSubject }                              from 'rxjs';
-import { ActorInterface, EffectData, EnmityTargetData } from 'src/app/EnmityTargetData';
-import { PartyMember }                                  from 'src/app/Interface/PartyMember';
-import { Util }                                         from 'src/app/Service/LogParser/Util';
-import { TTSService }                                   from '../TTSService';
-import { Combatant }                                    from 'src/app/Model/Combatant';
-import { FloorMarkerHandler }                           from './Handlers/FloorMarkerHandler';
-import { HeadMarkerHandler }                            from './Handlers/HeadMarkerHandler';
-import { JobGaugeHandler }                              from './Handlers/JobGaugeHandler';
-import { HpUpdatedHandler }                             from './Handlers/HpUpdatedHandler';
-import { AuraGainedHandler }                            from './Handlers/AuraGainedHandler';
-import { AuraLostHandler }                              from './Handlers/AuraLostHandler';
-import { PlayerChangedHandler }                         from './Handlers/PlayerChangedHandler';
-import { RemovedCombatantHandler }                      from './Handlers/RemovedCombatantHandler';
-import { AddedCombatantHandler }                        from './Handlers/AddedCombatantHandler';
-import { ChatEventHandler }                             from './Handlers/ChatEventHandler';
-import { HandlerInterface }                             from './Handlers/HandlerInterface';
-import { ZoneChangedHandler }                           from './Handlers/ZoneChangedHandler';
-import { AbilityHitHandler }                            from './Handlers/AbilityHitHandler';
-import { AbilityUseHandler }                            from './Handlers/AbilityUseHandler';
-import { ActionSyncHandler }                            from './Handlers/ActionSyncHandler';
-import { CancelAbilityHandler }                         from './Handlers/CancelAbilityHandler';
-import { CombatantDefeatedHandler }                     from './Handlers/CombatantDefeatedHandler';
-import { NetworkStatusHandler }                         from './Handlers/NetworkStatusHandler';
-import { OverTimeTickHandler }                          from './Handlers/OverTimeTickHandler';
-import { PlayerStatsHandler }                           from './Handlers/PlayerStatsHandler';
-import { LimitGaugeHandler }                            from './Handlers/LimitGaugeHandler';
-import { NameplateToggleHandler }                       from './Handlers/NameplateToggleHandler';
-import { TetherHandler }                                from './Handlers/TetherHandler';
+import { Injectable }                                      from '@angular/core';
+import { BehaviorSubject }                                 from 'rxjs';
+import { EffectData }                                      from 'src/app/Interface/EffectData';
+import { AggroTarget, AggroTargetTarget, EnmityAggroList } from 'src/app/Interface/EnmityAggroList';
+import { ActorInterface, EnmityTargetData }                from 'src/app/Interface/EnmityTargetData';
+import { PartyMember }                                     from 'src/app/Interface/PartyMember';
+import { Util }                                            from 'src/app/Service/LogParser/Util';
+import { TTSService }                                      from '../TTSService';
+import { Combatant }                                       from 'src/app/Model/Combatant';
+import { FloorMarkerHandler }                              from './Handlers/FloorMarkerHandler';
+import { HeadMarkerHandler }                               from './Handlers/HeadMarkerHandler';
+import { JobGaugeHandler }                                 from './Handlers/JobGaugeHandler';
+import { HpUpdatedHandler }                                from './Handlers/HpUpdatedHandler';
+import { AuraGainedHandler }                               from './Handlers/AuraGainedHandler';
+import { AuraLostHandler }                                 from './Handlers/AuraLostHandler';
+import { PlayerChangedHandler }                            from './Handlers/PlayerChangedHandler';
+import { RemovedCombatantHandler }                         from './Handlers/RemovedCombatantHandler';
+import { AddedCombatantHandler }                           from './Handlers/AddedCombatantHandler';
+import { ChatEventHandler }                                from './Handlers/ChatEventHandler';
+import { HandlerInterface }                                from './Handlers/HandlerInterface';
+import { ZoneChangedHandler }                              from './Handlers/ZoneChangedHandler';
+import { AbilityHitHandler }                               from './Handlers/AbilityHitHandler';
+import { AbilityUseHandler }                               from './Handlers/AbilityUseHandler';
+import { ActionSyncHandler }                               from './Handlers/ActionSyncHandler';
+import { CancelAbilityHandler }                            from './Handlers/CancelAbilityHandler';
+import { CombatantDefeatedHandler }                        from './Handlers/CombatantDefeatedHandler';
+import { NetworkStatusHandler }                            from './Handlers/NetworkStatusHandler';
+import { OverTimeTickHandler }                             from './Handlers/OverTimeTickHandler';
+import { PlayerStatsHandler }                              from './Handlers/PlayerStatsHandler';
+import { LimitGaugeHandler }                               from './Handlers/LimitGaugeHandler';
+import { NameplateToggleHandler }                          from './Handlers/NameplateToggleHandler';
+import { TetherHandler }                                   from './Handlers/TetherHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -54,6 +56,7 @@ export class LogParser {
 	 */
 	combatants = new BehaviorSubject<Combatant[]>([]);
 	party = new BehaviorSubject<Combatant[]>([]);
+	aggroList = new BehaviorSubject<Combatant[]>([]);
 
 	handlers: HandlerInterface[] = [
 		new ChatEventHandler(this), // 0x00
@@ -118,7 +121,7 @@ export class LogParser {
 		manaMax: number,
 		job?: string,
 		level?: number,
-		isNpc = false,
+		isNpc = false
 	) {
 		const combatants = this.combatants.value;
 		let combatant = combatants.find((c: Combatant) => c.id === id);
@@ -223,7 +226,7 @@ export class LogParser {
 			}
 			else {
 				let target = this.combatantFromEnmityActor(e.Target, targetId);
-				console.log('target changed', targetId,  target, 'prev', this.target.value);
+				console.log('target changed', targetId, target, 'prev', this.target.value);
 				this.target.next(target);
 			}
 
@@ -249,7 +252,36 @@ export class LogParser {
 		}
 	}
 
-	combatantIdFromEnmityActor(actor: ActorInterface) {
+	aggroListUpdate(e: EnmityAggroList) {
+		// Most common occurrence, ignore
+		if (e.AggroList.length === 0 && this.aggroList.value.length === 0) {
+			return;
+		}
+
+		let combatants = [];
+		// check if whole list needs change
+		console.log(e.AggroList)
+		if (e.AggroList.length !== this.aggroList.value.length) {
+
+			// this doesn't work
+			// e.AggroList.sort((a, b) => a.Order - b.Order);
+			// e.AggroList.sort((a, b) => b.HateRate - a.HateRate);
+
+			for (const a of e.AggroList) {
+				const id = this.combatantIdFromEnmityActor(a);
+				const c = this.combatantFromEnmityActor(a, id);
+				combatants.push(c);
+			}
+
+			this.aggroList.next(combatants);
+			return;
+		}
+
+		// special treatment if just their data changed?
+	}
+
+
+	combatantIdFromEnmityActor(actor: ActorInterface | AggroTarget | AggroTargetTarget) {
 		let targetId = actor.ID.toString(16).toUpperCase();
 		if (targetId === 'E0000000') {
 			targetId = actor.Name;
@@ -258,7 +290,7 @@ export class LogParser {
 		return targetId;
 	}
 
-	combatantFromEnmityActor(actor: ActorInterface, targetId: string) {
+	combatantFromEnmityActor(actor: ActorInterface | AggroTarget, targetId: string) {
 		let hp = actor.CurrentHP;
 		let hpMax = actor.MaxHP;
 		let isNpc = false;
@@ -267,6 +299,8 @@ export class LogParser {
 			hpMax = 1;
 			isNpc = true;
 		}
+
+		const job = (actor as ActorInterface).Job ? Util.jobEnumToJob((actor as ActorInterface).Job) : null;
 
 		let combatant = this.combatants.value.find(c => c.id === targetId);
 		if (!combatant) {
@@ -277,7 +311,7 @@ export class LogParser {
 				hpMax,
 				null,
 				null,
-				Util.jobEnumToJob(actor.Job),
+				job,
 				null,
 				isNpc
 			);
@@ -292,4 +326,5 @@ export class LogParser {
 			c.updateAura(effect.BuffID, null, effect.Stack, appliedBy, null, null);
 		}
 	}
+
 }

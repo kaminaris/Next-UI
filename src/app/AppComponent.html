@@ -67,6 +67,23 @@
 				<icon-mover [size]="20"></icon-mover>
 			</div>
 		</party>
+
+		<aggro-list class="draggable d-block frame-aggro-list no-sel"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.aggroList.size.width"
+				[style.height.px]="config.frames.aggroList.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[handle]="aggroListDragHandle"
+				rzHandles="all"
+				[position]="config.frames.aggroList.position"
+				(rzStop)="saveFrameSize('aggroList', $event)"
+				(endOffset)="saveFramePosition('aggroList', $event)"
+		>
+			<div #aggroListDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</aggro-list>
 	</ng-container>
 
 	<control class="draggable d-block control-bar frame-control no-sel"

@@ -30,6 +30,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 					<config-target *ngIf="currentCategory === 'target'"></config-target>
 					<config-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-target-of-target>
 					<config-party *ngIf="currentCategory === 'party'"></config-party>
+					<config-aggro-list *ngIf="currentCategory === 'aggroList'"></config-aggro-list>
 					<config-aura *ngIf="currentCategory === 'aura'"></config-aura>
 				</div>
 			</div>
@@ -44,6 +45,7 @@ export class ConfigComponent {
 		{ value: 'target', label: 'Target' },
 		{ value: 'targetOfTarget', label: 'Target Of Target' },
 		{ value: 'party', label: 'Party' },
+		{ value: 'aggroList', label: 'Aggro List' },
 		{ value: 'aura', label: 'Aura' }
 	];
 
