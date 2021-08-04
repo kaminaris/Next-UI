@@ -4,7 +4,14 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Injectable({ providedIn: 'root' })
 export class TTSService {
 	femaleSpeakers = [
-		'Tataru Taru'
+		'Tataru',
+		'Lucia',
+		'Kan-E-Senna',
+		'Y\'mhitra',
+		'Geva',
+		'Y\'shtola',
+		'Midnight Dew',
+		'Matoya'
 	];
 	voices: SpeechSynthesisVoice[] = [];
 

@@ -30,7 +30,9 @@ import { ConfigComponent }               from 'src/app/Component/ConfigComponent
 import { ControlComponent }              from 'src/app/Component/ControlComponent';
 import { IconClose }                     from 'src/app/Component/Icon/IconClose';
 import { IconCog }                       from 'src/app/Component/Icon/IconCog';
+import { IconEye }                       from 'src/app/Component/Icon/IconEye';
 import { IconMover }                     from 'src/app/Component/Icon/IconMover';
+import { IconSpeaker }                   from 'src/app/Component/Icon/IconSpeaker';
 import { ProgressBarComponent }          from 'src/app/Component/ProgressBarComponent';
 import { TextWidget }                    from 'src/app/Component/TextWidget';
 import { AggroListComponent }            from 'src/app/Component/UnitFrame/AggroListComponent';
@@ -73,7 +75,7 @@ import { ConfigPlayerComponent }         from './Component/Config/ConfigPlayerCo
 
 		DurationPipe,
 
-		IconMover, IconCog, IconClose, SettingsIcon,
+		IconMover, IconCog, IconClose, SettingsIcon, IconSpeaker, IconEye,
 
 		// Config UI
 		ConfigGroupComponent, ConfigInputComponent, ConfigSizeComponent, ConfigPositionComponent,

@@ -4,9 +4,10 @@ import { EffectData }                                      from 'src/app/Interfa
 import { AggroTarget, AggroTargetTarget, EnmityAggroList } from 'src/app/Interface/EnmityAggroList';
 import { ActorInterface, EnmityTargetData }                from 'src/app/Interface/EnmityTargetData';
 import { PartyMember }                                     from 'src/app/Interface/PartyMember';
-import { Util }                                            from 'src/app/Service/LogParser/Util';
+import { EventDispatcher }                                 from './EventDispatcher';
+import { Util }                                            from './Util';
 import { TTSService }                                      from '../TTSService';
-import { Combatant }                                       from 'src/app/Model/Combatant';
+import { Combatant }                                       from '../../Model/Combatant';
 import { FloorMarkerHandler }                              from './Handlers/FloorMarkerHandler';
 import { HeadMarkerHandler }                               from './Handlers/HeadMarkerHandler';
 import { JobGaugeHandler }                                 from './Handlers/JobGaugeHandler';
@@ -22,7 +23,6 @@ import { ZoneChangedHandler }                              from './Handlers/Zone
 import { AbilityHitHandler }                               from './Handlers/AbilityHitHandler';
 import { AbilityUseHandler }                               from './Handlers/AbilityUseHandler';
 import { ActionSyncHandler }                               from './Handlers/ActionSyncHandler';
-import { CancelAbilityHandler }                            from './Handlers/CancelAbilityHandler';
 import { CombatantDefeatedHandler }                        from './Handlers/CombatantDefeatedHandler';
 import { NetworkStatusHandler }                            from './Handlers/NetworkStatusHandler';
 import { OverTimeTickHandler }                             from './Handlers/OverTimeTickHandler';
@@ -30,6 +30,8 @@ import { PlayerStatsHandler }                              from './Handlers/Play
 import { LimitGaugeHandler }                               from './Handlers/LimitGaugeHandler';
 import { NameplateToggleHandler }                          from './Handlers/NameplateToggleHandler';
 import { TetherHandler }                                   from './Handlers/TetherHandler';
+import { AbilityCancelHandler }                            from './Handlers/AbilityCancelHandler';
+import { PlayerMarkerHandler }                             from './Handlers/PlayerMarkerHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -67,12 +69,13 @@ export class LogParser {
 		new PlayerStatsHandler(this), // 0x0C
 		new AbilityUseHandler(this), // 0x14
 		new AbilityHitHandler(this), // 0x15, 0x16
-		new CancelAbilityHandler(this), // 0x17
+		new AbilityCancelHandler(this), // 0x17
 		new OverTimeTickHandler(this), // 0x18
 		new CombatantDefeatedHandler(this), // 0x19
 		new AuraGainedHandler(this), // 0x1A
-		new HeadMarkerHandler(this), // 0x1D
+		new HeadMarkerHandler(this), // 0x1B
 		new FloorMarkerHandler(this), // 0x1C
+		new PlayerMarkerHandler(this), // 0x1D
 		new AuraLostHandler(this), // 0x1E
 		new JobGaugeHandler(this), // 0x1F
 		new NameplateToggleHandler(this), // 0x22
@@ -84,7 +87,8 @@ export class LogParser {
 	];
 
 	constructor(
-		public tts: TTSService
+		public tts: TTSService,
+		public eventDispatcher: EventDispatcher
 	) {}
 
 	parse(event: string[]) {

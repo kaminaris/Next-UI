@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BaseIcon }         from 'src/app/Component/Icon/BaseIcon';
 
 @Component({
 	selector: 'icon-mover',
@@ -8,6 +9,6 @@ import { Component, Input } from '@angular/core';
 		</svg>
 	`
 })
-export class IconMover {
+export class IconMover extends BaseIcon {
 	@Input() size = 16;
 }

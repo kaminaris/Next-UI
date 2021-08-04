@@ -9,7 +9,7 @@ const indexes = {
 	reason: 6
 };
 
-export class CancelAbilityHandler implements HandlerInterface {
+export class AbilityCancelHandler implements HandlerInterface {
 
 	constructor(public parser: LogParser) {}
 

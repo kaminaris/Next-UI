@@ -2,28 +2,32 @@ import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
-	targetId: 2,
-	targetName: 3,
-	headMarkerId: 6
-};
+	operation: 2,
+	markerId: 3,
+	id: 4,
+	name: 5,
+	targetId: 6,
+	targetName: 7,
+}
 
-export class HeadMarkerHandler implements HandlerInterface {
+export class PlayerMarkerHandler implements HandlerInterface {
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1B) {
+		if (+event[0] !== 0x1D) {
 			return;
 		}
 
 		const id = event[indexes.targetId]?.toUpperCase() ?? '';
 		const name = event[indexes.targetName] ?? '';
-		const headMarkerId = event[indexes.headMarkerId] ?? '';
+		const operation = event[indexes.operation] ?? '';
+		const markerId = event[indexes.markerId] ?? '';
 
 		if (this.parser.debugMode) {
 			console.log(
-				`Headmarker ${ headMarkerId } set on ${ name } ${ id }`
-			);
+				`Player marker ${operation} ${markerId} set on ${name} ${id}`
+			)
 		}
 	}
 }

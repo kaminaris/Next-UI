@@ -4,8 +4,8 @@ import { HandlerInterface } from './HandlerInterface';
 
 export class AuraGainedHandler implements HandlerInterface {
 	indexes = {
-		abilityId: 2,
-		abilityName: 3,
+		statusId: 2,
+		statusName: 3,
 		durationString: 4,
 		id: 5,
 		name: 6,
@@ -23,8 +23,8 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const abilityId = parseInt(event[this.indexes.abilityId]?.toUpperCase() ?? '', 16);
-		const abilityName = event[this.indexes.abilityName] ?? '';
+		const statusId = parseInt(event[this.indexes.statusId]?.toUpperCase() ?? '', 16);
+		const statusName = event[this.indexes.statusName] ?? '';
 		const duration = parseFloat(event[this.indexes.durationString] ?? '');
 		const id = event[this.indexes.id]?.toUpperCase() ?? '';
 		const name = event[this.indexes.name] ?? '';
@@ -38,6 +38,14 @@ export class AuraGainedHandler implements HandlerInterface {
 		// const timestamp = new Date(event[1] ?? '0');
 		const timestamp = new Date();
 
+		this.parser.eventDispatcher.status.next({
+			type: 'gained',
+			statusId,
+			statusName,
+			targetId,
+			targetName
+		})
+
 		if (!targetId || !id) {
 			return;
 		}
@@ -49,10 +57,10 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const aura = combatant.updateAura(abilityId, abilityName, stacks, id, duration, timestamp);
+		const aura = combatant.updateAura(statusId, statusName, stacks, id, duration, timestamp);
 
 		if (this.parser.debugMode) {
-			console.log(`Combatant: ${ combatant.name } gained aura ${ abilityName }`, combatant, aura, event);
+			console.log(`Combatant: ${ combatant.name } gained aura ${ statusName }`, combatant, aura, event);
 		}
 	}
 }

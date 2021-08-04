@@ -3,8 +3,8 @@ import { HandlerInterface } from './HandlerInterface';
 
 export class AuraLostHandler implements HandlerInterface {
 	indexes = {
-		abilityId: 2,
-		abilityName: 3,
+		statusId: 2,
+		statusName: 3,
 		durationString: 4,
 		id: 5,
 		name: 6,
@@ -22,8 +22,8 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		const abilityId = parseInt(event[this.indexes.abilityId]?.toUpperCase() ?? '');
-		const abilityName = event[this.indexes.abilityName] ?? '';
+		const statusId = parseInt(event[this.indexes.statusId]?.toUpperCase() ?? '');
+		const statusName = event[this.indexes.statusName] ?? '';
 		const duration = parseFloat(event[this.indexes.durationString] ?? '');
 		const id = event[this.indexes.id]?.toUpperCase() ?? '';
 		const name = event[this.indexes.name] ?? '';
@@ -35,6 +35,14 @@ export class AuraLostHandler implements HandlerInterface {
 
 		const timestamp = new Date(event[1] ?? '0');
 
+		this.parser.eventDispatcher.status.next({
+			type: 'lost',
+			statusId,
+			statusName,
+			targetId,
+			targetName
+		});
+
 		if (!targetId) {
 			return;
 		}
@@ -45,10 +53,10 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		combatant.removeAura(abilityId, abilityName);
+		combatant.removeAura(statusId, statusName);
 
 		if (this.parser.debugMode) {
-			console.log(`Combatant: ${ combatant.name } lost aura ${ abilityName }`, combatant);
+			console.log(`Combatant: ${ combatant.name } lost aura ${ statusName }`, combatant);
 		}
 	}
 }
