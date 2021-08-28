@@ -21,10 +21,10 @@ export class ChatTrigger extends Trigger {
 				return;
 			}
 
-			this.activate.next(ev);
+			this.active.next({ active: true, data: ev });
 			// chat triggers must have timed trigger
 			setTimeout(() => {
-				this.deactivate.next(ev);
+				this.active.next({ active: false, data: ev });
 			}, this.triggerTimer || 1000);
 		}));
 	}

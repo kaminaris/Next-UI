@@ -5,7 +5,6 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-main',
 	template: `
 		<h4 class="ta-c">Main Configuration</h4>
-		<hr>
 
 		<table style="width: 100%;">
 			<tr>

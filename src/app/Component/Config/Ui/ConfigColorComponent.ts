@@ -35,7 +35,7 @@ export class ConfigColorComponent extends BaseConfigComponent {
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.color = this.configObj[this.prop];
+		this.color = this.getValue();
 		if (!this.color) {
 			this.color = 'rgba(0, 0, 0, 1)';
 		}
@@ -44,7 +44,7 @@ export class ConfigColorComponent extends BaseConfigComponent {
 	changeComplete($event: ColorEvent) {
 		const c = $event.color.rgb;
 		const colorText = `rgba(${ c.r }, ${ c.g }, ${ c.b }, ${ c.a })`;
-		this.configObj[this.prop] = colorText;
+		this.setValue(colorText);
 		this.color = colorText;
 	}
 

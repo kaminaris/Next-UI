@@ -1,301 +1,14 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, merge, Subject }         from 'rxjs';
-import extend                                      from 'just-extend';
 import { debounceTime }                            from 'rxjs/operators';
-import { RecursivePartial }                        from 'src/app/Interface/RecursivePartial';
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
+import { defaultConfig }                           from 'src/app/Service/defaultConfig';
+import extend                                      from 'just-extend';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-	defaultConfig: RecursivePartial<MainConfig> = {
-		fontFamily: 'Noto Sans Condensed',
-		numberFormat: 'full',
-		ttsConfig: {
-			enabled: false
-		},
-		frames: {
-			control: {
-				position: { x: 600, y: 600 },
-				size: { width: 200, height: 60 }
-			},
-			config: {
-				position: { x: 0, y: 0 },
-				size: { width: 800, height: 600 }
-			},
-			player: {
-				position: { x: 600, y: 500 },
-				size: { width: 260, height: 60 },
-				barColor: '#02A502',
-				manaColor: '#02a597',
-				backgroundColor: '#000000',
-				showMana: true,
-				manaHeight: '20px',
-
-				widgets: {
-					job: {
-						show: true,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					hp: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					mana: {
-						show: true,
-						anchor: 'center',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 0, y: 0 },
-						outline: true
-					},
-					level: {
-						show: true,
-						anchor: 'bottomRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					name: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '14px',
-						position: { x: 0, y: -20 },
-						outline: true
-					}
-				}
-			},
-			target: {
-				position: { x: 900, y: 500 },
-				size: { width: 260, height: 60 },
-				barColor: '#02A502',
-				manaColor: '#02a597',
-				backgroundColor: '#000000',
-				showMana: true,
-				manaHeight: '20px',
-
-				widgets: {
-					job: {
-						show: true,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					hp: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					mana: {
-						show: true,
-						anchor: 'center',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 0, y: 0 },
-						outline: true
-					},
-					level: {
-						show: true,
-						anchor: 'bottomRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					name: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '14px',
-						position: { x: 0, y: -20 },
-						outline: true
-					}
-				}
-			},
-			targetOfTarget: {
-				position: { x: 1180, y: 500 },
-				size: { width: 200, height: 20 },
-				barColor: '#02A502',
-				manaColor: '#02a597',
-				backgroundColor: '#000000',
-				showMana: true,
-				manaHeight: '20px',
-
-				widgets: {
-					job: {
-						show: false,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					hp: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					mana: {
-						show: false,
-						anchor: 'center',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 0, y: 0 },
-						outline: true
-					},
-					level: {
-						show: false,
-						anchor: 'bottomRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					name: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '14px',
-						position: { x: 0, y: -20 },
-						outline: true
-					}
-				}
-			},
-			party: {
-				position: { x: 100, y: 200 },
-				size: { width: 100, height: 300 },
-				barColor: '#02A502',
-				manaColor: '#02a597',
-				backgroundColor: '#000000',
-				showMana: true,
-				manaHeight: '20px',
-				unitFrameHeight: '40px',
-				unitFrameMargin: 1,
-
-				widgets: {
-					job: {
-						show: false,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					hp: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					mana: {
-						show: false,
-						anchor: 'center',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 0, y: 0 },
-						outline: true
-					},
-					level: {
-						show: false,
-						anchor: 'bottomRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					name: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '14px',
-						position: { x: 0, y: -20 },
-						outline: true
-					}
-				}
-			},
-			aggroList: {
-				position: { x: 600, y: 200 },
-				size: { width: 250, height: 300 },
-				barColor: '#02A502',
-				manaColor: '#02a597',
-				backgroundColor: '#000000',
-				showMana: false,
-				manaHeight: '20px',
-				unitFrameHeight: '20px',
-				unitFrameMargin: 1,
-
-				widgets: {
-					name: {
-						show: true,
-						anchor: 'topLeft',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 2, y: 2 },
-						outline: true
-					},
-					hp: {
-						show: true,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 2, y: 2 },
-						outline: true
-					},
-					job: {
-						show: false,
-						anchor: 'topRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					},
-					mana: {
-						show: false,
-						anchor: 'center',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 0, y: 0 },
-						outline: true
-					},
-					level: {
-						show: false,
-						anchor: 'bottomRight',
-						fontColor: '#ffffff',
-						fontSize: '12px',
-						position: { x: 5, y: 2 },
-						outline: true
-					}
-				}
-			},
-			auraBar: {
-				iconSize: '30px',
-				fontSize: '14px',
-				fontColor: '#FFFFFF',
-				cooldownOutline: true,
-				cooldownPrecision: 1
-			}
-		}
-	};
+	defaultConfig = defaultConfig;
 
 	numberFormats = [
 		{ name: 'Full', value: 'full' },
@@ -310,6 +23,7 @@ export class ConfigService {
 	visible = false;
 	moveMode = new BehaviorSubject<boolean>(false);
 	configMode = new BehaviorSubject<boolean>(false);
+	customElementsMode = new BehaviorSubject<boolean>(false);
 	renderer: Renderer2;
 
 	configChanged = new Subject();
@@ -437,7 +151,34 @@ export class ConfigService {
 		else {
 			this.renderer.removeClass(document.body, 'config-bg');
 		}
-		(window as any).OverlayPluginApi.setAcceptFocus(this.configMode.value);
+		try {
+			(window as any).OverlayPluginApi.setAcceptFocus(this.configMode.value);
+		}
+		catch (e) {
+			console.log('Overlay Plugin Api not found');
+		}
+
+	}
+
+	toggleCustomElementsPanel() {
+		this.moveMode.next(false);
+		this.configMode.next(false);
+		this.renderer.removeClass(document.body, 'config-bg');
+
+		this.customElementsMode.next(!this.customElementsMode.value);
+
+		if (this.customElementsMode.value) {
+			this.renderer.addClass(document.body, 'grid');
+		}
+		else {
+			this.renderer.removeClass(document.body, 'grid');
+		}
+		try {
+			(window as any).OverlayPluginApi.setAcceptFocus(this.customElementsMode.value);
+		}
+		catch (e) {
+			console.log('Overlay Plugin Api not found');
+		}
 	}
 
 	toggleUi() {

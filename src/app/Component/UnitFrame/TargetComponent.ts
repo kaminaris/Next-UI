@@ -11,13 +11,18 @@ import { PlayerComponent }                                                      
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="target">
+		<div class="d-flex flex-column" *ngIf="target"
+			style="height: 100%; border-style: solid"
+			[style.border-width.px]="ownConfig.borderWidth"
+			[style.border-color]="ownConfig.borderColor"
+		>
 			<div class="pos-a z10" style="display:flex; bottom: 0">
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
-				[fillColor]="ownConfig.barColor"
+				[fillColor]="barColor"
+				[bgColor]="ownConfig.backgroundColor"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -38,8 +43,9 @@ import { PlayerComponent }                                                      
 			<progress-bar style="flex: 0 0 auto;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
-				[percent]="manaPct"
 				[fillColor]="ownConfig.manaColor"
+				[bgColor]="ownConfig.backgroundColor"
+				[percent]="manaPct"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
@@ -50,8 +56,7 @@ import { PlayerComponent }                                                      
 })
 export class TargetComponent extends PlayerComponent implements OnInit, OnDestroy {
 
-	auraSub: Subscription;
-	anyChangedSub: Subscription;
+	targetSubs: Subscription[] = [];
 
 	config = this.conf.config;
 	ownConfig = this.config.frames.target;
@@ -82,14 +87,18 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 			this.target = t;
 			this.copyFrom(this.target);
 
-			this.anyChangedSub = this.target.anyChanged.subscribe(() => {
+			this.targetSubs.push(this.target.anyChanged.subscribe(() => {
 				this.copyFrom(this.target);
-			})
+			}));
 
-			this.auraSub = this.target.auras.subscribe((auras) => {
+			this.targetSubs.push(this.target.auras.subscribe((auras) => {
 				this.auras = this.auraFilter(auras);
 				this.cd.detectChanges();
-			});
+			}));
+
+			this.targetSubs.push(this.ownConfig.useClassColorSub.subscribe(() => {
+				this.copyFrom(this.target);
+			}));
 		}));
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
@@ -116,7 +125,8 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	}
 
 	targetUnsub() {
-		this.anyChangedSub?.unsubscribe();
-		this.auraSub?.unsubscribe();
+		for (const sub of this.targetSubs) {
+			sub.unsubscribe();
+		}
 	}
 }

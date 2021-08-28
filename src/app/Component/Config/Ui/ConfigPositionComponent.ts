@@ -1,6 +1,6 @@
-import { Component, Input }       from '@angular/core';
+import { Component }              from '@angular/core';
 import { BaseConfigComponent }    from 'src/app/Component/Config/Ui/BaseConfigComponent';
-import { FramePositionInterface } from 'src/app/Interface/ConfigInterface';
+import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface';
 
 @Component({
 	selector: 'config-position',

@@ -7,6 +7,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-aggro-list',
 	template: `
 		<h4 class="ta-c">Aggro List Frame Configuration</h4>
+		
 		<config-button buttonLabel="Reset All Settings" (click)="resetAll()"></config-button>
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>

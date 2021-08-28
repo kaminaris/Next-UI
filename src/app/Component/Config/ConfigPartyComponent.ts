@@ -21,8 +21,15 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></config-input>
 
 			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
+			<config-checkbox [frameName]="frameName" prop="useClassColor" label="Use Class Color"></config-checkbox>
 			<config-color [frameName]="frameName" prop="barColor" label="HP Color"></config-color>
 			<config-color [frameName]="frameName" prop="manaColor" label="Mana Color"></config-color>
+
+			<config-range [frameName]="frameName" prop="borderWidth" [min]="0" [max]="20" [step]="1" label="Border Width"></config-range>
+			<config-color [frameName]="frameName" prop="borderColor" label="Border Color"></config-color>
+
+			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
+			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
 		</config-group>
 
 		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>

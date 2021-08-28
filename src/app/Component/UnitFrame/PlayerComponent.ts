@@ -17,13 +17,21 @@ import { Util }          from 'src/app/Service/LogParser/Util';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column" style="height: 100%">
-			<div class="pos-a z10" style="display:flex; bottom: 0">
+		<div class="d-flex flex-column" 
+			style="height: 100%; border-style: solid"
+			[style.border-width.px]="ownConfig.borderWidth"
+			[style.border-color]="ownConfig.borderColor"
+		>
+			<div class="pos-a z10" style="display:flex;"
+				anchor-element
+				[anchorSub]="ownConfig.auraAnchorSub"
+				[positionSub]="ownConfig.auraPositionSub"
+			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
-				[fillColor]="ownConfig.barColor"
+				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
@@ -79,6 +87,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	player = this.parser.player;
 	auras: Aura[] = [];
 
+	barColor = this.ownConfig.barColor;
+
 	constructor(
 		public conf: ConfigService,
 		protected parser: LogParser,
@@ -107,6 +117,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
 			this.cd.detectChanges();
+		}));
+
+		this.subs.push(this.ownConfig.useClassColorSub.subscribe(() => {
+			this.copyFrom(this.player);
 		}));
 	}
 
@@ -154,6 +168,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		this.level = c.level.value;
 		this.calcHp();
 		this.calcMana();
+
+		if (this.ownConfig.useClassColor && c.job.value !== 'NONE') {
+			this.barColor = this.config.colorConfig.getJobColorByName(c.job.value);
+		} else {
+			this.barColor = this.ownConfig.barColor;
+		}
+
 		this.cd.detectChanges();
 	}
 }

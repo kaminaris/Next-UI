@@ -1,5 +1,5 @@
 import { Anchor }                 from 'src/app/Interface/Anchor';
-import { FramePositionInterface } from 'src/app/Interface/ConfigInterface';
+import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface';
 
 export interface TextWidgetConfigInterface {
 	show: boolean;

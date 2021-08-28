@@ -1,5 +1,6 @@
 import { Component }     from '@angular/core';
 import { ConfigService } from 'src/app/Service/ConfigService';
+import {default as config}       from '../../../package.json';
 
 @Component({
 	selector: 'config-window',
@@ -7,7 +8,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<ng-content></ng-content>
 		<div class="d-flex flex-column config-window">
 			<div class="config-bar">
-				<h4 class="mt-1">NextUI - Config</h4>
+				<h4 class="mt-1">NextUI - Config (v{{ version }})</h4>
 				<button class="btn btn-sm btn-danger config-close-btn pos-a" (click)="closeConfig()">
 					<icon-close></icon-close>
 				</button>
@@ -15,9 +16,10 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 
 			<div class="config-content d-flex flex-row">
 				<div class="config-pane">
-					<div>
-						<button *ngFor="let cat of categories"
-							[class.active]="currentCategory === cat.value"
+					<div class="btn-group-vertical w100p">
+						<button class="btn btn-sm"
+							*ngFor="let cat of categories"
+							[ngClass]="currentCategory === cat.value ? 'btn-info' : 'btn-outline-info'"
 							(click)="switchWindow(cat.value)">
 							{{ cat.label }}
 						</button>
@@ -25,6 +27,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 				</div>
 				<div class="flex-grow" style="overflow-y: auto;">
 					<config-main *ngIf="currentCategory === 'main'"></config-main>
+					<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
 					<config-tts *ngIf="currentCategory === 'tts'"></config-tts>
 					<config-player *ngIf="currentCategory === 'player'"></config-player>
 					<config-target *ngIf="currentCategory === 'target'"></config-target>
@@ -38,8 +41,11 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	`
 })
 export class ConfigComponent {
+	version = config.version;
+
 	categories = [
 		{ value: 'main', label: 'General settings' },
+		{ value: 'color', label: 'Colors' },
 		{ value: 'tts', label: 'Text to speech' },
 		{ value: 'player', label: 'Player' },
 		{ value: 'target', label: 'Target' },

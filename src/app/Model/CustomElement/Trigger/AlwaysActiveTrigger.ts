@@ -7,6 +7,6 @@ export class AlwaysActiveTrigger extends Trigger {
 
 	attach() {
 		this.detach();
-		this.activate.next(true);
+		this.active.next({ active: true });
 	}
 }

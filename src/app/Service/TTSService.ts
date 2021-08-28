@@ -11,7 +11,12 @@ export class TTSService {
 		'Geva',
 		'Y\'shtola',
 		'Midnight Dew',
-		'Matoya'
+		'Matoya',
+		'Hilda',
+		'Luciae',
+		'Nadinie',
+		'Ingaret',
+		'Celaine'
 	];
 	voices: SpeechSynthesisVoice[] = [];
 

@@ -17,6 +17,9 @@ import { LogParser }     from 'src/app/Service/LogParser/LogParser';
 				<button class="btn btn-sm btn-warning" (click)="conf.toggleConfigMode()" >
 					<icon-cog></icon-cog>
 				</button>
+				<button class="btn btn-sm btn-light" (click)="conf.toggleCustomElementsPanel()" >
+					<icon-apps></icon-apps>
+				</button>
 				<button class="btn btn-sm btn-success" (click)="conf.toggleUi()">
 					<icon-eye [off]="!conf.uiVisible"></icon-eye>
 				</button>

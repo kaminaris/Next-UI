@@ -11,6 +11,7 @@
 		"sourceMap": true,
 		"declaration": false,
 		"strictNullChecks": false,
+		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,

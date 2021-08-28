@@ -5,16 +5,16 @@ import { MainConfig } from 'src/app/Model/Config/MainConfig';
 	selector: 'config-aura',
 	template: `
 		<h4 class="ta-c">Aura Icons</h4>
-		<hr>
 
-		<table style="width: 100%;">
-			<tr row-input [frameName]="frameName" prop="iconSize" label="Icon Size"></tr>
-			<tr row-input [frameName]="frameName" prop="fontSize" label="Font Size"></tr>
-			<tr row-color [frameName]="frameName" prop="fontColor" label="Font Color"></tr>
-			<tr row-color [frameName]="frameName" prop="barColor" label="Border Color"></tr>
-			<tr row-select [frameName]="frameName" prop="cooldownPrecision" [items]="precisions" label="Cooldown precision"></tr>
-			<tr row-checkbox [frameName]="frameName" prop="cooldownOutline" label="Cooldown outline"></tr>
-		</table>
+		<config-group title="Basic">
+			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
+			<config-input [frameName]="frameName" prop="iconSize" label="Icon Size"></config-input>
+			<config-input [frameName]="frameName" prop="fontSize" label="Font Size"></config-input>
+			<config-color [frameName]="frameName" prop="fontColor" label="Font Color"></config-color>
+			<config-color [frameName]="frameName" prop="barColor" label="Border Color"></config-color>
+			<config-select [frameName]="frameName" prop="cooldownPrecision" [items]="precisions" label="Cooldown precision"></config-select>
+			<config-checkbox [frameName]="frameName" prop="cooldownOutline" label="Cooldown outline"></config-checkbox>
+		</config-group>
 	`
 })
 export class ConfigAuraComponent {

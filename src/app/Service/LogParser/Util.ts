@@ -3088,6 +3088,19 @@ export class Util {
 		return job ?? 'NONE';
 	}
 
+	static jobsArray(includeNone = false): { jobId: number, job: string }[] {
+		const out = [];
+		const keys = Object.keys(Util.jobs);
+		for (const job of keys) {
+			if (!includeNone && job === 'NONE') {
+				continue;
+			}
+			out.push({ jobId: (Util.jobs as any)[job], job });
+		}
+
+		return out;
+	}
+
 	static getAbilityIcon(id: number) {
 		const found = Util.abilityList.find(v => v.id === id);
 		return found ? found.icon : '';
@@ -3095,11 +3108,15 @@ export class Util {
 
 	static formatNumber(n: number, format: string) {
 		switch (format) {
-			case 'prec0': return (Math.round(n / 1000)).toString() + 'k';
-			case 'prec1': return (Math.round(n * 10 / 1000) / 10).toString() + 'k';
-			case 'prec2': return (Math.round(n * 100 / 1000) / 100).toString() + 'k';
+			case 'prec0':
+				return (Math.round(n / 1000)).toString() + 'k';
+			case 'prec1':
+				return (Math.round(n * 10 / 1000) / 10).toString() + 'k';
+			case 'prec2':
+				return (Math.round(n * 100 / 1000) / 100).toString() + 'k';
 			default:
-			case 'full': return n.toString();
+			case 'full':
+				return n.toString();
 		}
 	}
 }

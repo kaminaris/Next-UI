@@ -100,6 +100,38 @@
 		</div>
 	</control>
 
+	<ng-container *ngFor="let customElement of elementService.elements">
+		<custom-element class="draggable d-block frame-custom-element no-sel"
+				[element]="customElement"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="customElement.size.width"
+				[style.height.px]="customElement.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[handle]="customElementDragHandle"
+				rzHandles="all"
+				[position]="customElement.position"
+				(rzStop)="saveCustomElementSize(customElement, $event)"
+				(endOffset)="saveCustomElementPosition(customElement, $event)"
+		>
+			<div #customElementDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</custom-element>
+	</ng-container>
+
+	<custom-elements-panel class="draggable d-block"
+			*ngIf="conf.customElementsMode.value"
+			[handle]="customElementsPanelDragHandle"
+			[position]="config.frames.customElements.position"
+			(endOffset)="saveFramePosition('customElements', $event)"
+			ngDraggable
+	>
+		<div #customElementsPanelDragHandle class="grab-handle" style="right: 40px; top: 7px;">
+			<icon-mover [size]="20"></icon-mover>
+		</div>
+	</custom-elements-panel>
+
 	<config-window class="draggable d-block"
 			*ngIf="conf.configMode.value"
 			[handle]="configDragHandle"

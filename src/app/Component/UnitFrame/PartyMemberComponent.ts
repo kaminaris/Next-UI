@@ -6,13 +6,21 @@ import { PlayerComponent }                                                      
 	selector: 'party-member',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="d-flex flex-column" style="height: 100%">
-			<div class="pos-a z10" style="display:flex; bottom: 0">
+		<div class="d-flex flex-column" style="height: 100%; border-style: solid"
+			[style.border-width.px]="ownConfig.borderWidth"
+			[style.border-color]="ownConfig.borderColor"
+		>
+
+			<div class="pos-a z10" style="display:flex;" 
+				anchor-element 
+				[anchorSub]="ownConfig.auraAnchorSub"
+				[positionSub]="ownConfig.auraPositionSub"
+			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
-				[fillColor]="ownConfig.barColor"
+				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
@@ -61,9 +69,9 @@ export class PartyMemberComponent extends PlayerComponent implements OnInit, OnD
 		}));
 
 		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
-			console.log('party conf changed')
+			console.log('party conf changed');
 			this.cd.detectChanges();
-		}))
+		}));
 
 		this.subs.push(
 			this.combatant.auras.subscribe((auras) => {
@@ -72,6 +80,10 @@ export class PartyMemberComponent extends PlayerComponent implements OnInit, OnD
 				this.cd.detectChanges();
 			})
 		);
+
+		this.subs.push(this.ownConfig.useClassColorSub.subscribe(() => {
+			this.copyFrom(this.combatant);
+		}));
 	}
 
 	ngOnDestroy() {

@@ -1,4 +1,6 @@
 import { Subject }                 from 'rxjs';
+import { Anchor }                  from 'src/app/Interface/Anchor';
+import { FramePositionInterface }  from 'src/app/Interface/FramePositionInterface';
 import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
 import { TextWidgetConfig }        from 'src/app/Model/Config/TextWidgetConfig';
 import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
@@ -21,8 +23,23 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	get manaHeight(): string { return this.manaHeightSub.value; }
 	set manaHeight(v: string) { this.manaHeightSub.next(v); }
 
+	get useClassColor(): boolean { return this.useClassColorSub.value; }
+	set useClassColor(v: boolean) { this.useClassColorSub.next(v); }
+
 	get showMana(): boolean { return this.showManaSub.value; }
 	set showMana(v: boolean) { this.showManaSub.next(v); }
+
+	get borderWidth(): number { return this.borderWidthSub.value; }
+	set borderWidth(v: number) { this.borderWidthSub.next(v); }
+
+	get borderColor(): string { return this.borderColorSub.value; }
+	set borderColor(v: string) { this.borderColorSub.next(v); }
+
+	get auraAnchor(): Anchor { return this.auraAnchorSub.value; }
+	set auraAnchor(v: Anchor) { this.auraAnchorSub.next(v); }
+
+	get auraPosition(): FramePositionInterface { return this.auraPositionSub.value; }
+	set auraPosition(v: FramePositionInterface) { this.auraPositionSub.next(v); }
 	// @formatter:on
 
 	enabledSub = new DistinctBehaviorSubject<boolean>(true);
@@ -30,7 +47,14 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	barColorSub = new DistinctBehaviorSubject<string>('');
 	manaColorSub = new DistinctBehaviorSubject<string>('');
 	manaHeightSub = new DistinctBehaviorSubject<string>('');
+	useClassColorSub = new DistinctBehaviorSubject<boolean>(true);
 	showManaSub = new DistinctBehaviorSubject<boolean>(true);
+
+	borderWidthSub = new DistinctBehaviorSubject<number>(1);
+	borderColorSub = new DistinctBehaviorSubject<string>('');
+
+	auraAnchorSub = new DistinctBehaviorSubject<Anchor>('bottomLeft');
+	auraPositionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	widgets = {
 		name: new TextWidgetConfig(),
@@ -48,7 +72,11 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			this.barColorSub,
 			this.manaColorSub,
 			this.manaHeightSub,
-			this.showManaSub
+			this.useClassColorSub,
+			this.showManaSub,
+			this.borderWidthSub,
+			this.borderColorSub,
+			this.auraAnchorSub,
 		];
 	}
 
@@ -61,7 +89,12 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			barColor: this.barColor,
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,
+			useClassColor: this.useClassColor,
 			showMana: this.showMana,
+			borderWidth: this.borderWidth,
+			borderColor: this.borderColor,
+			auraAnchor: this.auraAnchor,
+			auraPosition: Object.assign({}, this.auraPosition),
 			widgets: {
 				name: this.widgets.name.serialize(),
 				job: this.widgets.job.serialize(),
@@ -79,7 +112,12 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;
 		this.manaHeight = value.manaHeight;
+		this.useClassColor = value.useClassColor;
 		this.showMana = value.showMana;
+		this.borderWidth = value.borderWidth;
+		this.borderColor = value.borderColor;
+		this.auraAnchor = value.auraAnchor;
+		this.auraPosition = Object.assign({}, value.auraPosition);
 
 		this.widgets.name.unserialize(value.widgets.name);
 		this.widgets.job.unserialize(value.widgets.job);

@@ -1,14 +1,6 @@
-import { TextWidgetConfigInterface } from 'src/app/Interface/TextWidgetConfigInterface';
-
-export interface FramePositionInterface {
-	x: number;
-	y: number;
-}
-
-export interface FrameSizeInterface {
-	width: number;
-	height: number;
-}
+import { FramePositionInterface }    from './FramePositionInterface';
+import { FrameSizeInterface }        from './FrameSizeInterface';
+import { TextWidgetConfigInterface } from './TextWidgetConfigInterface';
 
 export interface FrameConfigInterface {
 	position: FramePositionInterface;

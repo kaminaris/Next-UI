@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription }      from 'rxjs';
-import { MainConfig }        from 'src/app/Model/Config/MainConfig';
-import { TTSConfig }         from 'src/app/Model/Config/TTSConfig';
 import { ConfigService }     from 'src/app/Service/ConfigService';
 import { TTSService }        from 'src/app/Service/TTSService';
 

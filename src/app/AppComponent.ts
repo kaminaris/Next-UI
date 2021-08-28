@@ -1,12 +1,16 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, Renderer2 } from '@angular/core';
-import { IResizeEvent }                                            from 'angular2-draggable/lib/models/resize-event';
-import { EnmityAggroList }                                         from 'src/app/Interface/EnmityAggroList';
-import { EnmityTargetData }                                        from 'src/app/Interface/EnmityTargetData';
-import { PartyMember }                                             from 'src/app/Interface/PartyMember';
-import { Aura }                                                    from 'src/app/Model/Aura';
-import { MainConfig }                                              from 'src/app/Model/Config/MainConfig';
-import { ConfigService }                                           from 'src/app/Service/ConfigService';
-import { LogParser }                                               from 'src/app/Service/LogParser/LogParser';
+import { IPosition }            from 'angular2-draggable';
+import { IResizeEvent }         from 'angular2-draggable/lib/models/resize-event';
+import { EnmityAggroList }      from 'src/app/Interface/EnmityAggroList';
+import { EnmityTargetData }     from 'src/app/Interface/EnmityTargetData';
+import { PartyMember }          from 'src/app/Interface/PartyMember';
+import { Aura }                 from 'src/app/Model/Aura';
+import { MainConfig }           from 'src/app/Model/Config/MainConfig';
+import { CustomElement }        from 'src/app/Model/CustomElement/CustomElement';
+import { ConfigService }        from 'src/app/Service/ConfigService';
+import { CustomElementService } from 'src/app/Service/CustomElementService';
+import { LogParser }            from 'src/app/Service/LogParser/LogParser';
+import { TestService }          from 'src/app/Service/TestService';
 
 @Component({
 	selector: 'app-root',
@@ -27,6 +31,8 @@ export class AppComponent implements OnInit {
 		protected zone: NgZone,
 		public conf: ConfigService,
 		public parser: LogParser,
+		public elementService: CustomElementService,
+		protected t: TestService,
 		protected renderer: Renderer2,
 		protected cd: ChangeDetectorRef
 	) {
@@ -41,6 +47,10 @@ export class AppComponent implements OnInit {
 		//
 		// 	// cd.detectChanges();
 		// })
+
+		// this.elementService.TESTaddCustomElement();
+		// this.elementService.TESTADDPELETON();
+
 	}
 
 	ngOnInit() {
@@ -93,7 +103,7 @@ export class AppComponent implements OnInit {
 		document.documentElement.classList.remove('resizeHandle');
 	}
 
-	saveFramePosition(unitFrame: keyof MainConfig['frames'], $event: { x: number, y: number }) {
+	saveFramePosition(unitFrame: keyof MainConfig['frames'], $event: IPosition) {
 		(this.config.frames[unitFrame] as any).position = $event;
 	}
 
@@ -101,7 +111,15 @@ export class AppComponent implements OnInit {
 		(this.config.frames[unitFrame] as any).size = $event.size;
 	}
 
+	saveCustomElementSize(customElement: CustomElement, $event: IResizeEvent) {
+		customElement.size = $event.size;
+	}
+
+	saveCustomElementPosition(customElement: CustomElement, $event: IPosition) {
+		customElement.position = $event;
+	}
+
 	test() {
-		this.config.frames.player.position = {x: 100, y: 100};
+		this.config.frames.player.position = { x: 100, y: 100 };
 	}
 }

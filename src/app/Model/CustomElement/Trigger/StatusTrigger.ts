@@ -13,7 +13,7 @@ export class StatusTrigger extends Trigger {
 		this.detach();
 
 		this.subs.push(this.parser.eventDispatcher.status.subscribe(ev => {
-			if (this.options.statusId && ev.statusId === this.options.statusId) {
+			if (this.options.statusId && ev.statusId !== this.options.statusId) {
 				return;
 			}
 
@@ -29,12 +29,7 @@ export class StatusTrigger extends Trigger {
 				return;
 			}
 
-			if (ev.type === 'gained') {
-				this.activate.next(ev);
-			}
-			else {
-				this.deactivate.next(ev);
-			}
+			this.active.next({ active: ev.type === 'gained', data: ev });
 		}));
 	}
 }

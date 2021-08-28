@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }                                    from 'rxjs';
+import { TargetComponent }                                 from 'src/app/Component/UnitFrame/TargetComponent';
 import { Aura }                                            from 'src/app/Model/Aura';
 import { Combatant }                                       from 'src/app/Model/Combatant';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
@@ -10,13 +11,22 @@ import { PlayerComponent }                                 from './PlayerCompone
 	selector: 'target-of-target',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex" style="flex-direction: column; height: 100%" *ngIf="targetOfTarget">
-			<div class="pos-a z10" style="display:flex; bottom: 0">
+		<div class="d-flex flex-column" *ngIf="targetOfTarget"
+			style="height: 100%; border-style: solid"
+			[style.border-width.px]="ownConfig.borderWidth"
+			[style.border-color]="ownConfig.borderColor"
+		>
+			<div class="pos-a z10" style="display:flex;"
+				anchor-element
+				[anchorSub]="ownConfig.auraAnchorSub"
+				[positionSub]="ownConfig.auraPositionSub"
+			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
-				[fillColor]="ownConfig.barColor"
+				[fillColor]="barColor"
+				[bgColor]="ownConfig.backgroundColor"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -37,8 +47,9 @@ import { PlayerComponent }                                 from './PlayerCompone
 			<progress-bar style="flex: 0 0 auto;"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
-				[percent]="manaPct"
 				[fillColor]="ownConfig.manaColor"
+				[bgColor]="ownConfig.backgroundColor"
+				[percent]="manaPct"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
@@ -47,11 +58,7 @@ import { PlayerComponent }                                 from './PlayerCompone
 		</div>
 	`
 })
-export class TargetOfTargetComponent extends PlayerComponent implements OnInit, OnDestroy {
-
-	auraSub: Subscription;
-	anyChangedSub: Subscription;
-
+export class TargetOfTargetComponent extends TargetComponent implements OnInit, OnDestroy {
 	config = this.conf.config;
 	ownConfig = this.config.frames.targetOfTarget;
 	targetOfTarget: Combatant;
@@ -79,14 +86,18 @@ export class TargetOfTargetComponent extends PlayerComponent implements OnInit, 
 			this.targetOfTarget = t;
 			this.copyFrom(this.targetOfTarget);
 
-			this.anyChangedSub = this.targetOfTarget.anyChanged.subscribe(() => {
+			this.targetSubs.push(this.targetOfTarget.anyChanged.subscribe(() => {
 				this.copyFrom(this.targetOfTarget);
-			})
+			}));
 
-			this.auraSub = this.targetOfTarget.auras.subscribe((auras) => {
+			this.targetSubs.push(this.targetOfTarget.auras.subscribe((auras) => {
 				this.auras = this.auraFilter(auras);
 				this.cd.detectChanges();
-			});
+			}));
+
+			this.targetSubs.push(this.ownConfig.useClassColorSub.subscribe(() => {
+				this.copyFrom(this.targetOfTarget);
+			}));
 		}));
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
@@ -102,18 +113,5 @@ export class TargetOfTargetComponent extends PlayerComponent implements OnInit, 
 		return auras.filter((a) => {
 			return a.appliedBy === this.player.id;
 		});
-	}
-
-	ngOnDestroy() {
-		for (const sub of this.subs) {
-			sub.unsubscribe();
-		}
-
-		this.targetUnsub();
-	}
-
-	targetUnsub() {
-		this.auraSub?.unsubscribe();
-		this.anyChangedSub?.unsubscribe();
 	}
 }

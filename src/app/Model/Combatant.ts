@@ -17,6 +17,9 @@ export class Combatant {
 	mana = new BehaviorSubject<number>(10000);
 	manaMax = 10000;
 
+	get isHealer() { return ['SCH', 'WHM', 'AST'].indexOf(this.job.value) >= 0 }
+	get isTank() { return ['PLD', 'WAR', 'DRK', 'GNB'].indexOf(this.job.value) >= 0 }
+
 	auras = new BehaviorSubject<Aura[]>([]);
 
 	anyChanged: Observable<any>;

@@ -1,6 +1,6 @@
 import { Component, Input }    from '@angular/core';
 import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigComponent';
-import { FrameSizeInterface }  from 'src/app/Interface/ConfigInterface';
+import { FrameSizeInterface }  from 'src/app/Interface/FrameSizeInterface';
 
 @Component({
 	selector: 'config-size',

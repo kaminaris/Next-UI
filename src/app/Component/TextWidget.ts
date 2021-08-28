@@ -1,9 +1,10 @@
 import {
 	ChangeDetectorRef,
-	Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges
-} from '@angular/core';
-import { TextWidgetConfig }          from 'src/app/Model/Config/TextWidgetConfig';
-import { ConfigService }             from 'src/app/Service/ConfigService';
+	Directive, HostBinding, Input, OnChanges, OnInit, SimpleChanges
+}                           from '@angular/core';
+import { calculateAnchor }  from 'src/app/Function/calculateAnchor';
+import { TextWidgetConfig } from 'src/app/Model/Config/TextWidgetConfig';
+import { ConfigService }    from 'src/app/Service/ConfigService';
 
 @Directive({
 	selector: '[text-widget]'
@@ -30,7 +31,7 @@ export class TextWidget implements OnChanges, OnInit {
 	ngOnInit() {
 		this.config.anyChanged.subscribe(() => {
 			this.applyStyle();
-		})
+		});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -38,55 +39,7 @@ export class TextWidget implements OnChanges, OnInit {
 	}
 
 	applyStyle() {
-		let left = '';
-		let right = '';
-		let top = '';
-		let bottom = '';
-		let transform = '';
-
-		switch (this.config.anchor) {
-			case 'topLeft':
-				top = this.config.position.y + 'px';
-				left = this.config.position.x + 'px';
-				break;
-			case 'top':
-				top = this.config.position.y + 'px';
-				left = `calc(50% + ${this.config.position.x}px)`;
-				transform = 'translate(-50%)';
-				break;
-			case 'topRight':
-				top = this.config.position.y + 'px';
-				right = this.config.position.x + 'px';
-				break;
-			case 'left':
-				top = `calc(50% + ${this.config.position.y}px)`;
-				left = this.config.position.x + 'px';
-				transform = 'translate(0, -50%)';
-				break;
-			case 'center':
-				top = `calc(50% + ${this.config.position.y}px)`;
-				left = `calc(50% + ${this.config.position.x}px)`;
-				transform = 'translate(-50%, -50%)';
-				break;
-			case 'right':
-				top = `calc(50% + ${this.config.position.y}px)`;
-				right = this.config.position.x + 'px';
-				transform = 'translate(0, -50%)';
-				break;
-			case 'bottomLeft':
-				bottom = this.config.position.y + 'px';
-				left = this.config.position.x + 'px';
-				break;
-			case 'bottom':
-				bottom = this.config.position.y + 'px';
-				left = `calc(50% + ${this.config.position.x}px)`;
-				transform = 'translate(-50%)';
-				break;
-			case 'bottomRight':
-				bottom = this.config.position.y + 'px';
-				right = this.config.position.x + 'px';
-				break;
-		}
+		const { top, right, bottom, left, transform } = calculateAnchor(this.config.anchor, this.config.position);
 
 		this.display = this.config.show ? 'block' : 'none';
 		this.top = top;

@@ -1,10 +1,10 @@
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { debounceTime }                                from 'rxjs/operators';
-import { Anchor }                             from 'src/app/Interface/Anchor';
-import { FramePositionInterface }             from 'src/app/Interface/ConfigInterface';
-import { SerializableConfig }                 from 'src/app/Interface/SerializableConfig';
-import { TextWidgetConfigInterface }          from 'src/app/Interface/TextWidgetConfigInterface';
-import { DistinctBehaviorSubject }            from 'src/app/Model/DistinctBehaviorSubject';
+import { merge, Observable, Subject } from 'rxjs';
+import { debounceTime }               from 'rxjs/operators';
+import { Anchor }                     from 'src/app/Interface/Anchor';
+import { FramePositionInterface }     from 'src/app/Interface/FramePositionInterface';
+import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
+import { TextWidgetConfigInterface }  from 'src/app/Interface/TextWidgetConfigInterface';
+import { DistinctBehaviorSubject }    from 'src/app/Model/DistinctBehaviorSubject';
 
 export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInterface {
 	// @formatter:off
@@ -35,6 +35,7 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	anyChangedCache: Observable<any>;
+
 	get anyChanged(): Observable<any> {
 		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
 		return this.anyChangedCache;
@@ -48,7 +49,7 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 			this.fontSizeSub,
 			this.positionSub,
 			this.outlineSub
-		]
+		];
 	}
 
 	serialize(): Partial<TextWidgetConfig> {

@@ -1,5 +1,6 @@
-import { Subject, Subscription } from 'rxjs';
-import { LogParser }             from 'src/app/Service/LogParser/LogParser';
+import { Subscription }            from 'rxjs';
+import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
+import { LogParser }               from 'src/app/Service/LogParser/LogParser';
 
 export type TriggerType =
 	'none'
@@ -18,13 +19,17 @@ export type TriggerType =
 	| 'ability-cancel'
 	;
 
+export interface TriggerStatus {
+	active: boolean;
+	data?: any;
+}
+
 export class Trigger {
 	type: TriggerType = 'none';
 	triggerTimer = 0;
 	unit = '';
 
-	activate = new Subject<any>();
-	deactivate = new Subject<any>();
+	active = new DistinctBehaviorSubject<TriggerStatus>({ active: false });
 
 	constructor(protected parser: LogParser) {}
 
@@ -32,18 +37,10 @@ export class Trigger {
 
 	attach() {
 		this.detach();
-
-		switch (this.type) {
-			case 'none':
-				break;
-			case 'chat':
-
-			break;
-		}
 	}
 
 	detach() {
-		this.deactivate.next(true);
+		this.active.next({ active: false });
 
 		for (const sub of this.subs) {
 			sub.unsubscribe();
