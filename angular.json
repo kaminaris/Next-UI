@@ -2,8 +2,11 @@
 	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
 	"version": 1,
 	"newProjectRoot": "projects",
+	"cli": {
+		"packageManager": "yarn"
+	},
 	"projects": {
-		"player-unitframe": {
+		"next-ui": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:application": {
@@ -20,7 +23,7 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
-						"outputPath": "dist/player-unitframe",
+						"outputPath": "dist/next-ui",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
@@ -71,10 +74,10 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "player-unitframe:build:production"
+							"browserTarget": "next-ui:build:production"
 						},
 						"development": {
-							"browserTarget": "player-unitframe:build:development"
+							"browserTarget": "next-ui:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -82,11 +85,11 @@
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
-						"browserTarget": "player-unitframe:build"
+						"browserTarget": "next-ui:build"
 					}
 				}
 			}
 		}
 	},
-	"defaultProject": "player-unitframe"
+	"defaultProject": "next-ui"
 }

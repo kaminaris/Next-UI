@@ -2,10 +2,10 @@
 
 ## TODO:
 
-- Aura timers over 1 minute
-- Fix empty aura sometimes on target
-- toggle whole ui?
-- custom css?
+- [ ] Aura timers over 1 minute
+- [ ] Fix empty aura sometimes on target
+- [x] ~~toggle whole ui?~~
+- [ ] custom css?
 
 ## Development server
 
