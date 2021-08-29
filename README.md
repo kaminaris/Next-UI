@@ -1,6 +1,10 @@
 # Next UI
 
-## TODO:
+## Installation
+
+### [Click here](INSTALL.md) for installation guide
+
+## TODO
 
 - [ ] Aura timers over 1 minute
 - [ ] Fix empty aura sometimes on target

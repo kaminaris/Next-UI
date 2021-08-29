@@ -87,6 +87,10 @@
 					"options": {
 						"browserTarget": "next-ui:build"
 					}
+				},
+				"deploy": {
+					"builder": "angular-cli-ghpages:deploy",
+					"options": {}
 				}
 			}
 		}
