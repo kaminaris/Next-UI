@@ -55,17 +55,6 @@ export class ConfigService {
 				this.applyConfig();
 			});
 
-		// for (const frameName in this.config.frames) {
-		// 	this.config.frames[frameName] = new Proxy(this.config.frames[frameName], { set: proxySet });
-		//
-		// 	if (this.config.frames[frameName].widgets) {
-		// 		for (const widgetName in this.config.frames[frameName].widgets) {
-		// 			this.config.frames[frameName].widgets[widgetName] =
-		// 				new Proxy(this.config.frames[frameName].widgets[widgetName], { set: proxySet });
-		// 		}
-		// 	}
-		// }
-
 		this.applyConfig();
 	}
 
@@ -92,6 +81,11 @@ export class ConfigService {
 				this.findObservers(val, subs);
 			}
 		}
+	}
+
+	resetAllConfig() {
+		const config = extend(true, {}, this.defaultConfig) as any;
+		this.config.unserialize(config);
 	}
 
 	resetConfig(prop: string, frameName?: keyof MainConfig['frames'], widgetName?: string) {

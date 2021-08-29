@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Aura }                                                                  from 'src/app/Model/Aura';
+import { ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Aura }                                                                          from 'src/app/Model/Aura';
 import { ConfigService }                                                         from 'src/app/Service/ConfigService';
 
 @Component({
@@ -44,10 +44,11 @@ export class AuraIconComponent implements OnInit {
 	constructor(
 		protected cd: ChangeDetectorRef,
 		protected conf: ConfigService,
+		@Inject('BASE_URL') protected baseUrl: string
 	) {}
 
 	ngOnInit() {
-		this.src = '/assets/status/' + this.aura.id + '.png';
+		this.src = this.baseUrl + 'assets/status/' + this.aura.id + '.png';
 		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
 		this.startTimeout();
 	}

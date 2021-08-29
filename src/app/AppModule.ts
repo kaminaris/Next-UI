@@ -49,6 +49,10 @@ import { ConfigMainComponent }     from './Component/Config/ConfigMainComponent'
 import { ConfigPartyComponent }    from './Component/Config/ConfigPartyComponent';
 import { ConfigPlayerComponent }   from './Component/Config/ConfigPlayerComponent';
 
+export function getBaseUrl() {
+	return document.getElementsByTagName('base')[0].href;
+}
+
 @NgModule({
 	declarations: [
 		ConfigComponent,
@@ -95,7 +99,9 @@ import { ConfigPlayerComponent }   from './Component/Config/ConfigPlayerComponen
 		NgSelectModule,
 		ColorSketchModule
 	],
-	providers: [],
+	providers: [
+		{ provide: 'BASE_URL', useFactory: getBaseUrl }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

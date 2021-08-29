@@ -5,6 +5,10 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-main',
 	template: `
 		<h4 class="ta-c">Main Configuration</h4>
+		
+		<config-group title="General">
+			<button type="button" class="btn btn-danger d-block" (click)="resetAll()">Reset All config</button>
+		</config-group>
 
 		<table style="width: 100%;">
 			<tr>
@@ -45,5 +49,9 @@ export class ConfigMainComponent {
 
 	closeConfig() {
 		this.conf.closeConfig();
+	}
+
+	resetAll() {
+		this.conf.resetAllConfig();
 	}
 }
