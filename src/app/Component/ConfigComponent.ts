@@ -35,6 +35,7 @@ import {default as config}       from '../../../package.json';
 					<config-party *ngIf="currentCategory === 'party'"></config-party>
 					<config-aggro-list *ngIf="currentCategory === 'aggroList'"></config-aggro-list>
 					<config-aura *ngIf="currentCategory === 'aura'"></config-aura>
+					<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
 				</div>
 			</div>
 		</div>
@@ -52,7 +53,8 @@ export class ConfigComponent {
 		{ value: 'targetOfTarget', label: 'Target Of Target' },
 		{ value: 'party', label: 'Party' },
 		{ value: 'aggroList', label: 'Aggro List' },
-		{ value: 'aura', label: 'Aura' }
+		{ value: 'aura', label: 'Aura' },
+		{ value: 'profile', label: 'Profiles' }
 	];
 
 	currentCategory = 'main';

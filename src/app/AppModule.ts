@@ -21,6 +21,7 @@ import { ConfigSelectComponent }        from 'src/app/Component/Config/Ui/Config
 import { ConfigSizeComponent }          from 'src/app/Component/Config/Ui/ConfigSizeComponent';
 import { ConfigTextWidgetComponent }    from 'src/app/Component/Config/Ui/ConfigTextWidgetComponent';
 import { ConfigWindowColorComponent }   from 'src/app/Component/Config/Window/ConfigWindowColorComponent';
+import { ConfigWindowProfileComponent } from 'src/app/Component/Config/Window/ConfigWindowProfileComponent';
 import { ConfigComponent }              from 'src/app/Component/ConfigComponent';
 import { ControlComponent }             from 'src/app/Component/ControlComponent';
 import { CustomElementComponent }       from 'src/app/Component/CustomElementComponent';
@@ -74,6 +75,7 @@ export function getBaseUrl() {
 		// Config Windows
 		ConfigMainComponent, ConfigPlayerComponent, ConfigTargetComponent, ConfigPartyComponent, ConfigAuraComponent,
 		ConfigTargetOfTargetComponent, ConfigTTSComponent, ConfigAggroListComponent, ConfigWindowColorComponent,
+		ConfigWindowProfileComponent,
 
 		// Custom Elements
 		CustomElementComponent, CustomElementsPanelComponent,

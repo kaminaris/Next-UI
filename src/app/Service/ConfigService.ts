@@ -1,8 +1,10 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, merge, Subject }         from 'rxjs';
 import { debounceTime }                            from 'rxjs/operators';
+import { ConfigProfile }                           from 'src/app/Interface/ConfigProfile';
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
+import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Service/defaultConfig';
 import extend                                      from 'just-extend';
 
@@ -17,6 +19,7 @@ export class ConfigService {
 		{ name: '2.13k', value: 'prec2' }
 	];
 
+	profiles: ConfigProfile[] = [];
 	config: MainConfig;
 
 	uiVisible = true;
@@ -29,7 +32,8 @@ export class ConfigService {
 	configChanged = new Subject();
 
 	constructor(
-		protected rendererFactory: RendererFactory2
+		protected rendererFactory: RendererFactory2,
+		protected compressionService: CompressionService
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
 
@@ -41,7 +45,7 @@ export class ConfigService {
 			c = {};
 		}
 
-		const config = extend(true, extend(true, {}, this.defaultConfig), c) as any;
+		const config = extend(true, this.cloneDefaultConfig(), c) as any;
 
 		this.config = new MainConfig();
 		this.config.unserialize(config);
@@ -56,6 +60,12 @@ export class ConfigService {
 			});
 
 		this.applyConfig();
+
+		this.loadProfiles();
+	}
+
+	cloneDefaultConfig() {
+		return extend(true, {}, this.defaultConfig);
 	}
 
 	findObservers(obj: any, subs: BehaviorSubject<any>[]) {
@@ -84,7 +94,7 @@ export class ConfigService {
 	}
 
 	resetAllConfig() {
-		const config = extend(true, {}, this.defaultConfig) as any;
+		const config = this.cloneDefaultConfig() as any;
 		this.config.unserialize(config);
 	}
 
@@ -177,5 +187,91 @@ export class ConfigService {
 
 	toggleUi() {
 		this.uiVisible = !this.uiVisible;
+	}
+
+	createNewProfile(newProfileName: string) {
+		const serialized = JSON.stringify(this.config.serialize());
+		const profiles = this.profiles;
+		profiles.push({ name: newProfileName, config: serialized });
+
+		this.profiles = [...profiles];
+
+		this.saveProfiles();
+	}
+
+	deleteProfile(profileName: string) {
+		const profileIdx = this.profiles.findIndex(p => p.name === profileName);
+		if (profileIdx < 0) {
+			console.log(`Profile ${ profileName } not found!`);
+			return;
+		}
+
+		const profiles = this.profiles.splice(profileIdx, 1);
+		this.profiles = [...profiles];
+
+		this.saveProfiles();
+	}
+
+	loadProfile(profileName: string) {
+		const profile = this.profiles.find(p => p.name === profileName);
+		if (!profile) {
+			console.log(`Profile ${ profileName } not found!`);
+			return;
+		}
+
+		try {
+			const c = JSON.parse(profile.config);
+			const config = extend(true, this.cloneDefaultConfig(), c) as any;
+			this.config.unserialize(config);
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+
+	saveProfiles() {
+		localStorage.setItem('profiles', JSON.stringify(this.profiles));
+	}
+
+	loadProfiles() {
+		const profiles = localStorage.getItem('profiles');
+		if (profiles) {
+			const parsed = JSON.parse(profiles);
+			if (Array.isArray(parsed)) {
+				this.profiles = parsed;
+			}
+		}
+	}
+
+	saveAsProfile(profileName: string) {
+		const profile = this.profiles.find(p => p.name === profileName);
+		if (!profile) {
+			console.log(`Profile ${ profileName } not found!`);
+			return;
+		}
+
+		profile.config = JSON.stringify(this.config.serialize());
+
+		this.saveProfiles();
+	}
+
+	async exportProfile(profileName: string) {
+		const profile = this.profiles.find(p => p.name === profileName);
+		if (!profile) {
+			console.log(`Profile ${ profileName } not found!`);
+			return '';
+		}
+
+		return await this.compressionService.compress(profile.config);
+	}
+
+	async importProfile(profileName: string, input: string) {
+		const profile = this.profiles.find(p => p.name === profileName);
+		if (!profile) {
+			console.log(`Profile ${ profileName } not found!`);
+			return;
+		}
+
+		profile.config = await this.compressionService.decompress(input);
 	}
 }

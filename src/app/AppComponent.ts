@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
 	settingIconVisible = false;
 
 	config = this.conf.config;
+	// customCss = this.config.customCss;
 
 	constructor(
 		protected zone: NgZone,
@@ -39,6 +40,9 @@ export class AppComponent implements OnInit {
 		// DEBUG
 		this.parser.debugMode = false;
 		this.conf.moveMode.subscribe(mm => this.moveMode = mm);
+		this.config.customCssSub.subscribe(() =>{
+			this.setCustomCss();
+		})
 		//
 		// this.aura.id = 1199;
 		//
@@ -121,5 +125,9 @@ export class AppComponent implements OnInit {
 
 	test() {
 		this.config.frames.player.position = { x: 100, y: 100 };
+	}
+
+	setCustomCss() {
+		document.getElementById('custom-css-container').innerText = this.config.customCss;
 	}
 }

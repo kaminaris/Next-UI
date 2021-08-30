@@ -6,10 +6,12 @@
 
 ## TODO
 
+- [ ] Profiles for settings
+- [ ] Disabling specific frames
 - [ ] Aura timers over 1 minute
 - [ ] Fix empty aura sometimes on target
 - [x] ~~toggle whole ui?~~
-- [ ] custom css?
+- [x] ~~custom css?~~
 
 ## Development server
 

@@ -19,12 +19,16 @@ export class MainConfig implements SerializableConfig {
 	get fontFamily(): string { return this.fontFamilySub.value; }
 	set fontFamily(v: string) { this.fontFamilySub.next(v); }
 
+	get customCss(): string { return this.customCssSub.value; }
+	set customCss(v: string) { this.customCssSub.next(v); }
+
 	get numberFormat(): string { return this.numberFormatSub.value; }
 	set numberFormat(v: string) { this.numberFormatSub.next(v); }
 	// @formatter:on
 
 	ttsConfig = new TTSConfig();
 	colorConfig = new ColorConfig();
+	customCssSub = new DistinctBehaviorSubject<string>('');
 	fontFamilySub = new DistinctBehaviorSubject<string>('');
 	numberFormatSub = new DistinctBehaviorSubject<string>('');
 
@@ -48,10 +52,15 @@ export class MainConfig implements SerializableConfig {
 	};
 
 	getSubjects(): Subject<any>[] {
-		return [this.fontFamilySub, this.numberFormatSub];
+		return [
+			this.customCssSub,
+			this.fontFamilySub,
+			this.numberFormatSub
+		];
 	}
 
 	unserialize(value: Partial<MainConfig>) {
+		this.customCss = value.customCss;
 		this.fontFamily = value.fontFamily;
 		this.numberFormat = value.numberFormat;
 		this.ttsConfig.unserialize(value.ttsConfig);
@@ -69,6 +78,7 @@ export class MainConfig implements SerializableConfig {
 
 	serialize() {
 		return {
+			customCss: this.customCss,
 			fontFamily: this.fontFamily,
 			numberFormat: this.numberFormat,
 			ttsConfig: this.ttsConfig.serialize(),

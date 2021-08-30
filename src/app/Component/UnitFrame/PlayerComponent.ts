@@ -17,7 +17,7 @@ import { Util }          from 'src/app/Service/LogParser/Util';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column" 
+		<div class="d-flex flex-column player-frame" 
 			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"

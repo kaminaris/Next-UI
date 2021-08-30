@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
 	selector: 'progress-bar',
 	template: `
-		<div
+		<div class="progress-bar-container"
 			[ngStyle]="{
 				'background-color': bgColor,
 				width: width,
@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
 			}"
 		>
 			<ng-content></ng-content>
-			<div style="position: absolute; height: 100%;"
+			<div class="progress-bar-fill" style="position: absolute; height: 100%;"
 				[ngStyle]="{
 			'background-color': fillColor,
 			'width.%': percent

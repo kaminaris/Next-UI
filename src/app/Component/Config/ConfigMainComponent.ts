@@ -5,9 +5,14 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-main',
 	template: `
 		<h4 class="ta-c">Main Configuration</h4>
-		
+
 		<config-group title="General">
 			<button type="button" class="btn btn-danger d-block" (click)="resetAll()">Reset All config</button>
+			<div class="mb-3">
+				<label for="custom-css">Custom CSS</label>
+				<textarea id="custom-css" class="form-control font-monospace" rows="10"
+					[(ngModel)]="config.customCss"></textarea>
+			</div>
 		</config-group>
 
 		<table style="width: 100%;">
@@ -21,12 +26,12 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<tr>
 				<td>Number Format</td>
 				<td>
-					<ng-select 
-						[(ngModel)]="config.numberFormat" 
+					<ng-select
+						[(ngModel)]="config.numberFormat"
 						[items]="conf.numberFormats"
 						[clearable]="false"
 						[searchable]="false"
-						bindLabel="name" 
+						bindLabel="name"
 						bindValue="value"
 					></ng-select>
 				</td>

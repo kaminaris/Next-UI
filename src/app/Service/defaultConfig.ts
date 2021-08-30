@@ -3,6 +3,7 @@ import { MainConfig }       from 'src/app/Model/Config/MainConfig';
 
 export const defaultConfig: RecursivePartial<MainConfig> = {
 	fontFamily: 'Noto Sans Condensed',
+	customCss: '',
 	numberFormat: 'full',
 	ttsConfig: {
 		enabled: false
