@@ -7,12 +7,20 @@ import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctB
 import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Service/defaultConfig';
 import extend                                      from 'just-extend';
+import { Util }                                    from 'src/app/Service/LogParser/Util';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
 	defaultConfig = defaultConfig;
 
 	numberFormats = [
+		{ name: 'Full', value: 'full' },
+		{ name: '2k', value: 'prec0' },
+		{ name: '2.1k', value: 'prec1' },
+		{ name: '2.13k', value: 'prec2' }
+	];
+
+	numberTemplates = [
 		{ name: 'Full', value: 'full' },
 		{ name: '2k', value: 'prec0' },
 		{ name: '2.1k', value: 'prec1' },
@@ -30,6 +38,9 @@ export class ConfigService {
 	renderer: Renderer2;
 
 	configChanged = new Subject();
+
+	formatHP: (data: any) => string;
+	formatMana: (data: any) => string;
 
 	constructor(
 		protected rendererFactory: RendererFactory2,
@@ -62,10 +73,44 @@ export class ConfigService {
 		this.applyConfig();
 
 		this.loadProfiles();
+		this.makeFormatHPFunction();
+		this.makeFormatManaFunction();
+
+		this.config.hpTemplateSub.subscribe(this.makeFormatHPFunction.bind(this));
+		this.config.manaTemplateSub.subscribe(this.makeFormatManaFunction.bind(this));
 	}
 
 	cloneDefaultConfig() {
 		return extend(true, {}, this.defaultConfig);
+	}
+
+	replaceTemplate(t: string) {
+		return t.replace(/\[(\w+)\]/g, (match: string, capture: string) => {
+			return '${data.' + capture + '}';
+		});
+	}
+
+	makeFormatHPFunction() {
+		try {
+			const hpTemplate = this.replaceTemplate(this.config.hpTemplate);
+			this.formatHP = new Function('data', 'return `' + hpTemplate + '`') as any;
+			console.log('making hp fn', this.formatHP)
+		}
+		catch (e) {
+			console.log(e);
+			this.formatHP = new Function('data', 'return `INV - ${data.hp}`') as any;
+		}
+	}
+
+	makeFormatManaFunction() {
+		try {
+			const manaTemplate = this.replaceTemplate(this.config.manaTemplate);
+			this.formatMana = new Function('data', 'return `' + manaTemplate + '`') as any;
+		}
+		catch (e) {
+			console.log(e);
+			this.formatMana = new Function('data', 'return `INV - ${data.mana}`') as any;
+		}
 	}
 
 	findObservers(obj: any, subs: BehaviorSubject<any>[]) {

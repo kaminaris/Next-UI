@@ -17,18 +17,20 @@ import { Util }          from 'src/app/Service/LogParser/Util';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column player-frame" 
+		<div class="d-flex flex-column player-frame"
 			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
 		>
-			<div class="pos-a z10" style="display:flex;"
+			<div class="d-flex pos-a z10"
+				*ngIf="ownConfig.aurasEnabled"
 				anchor-element
 				[anchorSub]="ownConfig.auraAnchorSub"
 				[positionSub]="ownConfig.auraPositionSub"
 			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
+
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="barColor"
@@ -113,7 +115,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
 			this.cd.detectChanges();
-		}))
+		}));
 
 		this.subs.push(this.conf.moveMode.subscribe((mm) => {
 			this.cd.detectChanges();
@@ -130,12 +132,15 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			this.hpPct = 100;
 		}
 
-		this.hpText =
-			Util.formatNumber(this.hp, this.config.numberFormat) +
-			' / ' +
-			Util.formatNumber(this.hpMax, this.config.numberFormat) +
-			' (' + this.hpPct + '%)';
-		// this.cd.detectChanges();
+		const data = {
+			hpRaw: this.hp,
+			hpMaxRaw: this.hpMax,
+			hp: Util.formatNumber(this.hp, this.config.numberFormat),
+			hpMax: Util.formatNumber(this.hpMax, this.config.numberFormat),
+			hpPct: this.hpPct
+		};
+
+		this.hpText = this.conf.formatHP(data);
 	}
 
 	calcMana() {
@@ -143,13 +148,15 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		if (this.manaPct > 100) {
 			this.manaPct = 100;
 		}
+		const data = {
+			manaRaw: this.mana,
+			manaMaxRaw: this.manaMax,
+			mana: Util.formatNumber(this.mana, this.config.numberFormat),
+			manaMax: Util.formatNumber(this.manaMax, this.config.numberFormat),
+			manaPct: this.manaPct
+		};
 
-		this.manaText =
-			Util.formatNumber(this.mana, this.config.numberFormat) +
-			' / ' +
-			Util.formatNumber(this.manaMax, this.config.numberFormat) +
-			' (' + this.manaPct + '%)';
-		// this.cd.detectChanges();
+		this.manaText = this.conf.formatMana(data);
 	}
 
 	ngOnDestroy() {
@@ -171,7 +178,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 		if (this.ownConfig.useClassColor && c.job.value !== 'NONE') {
 			this.barColor = this.config.colorConfig.getJobColorByName(c.job.value);
-		} else {
+		}
+		else {
 			this.barColor = this.ownConfig.barColor;
 		}
 

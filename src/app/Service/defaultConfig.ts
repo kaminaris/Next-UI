@@ -5,6 +5,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 	fontFamily: 'Noto Sans Condensed',
 	customCss: '',
 	numberFormat: 'full',
+	hpTemplate: '[hp] / [hpMax] ([hpPct]%)',
+	manaTemplate: '[mana] / [manaMax] ([manaPct]%)',
 	ttsConfig: {
 		enabled: false
 	},
@@ -26,6 +28,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			size: { width: 800, height: 600 }
 		},
 		player: {
+			enabled: true,
+			aurasEnabled: true,
 			position: { x: 600, y: 500 },
 			size: { width: 260, height: 60 },
 			barColor: '#02A502',
@@ -83,6 +87,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			}
 		},
 		target: {
+			enabled: true,
+			aurasEnabled: true,
 			position: { x: 900, y: 500 },
 			size: { width: 260, height: 60 },
 			barColor: '#02A502',
@@ -140,6 +146,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			}
 		},
 		targetOfTarget: {
+			enabled: true,
+			aurasEnabled: true,
 			position: { x: 1180, y: 500 },
 			size: { width: 200, height: 20 },
 			barColor: '#02A502',
@@ -197,6 +205,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			}
 		},
 		party: {
+			enabled: true,
+			aurasEnabled: true,
 			position: { x: 100, y: 200 },
 			size: { width: 250, height: 300 },
 			barColor: '#02A502',
@@ -256,6 +266,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			}
 		},
 		aggroList: {
+			enabled: true,
+			aurasEnabled: true,
 			position: { x: 600, y: 200 },
 			size: { width: 250, height: 300 },
 			barColor: '#02A502',

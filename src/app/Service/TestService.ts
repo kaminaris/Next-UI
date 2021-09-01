@@ -33,6 +33,15 @@ export class TestService {
 		// this.toggleAnimatePlayerHp();
 	}
 
+	fullTest() {
+		this.testMode();
+		this.randomTarget();
+		this.randomTargetOfTarget();
+		this.setParty(true);
+		this.randomAuras();
+		this.randomizeHp();
+	}
+
 	toggleAnimatePlayerHp() {
 		if (this.playerHpInterval) {
 			clearInterval(this.playerHpInterval);

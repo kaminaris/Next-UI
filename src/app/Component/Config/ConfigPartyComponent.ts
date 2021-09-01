@@ -7,6 +7,10 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-party',
 	template: `
 		<h4 class="ta-c">Party Frame Configuration</h4>
+		<config-group title="Frame">
+			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
+			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+		</config-group>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
@@ -14,20 +18,22 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-position [frameName]="frameName" prop="position" label="Position"></config-position>
 			<config-size [frameName]="frameName" prop="size" label="Size"></config-size>
 
-			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
-			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
-
-			<config-checkbox [frameName]="frameName" prop="showMana" label="Show Mana"></config-checkbox>
-			<config-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></config-input>
-
 			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
 			<config-checkbox [frameName]="frameName" prop="useClassColor" label="Use Class Color"></config-checkbox>
 			<config-color [frameName]="frameName" prop="barColor" label="HP Color"></config-color>
-			<config-color [frameName]="frameName" prop="manaColor" label="Mana Color"></config-color>
 
 			<config-range [frameName]="frameName" prop="borderWidth" [min]="0" [max]="20" [step]="1" label="Border Width"></config-range>
 			<config-color [frameName]="frameName" prop="borderColor" label="Border Color"></config-color>
+		</config-group>
 
+		<config-group title="Mana Bar">
+			<config-checkbox [frameName]="frameName" prop="showMana" label="Show Mana"></config-checkbox>
+			<config-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></config-input>
+			<config-color [frameName]="frameName" prop="manaColor" label="Mana Color"></config-color>
+		</config-group>
+
+		<config-group title="Auras">
+			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
 			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
 		</config-group>

@@ -16,7 +16,12 @@ import { PlayerComponent }                                                      
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
 		>
-			<div class="pos-a z10" style="display:flex; bottom: 0">
+			<div  class="d-flex pos-a z10"
+				*ngIf="ownConfig.aurasEnabled"
+				anchor-element
+				[anchorSub]="ownConfig.auraAnchorSub"
+				[positionSub]="ownConfig.auraPositionSub"
+			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"

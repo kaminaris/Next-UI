@@ -11,8 +11,9 @@ import { PlayerComponent }                                                      
 			[style.border-color]="ownConfig.borderColor"
 		>
 
-			<div class="pos-a z10" style="display:flex;" 
-				anchor-element 
+			<div class="d-flex pos-a z10"
+				*ngIf="ownConfig.aurasEnabled"
+				anchor-element
 				[anchorSub]="ownConfig.auraAnchorSub"
 				[positionSub]="ownConfig.auraPositionSub"
 			>

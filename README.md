@@ -6,10 +6,13 @@
 
 ## TODO
 
+- [ ] Role icons
 - [ ] Profiles for settings
-- [ ] Disabling specific frames
 - [ ] Aura timers over 1 minute
 - [ ] Fix empty aura sometimes on target
+- [ ] Main configuration
+- [x] Disabling specific frames
+- [x] Disabling auras on frames
 - [x] ~~toggle whole ui?~~
 - [x] ~~custom css?~~
 

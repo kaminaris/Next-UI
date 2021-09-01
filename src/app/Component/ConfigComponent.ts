@@ -7,8 +7,12 @@ import {default as config}       from '../../../package.json';
 	template: `
 		<ng-content></ng-content>
 		<div class="d-flex flex-column config-window">
-			<div class="config-bar">
-				<h4 class="mt-1">NextUI - Config (v{{ version }})</h4>
+			<div class="config-bar d-flex">
+				<img src="/assets/nu.png" style="width: 39px; background: #fff;" alt="NextUI">
+				<h4 class="mt-1">
+					&nbsp;
+					NextUI - Config (v{{ version }})
+				</h4>
 				<button class="btn btn-sm btn-danger config-close-btn pos-a" (click)="closeConfig()">
 					<icon-close></icon-close>
 				</button>

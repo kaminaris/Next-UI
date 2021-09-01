@@ -22,6 +22,12 @@ export class MainConfig implements SerializableConfig {
 	get customCss(): string { return this.customCssSub.value; }
 	set customCss(v: string) { this.customCssSub.next(v); }
 
+	get hpTemplate(): string { return this.hpTemplateSub.value; }
+	set hpTemplate(v: string) { this.hpTemplateSub.next(v); }
+
+	get manaTemplate(): string { return this.manaTemplateSub.value; }
+	set manaTemplate(v: string) { this.manaTemplateSub.next(v); }
+
 	get numberFormat(): string { return this.numberFormatSub.value; }
 	set numberFormat(v: string) { this.numberFormatSub.next(v); }
 	// @formatter:on
@@ -31,6 +37,8 @@ export class MainConfig implements SerializableConfig {
 	customCssSub = new DistinctBehaviorSubject<string>('');
 	fontFamilySub = new DistinctBehaviorSubject<string>('');
 	numberFormatSub = new DistinctBehaviorSubject<string>('');
+	hpTemplateSub = new DistinctBehaviorSubject<string>('[hp] / [hpMax] ([hpPct]%)');
+	manaTemplateSub = new DistinctBehaviorSubject<string>('[mana] / [manaMax] ([manaPct]%)');
 
 	frames = {
 		control: new ControlFrameConfig(),
@@ -63,6 +71,8 @@ export class MainConfig implements SerializableConfig {
 		this.customCss = value.customCss;
 		this.fontFamily = value.fontFamily;
 		this.numberFormat = value.numberFormat;
+		this.hpTemplate = value.hpTemplate;
+		this.manaTemplate = value.manaTemplate;
 		this.ttsConfig.unserialize(value.ttsConfig);
 		this.colorConfig.unserialize(value.colorConfig);
 		this.frames.control.unserialize(value.frames.control);
@@ -81,6 +91,8 @@ export class MainConfig implements SerializableConfig {
 			customCss: this.customCss,
 			fontFamily: this.fontFamily,
 			numberFormat: this.numberFormat,
+			hpTemplate: this.hpTemplate,
+			manaTemplate: this.manaTemplate,
 			ttsConfig: this.ttsConfig.serialize(),
 			colorConfig: this.colorConfig.serialize(),
 			frames: {

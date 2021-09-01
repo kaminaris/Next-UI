@@ -11,6 +11,9 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	get enabled(): boolean { return this.enabledSub.value; }
 	set enabled(v: boolean) { this.enabledSub.next(v); }
 
+	get aurasEnabled(): boolean { return this.aurasEnabledSub.value; }
+	set aurasEnabled(v: boolean) { this.aurasEnabledSub.next(v); }
+
 	get backgroundColor(): string { return this.backgroundColorSub.value; }
 	set backgroundColor(v: string) { this.backgroundColorSub.next(v); }
 
@@ -43,6 +46,7 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	// @formatter:on
 
 	enabledSub = new DistinctBehaviorSubject<boolean>(true);
+	aurasEnabledSub = new DistinctBehaviorSubject<boolean>(true);
 	backgroundColorSub = new DistinctBehaviorSubject<string>('');
 	barColorSub = new DistinctBehaviorSubject<string>('');
 	manaColorSub = new DistinctBehaviorSubject<string>('');
@@ -68,6 +72,7 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		return [
 			...super.getSubjects(),
 			this.enabledSub,
+			this.aurasEnabledSub,
 			this.backgroundColorSub,
 			this.barColorSub,
 			this.manaColorSub,
@@ -83,6 +88,7 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	serialize(): any {
 		return {
 			enabled: this.enabled,
+			aurasEnabled: this.aurasEnabled,
 			position: Object.assign({}, this.position),
 			size: Object.assign({}, this.size),
 			backgroundColor: this.backgroundColor,
@@ -108,6 +114,7 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	unserialize(value: Partial<PlayerFrameConfig>): void {
 		super.unserialize(value);
 		this.enabled = value.enabled;
+		this.aurasEnabled = value.aurasEnabled;
 		this.backgroundColor = value.backgroundColor;
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;
