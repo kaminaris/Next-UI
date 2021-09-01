@@ -1,5 +1,7 @@
 import { Component }     from '@angular/core';
 import { anchors }       from 'src/app/Component/Config/anchors';
+import { barDirections } from 'src/app/Component/Config/barDirections';
+import { barStyles }     from 'src/app/Component/Config/barStyles';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
@@ -18,12 +20,31 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
 			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
 
+			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
+
+			<config-range [frameName]="frameName" prop="borderWidth" [min]="0" [max]="20" [step]="1" label="Border Width"></config-range>
+			<config-color [frameName]="frameName" prop="borderColor" label="Border Color"></config-color>
+		</config-group>
+
+		<config-group title="Health Bar">
+			<config-color [frameName]="frameName" prop="barColor" label="HP Color"></config-color>
+			<config-checkbox [frameName]="frameName" prop="useClassColor" label="Use Class Color"></config-checkbox>
+			<config-select [frameName]="frameName" [items]="barStyles" prop="barStyle" label="Bar Style"></config-select>
+			<config-select [frameName]="frameName" [items]="barDirections" prop="barDirection" label="Bar Direction"></config-select>
+		</config-group>
+
+		<config-group title="Mana Bar">
 			<config-checkbox [frameName]="frameName" prop="showMana" label="Show Mana"></config-checkbox>
 			<config-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></config-input>
-
-			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
-			<config-color [frameName]="frameName" prop="barColor" label="HP Color"></config-color>
 			<config-color [frameName]="frameName" prop="manaColor" label="Mana Color"></config-color>
+			<config-select [frameName]="frameName" [items]="barStyles" prop="manaBarStyle" label="Bar Style"></config-select>
+			<config-select [frameName]="frameName" [items]="barDirections" prop="manaBarDirection" label="Bar Direction"></config-select>
+		</config-group>
+
+		<config-group title="Auras">
+			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
+			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
+			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
 		</config-group>
 
 		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>
@@ -37,6 +58,8 @@ export class ConfigAggroListComponent {
 	frameName: keyof MainConfig['frames'] = 'aggroList';
 	configObj = this.conf.config.frames.aggroList;
 	anchors = anchors;
+	barStyles = barStyles;
+	barDirections = barDirections;
 
 	constructor(public conf: ConfigService) {}
 

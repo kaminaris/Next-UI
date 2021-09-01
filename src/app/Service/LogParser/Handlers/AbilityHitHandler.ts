@@ -62,13 +62,18 @@ export class AbilityHitHandler implements HandlerInterface {
 		const targetHeading = parseFloat(event[indexes.targetHeading + fieldOffset] ?? '');
 
 		const hp = parseInt(event[indexes.sourceHp + fieldOffset] ?? '');
-		const maxHp = parseInt(event[indexes.sourceMaxHp + fieldOffset] ?? '');
-		const mp = parseInt(event[indexes.sourceMp + fieldOffset] ?? '');
-		const maxMp = parseInt(event[indexes.sourceMaxMp + fieldOffset] ?? '');
+		const hpMax = parseInt(event[indexes.sourceMaxHp + fieldOffset] ?? '');
+		const mana = parseInt(event[indexes.sourceMp + fieldOffset] ?? '');
+		const manaMax = parseInt(event[indexes.sourceMaxMp + fieldOffset] ?? '');
 		const x = parseFloat(event[indexes.x + fieldOffset] ?? '');
 		const y = parseFloat(event[indexes.y + fieldOffset] ?? '');
 		const z = parseFloat(event[indexes.z + fieldOffset] ?? '');
 		const heading = parseFloat(event[indexes.heading + fieldOffset] ?? '');
+
+		// if (id === '105C29A0') console.log(id, 's',mana)
+		// this.parser.updateCombatant(
+		// 	id, name, hp, hpMax, mana, manaMax
+		// );
 
 		if (this.parser.debugMode) {
 			// tested

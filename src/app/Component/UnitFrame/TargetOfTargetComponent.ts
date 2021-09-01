@@ -27,6 +27,8 @@ import { PlayerComponent }                                 from './PlayerCompone
 				[percent]="hpPct"
 				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
+				[barStyle]="ownConfig.barStyle"
+				[barDirection]="ownConfig.barDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -50,6 +52,8 @@ import { PlayerComponent }                                 from './PlayerCompone
 				[fillColor]="ownConfig.manaColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[percent]="manaPct"
+				[barStyle]="ownConfig.manaBarStyle"
+				[barDirection]="ownConfig.manaBarDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}

@@ -24,10 +24,10 @@ export class AbilityCancelHandler implements HandlerInterface {
 		const abilityName = event[indexes.abilityName] ?? '';
 		const reason = event[indexes.reason] ?? '';
 
-		// if (this.parser.debugMode) {
+		if (this.parser.debugMode) {
 			console.log(
 				`Cancel ability: ${ id }, ${ name }, ${ abilityId }, ${ abilityName }, ${ reason }`
 			);
-		// }
+		}
 	}
 }

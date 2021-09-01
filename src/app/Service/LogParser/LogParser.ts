@@ -264,7 +264,6 @@ export class LogParser {
 
 		let combatants = [];
 		// check if whole list needs change
-		console.log(e.AggroList)
 		if (e.AggroList.length !== this.aggroList.value.length) {
 
 			// this doesn't work

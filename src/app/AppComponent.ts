@@ -1,16 +1,17 @@
 import { ChangeDetectorRef, Component, NgZone, OnInit, Renderer2 } from '@angular/core';
-import { IPosition }            from 'angular2-draggable';
-import { IResizeEvent }         from 'angular2-draggable/lib/models/resize-event';
-import { EnmityAggroList }      from 'src/app/Interface/EnmityAggroList';
-import { EnmityTargetData }     from 'src/app/Interface/EnmityTargetData';
-import { PartyMember }          from 'src/app/Interface/PartyMember';
-import { Aura }                 from 'src/app/Model/Aura';
-import { MainConfig }           from 'src/app/Model/Config/MainConfig';
-import { CustomElement }        from 'src/app/Model/CustomElement/CustomElement';
-import { ConfigService }        from 'src/app/Service/ConfigService';
-import { CustomElementService } from 'src/app/Service/CustomElementService';
-import { LogParser }            from 'src/app/Service/LogParser/LogParser';
-import { TestService }          from 'src/app/Service/TestService';
+import { IPosition }                                               from 'angular2-draggable';
+import { IResizeEvent }                                            from 'angular2-draggable/lib/models/resize-event';
+import { EnmityAggroList }                                         from 'src/app/Interface/EnmityAggroList';
+import { EnmityTargetData }                                        from 'src/app/Interface/EnmityTargetData';
+import { PartyMember }                                             from 'src/app/Interface/PartyMember';
+import { PlayerDetails }                                           from 'src/app/Interface/PlayerDetails';
+import { Aura }                                                    from 'src/app/Model/Aura';
+import { MainConfig }                                              from 'src/app/Model/Config/MainConfig';
+import { CustomElement }                                           from 'src/app/Model/CustomElement/CustomElement';
+import { ConfigService }                                           from 'src/app/Service/ConfigService';
+import { CustomElementService }                                    from 'src/app/Service/CustomElementService';
+import { LogParser }                                               from 'src/app/Service/LogParser/LogParser';
+import { TestService }                                             from 'src/app/Service/TestService';
 
 @Component({
 	selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
 	settingIconVisible = false;
 
 	config = this.conf.config;
+
 	// customCss = this.config.customCss;
 
 	constructor(
@@ -40,9 +42,9 @@ export class AppComponent implements OnInit {
 		// DEBUG
 		this.parser.debugMode = false;
 		this.conf.moveMode.subscribe(mm => this.moveMode = mm);
-		this.config.customCssSub.subscribe(() =>{
+		this.config.customCssSub.subscribe(() => {
 			this.setCustomCss();
-		})
+		});
 		//
 		// this.aura.id = 1199;
 		//
@@ -65,8 +67,24 @@ export class AppComponent implements OnInit {
 		(window as any).addOverlayListener('PartyChanged', this.partyChanged.bind(this));
 		(window as any).addOverlayListener('EnmityTargetData', this.enmityTargetData.bind(this));
 		(window as any).addOverlayListener('EnmityAggroList', this.enmityAggroList.bind(this));
+		(window as any).addOverlayListener('onPlayerChangedEvent', this.playerChangedEvent.bind(this));
 
 		(window as any).startOverlayEvents();
+	}
+
+	playerChangedEvent(e: { type: string, detail: PlayerDetails }) {
+		const details = e.detail;
+		const id = details.id.toString(16).toUpperCase();
+		this.parser.updateCombatant(
+			id,
+			details.name,
+			details.currentHP,
+			details.maxHP,
+			details.currentMP,
+			details.maxMP,
+			details.job,
+			details.level
+		);
 	}
 
 	enmityAggroList(e: EnmityAggroList) {

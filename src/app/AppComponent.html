@@ -1,6 +1,7 @@
 <div id="main-content" style="position:relative;">
 	<ng-container *ngIf="conf.uiVisible">
 		<player class="draggable d-block frame-player no-sel"
+				*ngIf="config.frames.player.enabled"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.player.size.width"
 				[style.height.px]="config.frames.player.size.height"
@@ -18,6 +19,7 @@
 		</player>
 
 		<target class="draggable d-block frame-target no-sel"
+				*ngIf="config.frames.target.enabled"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.target.size.width"
 				[style.height.px]="config.frames.target.size.height"
@@ -35,6 +37,7 @@
 		</target>
 
 		<target-of-target class="draggable d-block frame-target-of-target no-sel"
+				*ngIf="config.frames.targetOfTarget.enabled"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.targetOfTarget.size.width"
 				[style.height.px]="config.frames.targetOfTarget.size.height"
@@ -52,6 +55,7 @@
 		</target-of-target>
 
 		<party class="draggable d-block frame-party no-sel"
+				*ngIf="config.frames.party.enabled"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.party.size.width"
 				[style.height.px]="config.frames.party.size.height"
@@ -69,6 +73,7 @@
 		</party>
 
 		<aggro-list class="draggable d-block frame-aggro-list no-sel"
+				*ngIf="config.frames.aggroList.enabled"
 				[class.frame-bg]="moveMode"
 				[style.width.px]="config.frames.aggroList.size.width"
 				[style.height.px]="config.frames.aggroList.size.height"

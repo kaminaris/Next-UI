@@ -6,14 +6,25 @@ import { PlayerComponent }                                                      
 	selector: 'aggro-member',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="d-flex flex-column" style="height: 100%">
-			<div class="pos-a z10" style="display:flex; bottom: 0">
+		<div class="d-flex flex-column aggro-member-frame"
+			style="height: 100%; border-style: solid"
+			[style.border-width.px]="ownConfig.borderWidth"
+			[style.border-color]="ownConfig.borderColor"
+		>
+			<div class="d-flex pos-a z10"
+				*ngIf="ownConfig.aurasEnabled"
+				anchor-element
+				[anchorSub]="ownConfig.auraAnchorSub"
+				[positionSub]="ownConfig.auraPositionSub"
+			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 				[bgColor]="ownConfig.backgroundColor"
+				[barStyle]="ownConfig.barStyle"
+				[barDirection]="ownConfig.barDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -37,6 +48,8 @@ import { PlayerComponent }                                                      
 				[fillColor]="ownConfig.manaColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[percent]="manaPct"
+				[barStyle]="ownConfig.manaBarStyle"
+				[barDirection]="ownConfig.manaBarDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
@@ -61,7 +74,7 @@ export class AggroMemberComponent extends PlayerComponent implements OnInit, OnD
 
 		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
 			this.cd.detectChanges();
-		}))
+		}));
 
 		this.subs.push(
 			this.combatant.auras.subscribe((auras) => {

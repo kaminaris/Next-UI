@@ -9,7 +9,7 @@ import { LogParser }                                       from 'src/app/Service
 	template: `
 		<ng-content></ng-content>
 		<div class="d-flex flex-column">
-			<aggro-member class="d-block"
+			<aggro-member class="d-block" style="position:relative;"
 				[style.margin-bottom.px]="ownConfig.unitFrameMargin"
 				[style.height]="ownConfig.unitFrameHeight"
 				*ngFor="let c of aggroList"

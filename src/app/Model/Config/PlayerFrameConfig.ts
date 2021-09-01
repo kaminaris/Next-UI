@@ -1,5 +1,7 @@
 import { Subject }                 from 'rxjs';
 import { Anchor }                  from 'src/app/Interface/Anchor';
+import { BarDirection }            from 'src/app/Interface/BarDirection';
+import { BarStyle }                from 'src/app/Interface/BarStyle';
 import { FramePositionInterface }  from 'src/app/Interface/FramePositionInterface';
 import { SerializableConfig }      from 'src/app/Interface/SerializableConfig';
 import { TextWidgetConfig }        from 'src/app/Model/Config/TextWidgetConfig';
@@ -16,6 +18,18 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 
 	get backgroundColor(): string { return this.backgroundColorSub.value; }
 	set backgroundColor(v: string) { this.backgroundColorSub.next(v); }
+
+	get barStyle(): BarStyle { return this.barStyleSub.value; }
+	set barStyle(v: BarStyle) { this.barStyleSub.next(v); }
+
+	get barDirection(): BarDirection { return this.barDirectionSub.value; }
+	set barDirection(v: BarDirection) { this.barDirectionSub.next(v); }
+
+	get manaBarStyle(): BarStyle { return this.manaBarStyleSub.value; }
+	set manaBarStyle(v: BarStyle) { this.manaBarStyleSub.next(v); }
+
+	get manaBarDirection(): BarDirection { return this.manaBarDirectionSub.value; }
+	set manaBarDirection(v: BarDirection) { this.manaBarDirectionSub.next(v); }
 
 	get barColor(): string { return this.barColorSub.value; }
 	set barColor(v: string) { this.barColorSub.next(v); }
@@ -48,6 +62,10 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	enabledSub = new DistinctBehaviorSubject<boolean>(true);
 	aurasEnabledSub = new DistinctBehaviorSubject<boolean>(true);
 	backgroundColorSub = new DistinctBehaviorSubject<string>('');
+	barStyleSub = new DistinctBehaviorSubject<BarStyle>('horizontal');
+	barDirectionSub = new DistinctBehaviorSubject<BarDirection>('start');
+	manaBarStyleSub = new DistinctBehaviorSubject<BarStyle>('horizontal');
+	manaBarDirectionSub = new DistinctBehaviorSubject<BarDirection>('start');
 	barColorSub = new DistinctBehaviorSubject<string>('');
 	manaColorSub = new DistinctBehaviorSubject<string>('');
 	manaHeightSub = new DistinctBehaviorSubject<string>('');
@@ -74,6 +92,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			this.enabledSub,
 			this.aurasEnabledSub,
 			this.backgroundColorSub,
+			this.barStyleSub,
+			this.barDirectionSub,
 			this.barColorSub,
 			this.manaColorSub,
 			this.manaHeightSub,
@@ -92,6 +112,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			position: Object.assign({}, this.position),
 			size: Object.assign({}, this.size),
 			backgroundColor: this.backgroundColor,
+			barStyle: this.barStyle,
+			barDirection: this.barDirection,
 			barColor: this.barColor,
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,
@@ -116,6 +138,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		this.enabled = value.enabled;
 		this.aurasEnabled = value.aurasEnabled;
 		this.backgroundColor = value.backgroundColor;
+		this.barStyle = value.barStyle;
+		this.barDirection = value.barDirection;
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;
 		this.manaHeight = value.manaHeight;

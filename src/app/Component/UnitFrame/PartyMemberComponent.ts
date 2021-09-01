@@ -19,10 +19,13 @@ import { PlayerComponent }                                                      
 			>
 				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
+
 			<progress-bar style="flex: 1 1 auto;"
 				[percent]="hpPct"
 				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
+				[barStyle]="ownConfig.barStyle"
+				[barDirection]="ownConfig.barDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
@@ -46,6 +49,8 @@ import { PlayerComponent }                                                      
 				[fillColor]="ownConfig.manaColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[percent]="manaPct"
+				[barStyle]="ownConfig.manaBarStyle"
+				[barDirection]="ownConfig.manaBarDirection"
 			>
 				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}

@@ -37,9 +37,11 @@ export class TestService {
 		this.testMode();
 		this.randomTarget();
 		this.randomTargetOfTarget();
+		this.randomAggroList();
 		this.setParty(true);
 		this.randomAuras();
 		this.randomizeHp();
+		this.randomizeMana();
 	}
 
 	toggleAnimatePlayerHp() {
@@ -84,6 +86,12 @@ export class TestService {
 		}
 	}
 
+	randomizeMana() {
+		for (const comb of this.parser.combatants.value) {
+			comb.updateMana(this.randomRange(0, comb.manaMax));
+		}
+	}
+
 	addCombatant(enemy = true, job = 'NONE', name?: string) {
 		const id = Math.ceil(Math.random() * 10000);
 		name ??= enemy ? 'Some Enemy' + id.toString(16) : 'Some NPC' + id.toString(16);
@@ -106,6 +114,18 @@ export class TestService {
 		const combatatns = this.parser.combatants.value;
 		const rCombatant = this.randomElement(combatatns);
 		this.parser.targetOfTarget.next(rCombatant);
+	}
+
+	randomAggroList() {
+		const combatatns = this.parser.combatants.value;
+		const rCombatants = [
+			this.randomElement(combatatns),
+			this.randomElement(combatatns),
+			this.randomElement(combatatns),
+			this.randomElement(combatatns),
+		];
+
+		this.parser.aggroList.next(rCombatants);
 	}
 
 	randomAuras() {
