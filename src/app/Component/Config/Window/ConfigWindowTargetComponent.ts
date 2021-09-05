@@ -1,8 +1,8 @@
 import { Component }     from '@angular/core';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
-import { anchors }       from 'src/app/Component/Config/anchors';
-import { barDirections } from 'src/app/Component/Config/barDirections';
-import { barStyles }     from 'src/app/Component/Config/barStyles';
+import { barDirections } from 'src/app/Data/barDirections';
+import { barStyles }     from 'src/app/Data/barStyles';
+import { anchors }       from 'src/app/Data/anchors';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({

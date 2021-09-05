@@ -31,13 +31,13 @@ import {default as config}       from '../../../package.json';
 				<div class="flex-grow" style="overflow-y: auto;">
 					<config-main *ngIf="currentCategory === 'main'"></config-main>
 					<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
-					<config-tts *ngIf="currentCategory === 'tts'"></config-tts>
+					<config-window-tts *ngIf="currentCategory === 'tts'"></config-window-tts>
 					<config-window-player *ngIf="currentCategory === 'player'"></config-window-player>
 					<config-window-target *ngIf="currentCategory === 'target'"></config-window-target>
-					<config-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-target-of-target>
-					<config-party *ngIf="currentCategory === 'party'"></config-party>
-					<config-aggro-list *ngIf="currentCategory === 'aggroList'"></config-aggro-list>
-					<config-aura *ngIf="currentCategory === 'aura'"></config-aura>
+					<config-window-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-window-target-of-target>
+					<config-window-party *ngIf="currentCategory === 'party'"></config-window-party>
+					<config-window-aggro-list *ngIf="currentCategory === 'aggroList'"></config-window-aggro-list>
+					<config-window-aura *ngIf="currentCategory === 'aura'"></config-window-aura>
 					<config-window-aura-filter *ngIf="currentCategory === 'auraFilter'"></config-window-aura-filter>
 					<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
 				</div>

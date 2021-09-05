@@ -3,7 +3,7 @@ import { TextWidgetConfig }     from 'src/app/Model/Config/TextWidgetConfig';
 import { CustomElement }        from 'src/app/Model/CustomElement/CustomElement';
 import { ConfigService }        from 'src/app/Service/ConfigService';
 import { CustomElementService } from 'src/app/Service/CustomElementService';
-import { anchors }              from 'src/app/Component/Config/anchors';
+import { anchors }              from 'src/app/Data/anchors';
 
 @Component({
 	selector: 'custom-elements-panel',

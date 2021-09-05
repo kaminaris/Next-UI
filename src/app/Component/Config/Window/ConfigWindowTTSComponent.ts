@@ -4,7 +4,7 @@ import { ConfigService }     from 'src/app/Service/ConfigService';
 import { TTSService }        from 'src/app/Service/TTSService';
 
 @Component({
-	selector: 'config-tts',
+	selector: 'config-window-tts',
 	template: `
 		<h4 class="ta-c">Text To Speech Config</h4>
 		
@@ -27,7 +27,7 @@ import { TTSService }        from 'src/app/Service/TTSService';
 					<input type="text" class="w100p" [(ngModel)]="maleMessage">
 				</div>
 				<div class="config-reset">
-					<button type="button" (click)="testVoice('male')">Test</button>
+					<button type="button" class="btn btn-success" (click)="testVoice('male')">Test</button>
 				</div>
 			</div>
 		</config-group>
@@ -47,7 +47,7 @@ import { TTSService }        from 'src/app/Service/TTSService';
 					<input type="text" class="w100p" [(ngModel)]="femaleMessage">
 				</div>
 				<div class="config-reset">
-					<button type="button" (click)="testVoice('female')">Test</button>
+					<button type="button" class="btn btn-success" (click)="testVoice('female')">Test</button>
 				</div>
 			</div>
 
@@ -55,7 +55,7 @@ import { TTSService }        from 'src/app/Service/TTSService';
 		</config-group>
 	`
 })
-export class ConfigTTSComponent implements OnInit {
+export class ConfigWindowTTSComponent implements OnInit {
 	voices: SpeechSynthesisVoice[] = [];
 	config = this.conf.config.ttsConfig;
 

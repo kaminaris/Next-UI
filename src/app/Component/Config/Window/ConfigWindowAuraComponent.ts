@@ -2,7 +2,7 @@ import { Component }  from '@angular/core';
 import { MainConfig } from 'src/app/Model/Config/MainConfig';
 
 @Component({
-	selector: 'config-aura',
+	selector: 'config-window-aura',
 	template: `
 		<h4 class="ta-c">Aura Icons</h4>
 
@@ -18,7 +18,7 @@ import { MainConfig } from 'src/app/Model/Config/MainConfig';
 		<config-text-widget title="Stacks label" [frameName]="frameName" widgetName="stacks"></config-text-widget>
 	`
 })
-export class ConfigAuraComponent {
+export class ConfigWindowAuraComponent {
 	frameName: keyof MainConfig['frames'] = 'auraBar';
 
 	precisions = [

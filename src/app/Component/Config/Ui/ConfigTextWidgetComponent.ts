@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { anchors }       from 'src/app/Component/Config/anchors';
+import { anchors }          from 'src/app/Data/anchors';
 
 @Component({
 	selector: 'config-text-widget',
-	template:`
+	template: `
 		<config-group [title]="title">
 			<config-checkbox [frameName]="frameName" [widgetName]="widgetName" prop="show" label="Show"></config-checkbox>
 			<config-select [frameName]="frameName" [items]="anchors" [widgetName]="widgetName" prop="anchor" label="Anchor"></config-select>
@@ -15,7 +15,7 @@ import { anchors }       from 'src/app/Component/Config/anchors';
 	`
 })
 export class ConfigTextWidgetComponent {
-	@Input() title = ''
+	@Input() title = '';
 	@Input() frameName: any;
 	@Input() widgetName: any;
 	anchors = anchors;

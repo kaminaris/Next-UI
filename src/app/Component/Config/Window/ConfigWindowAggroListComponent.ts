@@ -1,24 +1,23 @@
 import { Component }     from '@angular/core';
-import { anchors }       from 'src/app/Component/Config/anchors';
-import { barDirections } from 'src/app/Component/Config/barDirections';
-import { barStyles }     from 'src/app/Component/Config/barStyles';
+import { barDirections } from 'src/app/Data/barDirections';
+import { barStyles }     from 'src/app/Data/barStyles';
+import { anchors }       from 'src/app/Data/anchors';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
-	selector: 'config-party',
+	selector: 'config-window-aggro-list',
 	template: `
-		<h4 class="ta-c">Party Frame Configuration</h4>
-		<config-group title="Frame">
-			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
-			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
-		</config-group>
+		<h4 class="ta-c">Aggro List Frame Configuration</h4>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
 
 			<config-position [frameName]="frameName" prop="position" label="Position"></config-position>
 			<config-size [frameName]="frameName" prop="size" label="Size"></config-size>
+
+			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
+			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
 
 			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
 
@@ -54,12 +53,19 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
 	`
 })
-export class ConfigPartyComponent {
-	frameName: keyof MainConfig['frames'] = 'party';
-	configObj = this.conf.config.frames.party;
+export class ConfigWindowAggroListComponent {
+	frameName: keyof MainConfig['frames'] = 'aggroList';
+	configObj = this.conf.config.frames.aggroList;
 	anchors = anchors;
 	barStyles = barStyles;
 	barDirections = barDirections;
+	filters = this.conf.config.filters;
 
-	constructor(public conf: ConfigService) {}
+	constructor(public conf: ConfigService) {
+		this.conf.config.filtersSub.subscribe(v => this.filters = v);
+	}
+
+	resetAll() {
+		this.conf.config.frames.aggroList.unserialize(this.conf.defaultConfig.frames.aggroList as any);
+	}
 }

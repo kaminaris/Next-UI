@@ -1,14 +1,18 @@
 import { Component }     from '@angular/core';
-import { anchors }       from 'src/app/Component/Config/anchors';
+import { barDirections } from 'src/app/Data/barDirections';
+import { barStyles }     from 'src/app/Data/barStyles';
+import { anchors }       from 'src/app/Data/anchors';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
-import { barDirections } from 'src/app/Component/Config/barDirections';
-import { barStyles }     from 'src/app/Component/Config/barStyles';
 
 @Component({
-	selector: 'config-target-of-target',
+	selector: 'config-window-party',
 	template: `
-		<h4 class="ta-c">Target Of Target Frame Configuration</h4>
+		<h4 class="ta-c">Party Frame Configuration</h4>
+		<config-group title="Frame">
+			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
+			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+		</config-group>
 
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
@@ -41,6 +45,9 @@ import { barStyles }     from 'src/app/Component/Config/barStyles';
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
 			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
+			<config-checkbox [frameName]="frameName" prop="auraOnlyOwn" label="Only own"></config-checkbox>
+			<config-multiselect [frameName]="frameName" [items]="filters" bindValue="name" bindLabel="name"
+				prop="auraFilters" label="Aura Filters"></config-multiselect>
 		</config-group>
 
 		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>
@@ -50,12 +57,15 @@ import { barStyles }     from 'src/app/Component/Config/barStyles';
 		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
 	`
 })
-export class ConfigTargetOfTargetComponent {
-	frameName: keyof MainConfig['frames'] = 'targetOfTarget';
-	configObj = this.conf.config.frames.targetOfTarget;
+export class ConfigWindowPartyComponent {
+	frameName: keyof MainConfig['frames'] = 'party';
+	configObj = this.conf.config.frames.party;
 	anchors = anchors;
 	barStyles = barStyles;
 	barDirections = barDirections;
+	filters = this.conf.config.filters;
 
-	constructor(public conf: ConfigService) {}
+	constructor(public conf: ConfigService) {
+		this.conf.config.filtersSub.subscribe(v => this.filters = v);
+	}
 }
