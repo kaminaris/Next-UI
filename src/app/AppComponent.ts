@@ -74,9 +74,8 @@ export class AppComponent implements OnInit {
 
 	playerChangedEvent(e: { type: string, detail: PlayerDetails }) {
 		const details = e.detail;
-		const id = details.id.toString(16).toUpperCase();
 		this.parser.updateCombatant(
-			id,
+			details.id,
 			details.name,
 			details.currentHP,
 			details.maxHP,

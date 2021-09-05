@@ -23,7 +23,7 @@ export class XivPluginService {
 		this.socket.addEventListener('message', this.onMessage.bind(this));
 	}
 
-	setTarget(targetId: string) {
+	setTarget(targetId: number) {
 		if (!this.connected) {
 			return;
 		}
@@ -31,7 +31,7 @@ export class XivPluginService {
 		this.socket.send(JSON.stringify({
 			guid: 'aaa',
 			type: 'setTarget',
-			target: parseInt(targetId, 16),
+			target: targetId,
 			message: ''
 		}));
 	}

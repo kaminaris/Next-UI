@@ -4,6 +4,7 @@ import { EffectData }                                      from 'src/app/Interfa
 import { AggroTarget, AggroTargetTarget, EnmityAggroList } from 'src/app/Interface/EnmityAggroList';
 import { ActorInterface, EnmityTargetData }                from 'src/app/Interface/EnmityTargetData';
 import { PartyMember }                                     from 'src/app/Interface/PartyMember';
+import { AbilityHitCloneHandler }                          from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
 import { EventDispatcher }                                 from './EventDispatcher';
 import { Util }                                            from './Util';
 import { TTSService }                                      from '../TTSService';
@@ -47,7 +48,7 @@ export class LogParser {
 	 * Player Events
 	 */
 	player = new Combatant();
-	playerId = new BehaviorSubject<string>('');
+	playerId = new BehaviorSubject<number>(null);
 	playerName = new BehaviorSubject<string>('');
 
 	target = new BehaviorSubject<Combatant>(null);
@@ -68,7 +69,8 @@ export class LogParser {
 		new RemovedCombatantHandler(this), // 0x04
 		new PlayerStatsHandler(this), // 0x0C
 		new AbilityUseHandler(this), // 0x14
-		new AbilityHitHandler(this), // 0x15, 0x16
+		new AbilityHitHandler(this), // 0x15,
+		new AbilityHitCloneHandler(this), // 0x16
 		new AbilityCancelHandler(this), // 0x17
 		new OverTimeTickHandler(this), // 0x18
 		new CombatantDefeatedHandler(this), // 0x19
@@ -92,21 +94,24 @@ export class LogParser {
 	) {}
 
 	parse(event: string[]) {
+		const eventId = +event[0];
 		for (const handler of this.handlers) {
-			handler.handle(event);
+			if (handler.eventId === eventId) {
+				handler.handle(event);
+				return;
+			}
 		}
 	}
 
 	registerPlayer(name: string, id: number) {
 		this.playerName.next(name);
-		const hexId = id.toString(16).toUpperCase();
-		this.playerId.next(hexId);
+		this.playerId.next(id);
 		this.player.name = name;
-		this.player.id = hexId;
+		this.player.id = id;
 		this.player.isPlayer = true;
 
 		const combatants = this.combatants.value;
-		const playerFound = combatants.findIndex(c => c.id === hexId);
+		const playerFound = combatants.findIndex(c => c.id === id);
 		if (playerFound >= 0) {
 			// hmm do we need to update anything?
 		}
@@ -117,7 +122,7 @@ export class LogParser {
 	}
 
 	updateCombatant(
-		id: string,
+		id: number,
 		name: string,
 		hp: number,
 		hpMax: number,
@@ -128,12 +133,12 @@ export class LogParser {
 		isNpc = false
 	) {
 		const combatants = this.combatants.value;
-		let combatant = combatants.find((c: Combatant) => c.id === id);
+		let combatant = this.findCombatant(id, name);
 
 		if (!combatant) {
 			combatant = new Combatant();
 			combatant.id = id;
-			combatant.isNPC = isNpc || !id.startsWith('1');
+			combatant.isNPC = isNpc || !Combatant.isPlayerId(id);
 			combatant.name = name;
 			combatant.updateJob(job);
 			combatant.updateLevel(level);
@@ -283,17 +288,25 @@ export class LogParser {
 		// special treatment if just their data changed?
 	}
 
-
-	combatantIdFromEnmityActor(actor: ActorInterface | AggroTarget | AggroTargetTarget) {
-		let targetId = actor.ID.toString(16).toUpperCase();
-		if (targetId === 'E0000000') {
-			targetId = actor.Name;
-		}
-
-		return targetId;
+	combatantIdFromEnmityActor(actor: ActorInterface | AggroTarget | AggroTargetTarget): number {
+		return actor.ID;
+		// let targetId = actor.ID.toString(16).toUpperCase();
+		// if (targetId === 'E0000000') {
+		// 	targetId = actor.Name;
+		// }
+		//
+		// return targetId;
 	}
 
-	combatantFromEnmityActor(actor: ActorInterface | AggroTarget, targetId: string) {
+	findCombatant(id: number, name?: string) {
+		if (id !== Combatant.ENV_ID) {
+			return this.combatants.value.find(c => c.id === id);
+		}
+
+		return this.combatants.value.find(c => c.name === name);
+	}
+
+	combatantFromEnmityActor(actor: ActorInterface | AggroTarget, targetId: number) {
 		let hp = actor.CurrentHP;
 		let hpMax = actor.MaxHP;
 		let isNpc = false;
@@ -325,8 +338,7 @@ export class LogParser {
 
 	updateEffectsFromEnmity(c: Combatant, effects: EffectData[]) {
 		for (const effect of effects) {
-			const appliedBy = effect.ActorID.toString(16).toUpperCase();
-			c.updateAura(effect.BuffID, null, effect.Stack, appliedBy, null, null);
+			c.updateAura(effect.BuffID, null, effect.Stack, effect.ActorID, null, null);
 		}
 	}
 

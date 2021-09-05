@@ -17,15 +17,13 @@ const indexes = {
 };
 
 export class HpUpdatedHandler implements HandlerInterface {
+	eventId = 0x27;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x27) {
-			return;
-		}
 
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 		const hp = parseInt(event[indexes.currentHp] ?? '');
 		const hpMax = parseInt(event[indexes.hpMax] ?? '');

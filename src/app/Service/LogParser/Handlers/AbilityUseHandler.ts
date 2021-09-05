@@ -12,15 +12,11 @@ const indexes = {
 };
 
 export class AbilityUseHandler implements HandlerInterface {
-
+eventId = 0x14
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x14) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 		const abilityIdHex = event[indexes.abilityId]?.toUpperCase() ?? '';
 		const abilityId = parseInt(abilityIdHex);
@@ -31,7 +27,7 @@ export class AbilityUseHandler implements HandlerInterface {
 
 		const target = targetName.length === 0 ? 'Unknown' : targetName;
 
-		const combatant = this.parser.combatants.value.find(c => c.id === id);
+		const combatant = this.parser.findCombatant(id, name);
 		if (!combatant) {
 			return;
 		}

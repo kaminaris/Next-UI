@@ -5,7 +5,7 @@ export class StatusTrigger extends Trigger {
 	options = {
 		statusId: 0,
 		statusName: '',
-		targetId: '',
+		targetId: 0,
 		targetName: ''
 	};
 
@@ -21,7 +21,7 @@ export class StatusTrigger extends Trigger {
 				return;
 			}
 
-			if (this.options.targetId && ev.targetId.indexOf(this.options.targetId) < 0) {
+			if (this.options.targetId && ev.targetId !== this.options.targetId) {
 				return;
 			}
 

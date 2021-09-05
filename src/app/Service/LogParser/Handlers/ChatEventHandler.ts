@@ -7,14 +7,11 @@ const indexes = {
 };
 
 export class ChatEventHandler implements HandlerInterface {
+	eventId = 0x00;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x00) {
-			return;
-		}
-
 		const type = event[indexes.type] ?? '';
 		const speaker = event[indexes.speaker] ?? '';
 		const message = event.slice(4, -1).join('|');

@@ -25,19 +25,16 @@ const indexes = {
 	x: 40,
 	y: 41,
 	z: 42,
-	heading: 43,
-}
+	heading: 43
+};
 
 export class AbilityHitHandler implements HandlerInterface {
+	eventId = 0x15;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x15 && +event[0] !== 0x16) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 
 		const flags = event[indexes.flags] ?? '';
@@ -78,8 +75,8 @@ export class AbilityHitHandler implements HandlerInterface {
 		if (this.parser.debugMode) {
 			// tested
 			console.log(
-				`Ability hit, ${id}, ${name}, ${abilityId}, ${abilityName} on ${targetName}`
-			)
+				`Ability hit, ${ id }, ${ name }, ${ abilityId }, ${ abilityName } on ${ targetName }`
+			);
 		}
 	}
 }

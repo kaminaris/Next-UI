@@ -2,56 +2,55 @@ import { Util }             from '../Util';
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
+const indexes = {
+	id: 2,
+	name: 3,
+	jobIdHex: 4,
+	levelString: 5,
+	ownerId: 6,
+	worldId: 7,
+	worldName: 8,
+	npcNameId: 9,
+	npcBaseId: 10,
+	currentHp: 11,
+	hpMaxString: 12,
+	currentMp: 13,
+	maxMpString: 14,
+	currentTp: 15,
+	maxTp: 16,
+	xString: 17,
+	yString: 18,
+	zString: 19,
+	heading: 20
+};
+
 export class AddedCombatantHandler implements HandlerInterface {
-	indexes = {
-		id: 2,
-		name: 3,
-		jobIdHex: 4,
-		levelString: 5,
-		ownerId: 6,
-		worldId: 7,
-		worldName: 8,
-		npcNameId: 9,
-		npcBaseId: 10,
-		currentHp: 11,
-		hpMaxString: 12,
-		currentMp: 13,
-		maxMpString: 14,
-		currentTp: 15,
-		maxTp: 16,
-		xString: 17,
-		yString: 18,
-		zString: 19,
-		heading: 20
-	};
+	eventId = 0x03;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x03) {
-			return;
-		}
-		const id = event[this.indexes.id]?.toUpperCase() ?? '';
-		const name = event[this.indexes.name] ?? '';
-		const jobIdHex = event[this.indexes.jobIdHex]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
+		const name = event[indexes.name] ?? '';
+		const jobIdHex = event[indexes.jobIdHex]?.toUpperCase() ?? '';
 		const jobId = parseInt(jobIdHex, 16);
 		const job = Util.jobEnumToJob(jobId);
-		const level = parseInt(event[this.indexes.levelString] ?? '', 16);
-		const ownerId = event[this.indexes.ownerId]?.toUpperCase() ?? '';
-		const worldId = event[this.indexes.worldId] ?? '';
-		const worldName = event[this.indexes.worldName] ?? '';
-		const npcNameId = event[this.indexes.npcNameId] ?? '';
-		const npcBaseId = event[this.indexes.npcBaseId] ?? '';
-		const hp = parseFloat(event[this.indexes.currentHp] ?? '');
-		const hpMax = parseFloat(event[this.indexes.hpMaxString] ?? '');
-		const mana = parseFloat(event[this.indexes.currentMp] ?? '');
-		const manaMax = parseFloat(event[this.indexes.maxMpString] ?? '');
-		const tp = parseFloat(event[this.indexes.currentTp] ?? '');
-		const maxTp = parseFloat(event[this.indexes.maxTp] ?? '');
-		const x = parseFloat(event[this.indexes.xString] ?? '');
-		const y = parseFloat(event[this.indexes.yString] ?? '');
-		const z = parseFloat(event[this.indexes.zString] ?? '');
-		const heading = parseFloat(event[this.indexes.heading] ?? '');
+		const level = parseInt(event[indexes.levelString] ?? '', 16);
+		const ownerId = event[indexes.ownerId]?.toUpperCase() ?? '';
+		const worldId = event[indexes.worldId] ?? '';
+		const worldName = event[indexes.worldName] ?? '';
+		const npcNameId = event[indexes.npcNameId] ?? '';
+		const npcBaseId = event[indexes.npcBaseId] ?? '';
+		const hp = parseFloat(event[indexes.currentHp] ?? '');
+		const hpMax = parseFloat(event[indexes.hpMaxString] ?? '');
+		const mana = parseFloat(event[indexes.currentMp] ?? '');
+		const manaMax = parseFloat(event[indexes.maxMpString] ?? '');
+		const tp = parseFloat(event[indexes.currentTp] ?? '');
+		const maxTp = parseFloat(event[indexes.maxTp] ?? '');
+		const x = parseFloat(event[indexes.xString] ?? '');
+		const y = parseFloat(event[indexes.yString] ?? '');
+		const z = parseFloat(event[indexes.zString] ?? '');
+		const heading = parseFloat(event[indexes.heading] ?? '');
 		const timestamp = new Date(event[1] ?? '0');
 
 		this.parser.updateCombatant(
@@ -59,17 +58,15 @@ export class AddedCombatantHandler implements HandlerInterface {
 		);
 
 		if (this.parser.debugMode) {
-			// console.log(
-			// 	':Added new combatant ' + name +
-			// 	'.  Job: ' + job +
-			// 	' Level: ' + levelString +
-			// 	' HP: ' + hp +
-			// 	' MP: ' + mana +
-			// 	' Pos: (' + xString + ',' + yString + ',' + zString + ')',
-			// 	this.parser.combatants.value
-			// );
+			console.log(
+				':Added new combatant ' + name +
+				'.  Job: ' + job +
+				' Level: ' + level +
+				' HP: ' + hp +
+				' MP: ' + mana +
+				' Pos: (' + x + ',' + y + ',' + z + ')',
+				this.parser.combatants.value
+			);
 		}
-
-
 	}
 }

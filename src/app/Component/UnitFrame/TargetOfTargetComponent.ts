@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription }                                    from 'rxjs';
 import { TargetComponent }                                 from 'src/app/Component/UnitFrame/TargetComponent';
 import { Aura }                                            from 'src/app/Model/Aura';
 import { Combatant }                                       from 'src/app/Model/Combatant';
@@ -7,7 +6,6 @@ import { AuraService }                                     from 'src/app/Service
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
 import { XivPluginService }                                from 'src/app/Service/XivPluginService';
-import { PlayerComponent }                                 from './PlayerComponent';
 
 @Component({
 	selector: 'target-of-target',

@@ -121,7 +121,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
 		this.subs.push(
 			this.player.auras.subscribe((auras: Aura[]) => {
-				console.log('PLAYER FILTERS', this.ownConfig)
 				const filters = this.config.filters.filter(f => this.ownConfig.auraFilters.indexOf(f.name) >= 0);
 
 				this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.auraOnlyOwn);

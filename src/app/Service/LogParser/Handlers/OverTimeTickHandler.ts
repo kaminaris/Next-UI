@@ -20,15 +20,12 @@ const indexes = {
 };
 
 export class OverTimeTickHandler implements HandlerInterface {
+	eventId = 0x18;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x18) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 
 		const type = event[indexes.type] ?? '';
@@ -59,9 +56,8 @@ export class OverTimeTickHandler implements HandlerInterface {
 		if (this.parser.debugMode) {
 			// tested
 			console.log(
-				`DOT/HOT: ${type} tick for ${damage} damage to ${id} ${name}. ${heading}`
+				`DOT/HOT: ${ type } tick for ${ damage } damage to ${ id } ${ name }. ${ heading }`
 			);
 		}
-
 	}
 }

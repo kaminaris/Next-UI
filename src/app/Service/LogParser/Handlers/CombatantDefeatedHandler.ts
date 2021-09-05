@@ -1,26 +1,23 @@
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
-const fields = {
+const indexes = {
 	id: 2,
 	name: 3,
 	targetId: 4,
-	targetName: 5,
+	targetName: 5
 };
 
 export class CombatantDefeatedHandler implements HandlerInterface {
+	eventId = 0x19;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x19) {
-			return;
-		}
-
-		const id = event[fields.id]?.toUpperCase() ?? '';
-		const name = event[fields.name] ?? '';
-		const targetId = event[fields.targetId]?.toUpperCase() ?? '';
-		const targetName = event[fields.targetName] ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
+		const name = event[indexes.name] ?? '';
+		const targetId = event[indexes.targetId]?.toUpperCase() ?? '';
+		const targetName = event[indexes.targetName] ?? '';
 
 		if (this.parser.debugMode) {
 			// tested

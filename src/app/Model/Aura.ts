@@ -3,7 +3,7 @@ import { statuses }        from 'src/app/Data/status';
 
 export class Aura {
 	name = '';
-	appliedBy = '';
+	appliedBy: number = null;
 	isBuff = true;
 	priority = 100;
 
@@ -20,7 +20,7 @@ export class Aura {
 		id: number,
 		name: string = '',
 		stacks: number,
-		appliedBy: string,
+		appliedBy: number,
 		duration: number, // duration 0 = permanent
 		gainedAt?: Date,
 		priority?: number
@@ -56,7 +56,7 @@ export class Aura {
 	updateAura(
 		name?: string,
 		stacks?: number,
-		appliedBy?: string,
+		appliedBy?: number,
 		duration?: number, // duration 0 = permanent
 		gainedAt?: Date,
 		priority?: number

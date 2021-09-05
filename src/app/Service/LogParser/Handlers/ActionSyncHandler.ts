@@ -18,16 +18,13 @@ const indexes = {
 };
 
 export class ActionSyncHandler implements HandlerInterface {
+	eventId = 0x25;
 
 	constructor(public parser: LogParser) {
 	}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x25) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 		const sequenceId = event[indexes.sequenceId] ?? '';
 		const hp = parseInt(event[indexes.currentHp] ?? '');

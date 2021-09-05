@@ -12,17 +12,14 @@ const indexes = {
 };
 
 export class FloorMarkerHandler implements HandlerInterface {
+	eventId = 0x1C;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1C) {
-			return;
-		}
-
 		const operation = event[indexes.operation] ?? '';
 		const waymark = event[indexes.waymark] ?? '';
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 		const x = event[indexes.x] ?? '';
 		const y = event[indexes.y] ?? '';
@@ -30,7 +27,7 @@ export class FloorMarkerHandler implements HandlerInterface {
 
 		if (this.parser.debugMode) {
 			console.log(
-				`Floor marker ${ operation }: ${ waymark } by ${ id } ${ name } (${x}:${y}:${z})`
+				`Floor marker ${ operation }: ${ waymark } by ${ id } ${ name } (${ x }:${ y }:${ z })`
 			);
 		}
 	}

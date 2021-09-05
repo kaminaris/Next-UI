@@ -1,22 +1,19 @@
 import { HandlerInterface } from './HandlerInterface';
 import { LogParser }        from '../LogParser';
 
-// 0x01
+const indexes = {
+	id: 2,
+	name: 3
+};
+
 export class ZoneChangedHandler implements HandlerInterface {
-	indexes = {
-		id: 2,
-		name: 3
-	}
+	eventId = 0x01;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x01) {
-			return;
-		}
-
-		this.parser.zoneId.next(event[this.indexes.id] ?? '');
-		this.parser.zoneName.next(event[this.indexes.name] ?? '');
+		this.parser.zoneId.next(event[indexes.id] ?? '');
+		this.parser.zoneName.next(event[indexes.name] ?? '');
 
 		const combatants = this.parser.combatants.value;
 		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));

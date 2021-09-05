@@ -1,37 +1,34 @@
 import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
-export class AuraLostHandler implements HandlerInterface {
-	indexes = {
-		statusId: 2,
-		statusName: 3,
-		durationString: 4,
-		id: 5,
-		name: 6,
-		targetId: 7,
-		targetName: 8,
-		stacks: 9,
-		targetHp: 10,
-		sourceHp: 11
-	};
+const indexes = {
+	statusId: 2,
+	statusName: 3,
+	durationString: 4,
+	id: 5,
+	name: 6,
+	targetId: 7,
+	targetName: 8,
+	stacks: 9,
+	targetHp: 10,
+	sourceHp: 11
+};
 
+export class AuraLostHandler implements HandlerInterface {
+	eventId = 0x1E;
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1E) {
-			return;
-		}
-
-		const statusId = parseInt(event[this.indexes.statusId]?.toUpperCase() ?? '');
-		const statusName = event[this.indexes.statusName] ?? '';
-		const duration = parseFloat(event[this.indexes.durationString] ?? '');
-		const id = event[this.indexes.id]?.toUpperCase() ?? '';
-		const name = event[this.indexes.name] ?? '';
-		const targetId = event[this.indexes.targetId]?.toUpperCase() ?? '';
-		const targetName = event[this.indexes.targetName] ?? '';
-		const stacks = parseInt(event[this.indexes.stacks] ?? '0');
-		const targetHp = parseInt(event[this.indexes.targetHp] ?? '');
-		const hp = parseInt(event[this.indexes.sourceHp] ?? '');
+		const statusId = parseInt(event[indexes.statusId]?.toUpperCase() ?? '');
+		const statusName = event[indexes.statusName] ?? '';
+		const duration = parseFloat(event[indexes.durationString] ?? '');
+		const id = parseInt(event[indexes.id] || '0', 16);
+		const name = event[indexes.name] ?? '';
+		const targetId = parseInt(event[indexes.targetId] || '0', 16);
+		const targetName = event[indexes.targetName] ?? '';
+		const stacks = parseInt(event[indexes.stacks] ?? '0');
+		const targetHp = parseInt(event[indexes.targetHp] ?? '');
+		const hp = parseInt(event[indexes.sourceHp] ?? '');
 
 		const timestamp = new Date(event[1] ?? '0');
 
@@ -47,7 +44,7 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		const combatant = this.parser.combatants.value.find(c => c.id === targetId);
+		const combatant = this.parser.findCombatant(targetId, targetName);
 		if (!combatant) {
 			console.log('WOT?');
 			return;

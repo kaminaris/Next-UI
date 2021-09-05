@@ -21,15 +21,12 @@ const indexes = {
 };
 
 export class PlayerStatsHandler implements HandlerInterface {
+	eventId = 0x0C;
 
 	constructor(public parser: LogParser) {
 	}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x0C) {
-			return;
-		}
-
 		const playerClass = event[indexes.class] ?? '';
 		const strength = event[indexes.strength] ?? '';
 		const dexterity = event[indexes.dexterity] ?? '';

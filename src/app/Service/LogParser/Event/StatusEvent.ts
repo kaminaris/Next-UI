@@ -4,6 +4,6 @@ export interface StatusEvent {
 	type: StatusEventType;
 	statusId: number;
 	statusName: string;
-	targetId: string;
+	targetId: number;
 	targetName: string;
 }

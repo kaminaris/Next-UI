@@ -7,18 +7,15 @@ const indexes = {
 	id: 4,
 	name: 5,
 	targetId: 6,
-	targetName: 7,
-}
+	targetName: 7
+};
 
 export class PlayerMarkerHandler implements HandlerInterface {
+	eventId = 0x1D;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1D) {
-			return;
-		}
-
 		const id = event[indexes.targetId]?.toUpperCase() ?? '';
 		const name = event[indexes.targetName] ?? '';
 		const operation = event[indexes.operation] ?? '';
@@ -26,8 +23,8 @@ export class PlayerMarkerHandler implements HandlerInterface {
 
 		if (this.parser.debugMode) {
 			console.log(
-				`Player marker ${operation} ${markerId} set on ${name} ${id}`
-			)
+				`Player marker ${ operation } ${ markerId } set on ${ name } ${ id }`
+			);
 		}
 	}
 }

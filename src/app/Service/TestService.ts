@@ -101,7 +101,7 @@ export class TestService {
 		const level = 5 + Math.ceil(Math.random() * 50);
 
 		this.parser.updateCombatant(
-			id.toString(16), name, hp, hpMax, 10000, 10000, job, level
+			id, name, hp, hpMax, 10000, 10000, job, level
 		);
 	}
 

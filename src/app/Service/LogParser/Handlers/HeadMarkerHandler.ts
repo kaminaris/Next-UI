@@ -8,14 +8,11 @@ const indexes = {
 };
 
 export class HeadMarkerHandler implements HandlerInterface {
+	eventId = 0x1B;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1B) {
-			return;
-		}
-
 		const id = event[indexes.targetId]?.toUpperCase() ?? '';
 		const name = event[indexes.targetName] ?? '';
 		const headMarkerId = event[indexes.headMarkerId] ?? '';

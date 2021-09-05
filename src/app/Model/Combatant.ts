@@ -3,7 +3,9 @@ import { debounceTime }                       from 'rxjs/operators';
 import { Aura }                               from './Aura';
 
 export class Combatant {
-	id: string = '';
+	static ENV_ID = 3758096384;
+
+	id: number = null;
 	name: string = '';
 	job = new BehaviorSubject<string>('NONE');
 	level = new BehaviorSubject<number>(1);
@@ -36,6 +38,10 @@ export class Combatant {
 		);
 
 		this.anyChangedDelayed = this.anyChanged.pipe(debounceTime(1));
+	}
+
+	static isPlayerId(id: number) {
+		return id.toString(16).startsWith('1');
 	}
 
 	updateJob(job: string) {
@@ -93,7 +99,7 @@ export class Combatant {
 		id: number,
 		name: string,
 		stacks: number,
-		appliedBy: string,
+		appliedBy: number,
 		duration: number,
 		gainedAt?: Date
 	) {

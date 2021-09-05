@@ -10,15 +10,12 @@ const indexes = {
 };
 
 export class AbilityCancelHandler implements HandlerInterface {
+	eventId = 0x17;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x17) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 		const abilityId = parseInt(event[indexes.abilityId]?.toUpperCase() ?? '');
 		const abilityName = event[indexes.abilityName] ?? '';

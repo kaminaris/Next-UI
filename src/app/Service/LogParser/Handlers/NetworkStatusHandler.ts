@@ -19,16 +19,13 @@ const indexes = {
 };
 
 export class NetworkStatusHandler implements HandlerInterface {
+	eventId = 0x26;
 
 	constructor(public parser: LogParser) {
 	}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x26) {
-			return;
-		}
-
-		const id = event[indexes.id]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 
 		const jobLevelData = event[indexes.jobLevelData] ?? '';

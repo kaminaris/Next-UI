@@ -29,14 +29,11 @@ const fields = {
 };
 
 export class JobGaugeHandler implements HandlerInterface {
+	eventId = 0x1F;
 
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		if (+event[0] !== 0x1F) {
-			return;
-		}
-
 		const id = event[fields.id]?.toUpperCase() ?? '';
 
 		// last byte is job
@@ -89,7 +86,7 @@ export class JobGaugeHandler implements HandlerInterface {
 					numAetherflowStacks: bytes[2],
 					fairyGaugeAmount: bytes[3],
 					seraphTimer: (bytes[4] << 8) | bytes[5],
-					dismissedFairy: bytes[6],
+					dismissedFairy: bytes[6]
 				};
 			case 0x26: // DNC
 				return {
@@ -99,8 +96,8 @@ export class JobGaugeHandler implements HandlerInterface {
 					stepOrder2: bytes[3],
 					stepOrder3: bytes[4],
 					stepOrder4: bytes[5],
-					numCompleteSteps: bytes[6],
-				}
+					numCompleteSteps: bytes[6]
+				};
 		}
 
 	}
