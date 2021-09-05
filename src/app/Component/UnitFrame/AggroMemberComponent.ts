@@ -12,38 +12,41 @@ import { PlayerComponent }                                                      
 			[style.border-color]="ownConfig.borderColor"
 			(click)="setTarget()"
 		>
-			<div class="d-flex pos-a z10"
+			<div class="d-flex position-absolute z10"
 				*ngIf="ownConfig.aurasEnabled"
 				anchor-element
 				[anchorSub]="ownConfig.auraAnchorSub"
 				[positionSub]="ownConfig.auraPositionSub"
 			>
-				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+				<aura-icon class="d-block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
-			<progress-bar style="flex: 1 1 auto;"
+
+			<progress-bar
+				class="flex-fill"
 				[percent]="hpPct"
 				[fillColor]="ownConfig.barColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[barStyle]="ownConfig.barStyle"
 				[barDirection]="ownConfig.barDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.job">
 					{{ job }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.level">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.level">
 					{{ level }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.hp">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.hp">
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0 auto;"
+			<progress-bar
+				class="flex-shrink-0"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[fillColor]="ownConfig.manaColor"
@@ -52,7 +55,7 @@ import { PlayerComponent }                                                      
 				[barStyle]="ownConfig.manaBarStyle"
 				[barDirection]="ownConfig.manaBarDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
 				</div>
 			</progress-bar>
@@ -81,13 +84,7 @@ export class AggroMemberComponent extends PlayerComponent implements OnInit, OnD
 			this.cd.detectChanges();
 		}));
 
-		this.subs.push(
-			this.combatant.auras.subscribe((auras) => {
-				this.auras = auras;
-				console.log('AURAS CHANGED', auras);
-				this.cd.detectChanges();
-			})
-		);
+		this.subs.push(this.combatant.auras.subscribe(this.filterAuras.bind(this)));
 	}
 
 	ngOnDestroy() {

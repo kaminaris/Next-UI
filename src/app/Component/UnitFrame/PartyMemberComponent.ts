@@ -1,50 +1,54 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Combatant }                                                                       from 'src/app/Model/Combatant';
-import { PlayerComponent }                                                                 from './PlayerComponent';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Aura }                                                         from 'src/app/Model/Aura';
+import { Combatant }                                                    from 'src/app/Model/Combatant';
+import { PlayerComponent }                                              from './PlayerComponent';
 
 @Component({
 	selector: 'party-member',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="d-flex flex-column cursor-pointer" style="height: 100%; border-style: solid"
+		<div class="d-flex flex-column party-member-frame cursor-pointer" 
+			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
 			(click)="setTarget()"
 		>
 
-			<div class="d-flex pos-a z10"
+			<div class="d-flex position-absolute z10"
 				*ngIf="ownConfig.aurasEnabled"
 				anchor-element
 				[anchorSub]="ownConfig.auraAnchorSub"
 				[positionSub]="ownConfig.auraPositionSub"
 			>
-				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+				<aura-icon class="d-block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 
-			<progress-bar style="flex: 1 1 auto;"
+			<progress-bar
+				class="flex-fill"
 				[percent]="hpPct"
 				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[barStyle]="ownConfig.barStyle"
 				[barDirection]="ownConfig.barDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.job">
 					{{ job }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.level">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.level">
 					{{ level }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.hp">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.hp">
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0 auto;"
+			<progress-bar
+				class="flex-shrink-0"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[fillColor]="ownConfig.manaColor"
@@ -53,7 +57,7 @@ import { PlayerComponent }                                                      
 				[barStyle]="ownConfig.manaBarStyle"
 				[barDirection]="ownConfig.manaBarDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
 				</div>
 			</progress-bar>
@@ -84,13 +88,7 @@ export class PartyMemberComponent extends PlayerComponent implements OnInit, OnD
 			this.cd.detectChanges();
 		}));
 
-		this.subs.push(
-			this.combatant.auras.subscribe((auras) => {
-				this.auras = auras;
-				console.log('AURAS CHANGED', auras);
-				this.cd.detectChanges();
-			})
-		);
+		this.subs.push(this.combatant.auras.subscribe(this.filterAuras.bind(this)));
 
 		this.subs.push(this.ownConfig.useClassColorSub.subscribe(() => {
 			this.copyFrom(this.combatant);

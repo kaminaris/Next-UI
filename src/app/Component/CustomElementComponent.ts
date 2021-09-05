@@ -21,7 +21,7 @@ import { ConfigService }                                                        
 				{{ element.text }}
 			</div>
 
-			<div class="pos-a z10" text-widget *ngFor="let tw of element.texts" [config]="tw">
+			<div class="position-absolute z10" text-widget *ngFor="let tw of element.texts" [config]="tw">
 				aaaa
 			</div>
 		</div>

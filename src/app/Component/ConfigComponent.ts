@@ -12,7 +12,7 @@ import {default as config}       from '../../../package.json';
 				<h4 class="mt-1">
 					NextUI - Config <small class="text-muted">(v{{ version }})</small>
 				</h4>
-				<button class="btn btn-sm btn-danger config-close-btn pos-a" (click)="closeConfig()">
+				<button class="btn btn-sm btn-danger config-close-btn position-absolute" (click)="closeConfig()">
 					<icon-close></icon-close>
 				</button>
 			</div>

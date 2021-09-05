@@ -18,14 +18,12 @@ export class AuraService {
 		if (onlyOwn) {
 			result = result.filter(a => a.appliedBy === this.player.id);
 		}
-console.log('FILTERING', filters)
+
 		for (const filter of filters) {
-			console.log('filtering using', filter);
 			result = result.filter(a => {
 				let hasMatch = false;
 				for (const filterSpell of filter.filter) {
 					hasMatch = this.filterHasMatch(a, filterSpell);
-					console.log('check match',hasMatch, a, filterSpell, )
 					if (hasMatch) {
 						break;
 					}

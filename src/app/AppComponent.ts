@@ -74,6 +74,11 @@ export class AppComponent implements OnInit {
 
 	playerChangedEvent(e: { type: string, detail: PlayerDetails }) {
 		const details = e.detail;
+		if (!this.parser.player) {
+			this.parser.registerPlayer(details.name, details.id);
+			return;
+		}
+
 		this.parser.updateCombatant(
 			details.id,
 			details.name,

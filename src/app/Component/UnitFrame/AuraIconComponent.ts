@@ -8,26 +8,26 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'aura-icon',
 	template: `
-		<div class="pos-r" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}"
+		<div class="position-relative" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}"
 			style="border: 1px solid black;
 				background-repeat: no-repeat; 
 			 	background-position: 40% 48%;
 			 	background-size: 124%;"
 			[style.background-image]="'url(' + src + ')'"
 		>
-			<div class="pos-a z10" text-widget
+			<div class="position-absolute z10" text-widget
 				*ngIf="timer > 0"
 				[config]="ownConfig.widgets.duration">
 				{{ timer | duration: this.ownConfig.cooldownPrecision }}
 			</div>
 
-			<div class="pos-a z10" text-widget
+			<div class="position-absolute z10" text-widget
 				*ngIf="stacks > 1"
 				[config]="ownConfig.widgets.stacks">
 				{{ stacks }}
 			</div>
 
-			<!--			<div class="pos-a" *ngIf="timer > 0"-->
+			<!--			<div class="position-absolute" *ngIf="timer > 0"-->
 			<!--				[class.text-outline-1]="ownConfig.cooldownOutline"-->
 			<!--				[style.top.px]="top"-->
 			<!--				[style.left.px]="left"-->

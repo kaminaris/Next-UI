@@ -13,7 +13,7 @@ import { BarStyle }         from 'src/app/Interface/BarStyle';
 			}"
 		>
 			<ng-content></ng-content>
-			<div class="progress-bar-fill pos-a" [ngStyle]="styleComputed"></div>
+			<div class="progress-bar-fill position-absolute" [ngStyle]="styleComputed"></div>
 		</div>
 	`,
 	styles: [':host { display: block; position: relative; }']

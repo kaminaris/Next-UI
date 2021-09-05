@@ -1,5 +1,5 @@
 export interface PartyMember {
-	id: number;
+	id: string;
 	name: string;
 	worldId: string;
 	job: number;

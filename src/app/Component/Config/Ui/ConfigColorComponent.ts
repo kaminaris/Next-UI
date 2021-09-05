@@ -7,8 +7,8 @@ import { BaseConfigComponent }   from 'src/app/Component/Config/Ui/BaseConfigCom
 	template: `
 		<div class="config-label">{{ label }}</div>
 		<div class="config-input d-flex flex-row">
-			<div class="pos-r" style="top: 30px;">
-				<div class="pos-a z10" *ngIf="colorVisible">
+			<div class="position-relative" style="top: 30px;">
+				<div class="position-absolute z10" *ngIf="colorVisible">
 					<color-sketch
 						[mode]="colorMode"
 						[color]="color"

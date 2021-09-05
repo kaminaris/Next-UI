@@ -12,7 +12,7 @@ import { anchors }              from 'src/app/Data/anchors';
 		<div class="d-flex flex-column config-window">
 			<div class="config-bar">
 				<h4 class="mt-1">NextUI - Custom Elements</h4>
-				<button class="btn btn-sm btn-danger config-close-btn pos-a" (click)="closeConfig()">
+				<button class="btn btn-sm btn-danger config-close-btn position-absolute" (click)="closeConfig()">
 					<icon-close></icon-close>
 				</button>
 			</div>

@@ -167,8 +167,9 @@ export class LogParser {
 		let hasChange = false;
 		const newMembers = [];
 
+		// handle remove party members
 		for (const member of members) {
-			if (party.find(pm => pm.id === member.id)) {
+			if (party.find(pm => parseInt(pm.id, 16) === member.id)) {
 				// still a member, don't touch
 				newMembers.push(member);
 				continue;
@@ -179,18 +180,21 @@ export class LogParser {
 			hasChange = true;
 		}
 
+		// handle new party members
 		for (const partyMember of party) {
-			if (members.find(m => m.id === partyMember.id)) {
+			const newMemberId = parseInt(partyMember.id, 16);
+			if (members.find(m => m.id === newMemberId)) {
 				// already in party, dont touch
 				continue;
 			}
 
 			// new member
 			const combatants = this.combatants.value;
-			let combatant = combatants.find(c => c.id === partyMember.id);
+			let combatant = this.findCombatant(newMemberId);
+
 			if (!combatant) {
 				combatant = new Combatant();
-				combatant.id = partyMember.id;
+				combatant.id = newMemberId;
 				combatant.name = partyMember.name;
 				combatant.job.next(Util.jobEnumToJob(partyMember.job));
 
@@ -228,14 +232,13 @@ export class LogParser {
 			}
 		}
 		else {
-			const targetId = this.combatantIdFromEnmityActor(e.Target);
 			// there is target set and its different from the one in memory
-			if (this.target.value && this.target.value.id === targetId) {
+			if (this.target.value && this.target.value.id === e.Target.ID) {
 
 			}
 			else {
-				let target = this.combatantFromEnmityActor(e.Target, targetId);
-				console.log('target changed', targetId, target, 'prev', this.target.value);
+				let target = this.combatantFromEnmityActor(e.Target);
+				console.log('target changed', target, 'prev', this.target.value);
 				this.target.next(target);
 			}
 
@@ -245,15 +248,14 @@ export class LogParser {
 				}
 			}
 			else {
-				const targetOfTargetId = this.combatantIdFromEnmityActor(e.TargetOfTarget);
 				if (
 					this.targetOfTarget.value &&
-					this.targetOfTarget.value.id === targetOfTargetId
+					this.targetOfTarget.value.id === e.TargetOfTarget.ID
 				) {
 
 				}
 				else {
-					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget, targetOfTargetId);
+					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget);
 					this.targetOfTarget.next(targetOfTarget);
 					console.log('target of target changed', targetOfTarget);
 				}
@@ -276,8 +278,7 @@ export class LogParser {
 			// e.AggroList.sort((a, b) => b.HateRate - a.HateRate);
 
 			for (const a of e.AggroList) {
-				const id = this.combatantIdFromEnmityActor(a);
-				const c = this.combatantFromEnmityActor(a, id);
+				const c = this.combatantFromEnmityActor(a);
 				combatants.push(c);
 			}
 
@@ -288,16 +289,6 @@ export class LogParser {
 		// special treatment if just their data changed?
 	}
 
-	combatantIdFromEnmityActor(actor: ActorInterface | AggroTarget | AggroTargetTarget): number {
-		return actor.ID;
-		// let targetId = actor.ID.toString(16).toUpperCase();
-		// if (targetId === 'E0000000') {
-		// 	targetId = actor.Name;
-		// }
-		//
-		// return targetId;
-	}
-
 	findCombatant(id: number, name?: string) {
 		if (id !== Combatant.ENV_ID) {
 			return this.combatants.value.find(c => c.id === id);
@@ -306,11 +297,11 @@ export class LogParser {
 		return this.combatants.value.find(c => c.name === name);
 	}
 
-	combatantFromEnmityActor(actor: ActorInterface | AggroTarget, targetId: number) {
+	combatantFromEnmityActor(actor: ActorInterface | AggroTarget) {
 		let hp = actor.CurrentHP;
 		let hpMax = actor.MaxHP;
 		let isNpc = false;
-		if (actor.ID === 3758096384) {
+		if (!Combatant.isPlayerId(actor.ID)) {
 			hp = 1;
 			hpMax = 1;
 			isNpc = true;
@@ -318,10 +309,10 @@ export class LogParser {
 
 		const job = (actor as ActorInterface).Job ? Util.jobEnumToJob((actor as ActorInterface).Job) : null;
 
-		let combatant = this.combatants.value.find(c => c.id === targetId);
+		let combatant = this.findCombatant(actor.ID, actor.Name);
 		if (!combatant) {
 			combatant = this.updateCombatant(
-				targetId,
+				actor.ID,
 				actor.Name,
 				hp,
 				hpMax,

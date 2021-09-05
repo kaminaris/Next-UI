@@ -25,39 +25,41 @@ import { XivPluginService } from 'src/app/Service/XivPluginService';
 			[style.border-color]="ownConfig.borderColor"
 			(click)="setTarget()"
 		>
-			<div class="d-flex pos-a z10"
+			<div class="d-flex position-absolute z10"
 				*ngIf="ownConfig.aurasEnabled"
 				anchor-element
 				[anchorSub]="ownConfig.auraAnchorSub"
 				[positionSub]="ownConfig.auraPositionSub"
 			>
-				<aura-icon style="display: block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+				<aura-icon class="d-block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 			</div>
 
-			<progress-bar style="flex: 1 1 auto;"
+			<progress-bar
+				class="flex-fill"
 				[percent]="hpPct"
 				[fillColor]="barColor"
 				[bgColor]="ownConfig.backgroundColor"
 				[barStyle]="ownConfig.barStyle"
 				[barDirection]="ownConfig.barDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.name">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
 					{{ name }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.job">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.job">
 					{{ job }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.level">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.level">
 					{{ level }}
 				</div>
 
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.hp">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.hp">
 					{{ hpText }}
 				</div>
 			</progress-bar>
-			<progress-bar style="flex: 0 0 auto;"
+			<progress-bar
+				class="flex-shrink-0"
 				*ngIf="ownConfig.showMana"
 				[style.height]="ownConfig.manaHeight"
 				[fillColor]="ownConfig.manaColor"
@@ -66,7 +68,7 @@ import { XivPluginService } from 'src/app/Service/XivPluginService';
 				[barStyle]="ownConfig.manaBarStyle"
 				[barDirection]="ownConfig.manaBarDirection"
 			>
-				<div class="pos-a z10" text-widget [config]="ownConfig.widgets.mana">
+				<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
 					{{ manaText }}
 				</div>
 			</progress-bar>
@@ -119,14 +121,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 			this.copyFrom(this.player);
 		}));
 
-		this.subs.push(
-			this.player.auras.subscribe((auras: Aura[]) => {
-				const filters = this.config.filters.filter(f => this.ownConfig.auraFilters.indexOf(f.name) >= 0);
-
-				this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.auraOnlyOwn);
-				this.cd.detectChanges();
-			})
-		);
+		this.subs.push(this.player.auras.subscribe(this.filterAuras.bind(this)));
 
 		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
 			this.cd.detectChanges();
@@ -139,6 +134,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		this.subs.push(this.ownConfig.useClassColorSub.subscribe(() => {
 			this.copyFrom(this.player);
 		}));
+	}
+
+	filterAuras(auras: Aura[]) {
+		const filters = this.config.filters.filter(f => this.ownConfig.auraFilters.indexOf(f.name) >= 0);
+		this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.auraOnlyOwn);
+		this.cd.detectChanges();
 	}
 
 	calcHp() {

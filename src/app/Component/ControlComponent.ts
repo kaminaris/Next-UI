@@ -5,7 +5,7 @@ import { LogParser }     from 'src/app/Service/LogParser/LogParser';
 @Component({
 	selector: 'control',
 	template: `
-		<div class="pos-r">
+		<div class="position-relative">
 			<ng-content></ng-content>
 			<div class="btn-group">
 				<button class="btn btn-sm btn-info" (click)="toggleTTS()" title="Toggle TTS">
