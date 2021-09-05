@@ -148,4 +148,8 @@ export class AppComponent implements OnInit {
 	setCustomCss() {
 		document.getElementById('custom-css-container').innerText = this.config.customCss;
 	}
+
+	selectTarget(self: string) {
+
+	}
 }

@@ -57,6 +57,12 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 
 	get auraPosition(): FramePositionInterface { return this.auraPositionSub.value; }
 	set auraPosition(v: FramePositionInterface) { this.auraPositionSub.next(v); }
+
+	get auraFilters(): string[] { return this.auraFiltersSub.value; }
+	set auraFilters(v: string[]) { this.auraFiltersSub.next(v); }
+
+	get auraOnlyOwn(): boolean { return this.auraOnlyOwnSub.value; }
+	set auraOnlyOwn(v: boolean) { this.auraOnlyOwnSub.next(v); }
 	// @formatter:on
 
 	enabledSub = new DistinctBehaviorSubject<boolean>(true);
@@ -75,6 +81,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	borderWidthSub = new DistinctBehaviorSubject<number>(1);
 	borderColorSub = new DistinctBehaviorSubject<string>('');
 
+	auraFiltersSub = new DistinctBehaviorSubject<string[]>([]);
+	auraOnlyOwnSub = new DistinctBehaviorSubject<boolean>(true);
 	auraAnchorSub = new DistinctBehaviorSubject<Anchor>('bottomLeft');
 	auraPositionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
@@ -94,6 +102,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			this.backgroundColorSub,
 			this.barStyleSub,
 			this.barDirectionSub,
+			this.manaBarStyleSub,
+			this.manaBarDirectionSub,
 			this.barColorSub,
 			this.manaColorSub,
 			this.manaHeightSub,
@@ -102,6 +112,9 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			this.borderWidthSub,
 			this.borderColorSub,
 			this.auraAnchorSub,
+			this.auraPositionSub,
+			this.auraFiltersSub,
+			this.auraOnlyOwnSub
 		];
 	}
 
@@ -114,6 +127,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			backgroundColor: this.backgroundColor,
 			barStyle: this.barStyle,
 			barDirection: this.barDirection,
+			manaBarStyle: this.manaBarStyle,
+			manaBarDirection: this.manaBarDirection,
 			barColor: this.barColor,
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,
@@ -123,6 +138,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			borderColor: this.borderColor,
 			auraAnchor: this.auraAnchor,
 			auraPosition: Object.assign({}, this.auraPosition),
+			auraOnlyOwn: this.auraOnlyOwn,
+			auraFilters: [...this.auraFilters],
 			widgets: {
 				name: this.widgets.name.serialize(),
 				job: this.widgets.job.serialize(),
@@ -140,6 +157,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		this.backgroundColor = value.backgroundColor;
 		this.barStyle = value.barStyle;
 		this.barDirection = value.barDirection;
+		this.manaBarStyle = value.manaBarStyle;
+		this.manaBarDirection = value.manaBarDirection;
 		this.barColor = value.barColor;
 		this.manaColor = value.manaColor;
 		this.manaHeight = value.manaHeight;
@@ -149,6 +168,8 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		this.borderColor = value.borderColor;
 		this.auraAnchor = value.auraAnchor;
 		this.auraPosition = Object.assign({}, value.auraPosition);
+		this.auraOnlyOwn = value.auraOnlyOwn;
+		this.auraFilters = Array.isArray(value.auraFilters) ? [...value.auraFilters] : [];
 
 		this.widgets.name.unserialize(value.widgets.name);
 		this.widgets.job.unserialize(value.widgets.job);

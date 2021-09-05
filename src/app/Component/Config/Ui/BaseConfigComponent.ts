@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MainConfig }                             from 'src/app/Model/Config/MainConfig';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { MainConfig }                                                from 'src/app/Model/Config/MainConfig';
 import { ConfigService }                          from 'src/app/Service/ConfigService';
 
 @Component({ template: '' })
@@ -16,7 +16,10 @@ export abstract class BaseConfigComponent {
 	@Output() setProp = new EventEmitter<any>();
 	@Output() resetProp = new EventEmitter<any>();
 
-	constructor(public conf: ConfigService) {}
+	constructor(
+		public conf: ConfigService,
+		protected cd: ChangeDetectorRef
+	) {}
 
 	ngOnInit() {
 		if (this.frameName) {
@@ -36,6 +39,7 @@ export abstract class BaseConfigComponent {
 		}
 
 		this.conf.resetConfig(prop, this.frameName, this.widgetName);
+		this.cd.detectChanges();
 	}
 
 	getValue() {

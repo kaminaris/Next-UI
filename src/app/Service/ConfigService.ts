@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, merge, Subject }         from 'rxjs';
 import { debounceTime }                            from 'rxjs/operators';
+import { AuraFilter }                              from 'src/app/Interface/AuraFilter';
 import { ConfigProfile }                           from 'src/app/Interface/ConfigProfile';
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
@@ -94,7 +95,6 @@ export class ConfigService {
 		try {
 			const hpTemplate = this.replaceTemplate(this.config.hpTemplate);
 			this.formatHP = new Function('data', 'return `' + hpTemplate + '`') as any;
-			console.log('making hp fn', this.formatHP)
 		}
 		catch (e) {
 			console.log(e);

@@ -1,35 +1,37 @@
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { debounceTime }                                from 'rxjs/operators';
-import { SerializableConfig }                 from 'src/app/Interface/SerializableConfig';
-import { TextWidgetConfig }                   from 'src/app/Model/Config/TextWidgetConfig';
-import { DistinctBehaviorSubject }            from 'src/app/Model/DistinctBehaviorSubject';
-import { BaseFrameConfig }                    from './BaseFrameConfig';
+import { merge, Observable, Subject } from 'rxjs';
+import { debounceTime }               from 'rxjs/operators';
+import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
+import { TextWidgetConfig }           from 'src/app/Model/Config/TextWidgetConfig';
+import { DistinctBehaviorSubject }    from 'src/app/Model/DistinctBehaviorSubject';
 
 export class AuraBarFrameConfig implements SerializableConfig {
 	// @formatter:off
 	get iconSize() { return this.iconSizeSub.value; }
 	set iconSize(v: string) { this.iconSizeSub.next(v); }
 
-	get fontSize() { return this.fontSizeSub.value; }
-	set fontSize(v: string) { this.fontSizeSub.next(v); }
-
-	get fontColor() { return this.fontColorSub.value; }
-	set fontColor(v: string) { this.fontColorSub.next(v); }
-
-	get cooldownOutline() { return this.cooldownOutlineSub.value; }
-	set cooldownOutline(v: boolean) { this.cooldownOutlineSub.next(v); }
-
 	get cooldownPrecision() { return this.cooldownPrecisionSub.value; }
 	set cooldownPrecision(v: number) { this.cooldownPrecisionSub.next(v); }
+
+	get borderWidth(): number { return this.borderWidthSub.value; }
+	set borderWidth(v: number) { this.borderWidthSub.next(v); }
+
+	get borderColor(): string { return this.borderColorSub.value; }
+	set borderColor(v: string) { this.borderColorSub.next(v); }
 	// @formatter:on
 
 	iconSizeSub = new DistinctBehaviorSubject<string>('');
-	fontSizeSub = new DistinctBehaviorSubject<string>('');
-	fontColorSub = new DistinctBehaviorSubject<string>('');
-	cooldownOutlineSub = new DistinctBehaviorSubject<boolean>(false);
 	cooldownPrecisionSub = new DistinctBehaviorSubject<number>(0);
 
+	borderWidthSub = new DistinctBehaviorSubject<number>(1);
+	borderColorSub = new DistinctBehaviorSubject<string>('');
+
+	widgets = {
+		duration: new TextWidgetConfig(),
+		stacks: new TextWidgetConfig(),
+	};
+
 	anyChangedCache: Observable<any>;
+
 	get anyChanged(): Observable<any> {
 		this.anyChangedCache ??= merge(...this.getSubjects()).pipe(debounceTime(10));
 		return this.anyChangedCache;
@@ -38,28 +40,34 @@ export class AuraBarFrameConfig implements SerializableConfig {
 	getSubjects(): Subject<any>[] {
 		return [
 			this.iconSizeSub,
-			this.fontSizeSub,
-			this.fontColorSub,
-			this.cooldownOutlineSub,
-			this.cooldownPrecisionSub
-		]
+			this.cooldownPrecisionSub,
+			this.borderWidthSub,
+			this.borderColorSub,
+		];
 	}
 
 	serialize(): any {
 		return {
 			iconSize: this.iconSize,
-			fontSize: this.fontSize,
-			fontColor: this.fontColor,
-			cooldownOutline: this.cooldownOutline,
-			cooldownPrecision: this.cooldownPrecision
+			borderWidth: this.borderWidth,
+			borderColor: this.borderColor,
+			cooldownPrecision: this.cooldownPrecision,
+			widgets: {
+				duration: this.widgets.duration.serialize(),
+				stacks: this.widgets.stacks.serialize(),
+			}
 		};
 	}
 
 	unserialize(value: any): void {
 		this.iconSize = value.iconSize;
-		this.fontSize = value.fontSize;
-		this.fontColor = value.fontColor;
-		this.cooldownOutline = value.cooldownOutline;
+		this.borderWidth = value.borderWidth;
+		this.borderColor = value.borderColor;
 		this.cooldownPrecision = value.cooldownPrecision;
+
+		if (value.widgets) {
+			this.widgets.duration.unserialize(value.widgets.duration);
+			this.widgets.stacks.unserialize(value.widgets.stacks);
+		}
 	}
 }

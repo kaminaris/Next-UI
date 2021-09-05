@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Subscription }                                                             from 'rxjs';
 import { Aura }                                                                     from 'src/app/Model/Aura';
 import { Combatant }                                                                from 'src/app/Model/Combatant';
+import { AuraService }                                                              from 'src/app/Service/AuraService';
 import { ConfigService }                                                            from 'src/app/Service/ConfigService';
 import { LogParser }                                                                from 'src/app/Service/LogParser/LogParser';
+import { XivPluginService }                                                         from 'src/app/Service/XivPluginService';
 import { PlayerComponent }                                                          from './PlayerComponent';
 
 @Component({
@@ -74,9 +76,11 @@ export class TargetComponent extends PlayerComponent implements OnInit, OnDestro
 	constructor(
 		conf: ConfigService,
 		parser: LogParser,
-		cd: ChangeDetectorRef
+		cd: ChangeDetectorRef,
+		xiv: XivPluginService,
+		auraService: AuraService
 	) {
-		super(conf, parser, cd);
+		super(conf, parser, cd, xiv, auraService);
 	}
 
 	ngOnInit(): void {

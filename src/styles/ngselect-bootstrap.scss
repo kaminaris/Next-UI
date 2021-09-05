@@ -168,11 +168,11 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 
 
 	&.ng-select-multiple {
-		&::after {
-			color: red;
-			font-size: small;
-			content: "** multiple select not bs styled **";
-		}
+		//&::after {
+		//	color: red;
+		//	font-size: small;
+		//	content: "** multiple select not bs styled **";
+		//}
 
 		&.ng-select-disabled {
 			> .ng-select-container .ng-value-container .ng-value {

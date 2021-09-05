@@ -4,23 +4,26 @@ import {
 	Component,
 	OnDestroy,
 	OnInit
-}                        from '@angular/core';
-import { Subscription }  from 'rxjs';
-import { Aura }          from 'src/app/Model/Aura';
-import { Combatant }     from 'src/app/Model/Combatant';
-import { ConfigService } from 'src/app/Service/ConfigService';
-import { LogParser }     from 'src/app/Service/LogParser/LogParser';
-import { Util }          from 'src/app/Service/LogParser/Util';
+}                           from '@angular/core';
+import { Subscription }     from 'rxjs';
+import { Aura }             from 'src/app/Model/Aura';
+import { Combatant }        from 'src/app/Model/Combatant';
+import { AuraService }      from 'src/app/Service/AuraService';
+import { ConfigService }    from 'src/app/Service/ConfigService';
+import { LogParser }        from 'src/app/Service/LogParser/LogParser';
+import { Util }             from 'src/app/Service/LogParser/Util';
+import { XivPluginService } from 'src/app/Service/XivPluginService';
 
 @Component({
 	selector: 'player',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column player-frame"
+		<div class="d-flex flex-column player-frame cursor-pointer"
 			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
+			(click)="setTarget()"
 		>
 			<div class="d-flex pos-a z10"
 				*ngIf="ownConfig.aurasEnabled"
@@ -98,8 +101,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
 	constructor(
 		public conf: ConfigService,
 		protected parser: LogParser,
-		protected cd: ChangeDetectorRef
+		protected cd: ChangeDetectorRef,
+		protected xiv: XivPluginService,
+		protected auraService: AuraService,
 	) {}
+
+	setTarget() {
+		this.xiv.setTarget(this.player.id);
+	}
 
 	ngOnInit(): void {
 		this.cd.detach();
@@ -111,8 +120,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(
-			this.player.auras.subscribe((auras) => {
-				this.auras = auras;
+			this.player.auras.subscribe((auras: Aura[]) => {
+				console.log('PLAYER FILTERS', this.ownConfig)
+				const filters = this.config.filters.filter(f => this.ownConfig.auraFilters.indexOf(f.name) >= 0);
+
+				this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.auraOnlyOwn);
 				this.cd.detectChanges();
 			})
 		);

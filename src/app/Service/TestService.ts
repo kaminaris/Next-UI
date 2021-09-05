@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { statuses }   from 'src/app/Data/status';
 import { Combatant }  from 'src/app/Model/Combatant';
 import { LogParser }  from 'src/app/Service/LogParser/LogParser';
 import { Util }       from 'src/app/Service/LogParser/Util';
@@ -111,33 +112,47 @@ export class TestService {
 	}
 
 	randomTargetOfTarget() {
-		const combatatns = this.parser.combatants.value;
-		const rCombatant = this.randomElement(combatatns);
+		const combatants = this.parser.combatants.value;
+		const rCombatant = this.randomElement(combatants);
 		this.parser.targetOfTarget.next(rCombatant);
 	}
 
 	randomAggroList() {
-		const combatatns = this.parser.combatants.value;
+		const combatants = this.parser.combatants.value;
 		const rCombatants = [
-			this.randomElement(combatatns),
-			this.randomElement(combatatns),
-			this.randomElement(combatatns),
-			this.randomElement(combatatns),
+			this.randomElement(combatants),
+			this.randomElement(combatants),
+			this.randomElement(combatants),
+			this.randomElement(combatants),
 		];
 
 		this.parser.aggroList.next(rCombatants);
 	}
 
-	randomAuras() {
+	randomAuras(duration = 5) {
+		const combatants = this.parser.combatants.value;
+		const randomActor = this.randomElement(combatants);
 		for (const comb of this.parser.combatants.value) {
+
 			comb.updateAura(
 				this.randomRange(100, 200),
 				'Test',
-				1,
-				'123',
-				5
+				this.randomRange(1, 3),
+				randomActor.id,
+				duration
 			);
 		}
+	}
+
+	addPlayerAura(id: number, duration = 30, stacks = 1) {
+		const s = statuses.find(s => s.id === id);
+		this.parser.player.updateAura(
+			s.id,
+			s.name,
+			stacks,
+			this.parser.player.id,
+			duration
+		)
 	}
 
 	clearTarget() {

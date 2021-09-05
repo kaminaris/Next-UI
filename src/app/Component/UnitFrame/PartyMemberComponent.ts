@@ -6,9 +6,10 @@ import { PlayerComponent }                                                      
 	selector: 'party-member',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="d-flex flex-column" style="height: 100%; border-style: solid"
+		<div class="d-flex flex-column cursor-pointer" style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
+			(click)="setTarget()"
 		>
 
 			<div class="d-flex pos-a z10"
@@ -64,6 +65,10 @@ export class PartyMemberComponent extends PlayerComponent implements OnInit, OnD
 
 	// constructor(protected cd: ChangeDetectorRef) {}
 	ownConfig = this.config.frames.party;
+
+	setTarget() {
+		this.xiv.setTarget(this.combatant.id);
+	}
 
 	ngOnInit() {
 		// this.cd.detach();

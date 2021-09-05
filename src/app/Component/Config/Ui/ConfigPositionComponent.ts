@@ -22,10 +22,19 @@ export class ConfigPositionComponent extends BaseConfigComponent {
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.position = { x: this.configObj[this.prop].x, y: this.configObj[this.prop].y };
+		this.copyFromModel();
 	}
 
 	apply() {
 		this.configObj[this.prop] = { x: this.position.x, y: this.position.y };
+	}
+
+	resetConfig(prop: string) {
+		super.resetConfig(prop);
+		this.copyFromModel();
+	}
+
+	copyFromModel() {
+		this.position = { x: this.configObj[this.prop].x, y: this.configObj[this.prop].y };
 	}
 }

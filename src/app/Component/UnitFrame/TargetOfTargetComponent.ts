@@ -3,18 +3,21 @@ import { Subscription }                                    from 'rxjs';
 import { TargetComponent }                                 from 'src/app/Component/UnitFrame/TargetComponent';
 import { Aura }                                            from 'src/app/Model/Aura';
 import { Combatant }                                       from 'src/app/Model/Combatant';
+import { AuraService }                                     from 'src/app/Service/AuraService';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { LogParser }                                       from 'src/app/Service/LogParser/LogParser';
+import { XivPluginService }                                from 'src/app/Service/XivPluginService';
 import { PlayerComponent }                                 from './PlayerComponent';
 
 @Component({
 	selector: 'target-of-target',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column" *ngIf="targetOfTarget"
+		<div class="d-flex flex-column cursor-pointer" *ngIf="targetOfTarget"
 			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
+			(click)="setTarget()"
 		>
 			<div class="pos-a z10" style="display:flex;"
 				anchor-element
@@ -70,9 +73,15 @@ export class TargetOfTargetComponent extends TargetComponent implements OnInit, 
 	constructor(
 		conf: ConfigService,
 		parser: LogParser,
-		cd: ChangeDetectorRef
+		cd: ChangeDetectorRef,
+		xiv: XivPluginService,
+		auraService: AuraService
 	) {
-		super(conf, parser, cd);
+		super(conf, parser, cd, xiv, auraService);
+	}
+
+	setTarget() {
+		this.xiv.setTarget(this.targetOfTarget.id);
 	}
 
 	ngOnInit(): void {

@@ -6,7 +6,7 @@ import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
-	selector: 'config-player',
+	selector: 'config-window-player',
 	template: `
 		<h4 class="ta-c">Player Frame Configuration</h4>
 
@@ -41,6 +41,9 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
 			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
+			<config-checkbox [frameName]="frameName" prop="auraOnlyOwn" label="Only own"></config-checkbox>
+			<config-multiselect [frameName]="frameName" [items]="filters" bindValue="name" bindLabel="name"
+				prop="auraFilters" label="Aura Filters"></config-multiselect>
 		</config-group>
 
 		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>
@@ -50,12 +53,15 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
 	`
 })
-export class ConfigPlayerComponent {
+export class ConfigWindowPlayerComponent {
 	frameName: keyof MainConfig['frames'] = 'player';
 	configObj = this.conf.config.frames.player;
 	anchors = anchors;
 	barStyles = barStyles;
 	barDirections = barDirections;
+	filters = this.conf.config.filters;
 
-	constructor(public conf: ConfigService) {}
+	constructor(public conf: ConfigService) {
+		this.conf.config.filtersSub.subscribe(v => this.filters = v);
+	}
 }

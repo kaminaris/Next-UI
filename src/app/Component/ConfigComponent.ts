@@ -10,7 +10,7 @@ import {default as config}       from '../../../package.json';
 			<div class="config-bar d-flex">
 				<img src="/assets/nu.png" style="width: 39px; background: #fff;" alt="NextUI">
 				<h4 class="mt-1">
-					NextUI - Config (v{{ version }})
+					NextUI - Config <small class="text-muted">(v{{ version }})</small>
 				</h4>
 				<button class="btn btn-sm btn-danger config-close-btn pos-a" (click)="closeConfig()">
 					<icon-close></icon-close>
@@ -32,12 +32,13 @@ import {default as config}       from '../../../package.json';
 					<config-main *ngIf="currentCategory === 'main'"></config-main>
 					<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
 					<config-tts *ngIf="currentCategory === 'tts'"></config-tts>
-					<config-player *ngIf="currentCategory === 'player'"></config-player>
-					<config-target *ngIf="currentCategory === 'target'"></config-target>
+					<config-window-player *ngIf="currentCategory === 'player'"></config-window-player>
+					<config-window-target *ngIf="currentCategory === 'target'"></config-window-target>
 					<config-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-target-of-target>
 					<config-party *ngIf="currentCategory === 'party'"></config-party>
 					<config-aggro-list *ngIf="currentCategory === 'aggroList'"></config-aggro-list>
 					<config-aura *ngIf="currentCategory === 'aura'"></config-aura>
+					<config-window-aura-filter *ngIf="currentCategory === 'auraFilter'"></config-window-aura-filter>
 					<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
 				</div>
 			</div>
@@ -57,6 +58,7 @@ export class ConfigComponent {
 		{ value: 'party', label: 'Party' },
 		{ value: 'aggroList', label: 'Aggro List' },
 		{ value: 'aura', label: 'Aura' },
+		{ value: 'auraFilter', label: 'Aura Filters' },
 		{ value: 'profile', label: 'Profiles' }
 	];
 

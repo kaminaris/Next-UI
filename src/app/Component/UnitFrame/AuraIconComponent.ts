@@ -1,31 +1,46 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Aura }                                                                          from 'src/app/Model/Aura';
-import { ConfigService }                                                         from 'src/app/Service/ConfigService';
+import {
+	ChangeDetectorRef, Component, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges
+}                        from '@angular/core';
+import { Subscription }  from 'rxjs';
+import { Aura }          from 'src/app/Model/Aura';
+import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
 	selector: 'aura-icon',
 	template: `
-		<div class="pos-r" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}" 
+		<div class="pos-r" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}"
 			style="border: 1px solid black;
 				background-repeat: no-repeat; 
 			 	background-position: 40% 48%;
 			 	background-size: 124%;"
 			[style.background-image]="'url(' + src + ')'"
 		>
-			<div class="pos-a" *ngIf="timer > 0"
-				[class.text-outline-1]="ownConfig.cooldownOutline"
-				[style.top.px]="top"
-				[style.left.px]="left"
-				[style.font-size]="ownConfig.fontSize"
-				[style.color]="ownConfig.fontColor"
-			>
+			<div class="pos-a z10" text-widget
+				*ngIf="timer > 0"
+				[config]="ownConfig.widgets.duration">
 				{{ timer | duration: this.ownConfig.cooldownPrecision }}
 			</div>
+
+			<div class="pos-a z10" text-widget
+				*ngIf="stacks > 1"
+				[config]="ownConfig.widgets.stacks">
+				{{ stacks }}
+			</div>
+
+			<!--			<div class="pos-a" *ngIf="timer > 0"-->
+			<!--				[class.text-outline-1]="ownConfig.cooldownOutline"-->
+			<!--				[style.top.px]="top"-->
+			<!--				[style.left.px]="left"-->
+			<!--				[style.font-size]="ownConfig.fontSize"-->
+			<!--				[style.color]="ownConfig.fontColor"-->
+			<!--			>-->
+			<!--				{{ timer | duration: this.ownConfig.cooldownPrecision }}-->
+			<!--			</div>-->
 		</div>
-	
+
 	`
 })
-export class AuraIconComponent implements OnInit {
+export class AuraIconComponent implements OnInit, OnDestroy {
 	@Input() aura: Aura;
 	@Input() size = 30;
 	auraId = 0;
@@ -35,11 +50,14 @@ export class AuraIconComponent implements OnInit {
 	left = 5;
 	fontSize = '10px';
 
+	stacks = 1;
 	timer = 0;
 	interval: number;
 	ownConfig = this.conf.config.frames.auraBar;
 	updateInterval = 1000 / 2;
 	numberPrec = '1';
+
+	subs: Subscription[] = [];
 
 	constructor(
 		protected cd: ChangeDetectorRef,
@@ -48,9 +66,20 @@ export class AuraIconComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.stacks = this.aura.stacks.value;
 		this.src = this.baseUrl + 'assets/status/' + this.aura.id + '.png';
 		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
 		this.startTimeout();
+
+		this.subs.push(this.aura.stacks.subscribe((v: number) => {
+			this.stacks = v;
+		}));
+	}
+
+	ngOnDestroy() {
+		for (const sub of this.subs) {
+			sub.unsubscribe();
+		}
 	}
 
 	startTimeout() {

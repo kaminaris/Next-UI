@@ -26,6 +26,7 @@ for (const file of files) {
 	concated.push({
 		id: data.ID,
 		name: data.Name,
+		description: data.Description,
 		category: data.Category,
 		isPermanent: data.IsPermanent,
 		maxStacks: data.MaxStacks,

@@ -6,10 +6,11 @@ import { PlayerComponent }                                                      
 	selector: 'aggro-member',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="d-flex flex-column aggro-member-frame"
+		<div class="d-flex flex-column aggro-member-frame cursor-pointer"
 			style="height: 100%; border-style: solid"
 			[style.border-width.px]="ownConfig.borderWidth"
 			[style.border-color]="ownConfig.borderColor"
+			(click)="setTarget()"
 		>
 			<div class="d-flex pos-a z10"
 				*ngIf="ownConfig.aurasEnabled"
@@ -62,6 +63,10 @@ export class AggroMemberComponent extends PlayerComponent implements OnInit, OnD
 	@Input() combatant: Combatant;
 
 	ownConfig = this.config.frames.aggroList;
+
+	setTarget() {
+		this.xiv.setTarget(this.combatant.id);
+	}
 
 	ngOnInit() {
 		// this.cd.detach();

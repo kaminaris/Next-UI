@@ -98,7 +98,9 @@ export class Combatant {
 		gainedAt?: Date
 	) {
 		const auras = this.auras.value;
-		let aura = auras.find(a => a.id === id || a.name === name);
+		let aura = auras.find(a => {
+			return a.appliedBy === appliedBy && (a.id === id || a.name === name)
+		});
 		if (!aura) {
 			const newAura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);
 			auras.push(newAura);

@@ -51,4 +51,12 @@ export class ConfigColorComponent extends BaseConfigComponent {
 	toggleWidget() {
 		this.colorVisible = !this.colorVisible;
 	}
+
+	resetConfig(prop: string) {
+		super.resetConfig(prop);
+		this.color = this.getValue();
+		if (!this.color) {
+			this.color = 'rgba(0, 0, 0, 1)';
+		}
+	}
 }

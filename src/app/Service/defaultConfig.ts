@@ -38,7 +38,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			manaBarDirection: 'start',
 			barColor: '#02A502',
 			manaColor: '#02a597',
-			backgroundColor: 'rgba(33,32,33,1)',
+			backgroundColor: 'rgba(33,32,33,0.8)',
 			useClassColor: true,
 			showMana: true,
 			manaHeight: '20px',
@@ -46,6 +46,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			borderColor: 'rgba(16,16,16,1)',
 			auraPosition: { x: 0, y: 0 },
 			auraAnchor: 'bottomLeft',
+			auraOnlyOwn: false,
+			auraFilters: [],
 
 			widgets: {
 				job: {
@@ -101,7 +103,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			manaBarDirection: 'start',
 			barColor: '#02A502',
 			manaColor: '#02a597',
-			backgroundColor: 'rgba(33,32,33,1)',
+			backgroundColor: 'rgba(33,32,33,0.8)',
 			useClassColor: true,
 			showMana: true,
 			manaHeight: '20px',
@@ -109,6 +111,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			borderColor: 'rgba(16,16,16,1)',
 			auraPosition: { x: 0, y: 0 },
 			auraAnchor: 'bottomLeft',
+			auraOnlyOwn: true,
+			auraFilters: [],
 
 			widgets: {
 				job: {
@@ -164,7 +168,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			manaBarDirection: 'start',
 			barColor: '#02A502',
 			manaColor: '#02a597',
-			backgroundColor: 'rgba(33,32,33,1)',
+			backgroundColor: 'rgba(33,32,33,0.8)',
 			useClassColor: true,
 			showMana: false,
 			manaHeight: '20px',
@@ -172,6 +176,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			borderColor: 'rgba(16,16,16,1)',
 			auraPosition: { x: 0, y: -30 },
 			auraAnchor: 'bottomLeft',
+			auraOnlyOwn: false,
+			auraFilters: [],
 
 			widgets: {
 				job: {
@@ -227,7 +233,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			manaBarDirection: 'start',
 			barColor: '#02A502',
 			manaColor: '#02a597',
-			backgroundColor: 'rgba(33,32,33,1)',
+			backgroundColor: 'rgba(33,32,33,0.8)',
 			useClassColor: true,
 			showMana: true,
 			manaHeight: '2px',
@@ -237,6 +243,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			borderColor: 'rgba(16,16,16,1)',
 			auraPosition: { x: 270, y: 0 },
 			auraAnchor: 'left',
+			auraOnlyOwn: false,
+			auraFilters: [],
 
 			widgets: {
 				job: {
@@ -292,7 +300,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			manaBarDirection: 'start',
 			barColor: '#02A502',
 			manaColor: '#02a597',
-			backgroundColor: 'rgba(33,32,33,1)',
+			backgroundColor: 'rgba(33,32,33,0.8)',
 			borderWidth: 1,
 			borderColor: 'rgba(16,16,16,1)',
 			showMana: false,
@@ -301,6 +309,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			unitFrameMargin: 1,
 			auraPosition: { x: 270, y: 0 },
 			auraAnchor: 'left',
+			auraOnlyOwn: true,
+			auraFilters: [],
 
 			widgets: {
 				name: {
@@ -347,10 +357,27 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 		},
 		auraBar: {
 			iconSize: '30px',
-			fontSize: '14px',
-			fontColor: '#FFFFFF',
-			cooldownOutline: true,
-			cooldownPrecision: 1
+			cooldownPrecision: 1,
+			borderWidth: 1,
+			borderColor: 'rgba(16,16,16,1)',
+			widgets: {
+				duration: {
+					show: true,
+					anchor: 'center',
+					fontColor: '#ffffff',
+					fontSize: '12px',
+					position: { x: 0, y: 0 },
+					outline: true
+				},
+				stacks: {
+					show: true,
+					anchor: 'topRight',
+					fontColor: '#ffffff',
+					fontSize: '14px',
+					position: { x: -3, y: -8 },
+					outline: true
+				},
+			}
 		}
 	}
 };

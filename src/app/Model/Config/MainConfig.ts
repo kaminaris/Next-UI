@@ -1,18 +1,19 @@
-import { merge, Observable, Subject } from 'rxjs';
-import { debounceTime }               from 'rxjs/operators';
-import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
-import { AggroListFrameConfig }       from 'src/app/Model/Config/AggroListFrameConfig';
-import { AuraBarFrameConfig }         from 'src/app/Model/Config/AuraBarFrameConfig';
-import { ColorConfig }                from 'src/app/Model/Config/ColorConfig';
-import { ConfigFrameConfig }          from 'src/app/Model/Config/ConfigFrameConfig';
-import { ControlFrameConfig }         from 'src/app/Model/Config/ControlFrameConfig';
-import { CustomElementsFrameConfig }  from 'src/app/Model/Config/CustomElementsFrameConfig';
-import { PartyFrameConfig }           from 'src/app/Model/Config/PartyFrameConfig';
-import { PlayerFrameConfig }          from 'src/app/Model/Config/PlayerFrameConfig';
-import { TargetFrameConfig }          from 'src/app/Model/Config/TargetFrameConfig';
-import { TargetOfTargetFrameConfig }  from 'src/app/Model/Config/TargetOfTargetFrameConfig';
-import { TTSConfig }                  from 'src/app/Model/Config/TTSConfig';
-import { DistinctBehaviorSubject }    from 'src/app/Model/DistinctBehaviorSubject';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { debounceTime }                                from 'rxjs/operators';
+import { AuraFilter }                                  from 'src/app/Interface/AuraFilter';
+import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
+import { AggroListFrameConfig }                        from 'src/app/Model/Config/AggroListFrameConfig';
+import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ColorConfig }                                 from 'src/app/Model/Config/ColorConfig';
+import { ConfigFrameConfig }                           from 'src/app/Model/Config/ConfigFrameConfig';
+import { ControlFrameConfig }                          from 'src/app/Model/Config/ControlFrameConfig';
+import { CustomElementsFrameConfig }                   from 'src/app/Model/Config/CustomElementsFrameConfig';
+import { PartyFrameConfig }                            from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }                           from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }                           from 'src/app/Model/Config/TargetFrameConfig';
+import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
 	// @formatter:off
@@ -30,6 +31,9 @@ export class MainConfig implements SerializableConfig {
 
 	get numberFormat(): string { return this.numberFormatSub.value; }
 	set numberFormat(v: string) { this.numberFormatSub.next(v); }
+
+	get filters(): AuraFilter[] { return this.filtersSub.value; }
+	set filters(v: AuraFilter[]) { this.filtersSub.next(v); }
 	// @formatter:on
 
 	ttsConfig = new TTSConfig();
@@ -39,6 +43,7 @@ export class MainConfig implements SerializableConfig {
 	numberFormatSub = new DistinctBehaviorSubject<string>('');
 	hpTemplateSub = new DistinctBehaviorSubject<string>('[hp] / [hpMax] ([hpPct]%)');
 	manaTemplateSub = new DistinctBehaviorSubject<string>('[mana] / [manaMax] ([manaPct]%)');
+	filtersSub = new BehaviorSubject<AuraFilter[]>([]);
 
 	frames = {
 		control: new ControlFrameConfig(),
@@ -63,7 +68,10 @@ export class MainConfig implements SerializableConfig {
 		return [
 			this.customCssSub,
 			this.fontFamilySub,
-			this.numberFormatSub
+			this.numberFormatSub,
+			this.hpTemplateSub,
+			this.manaTemplateSub,
+			this.filtersSub
 		];
 	}
 
@@ -73,6 +81,7 @@ export class MainConfig implements SerializableConfig {
 		this.numberFormat = value.numberFormat;
 		this.hpTemplate = value.hpTemplate;
 		this.manaTemplate = value.manaTemplate;
+		this.filters = Array.isArray(value.filters) ? value.filters.map(v => Object.assign({}, v)) : [];
 		this.ttsConfig.unserialize(value.ttsConfig);
 		this.colorConfig.unserialize(value.colorConfig);
 		this.frames.control.unserialize(value.frames.control);
@@ -95,6 +104,7 @@ export class MainConfig implements SerializableConfig {
 			manaTemplate: this.manaTemplate,
 			ttsConfig: this.ttsConfig.serialize(),
 			colorConfig: this.colorConfig.serialize(),
+			filters: this.filters.map(v => Object.assign({}, v)),
 			frames: {
 				control: this.frames.control.serialize(),
 				config: this.frames.config.serialize(),
