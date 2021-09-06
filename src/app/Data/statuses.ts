@@ -308,7 +308,7 @@ export const statuses = [
     {
         id: 1029,
         name: 'Final Decree Nisi A',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi A<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi A is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -326,7 +326,7 @@ export const statuses = [
     {
         id: 1030,
         name: 'Final Decree Nisi B',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi B<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi B is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -380,7 +380,7 @@ export const statuses = [
     {
         id: 1036,
         name: 'Final Judgment: Decree Nisi A',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi A<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Refusal to serve sentence will result in additional punishment.',
+        description: 'Sentenced to receive Decree Nisi A. Refusal to serve sentence will result in additional punishment.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -389,7 +389,7 @@ export const statuses = [
     {
         id: 1037,
         name: 'Final Judgment: Decree Nisi B',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi B<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Refusal to serve sentence will result in additional punishment.',
+        description: 'Sentenced to receive Decree Nisi B. Refusal to serve sentence will result in additional punishment.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -713,7 +713,7 @@ export const statuses = [
     {
         id: 107,
         name: 'Opo-opo Form',
-        description: 'Employing the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>opo-opo<UIGlow>01</UIGlow><UIForeground>01</UIForeground> fighting stance.',
+        description: 'Employing the opo-opo fighting stance.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -812,7 +812,7 @@ export const statuses = [
     {
         id: 108,
         name: 'Raptor Form',
-        description: 'Employing the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>raptor<UIGlow>01</UIGlow><UIForeground>01</UIForeground> fighting stance.',
+        description: 'Employing the raptor fighting stance.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -911,7 +911,7 @@ export const statuses = [
     {
         id: 109,
         name: 'Coeurl Form',
-        description: 'Employing the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>coeurl<UIGlow>01</UIGlow><UIForeground>01</UIForeground> fighting stance.',
+        description: 'Employing the coeurl fighting stance.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -1658,7 +1658,7 @@ export const statuses = [
     {
         id: 1164,
         name: 'Manipulation',
-        description: 'Receiving 5 points of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>durability<UIGlow>01</UIGlow><UIForeground>01</UIForeground> after each step.',
+        description: 'Receiving 5 points of durability after each step.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -1784,7 +1784,7 @@ export const statuses = [
     {
         id: 1177,
         name: 'Inner Release',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Beast Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> consumption is reduced to 0. All attacks are both critical and direct hits. All <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Stun<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Sleep<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Bind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Heavy<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and most knockback and draw-in effects are nullified.',
+        description: 'Beast Gauge consumption is reduced to 0. All attacks are both critical and direct hits. All Stun, Sleep, Bind, Heavy, and most knockback and draw-in effects are nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2144,7 +2144,7 @@ export const statuses = [
     {
         id: 1212,
         name: 'Further Ruin',
-        description: 'Able to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ruin IV<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to cast Ruin IV.',
         category: 1,
         isPermanent: 1,
         maxStacks: 4,
@@ -2207,7 +2207,7 @@ export const statuses = [
     {
         id: 1219,
         name: 'Confession',
-        description: 'Sins are confessed. Ready for <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Plenary Indulgence<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Sins are confessed. Ready for Plenary Indulgence.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2216,7 +2216,7 @@ export const statuses = [
     {
         id: 122,
         name: 'Straight Shot Ready',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Straight Shot<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Straight Shot.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2333,7 +2333,7 @@ export const statuses = [
     {
         id: 1231,
         name: 'Meditate',
-        description: 'Storing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Kenki<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Storing Kenki.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2360,7 +2360,7 @@ export const statuses = [
     {
         id: 1234,
         name: 'Verfire Ready',
-        description: 'Able to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Verfire<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to cast Verfire.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2369,7 +2369,7 @@ export const statuses = [
     {
         id: 1235,
         name: 'Verstone Ready',
-        description: 'Able to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Verstone<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to cast Verstone.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2378,7 +2378,7 @@ export const statuses = [
     {
         id: 1236,
         name: 'Enhanced Enpi',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Enpi<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will deal increased damage.',
+        description: 'Next Enpi will deal increased damage.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2396,7 +2396,7 @@ export const statuses = [
     {
         id: 1238,
         name: 'Acceleration',
-        description: 'Additional effects of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Verthunder<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Verflare<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Veraero<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, or <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Verholy<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will trigger.',
+        description: 'Additional effects of Verthunder, Verflare, Veraero, or Verholy will trigger.',
         category: 1,
         isPermanent: 0,
         maxStacks: 3,
@@ -2450,7 +2450,7 @@ export const statuses = [
     {
         id: 1243,
         name: 'Dive Ready',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Mirage Dive<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Mirage Dive.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2459,7 +2459,7 @@ export const statuses = [
     {
         id: 1244,
         name: 'Riddle of Wind',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Riddle of Wind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Riddle of Wind.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2540,7 +2540,7 @@ export const statuses = [
     {
         id: 1252,
         name: 'Eyes Open',
-        description: 'Succeeded at opening the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Third Eye<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Succeeded at opening the Third Eye.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -2927,7 +2927,7 @@ export const statuses = [
     {
         id: 1291,
         name: 'Ruination',
-        description: 'Damage taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Outburst<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ruin<UIGlow>01</UIGlow><UIForeground>01</UIForeground> spells cast by arcanists and summoners is increased.',
+        description: 'Damage taken from Outburst and Ruin spells cast by arcanists and summoners is increased.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -3053,7 +3053,7 @@ export const statuses = [
     {
         id: 1303,
         name: 'Inner Release',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Beast Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> consumption is reduced to 0. All <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Stun<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Sleep<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Bind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Heavy<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Silence<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, knockback, and draw-in effects are nullified.',
+        description: 'Beast Gauge consumption is reduced to 0. All Stun, Sleep, Bind, Heavy, Silence, knockback, and draw-in effects are nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -3116,7 +3116,7 @@ export const statuses = [
     {
         id: 131,
         name: 'Downpour of Death',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Rain of Death<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will not require any TP.',
+        description: 'Next Rain of Death will not require any TP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -3125,7 +3125,7 @@ export const statuses = [
     {
         id: 1310,
         name: 'Riddle of Earth',
-        description: 'Contemplating the riddle of earth. Taking a certain amount of damage triggers <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Earth\'s Reply<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Contemplating the riddle of earth. Taking a certain amount of damage triggers Earth\'s Reply.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -3143,7 +3143,7 @@ export const statuses = [
     {
         id: 1312,
         name: 'Chaos Thrust',
-        description: 'Sustaining damage over time, as well as increased damage from target who executed <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Chaos Thrust<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Sustaining damage over time, as well as increased damage from target who executed Chaos Thrust.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -3152,7 +3152,7 @@ export const statuses = [
     {
         id: 1313,
         name: 'Shadow Fang',
-        description: 'Sustaining damage over time, as well as increased damage from target who executed <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Shadow Fang<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Sustaining damage over time, as well as increased damage from target who executed Shadow Fang.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -3197,7 +3197,7 @@ export const statuses = [
     {
         id: 1318,
         name: 'Yukikaze',
-        description: 'Sustaining increased damage from target who executed <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Yukikaze<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Sustaining increased damage from target who executed Yukikaze.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -3215,7 +3215,7 @@ export const statuses = [
     {
         id: 132,
         name: 'Quicker Nock',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Quick Nock<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will not require any TP.',
+        description: 'Next Quick Nock will not require any TP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -3656,7 +3656,7 @@ export const statuses = [
     {
         id: 1364,
         name: 'Riddle of Wind',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Riddle of Wind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Riddle of Wind.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -3665,7 +3665,7 @@ export const statuses = [
     {
         id: 1365,
         name: 'Thundercloud',
-        description: 'Able to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Thunder III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> or <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Thunder IV<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to cast Thunder III or Thunder IV.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4196,7 +4196,7 @@ export const statuses = [
     {
         id: 1418,
         name: 'Abandonment',
-        description: 'Will suffer <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Fear<UIGlow>01</UIGlow><UIForeground>01</UIForeground> when straying too far from party members.',
+        description: 'Will suffer Fear when straying too far from party members.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -4358,7 +4358,7 @@ export const statuses = [
     {
         id: 1434,
         name: 'Mana Hypersensitivity',
-        description: 'Additional damage taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Hatch<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Additional damage taken from Hatch.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -4772,7 +4772,7 @@ export const statuses = [
     {
         id: 1476,
         name: 'Aether Rot Immunity',
-        description: 'Unable to be an <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Aether Rot<UIGlow>01</UIGlow><UIForeground>01</UIForeground> carrier.',
+        description: 'Unable to be an Aether Rot carrier.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -4817,7 +4817,7 @@ export const statuses = [
     {
         id: 1480,
         name: 'Unrelenting Anguish',
-        description: 'Continuously launching <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Aratama<UIGlow>01</UIGlow><UIForeground>01</UIForeground> from your body.',
+        description: 'Continuously launching Aratama from your body.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4844,7 +4844,7 @@ export const statuses = [
     {
         id: 1483,
         name: 'Fire Charged',
-        description: 'Mana sufficient to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fire III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> or equivalent.',
+        description: 'Mana sufficient to cast Fire III or equivalent.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4853,7 +4853,7 @@ export const statuses = [
     {
         id: 1484,
         name: 'Blizzard Charged',
-        description: 'Mana sufficient to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Blizzard III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> or equivalent.',
+        description: 'Mana sufficient to cast Blizzard III or equivalent.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4862,7 +4862,7 @@ export const statuses = [
     {
         id: 1485,
         name: 'Thunder Charged',
-        description: 'Mana sufficient to cast <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Thunder III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> or equivalent.',
+        description: 'Mana sufficient to cast Thunder III or equivalent.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4871,7 +4871,7 @@ export const statuses = [
     {
         id: 1486,
         name: 'Jester\'s Antics',
-        description: 'Effect radius and characteristics for <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fire<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ice<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Lightning<UIGlow>01</UIGlow><UIForeground>01</UIForeground> spells are severely altered.',
+        description: 'Effect radius and characteristics for Fire, Ice, and Lightning spells are severely altered.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -4880,7 +4880,7 @@ export const statuses = [
     {
         id: 1487,
         name: 'Jester\'s Truths',
-        description: 'Effect radius and characteristics for <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fire<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ice<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Lightning<UIGlow>01</UIGlow><UIForeground>01</UIForeground> spells are unaltered.',
+        description: 'Effect radius and characteristics for Fire, Ice, and Lightning spells are unaltered.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -5510,7 +5510,7 @@ export const statuses = [
     {
         id: 155,
         name: 'Freecure',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Cure II<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will not require any MP to cast.',
+        description: 'Next Cure II will not require any MP to cast.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -5609,7 +5609,7 @@ export const statuses = [
     {
         id: 156,
         name: 'Overcure',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Cure III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will cost half MP.',
+        description: 'Next Cure III will cost half MP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -5726,7 +5726,7 @@ export const statuses = [
     {
         id: 1571,
         name: 'Temporal Barrier',
-        description: 'The effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Temporal Stasis<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is nullified.',
+        description: 'The effect of Temporal Stasis is nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -6176,7 +6176,7 @@ export const statuses = [
     {
         id: 1616,
         name: 'Death from Above',
-        description: 'Any auto-attack from a skyborne opponent will apply <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Any auto-attack from a skyborne opponent will apply Doom.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -6185,7 +6185,7 @@ export const statuses = [
     {
         id: 1617,
         name: 'Death from Below',
-        description: 'Any auto-attack from a landborne opponent will apply <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Any auto-attack from a landborne opponent will apply Doom.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -6410,7 +6410,7 @@ export const statuses = [
     {
         id: 164,
         name: 'Thundercloud',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Thunder<UIGlow>01</UIGlow><UIForeground>01</UIForeground> spell will add its full damage over time amount to its initial damage, require no time to cast, and cost no MP.',
+        description: 'Next Thunder spell will add its full damage over time amount to its initial damage, require no time to cast, and cost no MP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -6509,7 +6509,7 @@ export const statuses = [
     {
         id: 165,
         name: 'Firestarter',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fire III<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will require no time to cast and cost no MP.',
+        description: 'Next Fire III will require no time to cast and cost no MP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -6608,7 +6608,7 @@ export const statuses = [
     {
         id: 166,
         name: 'Succor',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Succor<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will cost no MP.',
+        description: 'Next Succor will cost no MP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -6797,7 +6797,7 @@ export const statuses = [
     {
         id: 1679,
         name: 'Spell-in-Waiting: Return IV',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Return IV<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Return IV, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -6815,7 +6815,7 @@ export const statuses = [
     {
         id: 1680,
         name: 'Spell-in-Waiting: Flare',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Flare<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Flare, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -7112,7 +7112,7 @@ export const statuses = [
     {
         id: 171,
         name: 'Ekpyrosis',
-        description: 'Unable to receive <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Apocatastasis<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Unable to receive Apocatastasis.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -7193,7 +7193,7 @@ export const statuses = [
     {
         id: 1718,
         name: 'Waxing Nocturne',
-        description: 'Damage dealt and movement speed are increased. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Waning Nocturne<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will take hold when the effect ends.',
+        description: 'Damage dealt and movement speed are increased. Waning Nocturne will take hold when the effect ends.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8030,7 +8030,7 @@ export const statuses = [
     {
         id: 1801,
         name: 'Pick Clean',
-        description: 'Reduces the chance of obtaining HQ items to 0% but increases item yield. Amount of increase is determined by your <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>perception<UIGlow>01</UIGlow><UIForeground>01</UIForeground> rating.',
+        description: 'Reduces the chance of obtaining HQ items to 0% but increases item yield. Amount of increase is determined by your perception rating.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -8102,7 +8102,7 @@ export const statuses = [
     {
         id: 1809,
         name: 'Spell-in-Waiting: Unholy Darkness',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Unholy Darkness<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Unholy Darkness, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8120,7 +8120,7 @@ export const statuses = [
     {
         id: 1810,
         name: 'Spell-in-Waiting: Dark Fire III',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Fire III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Fire III, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8129,7 +8129,7 @@ export const statuses = [
     {
         id: 1811,
         name: 'Spell-in-Waiting: Hell Wind',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Hell Wind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Hell Wind, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8138,7 +8138,7 @@ export const statuses = [
     {
         id: 1812,
         name: 'Spell-in-Waiting: Shadoweye',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Shadoweye<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Shadoweye, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8156,7 +8156,7 @@ export const statuses = [
     {
         id: 1814,
         name: 'Flourishing Cascade',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Reverse Cascade<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Reverse Cascade.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8165,7 +8165,7 @@ export const statuses = [
     {
         id: 1815,
         name: 'Flourishing Fountain',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fountainfall<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Fountainfall.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8174,7 +8174,7 @@ export const statuses = [
     {
         id: 1816,
         name: 'Flourishing Windmill',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Rising Windmill<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Rising Windmill.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8183,7 +8183,7 @@ export const statuses = [
     {
         id: 1817,
         name: 'Flourishing Shower',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bloodshower<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Bloodshower.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8192,7 +8192,7 @@ export const statuses = [
     {
         id: 1818,
         name: 'Standard Step',
-        description: 'Caught up in the dance and only able to execute step actions, role actions, Sprint, Limit Break, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Standard Finish<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>En Avant<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Caught up in the dance and only able to execute step actions, role actions, Sprint, Limit Break, Standard Finish, and En Avant.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8201,7 +8201,7 @@ export const statuses = [
     {
         id: 1819,
         name: 'Technical Step',
-        description: 'Caught up in the dance and only able to execute step actions, role actions, Sprint, Limit Break, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Technical Finish<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>En Avant<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Caught up in the dance and only able to execute step actions, role actions, Sprint, Limit Break, Technical Finish, and En Avant.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8219,7 +8219,7 @@ export const statuses = [
     {
         id: 1820,
         name: 'Flourishing Fan Dance',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fan Dance III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Fan Dance III.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8282,7 +8282,7 @@ export const statuses = [
     {
         id: 1827,
         name: 'Improvisation',
-        description: 'Dancing to the beat of your own drum. Accumulates <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Esprit<UIGlow>01</UIGlow><UIForeground>01</UIForeground> while dancing in combat.',
+        description: 'Dancing to the beat of your own drum. Accumulates Esprit while dancing in combat.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8435,7 +8435,7 @@ export const statuses = [
     {
         id: 1842,
         name: 'Ready to Rip',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Jugular Rip<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Jugular Rip.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8444,7 +8444,7 @@ export const statuses = [
     {
         id: 1843,
         name: 'Ready to Tear',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Abdomen Tear<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Abdomen Tear.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8453,7 +8453,7 @@ export const statuses = [
     {
         id: 1844,
         name: 'Ready to Gouge',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Eye Gouge<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Eye Gouge.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8480,7 +8480,7 @@ export const statuses = [
     {
         id: 1847,
         name: 'Esprit',
-        description: 'The <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esprit Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increasing when you or the party member designated as your <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Dance Partner<UIGlow>01</UIGlow><UIForeground>01</UIForeground> executes a weaponskill or casts a spell.',
+        description: 'The Esprit Gauge is increasing when you or the party member designated as your Dance Partner executes a weaponskill or casts a spell.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8489,7 +8489,7 @@ export const statuses = [
     {
         id: 1848,
         name: 'Esprit',
-        description: 'The <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esprit Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increasing when you or a party member executes a weaponskill or casts a spell.',
+        description: 'The Esprit Gauge is increasing when you or a party member executes a weaponskill or casts a spell.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8516,7 +8516,7 @@ export const statuses = [
     {
         id: 1850,
         name: 'Surging Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Surging Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Surging Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8525,7 +8525,7 @@ export const statuses = [
     {
         id: 1851,
         name: 'Splashing Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Splashing Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Splashing Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8534,7 +8534,7 @@ export const statuses = [
     {
         id: 1852,
         name: 'Swirling Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Swirling Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Swirling Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8543,7 +8543,7 @@ export const statuses = [
     {
         id: 1853,
         name: 'Smothering Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Smothering Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Smothering Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8552,7 +8552,7 @@ export const statuses = [
     {
         id: 1854,
         name: 'Sundering Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Sundering Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Sundering Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8561,7 +8561,7 @@ export const statuses = [
     {
         id: 1855,
         name: 'Sweeping Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Sweeping Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Sweeping Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8588,7 +8588,7 @@ export const statuses = [
     {
         id: 1858,
         name: 'Nascent Glint',
-        description: 'Receiving 50% of all HP recovered by the warrior who granted this status via <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Nascent Flash<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Damage taken is reduced.',
+        description: 'Receiving 50% of all HP recovered by the warrior who granted this status via Nascent Flash. Damage taken is reduced.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8624,7 +8624,7 @@ export const statuses = [
     {
         id: 1861,
         name: 'Leaden Fist',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bootshine<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will deal increased damage.',
+        description: 'Next Bootshine will deal increased damage.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8633,7 +8633,7 @@ export const statuses = [
     {
         id: 1862,
         name: 'Anatman',
-        description: 'Form and <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Twin Snakes<UIGlow>01</UIGlow><UIForeground>01</UIForeground> timers are suspended due to a transcendent inner calm.',
+        description: 'Form and Twin Snakes timers are suspended due to a transcendent inner calm.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8642,7 +8642,7 @@ export const statuses = [
     {
         id: 1863,
         name: 'Raiden Thrust Ready',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Raiden Thrust<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Raiden Thrust.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8678,7 +8678,7 @@ export const statuses = [
     {
         id: 1867,
         name: 'Hellish Conduit',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Brand of Purgatory<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Brand of Purgatory.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8912,7 +8912,7 @@ export const statuses = [
     {
         id: 1890,
         name: 'Horoscope',
-        description: 'Primed to receive the healing effects of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Horoscope<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Primed to receive the healing effects of Horoscope.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8921,7 +8921,7 @@ export const statuses = [
     {
         id: 1891,
         name: 'Horoscope Helios',
-        description: 'Primed to receive the healing effects of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Horoscope<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Primed to receive the healing effects of Horoscope.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8939,7 +8939,7 @@ export const statuses = [
     {
         id: 1893,
         name: 'Scouring Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Scouring Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires.',
+        description: 'Overflowing with water-aspected aether. A Scouring Tsunami will occur when effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -8966,7 +8966,7 @@ export const statuses = [
     {
         id: 1896,
         name: 'Recitation',
-        description: 'The next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Adloquium<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Succor<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Indomitability<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, or <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Excogitation<UIGlow>01</UIGlow><UIForeground>01</UIForeground> executed will cost no MP or <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Aetherflow<UIGlow>01</UIGlow><UIForeground>01</UIForeground> stacks and will restore critical HP.',
+        description: 'The next Adloquium, Succor, Indomitability, or Excogitation executed will cost no MP or Aetherflow stacks and will restore critical HP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -8975,7 +8975,7 @@ export const statuses = [
     {
         id: 1897,
         name: 'Nascent Chaos',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Decimate<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Chaotic Cyclone<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.\n\nNascent Chaos Effect: <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fell Cleave<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Inner Chaos.<UIGlow>01</UIGlow><UIForeground>01</UIForeground>',
+        description: 'Decimate is upgraded to Chaotic Cyclone.\n\nNascent Chaos Effect: Fell Cleave is upgraded to Inner Chaos.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9038,7 +9038,7 @@ export const statuses = [
     {
         id: 1902,
         name: 'Sword Oath',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Atonement<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Atonement.',
         category: 1,
         isPermanent: 0,
         maxStacks: 3,
@@ -9074,7 +9074,7 @@ export const statuses = [
     {
         id: 1906,
         name: 'Perfect Deception',
-        description: 'Having severely restricted the flow of life-sustaining aether, your presence is concealed but you are subject to the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Fading Fast<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Having severely restricted the flow of life-sustaining aether, your presence is concealed but you are subject to the effect of Fading Fast.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9173,7 +9173,7 @@ export const statuses = [
     {
         id: 1916,
         name: 'Name of the Elements',
-        description: 'Efficiency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Brand of the Elements<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Efficiency of Brand of the Elements is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9272,7 +9272,7 @@ export const statuses = [
     {
         id: 1926,
         name: 'Sleeve Draw',
-        description: 'Draws a new arcanum after executing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Play<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Minor Arcana<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, or <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Undraw<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Draws a new arcanum after executing Play, Minor Arcana, or Undraw.',
         category: 1,
         isPermanent: 0,
         maxStacks: 2,
@@ -9344,7 +9344,7 @@ export const statuses = [
     {
         id: 1933,
         name: 'Army\'s Ethos',
-        description: 'Singing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Mage\'s Ballad<UIGlow>01</UIGlow><UIForeground>01</UIForeground> or the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Wanderer\'s Minuet<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will grant the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Army\'s Muse<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Singing Mage\'s Ballad or the Wanderer\'s Minuet will grant the effect of Army\'s Muse.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9470,7 +9470,7 @@ export const statuses = [
     {
         id: 1946,
         name: 'Wildfire',
-        description: 'Currently afflicting an enemy with <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Wildfire<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Currently afflicting an enemy with Wildfire.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9497,7 +9497,7 @@ export const statuses = [
     {
         id: 1949,
         name: 'Splashing Waters',
-        description: 'Overflowing with water-aspected aether. A <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Splashing Tsunami<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will occur when effect expires. Effect canceled upon being hit by a certain action.',
+        description: 'Overflowing with water-aspected aether. A Splashing Tsunami will occur when effect expires. Effect canceled upon being hit by a certain action.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -9560,7 +9560,7 @@ export const statuses = [
     {
         id: 1955,
         name: 'Assassinate Ready',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Assassinate<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Assassinate.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9569,7 +9569,7 @@ export const statuses = [
     {
         id: 1956,
         name: 'Souldeep Invisibility',
-        description: 'Having severed the flow of life-sustaining aether, your presence is completely concealed but you are subject to the effects of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Fading Fast<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Vital Sign<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Having severed the flow of life-sustaining aether, your presence is completely concealed but you are subject to the effects of Fading Fast and Vital Sign.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9731,7 +9731,7 @@ export const statuses = [
     {
         id: 1972,
         name: 'Delirium',
-        description: 'Blackblood cost for <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bloodspiller<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Quietus<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is nullified.',
+        description: 'Blackblood cost for Bloodspiller and Quietus is nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9839,7 +9839,7 @@ export const statuses = [
     {
         id: 1983,
         name: 'Fetter Ward',
-        description: 'All <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Stun<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Sleep<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Bind<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Heavy<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Silence<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, knockback, and draw-in effects are nullified.',
+        description: 'All Stun, Sleep, Bind, Heavy, Silence, knockback, and draw-in effects are nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -9920,7 +9920,7 @@ export const statuses = [
     {
         id: 1991,
         name: 'Sword Oath',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Atonement<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Glory Slash<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Atonement and Glory Slash.',
         category: 1,
         isPermanent: 0,
         maxStacks: 3,
@@ -9929,7 +9929,7 @@ export const statuses = [
     {
         id: 1992,
         name: 'Nascent Chaos',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fell Cleave<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Inner Chaos<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, while <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Decimate<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Chaotic Cyclone<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Fell Cleave is upgraded to Inner Chaos, while Decimate is upgraded to Chaotic Cyclone.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10046,7 +10046,7 @@ export const statuses = [
     {
         id: 2002,
         name: 'Ready to Rip',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Jugular Rip<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Jugular Rip.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10055,7 +10055,7 @@ export const statuses = [
     {
         id: 2003,
         name: 'Ready to Tear',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Abdomen Tear<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Abdomen Tear.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10064,7 +10064,7 @@ export const statuses = [
     {
         id: 2004,
         name: 'Ready to Gouge',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Eye Gouge<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Eye Gouge.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10235,7 +10235,7 @@ export const statuses = [
     {
         id: 2021,
         name: 'Flourishing Fan Dance',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fan Dance III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Fan Dance III.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10253,7 +10253,7 @@ export const statuses = [
     {
         id: 2023,
         name: 'Standard Step',
-        description: 'Caught up in the dance and only able to execute step actions, additional actions, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Head Graze<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bolt<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Medical Kit<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Standard Finish<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>En Avant<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Caught up in the dance and only able to execute step actions, additional actions, Head Graze, Bolt, Medical Kit, Standard Finish, and En Avant.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10271,7 +10271,7 @@ export const statuses = [
     {
         id: 2025,
         name: 'Esprit',
-        description: 'The <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esprit Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increasing when you or the party member designated as your <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Dance Partner<UIGlow>01</UIGlow><UIForeground>01</UIForeground> executes a weaponskill or casts a spell.',
+        description: 'The Esprit Gauge is increasing when you or the party member designated as your Dance Partner executes a weaponskill or casts a spell.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10460,7 +10460,7 @@ export const statuses = [
     {
         id: 2044,
         name: 'Neutral Sect',
-        description: 'Spell cast and recast times are reduced.\n\n<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Helios<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Aspected Helios<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, while <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Benefic<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Aspected Benefic<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Spell cast and recast times are reduced.\n\nHelios is upgraded to Aspected Helios, while Benefic is upgraded to Aspected Benefic.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10496,7 +10496,7 @@ export const statuses = [
     {
         id: 2048,
         name: 'En Avant',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Cascade<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Reverse Cascade<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fountain<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fountainfall<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Windmill<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Rising Windmill<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bladeshower<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is upgraded to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bloodshower<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Cascade is upgraded to Reverse Cascade, Fountain is upgraded to Fountainfall, Windmill is upgraded to Rising Windmill, and Bladeshower is upgraded to Bloodshower.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10505,7 +10505,7 @@ export const statuses = [
     {
         id: 2049,
         name: 'Technical Step',
-        description: 'Caught up in the dance and only able to execute step actions, additional actions, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Technical Finish<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>En Avant<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Head Graze<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Bolt<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Medical Kit<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Caught up in the dance and only able to execute step actions, additional actions, Technical Finish, En Avant, Head Graze, Bolt, and Medical Kit.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10532,7 +10532,7 @@ export const statuses = [
     {
         id: 2051,
         name: 'Esprit',
-        description: 'The <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esprit Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increasing when you or a party member executes a weaponskill or casts a spell.',
+        description: 'The Esprit Gauge is increasing when you or a party member executes a weaponskill or casts a spell.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -10559,7 +10559,7 @@ export const statuses = [
     {
         id: 2054,
         name: 'Lord of Crowns Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Lord of Crowns<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Lord of Crowns card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -10568,7 +10568,7 @@ export const statuses = [
     {
         id: 2055,
         name: 'Lady of Crowns Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Lady of Crowns<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Lady of Crowns card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -10640,7 +10640,7 @@ export const statuses = [
     {
         id: 2062,
         name: 'Nascent Glint',
-        description: 'Damage taken is reduced, and receiving 100% of all HP absorbed by the warrior who granted this status via <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Nascent Flash<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Damage taken is reduced, and receiving 100% of all HP absorbed by the warrior who granted this status via Nascent Flash.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -11081,7 +11081,7 @@ export const statuses = [
     {
         id: 2106,
         name: 'Spell-in-Waiting: Flare',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Flare<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Flare, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -11117,7 +11117,7 @@ export const statuses = [
     {
         id: 211,
         name: 'Sharpened Knife',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Lateral Slash<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is changed to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Sharpened Knife<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, increasing damage dealt.',
+        description: 'Next Lateral Slash is changed to Sharpened Knife, increasing damage dealt.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -11126,7 +11126,7 @@ export const statuses = [
     {
         id: 2110,
         name: 'Ancient Circle',
-        description: 'Fell darkness spreads out from where you stand. The <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ancient Circle<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Fell darkness spreads out from where you stand. The Ancient Circle will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -11324,7 +11324,7 @@ export const statuses = [
     {
         id: 2130,
         name: 'Surpanakha\'s Fury',
-        description: 'Potency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Surpanakha<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Potency of Surpanakha is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 3,
@@ -11387,7 +11387,7 @@ export const statuses = [
     {
         id: 2137,
         name: 'Final Decree Nisi γ',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi γ<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi γ is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -11396,7 +11396,7 @@ export const statuses = [
     {
         id: 2138,
         name: 'Final Decree Nisi δ',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi δ<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi δ is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -11405,7 +11405,7 @@ export const statuses = [
     {
         id: 2139,
         name: 'Final Judgment: Decree Nisi γ',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi γ<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Disobedience will result in divine retribution.',
+        description: 'Sentenced to receive Decree Nisi γ. Disobedience will result in divine retribution.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -11423,7 +11423,7 @@ export const statuses = [
     {
         id: 2140,
         name: 'Final Judgment: Decree Nisi δ',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi δ<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Disobedience will result in divine retribution.',
+        description: 'Sentenced to receive Decree Nisi δ. Disobedience will result in divine retribution.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -11864,7 +11864,7 @@ export const statuses = [
     {
         id: 2185,
         name: 'Feint',
-        description: 'Sustaining increased damage from target who executed <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Feint<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Sustaining increased damage from target who executed Feint.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -11900,7 +11900,7 @@ export const statuses = [
     {
         id: 2189,
         name: 'Innovation',
-        description: 'Efficiency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Touch<UIGlow>01</UIGlow><UIForeground>01</UIForeground> actions is increased.',
+        description: 'Efficiency of Touch actions is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -11927,7 +11927,7 @@ export const statuses = [
     {
         id: 2191,
         name: 'Muscle Memory',
-        description: 'Efficiency of the next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Synthesis<UIGlow>01</UIGlow><UIForeground>01</UIForeground> action is significantly increased.',
+        description: 'Efficiency of the next Synthesis action is significantly increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -12242,7 +12242,7 @@ export const statuses = [
     {
         id: 2222,
         name: 'Final Decree Nisi α',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi α<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi α is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -12251,7 +12251,7 @@ export const statuses = [
     {
         id: 2223,
         name: 'Final Decree Nisi β',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi β<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is issued.',
+        description: 'Decree Nisi β is issued.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -12260,7 +12260,7 @@ export const statuses = [
     {
         id: 2224,
         name: 'Final Judgment: Decree Nisi α',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi α<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Disobedience will result in divine retribution.',
+        description: 'Sentenced to receive Decree Nisi α. Disobedience will result in divine retribution.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -12269,7 +12269,7 @@ export const statuses = [
     {
         id: 2225,
         name: 'Final Judgment: Decree Nisi β',
-        description: 'Sentenced to receive <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi β<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Disobedience will result in divine retribution.',
+        description: 'Sentenced to receive Decree Nisi β. Disobedience will result in divine retribution.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -12278,7 +12278,7 @@ export const statuses = [
     {
         id: 2226,
         name: 'Veneration',
-        description: 'Efficiency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Synthesis<UIGlow>01</UIGlow><UIForeground>01</UIForeground> actions is increased.',
+        description: 'Efficiency of Synthesis actions is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -12656,7 +12656,7 @@ export const statuses = [
     {
         id: 2264,
         name: 'Braced',
-        description: 'Ready and able to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Stand Firm<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Ready and able to Stand Firm.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -13106,7 +13106,7 @@ export const statuses = [
     {
         id: 2309,
         name: 'A Bit Berserk',
-        description: 'Getting a taste for violence. Will go <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Truly Berserk<UIGlow>01</UIGlow><UIForeground>01</UIForeground> upon reaching maximum stacks.',
+        description: 'Getting a taste for violence. Will go Truly Berserk upon reaching maximum stacks.',
         category: 2,
         isPermanent: 1,
         maxStacks: 8,
@@ -13295,7 +13295,7 @@ export const statuses = [
     {
         id: 2328,
         name: 'Banner of Tireless Conviction',
-        description: 'Damage taken is increased, but your conviction is strengthened with each attack received. At maximum stacks, take up the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Banner of Unyielding Defense<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.\n\nBanner of Unyielding Defense Effect: Damage taken is reduced.',
+        description: 'Damage taken is increased, but your conviction is strengthened with each attack received. At maximum stacks, take up the Banner of Unyielding Defense.\n\nBanner of Unyielding Defense Effect: Damage taken is reduced.',
         category: 1,
         isPermanent: 0,
         maxStacks: 5,
@@ -13304,7 +13304,7 @@ export const statuses = [
     {
         id: 2329,
         name: 'Banner of Firm Resolve',
-        description: 'Damage dealt is reduced, but your resolve is strengthened with each attack received. At maximum stacks, take up the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Banner of Unyielding Defense<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.\n\nBanner of Unyielding Defense Effect: Damage taken is reduced.',
+        description: 'Damage dealt is reduced, but your resolve is strengthened with each attack received. At maximum stacks, take up the Banner of Unyielding Defense.\n\nBanner of Unyielding Defense Effect: Damage taken is reduced.',
         category: 1,
         isPermanent: 0,
         maxStacks: 5,
@@ -13322,7 +13322,7 @@ export const statuses = [
     {
         id: 2330,
         name: 'Banner of Solemn Clarity',
-        description: 'You take a moment to still your mind, gaining clarity as time passes. At maximum stacks, take up the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Banner of Limitless Grace<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.\n\nBanner of Limitless Grace Effect: Potency of HP restoration actions is increased while MP cost is reduced.',
+        description: 'You take a moment to still your mind, gaining clarity as time passes. At maximum stacks, take up the Banner of Limitless Grace.\n\nBanner of Limitless Grace Effect: Potency of HP restoration actions is increased while MP cost is reduced.',
         category: 1,
         isPermanent: 0,
         maxStacks: 4,
@@ -13331,7 +13331,7 @@ export const statuses = [
     {
         id: 2331,
         name: 'Banner of Honed Acuity',
-        description: 'Damage taken is increased, but your senses sharpen with each attack evaded. At maximum stacks, take up the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Banner of Transcendent Finesse<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.\n\nBanner of Transcendent Finesse Effect: Critical hit rate is increased while weaponskill cast time and recast time, spell cast time and recast time, and auto-attack delay are reduced.',
+        description: 'Damage taken is increased, but your senses sharpen with each attack evaded. At maximum stacks, take up the Banner of Transcendent Finesse.\n\nBanner of Transcendent Finesse Effect: Critical hit rate is increased while weaponskill cast time and recast time, spell cast time and recast time, and auto-attack delay are reduced.',
         category: 1,
         isPermanent: 0,
         maxStacks: 3,
@@ -13439,7 +13439,7 @@ export const statuses = [
     {
         id: 2342,
         name: 'Auto-potion',
-        description: 'Recover HP automatically when HP falls below 50%. When triggered, there is a 50% chance the effect will end. While enlivened by the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spirit of the Breathtaker<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, this chance is reduced to 10%.',
+        description: 'Recover HP automatically when HP falls below 50%. When triggered, there is a 50% chance the effect will end. While enlivened by the Spirit of the Breathtaker, this chance is reduced to 10%.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -13448,7 +13448,7 @@ export const statuses = [
     {
         id: 2343,
         name: 'Auto-ether',
-        description: 'Recover MP automatically when MP falls below 20%. When triggered, there is a 50% chance the effect will end. While enlivened by the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spirit of the Breathtaker<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, this chance is reduced to 10%.',
+        description: 'Recover MP automatically when MP falls below 20%. When triggered, there is a 50% chance the effect will end. While enlivened by the Spirit of the Breathtaker, this chance is reduced to 10%.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -13682,7 +13682,7 @@ export const statuses = [
     {
         id: 2367,
         name: 'Pall of Darkness',
-        description: 'Encroaching gloom is impairing your accuracy while rendering you immune to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Demon Eye<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Encroaching gloom is impairing your accuracy while rendering you immune to Demon Eye.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -13880,7 +13880,7 @@ export const statuses = [
     {
         id: 2387,
         name: 'Curse of Darkness',
-        description: 'Cursed to become a fell minion, unleashing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Particle Beam<UIGlow>01</UIGlow><UIForeground>01</UIForeground> when this effect expires.',
+        description: 'Cursed to become a fell minion, unleashing Particle Beam when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14321,7 +14321,7 @@ export const statuses = [
     {
         id: 2430,
         name: 'Wanderer\'s Fate',
-        description: 'Victim of a labyrinthine fate, resulting in knockback when the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fateful Words<UIGlow>01</UIGlow><UIForeground>01</UIForeground> are spoken.',
+        description: 'Victim of a labyrinthine fate, resulting in knockback when the Fateful Words are spoken.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -14330,7 +14330,7 @@ export const statuses = [
     {
         id: 2431,
         name: 'Sacrifice\'s Fate',
-        description: 'Victim of a labyrinthine fate, to be drawn in by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fateful Words<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Victim of a labyrinthine fate, to be drawn in by Fateful Words.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -14546,7 +14546,7 @@ export const statuses = [
     {
         id: 2453,
         name: 'Return IV',
-        description: 'Aetherially entwined with the temporal manifold. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Return<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will be applied when this effect expires.',
+        description: 'Aetherially entwined with the temporal manifold. Return will be applied when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14555,7 +14555,7 @@ export const statuses = [
     {
         id: 2454,
         name: 'Spell-in-Waiting: Unholy Darkness',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Unholy Darkness<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Unholy Darkness, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14564,7 +14564,7 @@ export const statuses = [
     {
         id: 2455,
         name: 'Spell-in-Waiting: Dark Fire III',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Fire III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Fire III, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14573,7 +14573,7 @@ export const statuses = [
     {
         id: 2456,
         name: 'Spell-in-Waiting: Shadoweye',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Shadoweye<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Shadoweye, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14618,7 +14618,7 @@ export const statuses = [
     {
         id: 2460,
         name: 'Spell-in-Waiting: Dark Eruption',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Eruption<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Eruption, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14627,7 +14627,7 @@ export const statuses = [
     {
         id: 2461,
         name: 'Spell-in-Waiting: Dark Water III',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Water III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Water III, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14636,7 +14636,7 @@ export const statuses = [
     {
         id: 2462,
         name: 'Spell-in-Waiting: Dark Blizzard III',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Blizzard III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Blizzard III, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14645,7 +14645,7 @@ export const statuses = [
     {
         id: 2463,
         name: 'Spell-in-Waiting: Dark Aero III',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Dark Aero III<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Dark Aero III, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14654,7 +14654,7 @@ export const statuses = [
     {
         id: 2464,
         name: 'Spell-in-Waiting: Return',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Return<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Return, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14753,7 +14753,7 @@ export const statuses = [
     {
         id: 2474,
         name: 'Movement Edict: 2 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 2 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 2 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14762,7 +14762,7 @@ export const statuses = [
     {
         id: 2475,
         name: 'Movement Edict: 3 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 3 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 3 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14771,7 +14771,7 @@ export const statuses = [
     {
         id: 2476,
         name: 'Movement Edict: 4 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 4 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 4 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14780,7 +14780,7 @@ export const statuses = [
     {
         id: 2477,
         name: 'Movement Edict: 2 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 2 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 2 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14789,7 +14789,7 @@ export const statuses = [
     {
         id: 2478,
         name: 'Movement Edict: 3 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 3 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 3 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14798,7 +14798,7 @@ export const statuses = [
     {
         id: 2479,
         name: 'Movement Edict: 4 Squares',
-        description: 'Temporarily in service to the Queen. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Your Move: 4 Squares<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will activate when this effect expires.',
+        description: 'Temporarily in service to the Queen. Your Move: 4 Squares will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -14843,7 +14843,7 @@ export const statuses = [
     {
         id: 2483,
         name: 'Twice-come Ruin',
-        description: 'Bearing signs that the end may be nigh, decreasing damage dealt. Too many stacks will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Bearing signs that the end may be nigh, decreasing damage dealt. Too many stacks will result in Doom.',
         category: 2,
         isPermanent: 1,
         maxStacks: 2,
@@ -14861,7 +14861,7 @@ export const statuses = [
     {
         id: 2485,
         name: 'Twice-come Ruin',
-        description: 'Bearing signs that the end may be nigh, decreasing damage dealt. Too many stacks will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Bearing signs that the end may be nigh, decreasing damage dealt. Too many stacks will result in Doom.',
         category: 2,
         isPermanent: 0,
         maxStacks: 2,
@@ -14942,7 +14942,7 @@ export const statuses = [
     {
         id: 2493,
         name: 'Cold Fog',
-        description: 'Enveloped in a cold fog. Any damage taken will grant the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Touch of Frost<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Enveloped in a cold fog. Any damage taken will grant the effect of Touch of Frost.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -14951,7 +14951,7 @@ export const statuses = [
     {
         id: 2494,
         name: 'Touch of Frost',
-        description: 'Enveloped in an icy fog. Able to execute the blue magic spell <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>White Death<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Enveloped in an icy fog. Able to execute the blue magic spell White Death.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -14969,7 +14969,7 @@ export const statuses = [
     {
         id: 2496,
         name: 'Chelonian Gate',
-        description: 'Damage taken is reduced. Taking a certain amount of damage grants the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Auspicious Trance<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Damage taken is reduced. Taking a certain amount of damage grants the effect of Auspicious Trance.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -14978,7 +14978,7 @@ export const statuses = [
     {
         id: 2497,
         name: 'Auspicious Trance',
-        description: 'Able to execute the blue magic spell <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Divine Cataract<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute the blue magic spell Divine Cataract.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -14987,7 +14987,7 @@ export const statuses = [
     {
         id: 2498,
         name: 'Basic Instinct',
-        description: 'Movement speed, damage dealt, and healing magic potency are increased. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Mighty Guard<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will not reduce damage dealt while <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Basic Instinct<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is in effect.',
+        description: 'Movement speed, damage dealt, and healing magic potency are increased. Mighty Guard will not reduce damage dealt while Basic Instinct is in effect.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -15041,7 +15041,7 @@ export const statuses = [
     {
         id: 2502,
         name: 'Phantom Flurry',
-        description: 'Executing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Phantom Flurry<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Executing Phantom Flurry.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -15113,7 +15113,7 @@ export const statuses = [
     {
         id: 251,
         name: 'Inner Quiet',
-        description: 'Receiving a bonus to control with every increase in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>quality<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Receiving a bonus to control with every increase in quality.',
         category: 1,
         isPermanent: 1,
         maxStacks: 11,
@@ -15212,7 +15212,7 @@ export const statuses = [
     {
         id: 252,
         name: 'Waste Not',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Durability<UIGlow>01</UIGlow><UIForeground>01</UIForeground> loss is reduced by half.',
+        description: 'Durability loss is reduced by half.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -15320,7 +15320,7 @@ export const statuses = [
     {
         id: 2530,
         name: 'Thrice-come Ruin',
-        description: 'Bearing signs that the end may be nigh. Too many stacks will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Bearing signs that the end may be nigh. Too many stacks will result in Doom.',
         category: 2,
         isPermanent: 0,
         maxStacks: 3,
@@ -15329,7 +15329,7 @@ export const statuses = [
     {
         id: 2531,
         name: 'Spell-in-Waiting: Quietus',
-        description: 'Designated target of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Quietus<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, which will activate when this effect expires.',
+        description: 'Designated target of Quietus, which will activate when this effect expires.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -15347,7 +15347,7 @@ export const statuses = [
     {
         id: 2533,
         name: 'Thrice-come Ruin',
-        description: 'Bearing signs that the end may be nigh, reducing damage dealt. Too many stacks will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Bearing signs that the end may be nigh, reducing damage dealt. Too many stacks will result in Doom.',
         category: 2,
         isPermanent: 1,
         maxStacks: 3,
@@ -15356,7 +15356,7 @@ export const statuses = [
     {
         id: 2534,
         name: 'Twice-come Ruin',
-        description: 'Bearing signs that the end may be nigh. Too many stacks will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Doom<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Bearing signs that the end may be nigh. Too many stacks will result in Doom.',
         category: 2,
         isPermanent: 0,
         maxStacks: 2,
@@ -15383,7 +15383,7 @@ export const statuses = [
     {
         id: 2537,
         name: 'Strong of Spear',
-        description: 'Weapon is enhanced.\n\n\n\nWill grant the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Stronger Together<UIGlow>01</UIGlow><UIForeground>01</UIForeground> if Hansel and Gretel move close together.',
+        description: 'Weapon is enhanced.\n\n\n\nWill grant the effect of Stronger Together if Hansel and Gretel move close together.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -15392,7 +15392,7 @@ export const statuses = [
     {
         id: 2538,
         name: 'Strong of Shield',
-        description: 'Shield is enhanced, decreasing damage taken. Attacks from the sides and rear are turned back on the attacker.\n\n\n\nWill grant the effect of <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Stronger Together<UIGlow>01</UIGlow><UIForeground>01</UIForeground> if Hansel and Gretel move close together.',
+        description: 'Shield is enhanced, decreasing damage taken. Attacks from the sides and rear are turned back on the attacker.\n\n\n\nWill grant the effect of Stronger Together if Hansel and Gretel move close together.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -15410,7 +15410,7 @@ export const statuses = [
     {
         id: 254,
         name: 'Great Strides',
-        description: 'Efficiency of next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Touch<UIGlow>01</UIGlow><UIForeground>01</UIForeground> action is significantly increased.',
+        description: 'Efficiency of next Touch action is significantly increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -15509,7 +15509,7 @@ export const statuses = [
     {
         id: 255,
         name: 'Ingenuity',
-        description: 'Effectiveness of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Touch<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Synthesis<UIGlow>01</UIGlow><UIForeground>01</UIForeground> actions is increased.',
+        description: 'Effectiveness of Touch and Synthesis actions is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -15707,7 +15707,7 @@ export const statuses = [
     {
         id: 257,
         name: 'Waste Not II',
-        description: '<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Durability<UIGlow>01</UIGlow><UIForeground>01</UIForeground> loss is reduced by half.',
+        description: 'Durability loss is reduced by half.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -16355,7 +16355,7 @@ export const statuses = [
     {
         id: 2634,
         name: 'Null White',
-        description: 'Invulnerable to attacks from <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Program: #FFFFFF<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Invulnerable to attacks from Program: #FFFFFF.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -16364,7 +16364,7 @@ export const statuses = [
     {
         id: 2635,
         name: 'Null Black',
-        description: 'Invulnerable to attacks from <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Program: #000000<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Invulnerable to attacks from Program: #000000.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -17552,7 +17552,7 @@ export const statuses = [
     {
         id: 323,
         name: 'Reduced Immunity',
-        description: 'HP recovery via healing magic is reduced. Can be cured with <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esuna<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'HP recovery via healing magic is reduced. Can be cured with Esuna.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -17660,7 +17660,7 @@ export const statuses = [
     {
         id: 334,
         name: 'Allagan Immunity',
-        description: 'Your body is showing resistance to the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Allagan Rot<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Your body is showing resistance to the Allagan Rot.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -17777,7 +17777,7 @@ export const statuses = [
     {
         id: 346,
         name: 'Waxen Flesh',
-        description: 'The rate at which <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Firestorm<UIGlow>01</UIGlow><UIForeground>01</UIForeground> burns your flesh is increased.',
+        description: 'The rate at which Firestorm burns your flesh is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 8,
@@ -18785,7 +18785,7 @@ export const statuses = [
     {
         id: 447,
         name: 'Potent Acid',
-        description: 'Doused in potent acid, resulting in increased damage taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Acid Cloud<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Strength of effect is determined by stack number.',
+        description: 'Doused in potent acid, resulting in increased damage taken from Acid Cloud. Strength of effect is determined by stack number.',
         category: 2,
         isPermanent: 0,
         maxStacks: 16,
@@ -18866,7 +18866,7 @@ export const statuses = [
     {
         id: 455,
         name: 'Languishing',
-        description: 'Life force is weakened, resulting in increased damage taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Life Drain<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Life force is weakened, resulting in increased damage taken from Life Drain.',
         category: 2,
         isPermanent: 0,
         maxStacks: 4,
@@ -19028,7 +19028,7 @@ export const statuses = [
     {
         id: 471,
         name: 'Moglight Resistance Down',
-        description: 'Massive damage is taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Stifling Mogdark<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Massive damage is taken from Stifling Mogdark.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -19037,7 +19037,7 @@ export const statuses = [
     {
         id: 472,
         name: 'Mogdark Resistance Down',
-        description: 'Massive damage is taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Searing Moglight<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Massive damage is taken from Searing Moglight.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -19046,7 +19046,7 @@ export const statuses = [
     {
         id: 473,
         name: 'Bemoggled',
-        description: 'Massive damage is taken from <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Moogle-Go-Round<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Massive damage is taken from Moogle-Go-Round.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -19073,7 +19073,7 @@ export const statuses = [
     {
         id: 476,
         name: 'Gloam',
-        description: 'A shroud of darkness is impairing your accuracy while rendering you immune to <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Demon Eye<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Can be cured with <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Esuna<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'A shroud of darkness is impairing your accuracy while rendering you immune to Demon Eye. Can be cured with Esuna.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -19388,7 +19388,7 @@ export const statuses = [
     {
         id: 507,
         name: 'Suiton',
-        description: 'Body is enveloped in a light-bending veil of water, allowing use of actions normally requiring the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Hidden<UIGlow>01</UIGlow><UIForeground>01</UIForeground> status.',
+        description: 'Body is enveloped in a light-bending veil of water, allowing use of actions normally requiring the Hidden status.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -19433,7 +19433,7 @@ export const statuses = [
     {
         id: 511,
         name: 'Fire Toad',
-        description: 'Transformed into a fire toad and only able to execute the action <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Toad Breath<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Transformed into a fire toad and only able to execute the action Toad Breath.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -20063,7 +20063,7 @@ export const statuses = [
     {
         id: 575,
         name: 'Static Charge',
-        description: 'Damage dealt by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Electric Burst<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Damage dealt by Electric Burst is increased.',
         category: 2,
         isPermanent: 1,
         maxStacks: 16,
@@ -20189,7 +20189,7 @@ export const statuses = [
     {
         id: 588,
         name: 'Revelation Resistance Down',
-        description: 'Damage taken by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Revelation<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Damage taken by Revelation is increased.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -20198,7 +20198,7 @@ export const statuses = [
     {
         id: 589,
         name: 'Chain of Purgatory',
-        description: 'Marked by the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Brand of Purgatory<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Damage taken by the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Flames of Unforgiveness<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Marked by the Brand of Purgatory. Damage taken by the Flames of Unforgiveness is increased.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -20216,7 +20216,7 @@ export const statuses = [
     {
         id: 590,
         name: 'Arm of Purgatory',
-        description: 'Marked by the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Brand of Purgatory<UIGlow>01</UIGlow><UIForeground>01</UIForeground>. Damage taken by the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Flames of Unforgiveness<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Marked by the Brand of Purgatory. Damage taken by the Flames of Unforgiveness is increased.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -20243,7 +20243,7 @@ export const statuses = [
     {
         id: 593,
         name: 'Rise of the Phoenix',
-        description: 'The holy flames of Phoenix burn bright, increasing potency of the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Flames of Rebirth<UIGlow>01</UIGlow><UIForeground>01</UIForeground> with each additional stack.',
+        description: 'The holy flames of Phoenix burn bright, increasing potency of the Flames of Rebirth with each additional stack.',
         category: 2,
         isPermanent: 1,
         maxStacks: 16,
@@ -20261,7 +20261,7 @@ export const statuses = [
     {
         id: 595,
         name: 'Cloak of Death',
-        description: 'Damage taken by the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fountain of Death<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Damage taken by the Fountain of Death is increased.',
         category: 2,
         isPermanent: 0,
         maxStacks: 16,
@@ -20279,7 +20279,7 @@ export const statuses = [
     {
         id: 597,
         name: 'Flare Dampening',
-        description: 'Damage taken by Bahamut\'s <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Teraflare<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is reduced, and damage dealt is significantly reduced.',
+        description: 'Damage taken by Bahamut\'s Teraflare is reduced, and damage dealt is significantly reduced.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -20378,7 +20378,7 @@ export const statuses = [
     {
         id: 606,
         name: 'Frozen',
-        description: 'Ice has begun forming on gear. A stack of 4 will result in <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Deep Freeze<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>.',
+        description: 'Ice has begun forming on gear. A stack of 4 will result in Deep Freeze.',
         category: 2,
         isPermanent: 0,
         maxStacks: 4,
@@ -20432,7 +20432,7 @@ export const statuses = [
     {
         id: 611,
         name: 'Invigoration',
-        description: 'Experiencing increased pep in one\'s step. <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Wet Plate<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow> status is removed upon executing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Imp Punch<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Experiencing increased pep in one\'s step. Wet Plate status is removed upon executing Imp Punch.',
         category: 1,
         isPermanent: 1,
         maxStacks: 8,
@@ -20441,7 +20441,7 @@ export const statuses = [
     {
         id: 612,
         name: 'Wet Plate',
-        description: 'Sufficient water remains on the imp plate. Status removed if <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Imp Punch<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is executed while Typhon is invigorated.',
+        description: 'Sufficient water remains on the imp plate. Status removed if Imp Punch is executed while Typhon is invigorated.',
         category: 2,
         isPermanent: 1,
         maxStacks: 4,
@@ -20450,7 +20450,7 @@ export const statuses = [
     {
         id: 613,
         name: 'Imp',
-        description: 'Transformed into an imp and only able to execute the action <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Imp Punch<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Transformed into an imp and only able to execute the action Imp Punch.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -20675,7 +20675,7 @@ export const statuses = [
     {
         id: 636,
         name: 'Brand of the Sullen',
-        description: 'Damage taken by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Sullen Gaze<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Damage taken by Sullen Gaze is increased.',
         category: 2,
         isPermanent: 1,
         maxStacks: 4,
@@ -20684,7 +20684,7 @@ export const statuses = [
     {
         id: 637,
         name: 'Brand of the Ireful',
-        description: 'Damage taken by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Ireful Gaze<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Damage taken by Ireful Gaze is increased.',
         category: 2,
         isPermanent: 1,
         maxStacks: 4,
@@ -21107,7 +21107,7 @@ export const statuses = [
     {
         id: 68,
         name: 'Drainstrikes',
-        description: 'Auto-attacks are generating an <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Absorb HP<UIGlow>01</UIGlow><UIForeground>01</UIForeground> effect.',
+        description: 'Auto-attacks are generating an Absorb HP effect.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -21206,7 +21206,7 @@ export const statuses = [
     {
         id: 69,
         name: 'Aspirstrikes',
-        description: 'Auto-attacks are generating an <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Absorb MP<UIGlow>01</UIGlow><UIForeground>01</UIForeground> effect.',
+        description: 'Auto-attacks are generating an Absorb MP effect.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -21224,7 +21224,7 @@ export const statuses = [
     {
         id: 691,
         name: 'Marked for Vulnerability Up',
-        description: 'Physical damage taken is increased following execution of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Digititis<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Physical damage taken is increased following execution of Digititis.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -21233,7 +21233,7 @@ export const statuses = [
     {
         id: 692,
         name: 'Marked for Damage Down',
-        description: 'Damage dealt is reduced following execution of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Digititis<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Damage dealt is reduced following execution of Digititis.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -21242,7 +21242,7 @@ export const statuses = [
     {
         id: 693,
         name: 'Marked for Healing Magic Down',
-        description: 'HP recovery via healing magic is reduced following execution of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Digititis<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'HP recovery via healing magic is reduced following execution of Digititis.',
         category: 2,
         isPermanent: 1,
         maxStacks: 0,
@@ -21377,7 +21377,7 @@ export const statuses = [
     {
         id: 707,
         name: 'Decree Nisi A',
-        description: 'If <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi B<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is also issued, steam regulator ruling becomes <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Absolute<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and death sentence is carried out.',
+        description: 'If Decree Nisi B is also issued, steam regulator ruling becomes Decree Absolute and death sentence is carried out.',
         category: 2,
         isPermanent: 0,
         maxStacks: 5,
@@ -21386,7 +21386,7 @@ export const statuses = [
     {
         id: 708,
         name: 'Decree Nisi B',
-        description: 'If <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Nisi A<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is also issued, steam regulator ruling becomes <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Decree Absolute<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and death sentence is carried out.',
+        description: 'If Decree Nisi A is also issued, steam regulator ruling becomes Decree Absolute and death sentence is carried out.',
         category: 2,
         isPermanent: 0,
         maxStacks: 5,
@@ -21593,7 +21593,7 @@ export const statuses = [
     {
         id: 729,
         name: 'Deliverance',
-        description: 'Damage dealt is increased. Using certain actions will increase your <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Beast Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Damage dealt is increased. Using certain actions will increase your Beast Gauge.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -21665,7 +21665,7 @@ export const statuses = [
     {
         id: 736,
         name: 'Blood of the Dragon',
-        description: 'Potency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Jump<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Spineshatter Dive<UIGlow>01</UIGlow><UIForeground>01</UIForeground> are increased.',
+        description: 'Potency of Jump and Spineshatter Dive are increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -21728,7 +21728,7 @@ export const statuses = [
     {
         id: 742,
         name: 'Blood Weapon',
-        description: 'Absorbing MP upon landing weaponskills or spells.\n\nEnhanced Blackblood Effect: Increasing <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Blood Gauge<UIGlow>01</UIGlow><UIForeground>01</UIForeground> upon landing weaponskills or spells.',
+        description: 'Absorbing MP upon landing weaponskills or spells.\n\nEnhanced Blackblood Effect: Increasing Blood Gauge upon landing weaponskills or spells.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -21944,7 +21944,7 @@ export const statuses = [
     {
         id: 764,
         name: 'Inefficient Hooking',
-        description: '<UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Hook<UIGlow>01</UIGlow><UIForeground>01</UIForeground> efficiency is reduced.',
+        description: 'Hook efficiency is reduced.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,
@@ -22223,7 +22223,7 @@ export const statuses = [
     {
         id: 792,
         name: 'Emergency Tactics',
-        description: 'The next <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Galvanize<UIGlow>01</UIGlow><UIForeground>01</UIForeground> and <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Catalyze<UIGlow>01</UIGlow><UIForeground>01</UIForeground> statuses are transformed into HP recovery equaling the amount of damage reduction intended for their barriers.',
+        description: 'The next Galvanize and Catalyze statuses are transformed into HP recovery equaling the amount of damage reduction intended for their barriers.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22331,7 +22331,7 @@ export const statuses = [
     {
         id: 802,
         name: 'Sharper Fang and Claw',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fang and Claw<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Fang and Claw.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22340,7 +22340,7 @@ export const statuses = [
     {
         id: 803,
         name: 'Enhanced Wheeling Thrust',
-        description: 'Able to execute <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Wheeling Thrust<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Able to execute Wheeling Thrust.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22412,7 +22412,7 @@ export const statuses = [
     {
         id: 810,
         name: 'Living Dead',
-        description: 'Unable to be KO\'d by most attacks. Status changed to <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Walking Dead<UIGlow>01</UIGlow><UIForeground>01</UIForeground> in most cases when HP is reduced to 0.',
+        description: 'Unable to be KO\'d by most attacks. Status changed to Walking Dead in most cases when HP is reduced to 0.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22448,7 +22448,7 @@ export const statuses = [
     {
         id: 814,
         name: 'Enhanced Unleash',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Unleash<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will not require any MP to cast.',
+        description: 'Next Unleash will not require any MP to cast.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22457,7 +22457,7 @@ export const statuses = [
     {
         id: 815,
         name: 'Enhanced Benefic II',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Benefic II<UIGlow>01</UIGlow><UIForeground>01</UIForeground> will restore critical HP.',
+        description: 'Next Benefic II will restore critical HP.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22556,7 +22556,7 @@ export const statuses = [
     {
         id: 825,
         name: 'The Twelve\'s Bounty',
-        description: 'Elemental shard<If(GreaterThanOrEqualTo(PlayerParameter(68),16))><If(GreaterThanOrEqualTo(PlayerParameter(69),50))>, crystal, and cluster yields are<Else/><If(GreaterThanOrEqualTo(PlayerParameter(69),41))> and crystal yields are<Else/> yield is</If></If><Else/></If> increased.',
+        description: 'Elemental shard, crystal, and cluster yields are increased.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -22691,7 +22691,7 @@ export const statuses = [
     {
         id: 839,
         name: 'Diurnal Sect',
-        description: 'A <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Regen<UIGlow>01</UIGlow><UIForeground>01</UIForeground> effect is added to certain actions.',
+        description: 'A Regen effect is added to certain actions.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -22862,7 +22862,7 @@ export const statuses = [
     {
         id: 856,
         name: 'Enhanced Slug Shot',
-        description: 'Potency of next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Slug Shot<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Potency of next Slug Shot is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22871,7 +22871,7 @@ export const statuses = [
     {
         id: 857,
         name: 'Cleaner Shot',
-        description: 'Potency of next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Clean Shot<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Potency of next Clean Shot is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -22970,7 +22970,7 @@ export const statuses = [
     {
         id: 867,
         name: 'Sharpcast',
-        description: 'Next <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Scathe<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Fire<UIGlow>01</UIGlow><UIForeground>01</UIForeground>, or <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Thunder<UIGlow>01</UIGlow><UIForeground>01</UIForeground> spell cast will trigger enhanced status.',
+        description: 'Next Scathe, Fire, or Thunder spell cast will trigger enhanced status.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -23015,7 +23015,7 @@ export const statuses = [
     {
         id: 871,
         name: 'Name of the Elements',
-        description: 'Efficiency of <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Brand of the Elements<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is increased.',
+        description: 'Efficiency of Brand of the Elements is increased.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -23069,7 +23069,7 @@ export const statuses = [
     {
         id: 877,
         name: 'Nameless',
-        description: 'Unable to recite the <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Name of the Elements<UIGlow>01</UIGlow><UIForeground>01</UIForeground>.',
+        description: 'Unable to recite the Name of the Elements.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -23384,7 +23384,7 @@ export const statuses = [
     {
         id: 908,
         name: 'Aethertrail Attunement',
-        description: 'Aether within the body is near completely attuned to the aethertrails left by the dreadwyrm Bahamut. When attunement reaches 6, you will enter the <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Dreadwyrm Trance<UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>.',
+        description: 'Aether within the body is near completely attuned to the aethertrails left by the dreadwyrm Bahamut. When attunement reaches 6, you will enter the Dreadwyrm Trance.',
         category: 1,
         isPermanent: 1,
         maxStacks: 6,
@@ -23438,7 +23438,7 @@ export const statuses = [
     {
         id: 913,
         name: 'Balance Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Balance<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Balance card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23447,7 +23447,7 @@ export const statuses = [
     {
         id: 914,
         name: 'Bole Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Bole<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Bole card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23456,7 +23456,7 @@ export const statuses = [
     {
         id: 915,
         name: 'Arrow Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Arrow<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Arrow card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23465,7 +23465,7 @@ export const statuses = [
     {
         id: 916,
         name: 'Spear Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spear<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Spear card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23474,7 +23474,7 @@ export const statuses = [
     {
         id: 917,
         name: 'Ewer Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Ewer<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Ewer card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23483,7 +23483,7 @@ export const statuses = [
     {
         id: 918,
         name: 'Spire Drawn',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spire<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn.',
+        description: 'The Spire card is drawn.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23501,7 +23501,7 @@ export const statuses = [
     {
         id: 92,
         name: 'Unchained',
-        description: 'Damage penalty inflicted by <UIForeground>F201F4</UIForeground><UIGlow>F201F5</UIGlow>Defiance<UIGlow>01</UIGlow><UIForeground>01</UIForeground> is nullified.',
+        description: 'Damage penalty inflicted by Defiance is nullified.',
         category: 1,
         isPermanent: 0,
         maxStacks: 0,
@@ -23510,7 +23510,7 @@ export const statuses = [
     {
         id: 920,
         name: 'Balance Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Balance<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Balance card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23519,7 +23519,7 @@ export const statuses = [
     {
         id: 921,
         name: 'Bole Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Bole<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Bole card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23528,7 +23528,7 @@ export const statuses = [
     {
         id: 922,
         name: 'Arrow Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Arrow<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Arrow card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23537,7 +23537,7 @@ export const statuses = [
     {
         id: 923,
         name: 'Spear Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spear<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Spear card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23546,7 +23546,7 @@ export const statuses = [
     {
         id: 924,
         name: 'Ewer Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Ewer<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Ewer card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,
@@ -23555,7 +23555,7 @@ export const statuses = [
     {
         id: 925,
         name: 'Spire Held',
-        description: 'The <UIForeground>F201FA</UIForeground><UIGlow>F201FB</UIGlow>Spire<UIGlow>01</UIGlow><UIForeground>01</UIForeground> card is drawn and held in your spread.',
+        description: 'The Spire card is drawn and held in your spread.',
         category: 1,
         isPermanent: 1,
         maxStacks: 0,

@@ -8,12 +8,15 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'aura-icon',
 	template: `
-		<div class="position-relative" [ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}"
+		<div class="position-relative" 
+			[ngStyle]="{'width': ownConfig.iconSize, 'height': ownConfig.iconSize}"
 			style="border: 1px solid black;
 				background-repeat: no-repeat; 
 			 	background-position: 40% 48%;
 			 	background-size: 124%;"
 			[style.background-image]="'url(' + src + ')'"
+			tooltip-trigger
+			[template]="auraTooltip"
 		>
 			<div class="position-absolute z10" text-widget
 				*ngIf="timer > 0"
@@ -26,18 +29,14 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 				[config]="ownConfig.widgets.stacks">
 				{{ stacks }}
 			</div>
-
-			<!--			<div class="position-absolute" *ngIf="timer > 0"-->
-			<!--				[class.text-outline-1]="ownConfig.cooldownOutline"-->
-			<!--				[style.top.px]="top"-->
-			<!--				[style.left.px]="left"-->
-			<!--				[style.font-size]="ownConfig.fontSize"-->
-			<!--				[style.color]="ownConfig.fontColor"-->
-			<!--			>-->
-			<!--				{{ timer | duration: this.ownConfig.cooldownPrecision }}-->
-			<!--			</div>-->
 		</div>
-
+		<div #auraTooltip class="d-none">
+			<div class="position-absolute top-right-5">
+				{{ aura.id }}
+			</div>
+			<strong>{{ aura.name }}</strong>
+			<p class="mb-1 mt-1">{{ aura.description }}</p>
+		</div>
 	`
 })
 export class AuraIconComponent implements OnInit, OnDestroy {

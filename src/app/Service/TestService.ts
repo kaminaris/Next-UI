@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { statuses }   from 'src/app/Data/status';
+import { statuses }   from 'src/app/Data/statuses';
 import { Combatant }  from 'src/app/Model/Combatant';
 import { LogParser }  from 'src/app/Service/LogParser/LogParser';
 import { Util }       from 'src/app/Service/LogParser/Util';
@@ -136,7 +136,7 @@ export class TestService {
 
 			comb.updateAura(
 				this.randomRange(100, 200),
-				'Test',
+				'',
 				this.randomRange(1, 3),
 				randomActor.id,
 				duration

@@ -26,7 +26,7 @@ for (const file of files) {
 	concated.push({
 		id: data.ID,
 		name: data.Name,
-		description: data.Description,
+		description: data.Description.replace(/<[^>]+>[^>]+>/g, ''),
 		category: data.Category,
 		isPermanent: data.IsPermanent,
 		maxStacks: data.MaxStacks,
@@ -41,4 +41,4 @@ json = json
 	.replace(/\"/g, "'");
 
 const out = `export const statuses = ${ json };`;
-fs.writeFileSync(path.join('src', 'app', 'Data', 'status.ts'), out);
+fs.writeFileSync(path.join('src', 'app', 'Data', 'statuses.ts'), out);

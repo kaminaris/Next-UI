@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { AuraDefinition }    from 'src/app/Interface/AuraDefinition';
 import { AuraFilter }        from 'src/app/Interface/AuraFilter';
 import { ConfigService }     from 'src/app/Service/ConfigService';
-import { statuses }          from 'src/app/Data/status';
+import { statuses }          from 'src/app/Data/statuses';
 
 @Component({
 	selector: 'config-window-aura-filter',

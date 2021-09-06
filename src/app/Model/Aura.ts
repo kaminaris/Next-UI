@@ -1,8 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
-import { statuses }        from 'src/app/Data/status';
+import { statuses }        from 'src/app/Data/statuses';
 
 export class Aura {
 	name = '';
+	description = '';
 	appliedBy: number = null;
 	isBuff = true;
 	priority = 100;
@@ -44,6 +45,7 @@ export class Aura {
 		const statusDef = statuses.find(s => s.id === a.id);
 		if (statusDef) {
 			a.isBuff = statusDef.category === 1;
+			a.description = statusDef.description;
 			a.priority = statusDef.partyListPriority;
 			if (!a.name) {
 				a.name = statusDef.name;

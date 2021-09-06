@@ -28,6 +28,7 @@ import { ConfigWindowPlayerComponent }         from 'src/app/Component/Config/Wi
 import { ConfigWindowProfileComponent }        from 'src/app/Component/Config/Window/ConfigWindowProfileComponent';
 import { ConfigWindowTargetComponent }         from 'src/app/Component/Config/Window/ConfigWindowTargetComponent';
 import { ConfigWindowTargetOfTargetComponent } from 'src/app/Component/Config/Window/ConfigWindowTargetOfTargetComponent';
+import { ConfigWindowTooltipComponent }        from 'src/app/Component/Config/Window/ConfigWindowTooltipComponent';
 import { ConfigWindowTTSComponent }            from 'src/app/Component/Config/Window/ConfigWindowTTSComponent';
 
 import { ConfigComponent }              from 'src/app/Component/ConfigComponent';
@@ -35,7 +36,6 @@ import { ControlComponent }             from 'src/app/Component/ControlComponent
 import { CustomElementComponent }       from 'src/app/Component/CustomElementComponent';
 import { CustomElementsPanelComponent } from 'src/app/Component/CustomElementsPanelComponent';
 import { ProgressBarComponent }         from 'src/app/Component/ProgressBarComponent';
-import { TextWidget }                   from 'src/app/Component/TextWidget';
 
 import { IconApps }    from 'src/app/Component/Icon/IconApps';
 import { IconClose }   from 'src/app/Component/Icon/IconClose';
@@ -54,8 +54,11 @@ import { PlayerComponent }         from 'src/app/Component/UnitFrame/PlayerCompo
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
-import { AnchorDirective } from 'src/app/Directive/AnchorDirective';
-import { DurationPipe }    from 'src/app/Pipe/DurationPipe';
+import { TextWidget }       from 'src/app/Component/TextWidget';
+import { TooltipComponent } from 'src/app/Component/TooltipComponent';
+import { AnchorDirective }  from 'src/app/Directive/AnchorDirective';
+import { TooltipDirective } from 'src/app/Directive/TooltipDirective';
+import { DurationPipe }     from 'src/app/Pipe/DurationPipe';
 
 export function getBaseUrl() {
 	return document.getElementsByTagName('base')[0].href;
@@ -66,9 +69,12 @@ export function getBaseUrl() {
 		ConfigComponent,
 		AppComponent,
 
+		// Custom components
 		TextWidget,
 		AuraIconComponent,
+		TooltipComponent,
 
+		// Unit Frame components
 		PartyMemberComponent,
 		PartyComponent,
 		AggroMemberComponent,
@@ -83,7 +89,7 @@ export function getBaseUrl() {
 		ConfigWindowMainComponent, ConfigWindowPlayerComponent, ConfigWindowTargetComponent,
 		ConfigWindowPartyComponent, ConfigWindowTargetOfTargetComponent, ConfigWindowColorComponent,
 		ConfigWindowProfileComponent, ConfigWindowAuraFilterComponent, ConfigWindowAggroListComponent,
-		ConfigWindowAuraComponent, ConfigWindowTTSComponent,
+		ConfigWindowAuraComponent, ConfigWindowTTSComponent, ConfigWindowTooltipComponent,
 
 		// Custom Elements
 		CustomElementComponent, CustomElementsPanelComponent,
@@ -93,6 +99,7 @@ export function getBaseUrl() {
 
 		// Directives
 		AnchorDirective,
+		TooltipDirective,
 
 		// Icons
 		IconMover, IconCog, IconClose, IconSpeaker, IconEye, IconApps, IconPlus,

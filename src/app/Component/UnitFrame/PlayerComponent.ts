@@ -105,7 +105,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 		protected parser: LogParser,
 		protected cd: ChangeDetectorRef,
 		protected xiv: XivPluginService,
-		protected auraService: AuraService,
+		protected auraService: AuraService
 	) {}
 
 	setTarget() {

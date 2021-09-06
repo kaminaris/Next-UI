@@ -16,7 +16,8 @@ export class TTSService {
 		'Luciae',
 		'Nadinie',
 		'Ingaret',
-		'Celaine'
+		'Celaine',
+		'Krile',
 	];
 	voices: SpeechSynthesisVoice[] = [];
 

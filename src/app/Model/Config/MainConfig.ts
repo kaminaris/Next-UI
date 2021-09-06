@@ -1,19 +1,20 @@
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                from 'rxjs/operators';
 import { AuraFilter }                                  from 'src/app/Interface/AuraFilter';
-import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
-import { AggroListFrameConfig }                        from 'src/app/Model/Config/AggroListFrameConfig';
-import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
-import { ColorConfig }                                 from 'src/app/Model/Config/ColorConfig';
-import { ConfigFrameConfig }                           from 'src/app/Model/Config/ConfigFrameConfig';
-import { ControlFrameConfig }                          from 'src/app/Model/Config/ControlFrameConfig';
-import { CustomElementsFrameConfig }                   from 'src/app/Model/Config/CustomElementsFrameConfig';
-import { PartyFrameConfig }                            from 'src/app/Model/Config/PartyFrameConfig';
-import { PlayerFrameConfig }                           from 'src/app/Model/Config/PlayerFrameConfig';
-import { TargetFrameConfig }                           from 'src/app/Model/Config/TargetFrameConfig';
-import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
-import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
-import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
+import { SerializableConfig }        from 'src/app/Interface/SerializableConfig';
+import { AggroListFrameConfig }      from 'src/app/Model/Config/AggroListFrameConfig';
+import { AuraBarFrameConfig }        from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ColorConfig }               from 'src/app/Model/Config/ColorConfig';
+import { ConfigFrameConfig }         from 'src/app/Model/Config/ConfigFrameConfig';
+import { ControlFrameConfig }        from 'src/app/Model/Config/ControlFrameConfig';
+import { CustomElementsFrameConfig } from 'src/app/Model/Config/CustomElementsFrameConfig';
+import { PartyFrameConfig }          from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }         from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }         from 'src/app/Model/Config/TargetFrameConfig';
+import { TargetOfTargetFrameConfig } from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { TooltipConfig }             from 'src/app/Model/Config/TooltipConfig';
+import { TTSConfig }                 from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject }   from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
 	// @formatter:off
@@ -38,6 +39,7 @@ export class MainConfig implements SerializableConfig {
 
 	ttsConfig = new TTSConfig();
 	colorConfig = new ColorConfig();
+	tooltipConfig = new TooltipConfig();
 	customCssSub = new DistinctBehaviorSubject<string>('');
 	fontFamilySub = new DistinctBehaviorSubject<string>('');
 	numberFormatSub = new DistinctBehaviorSubject<string>('');
@@ -84,6 +86,7 @@ export class MainConfig implements SerializableConfig {
 		this.filters = Array.isArray(value.filters) ? value.filters.map(v => Object.assign({}, v)) : [];
 		this.ttsConfig.unserialize(value.ttsConfig);
 		this.colorConfig.unserialize(value.colorConfig);
+		this.tooltipConfig.unserialize(value.tooltipConfig);
 		this.frames.control.unserialize(value.frames.control);
 		this.frames.config.unserialize(value.frames.config);
 		this.frames.customElements.unserialize(value.frames.customElements);
@@ -104,6 +107,7 @@ export class MainConfig implements SerializableConfig {
 			manaTemplate: this.manaTemplate,
 			ttsConfig: this.ttsConfig.serialize(),
 			colorConfig: this.colorConfig.serialize(),
+			tooltipConfig: this.tooltipConfig.serialize(),
 			filters: this.filters.map(v => Object.assign({}, v)),
 			frames: {
 				control: this.frames.control.serialize(),

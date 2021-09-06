@@ -14,6 +14,17 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 		enabled: true
 		// default values are in class itself
 	},
+	tooltipConfig: {
+		enabled: true,
+		width: '300px',
+		padding: '5px',
+		backgroundColor: 'rgba(33,32,33,0.8)',
+		borderColor: 'rgba(16,16,16,1)',
+		borderWidth: 1,
+		fontColor: '#ffffff',
+		fontSize: '12px',
+		outline: false
+	},
 	frames: {
 		control: {
 			position: { x: 600, y: 600 },

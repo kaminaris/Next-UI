@@ -39,6 +39,7 @@ import {default as config}       from '../../../package.json';
 					<config-window-aggro-list *ngIf="currentCategory === 'aggroList'"></config-window-aggro-list>
 					<config-window-aura *ngIf="currentCategory === 'aura'"></config-window-aura>
 					<config-window-aura-filter *ngIf="currentCategory === 'auraFilter'"></config-window-aura-filter>
+					<config-window-tooltip *ngIf="currentCategory === 'tooltip'"></config-window-tooltip>
 					<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
 				</div>
 			</div>
@@ -59,6 +60,7 @@ export class ConfigComponent {
 		{ value: 'aggroList', label: 'Aggro List' },
 		{ value: 'aura', label: 'Aura' },
 		{ value: 'auraFilter', label: 'Aura Filters' },
+		{ value: 'tooltip', label: 'Tooltip' },
 		{ value: 'profile', label: 'Profiles' }
 	];
 
