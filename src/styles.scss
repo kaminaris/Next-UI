@@ -99,6 +99,10 @@ input, button {
 		@include frameName('Target Of Target Frame');
 	}
 
+	&.frame-focus::before {
+		@include frameName('Focus Frame');
+	}
+
 	&.frame-party::before {
 		@include frameName('Party Frame');
 	}

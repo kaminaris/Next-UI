@@ -17,10 +17,11 @@ export class TestService {
 
 	testMode() {
 		this.parser.registerPlayer('Player Name', 1);
-		this.parser.player.job.next('MCH');
-		this.parser.player.level.next(65);
-		this.parser.player.updateHp(500, 1000);
-		this.parser.player.updateMana(3000);
+		const player = this.parser.player.value;
+		player.job.next('MCH');
+		player.level.next(65);
+		player.updateHp(500, 1000);
+		player.updateMana(3000);
 
 		this.addCombatant();
 		this.addCombatant();
@@ -38,6 +39,7 @@ export class TestService {
 		this.testMode();
 		this.randomTarget();
 		this.randomTargetOfTarget();
+		this.randomFocus();
 		this.randomAggroList();
 		this.setParty(true);
 		this.randomAuras();
@@ -52,20 +54,20 @@ export class TestService {
 		}
 
 		this.playerHpInterval = window.setInterval(() => {
-			const player = this.parser.player;
+			const player = this.parser.player.value;
 			let hp = player.hp.value;
 			hp += 100;
 			if (hp > player.hpMax) {
 				hp = 0;
 			}
-			this.parser.player.updateHp(hp);
+			this.parser.player.value.updateHp(hp);
 		}, 500);
 	}
 
 	setParty(full = false) {
 		const count = full ? 8 : 4;
 
-		const combs = [this.parser.player];
+		const combs = [this.parser.player.value];
 		for (let i = 1; i < count; i++) {
 			let pick: Combatant;
 			do {
@@ -117,6 +119,12 @@ export class TestService {
 		this.parser.targetOfTarget.next(rCombatant);
 	}
 
+	randomFocus() {
+		const combatants = this.parser.combatants.value;
+		const rCombatant = this.randomElement(combatants);
+		this.parser.focus.next(rCombatant);
+	}
+
 	randomAggroList() {
 		const combatants = this.parser.combatants.value;
 		const rCombatants = [
@@ -146,11 +154,11 @@ export class TestService {
 
 	addPlayerAura(id: number, duration = 30, stacks = 1) {
 		const s = statuses.find(s => s.id === id);
-		this.parser.player.updateAura(
+		this.parser.player.value.updateAura(
 			s.id,
 			s.name,
 			stacks,
-			this.parser.player.id,
+			this.parser.player.value.id,
 			duration
 		)
 	}

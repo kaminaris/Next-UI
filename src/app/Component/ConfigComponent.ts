@@ -35,6 +35,7 @@ import {default as config}       from '../../../package.json';
 					<config-window-player *ngIf="currentCategory === 'player'"></config-window-player>
 					<config-window-target *ngIf="currentCategory === 'target'"></config-window-target>
 					<config-window-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-window-target-of-target>
+					<config-window-focus *ngIf="currentCategory === 'focus'"></config-window-focus>
 					<config-window-party *ngIf="currentCategory === 'party'"></config-window-party>
 					<config-window-aggro-list *ngIf="currentCategory === 'aggroList'"></config-window-aggro-list>
 					<config-window-aura *ngIf="currentCategory === 'aura'"></config-window-aura>
@@ -56,6 +57,7 @@ export class ConfigComponent {
 		{ value: 'player', label: 'Player' },
 		{ value: 'target', label: 'Target' },
 		{ value: 'targetOfTarget', label: 'Target Of Target' },
+		{ value: 'focus', label: 'Focus' },
 		{ value: 'party', label: 'Party' },
 		{ value: 'aggroList', label: 'Aggro List' },
 		{ value: 'aura', label: 'Aura' },

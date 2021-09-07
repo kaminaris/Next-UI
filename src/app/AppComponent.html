@@ -54,6 +54,24 @@
 			</div>
 		</target-of-target>
 
+		<focus class="draggable d-block frame-focus no-sel"
+				*ngIf="config.frames.focus.enabled"
+				[class.frame-bg]="moveMode"
+				[style.width.px]="config.frames.focus.size.width"
+				[style.height.px]="config.frames.focus.size.height"
+				[ngDraggable]="moveMode"
+				[ngResizable]="moveMode"
+				[handle]="focusDragHandle"
+				rzHandles="all"
+				[position]="config.frames.focus.position"
+				(rzStop)="saveFrameSize('focus', $event)"
+				(endOffset)="saveFramePosition('focus', $event)"
+		>
+			<div #focusDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</focus>
+
 		<party class="draggable d-block frame-party no-sel"
 				*ngIf="config.frames.party.enabled"
 				[class.frame-bg]="moveMode"

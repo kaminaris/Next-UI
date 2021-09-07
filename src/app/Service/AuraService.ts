@@ -10,12 +10,13 @@ export class AuraService {
 	player: Combatant;
 
 	constructor(protected parser: LogParser) {
-		this.player = parser.player;
+		this.player = parser.player.value;
+		this.parser.player.subscribe(p => this.player = p);
 	}
 
 	filterAuras(auras: Aura[], filters: AuraFilter[], onlyOwn: boolean) {
 		let result: Aura[] = [...auras];
-		if (onlyOwn) {
+		if (onlyOwn && this.player) {
 			result = result.filter(a => a.appliedBy === this.player.id);
 		}
 

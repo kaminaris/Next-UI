@@ -22,6 +22,7 @@ import { ConfigWindowAggroListComponent }      from 'src/app/Component/Config/Wi
 import { ConfigWindowAuraComponent }           from 'src/app/Component/Config/Window/ConfigWindowAuraComponent';
 import { ConfigWindowAuraFilterComponent }     from 'src/app/Component/Config/Window/ConfigWindowAuraFilterComponent';
 import { ConfigWindowColorComponent }          from 'src/app/Component/Config/Window/ConfigWindowColorComponent';
+import { ConfigWindowFocusComponent }          from 'src/app/Component/Config/Window/ConfigWindowFocusComponent';
 import { ConfigWindowMainComponent }           from 'src/app/Component/Config/Window/ConfigWindowMainComponent';
 import { ConfigWindowPartyComponent }          from 'src/app/Component/Config/Window/ConfigWindowPartyComponent';
 import { ConfigWindowPlayerComponent }         from 'src/app/Component/Config/Window/ConfigWindowPlayerComponent';
@@ -48,17 +49,19 @@ import { IconSpeaker } from 'src/app/Component/Icon/IconSpeaker';
 import { AggroListComponent }      from 'src/app/Component/UnitFrame/AggroListComponent';
 import { AggroMemberComponent }    from 'src/app/Component/UnitFrame/AggroMemberComponent';
 import { AuraIconComponent }       from 'src/app/Component/UnitFrame/AuraIconComponent';
+import { FocusComponent }          from 'src/app/Component/UnitFrame/FocusComponent';
 import { PartyComponent }          from 'src/app/Component/UnitFrame/PartyComponent';
 import { PartyMemberComponent }    from 'src/app/Component/UnitFrame/PartyMemberComponent';
 import { PlayerComponent }         from 'src/app/Component/UnitFrame/PlayerComponent';
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
-import { TextWidget }       from 'src/app/Component/TextWidget';
-import { TooltipComponent } from 'src/app/Component/TooltipComponent';
-import { AnchorDirective }  from 'src/app/Directive/AnchorDirective';
-import { TooltipDirective } from 'src/app/Directive/TooltipDirective';
-import { DurationPipe }     from 'src/app/Pipe/DurationPipe';
+import { TextWidget }         from 'src/app/Component/TextWidget';
+import { TooltipComponent }   from 'src/app/Component/TooltipComponent';
+import { UnitFrameComponent } from 'src/app/Component/UnitFrame/UnitFrameComponent';
+import { AnchorDirective }    from 'src/app/Directive/AnchorDirective';
+import { TooltipDirective }   from 'src/app/Directive/TooltipDirective';
+import { DurationPipe }       from 'src/app/Pipe/DurationPipe';
 
 export function getBaseUrl() {
 	return document.getElementsByTagName('base')[0].href;
@@ -75,11 +78,13 @@ export function getBaseUrl() {
 		TooltipComponent,
 
 		// Unit Frame components
+		UnitFrameComponent,
 		PartyMemberComponent,
 		PartyComponent,
 		AggroMemberComponent,
 		AggroListComponent,
 		TargetComponent,
+		FocusComponent,
 		TargetOfTargetComponent,
 		PlayerComponent,
 		ControlComponent,
@@ -90,6 +95,7 @@ export function getBaseUrl() {
 		ConfigWindowPartyComponent, ConfigWindowTargetOfTargetComponent, ConfigWindowColorComponent,
 		ConfigWindowProfileComponent, ConfigWindowAuraFilterComponent, ConfigWindowAggroListComponent,
 		ConfigWindowAuraComponent, ConfigWindowTTSComponent, ConfigWindowTooltipComponent,
+		ConfigWindowFocusComponent,
 
 		// Custom Elements
 		CustomElementComponent, CustomElementsPanelComponent,

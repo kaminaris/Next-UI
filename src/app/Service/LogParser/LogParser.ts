@@ -45,14 +45,12 @@ export class LogParser {
 	zoneName = new BehaviorSubject<string>('');
 
 	/**
-	 * Player Events
+	 * Combatant Events
 	 */
-	player = new Combatant();
-	playerId = new BehaviorSubject<number>(null);
-	playerName = new BehaviorSubject<string>('');
-
+	player = new BehaviorSubject<Combatant>(null);
 	target = new BehaviorSubject<Combatant>(null);
 	targetOfTarget = new BehaviorSubject<Combatant>(null);
+	focus = new BehaviorSubject<Combatant>(null);
 
 	/**
 	 * Combatants
@@ -104,21 +102,19 @@ export class LogParser {
 	}
 
 	registerPlayer(name: string, id: number) {
-		this.playerName.next(name);
-		this.playerId.next(id);
-		this.player.name = name;
-		this.player.id = id;
-		this.player.isPlayer = true;
-
-		const combatants = this.combatants.value;
-		const playerFound = combatants.findIndex(c => c.id === id);
-		if (playerFound >= 0) {
-			// hmm do we need to update anything?
-		}
-		else {
-			combatants.push(this.player);
+		let player = this.findCombatant(id, name);
+		if (!player) {
+			player = new Combatant();
+			const combatants = this.combatants.value;
+			combatants.push(player);
 			this.combatants.next(combatants);
 		}
+
+		player.isPlayer = true;
+		player.name = name;
+		player.id = id;
+
+		this.player.next(player);
 	}
 
 	updateCombatant(
@@ -220,6 +216,17 @@ export class LogParser {
 	}
 
 	targetUpdate(e: EnmityTargetData) {
+		if (e.Focus) {
+			if (!this.focus.value || (this.focus.value && e.Focus.ID !== this.focus.value.id)) {
+				let focusTarget = this.combatantFromEnmityActor(e.Focus);
+				this.focus.next(focusTarget);
+			}
+		} else {
+			if (this.focus.value) {
+				this.focus.next(null);
+			}
+		}
+
 		if (!e.Target) {
 			// clear if there is no target and target is set
 			if (this.target.value) {

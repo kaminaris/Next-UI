@@ -1,0 +1,56 @@
+<ng-content></ng-content>
+<div class="d-flex flex-column player-frame cursor-pointer"
+		*ngIf="combatant"
+		style="height: 100%; border-style: solid"
+		[style.border-width.px]="ownConfig.borderWidth"
+		[style.border-color]="ownConfig.borderColor"
+		(click)="setTarget()"
+>
+	<div class="d-flex position-absolute z10"
+			*ngIf="ownConfig.aurasEnabled"
+			anchor-element
+			[anchorSub]="ownConfig.auraAnchorSub"
+			[positionSub]="ownConfig.auraPositionSub"
+	>
+		<aura-icon class="d-block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
+	</div>
+
+	<progress-bar
+			class="flex-fill"
+			[percent]="hpPct"
+			[fillColor]="barColor"
+			[bgColor]="ownConfig.backgroundColor"
+			[barStyle]="ownConfig.barStyle"
+			[barDirection]="ownConfig.barDirection"
+	>
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
+			{{ name }}
+		</div>
+
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.job">
+			{{ job }}
+		</div>
+
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.level">
+			{{ level }}
+		</div>
+
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.hp">
+			{{ hpText }}
+		</div>
+	</progress-bar>
+	<progress-bar
+			class="flex-shrink-0"
+			*ngIf="ownConfig.showMana"
+			[style.height]="ownConfig.manaHeight"
+			[fillColor]="ownConfig.manaColor"
+			[bgColor]="ownConfig.backgroundColor"
+			[percent]="manaPct"
+			[barStyle]="ownConfig.manaBarStyle"
+			[barDirection]="ownConfig.manaBarDirection"
+	>
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
+			{{ manaText }}
+		</div>
+	</progress-bar>
+</div>

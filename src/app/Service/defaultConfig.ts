@@ -168,6 +168,71 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 				}
 			}
 		},
+		focus: {
+			enabled: true,
+			aurasEnabled: true,
+			position: { x: 1180, y: 400 },
+			size: { width: 200, height: 40 },
+			barStyle: 'horizontal',
+			barDirection: 'start',
+			manaBarStyle: 'horizontal',
+			manaBarDirection: 'start',
+			barColor: '#02A502',
+			manaColor: '#02A597',
+			backgroundColor: 'rgba(33,32,33,0.8)',
+			useClassColor: true,
+			showMana: false,
+			manaHeight: '20px',
+			borderWidth: 1,
+			borderColor: 'rgba(16,16,16,1)',
+			auraPosition: { x: 0, y: 0 },
+			auraAnchor: 'bottomLeft',
+			auraOnlyOwn: false,
+			auraFilters: [],
+
+			widgets: {
+				job: {
+					show: false,
+					anchor: 'topRight',
+					fontColor: '#ffffff',
+					fontSize: '12px',
+					position: { x: 5, y: 2 },
+					outline: true
+				},
+				hp: {
+					show: true,
+					anchor: 'topLeft',
+					fontColor: '#ffffff',
+					fontSize: '12px',
+					position: { x: 5, y: 2 },
+					outline: true
+				},
+				mana: {
+					show: false,
+					anchor: 'center',
+					fontColor: '#ffffff',
+					fontSize: '12px',
+					position: { x: 0, y: 0 },
+					outline: true
+				},
+				level: {
+					show: false,
+					anchor: 'bottomRight',
+					fontColor: '#ffffff',
+					fontSize: '12px',
+					position: { x: 5, y: 2 },
+					outline: true
+				},
+				name: {
+					show: true,
+					anchor: 'topLeft',
+					fontColor: '#ffffff',
+					fontSize: '14px',
+					position: { x: 0, y: -20 },
+					outline: true
+				}
+			}
+		},
 		targetOfTarget: {
 			enabled: true,
 			aurasEnabled: true,
@@ -303,7 +368,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 		aggroList: {
 			enabled: true,
 			aurasEnabled: false,
-			position: { x: 600, y: 200 },
+			position: { x: 1180, y: 200 },
 			size: { width: 250, height: 300 },
 			barStyle: 'horizontal',
 			barDirection: 'start',

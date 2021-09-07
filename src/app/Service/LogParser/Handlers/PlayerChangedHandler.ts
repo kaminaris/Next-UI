@@ -16,8 +16,7 @@ export class PlayerChangedHandler implements HandlerInterface {
 		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
 
-		this.parser.playerId.next(id);
-		this.parser.playerName.next(name);
+		this.parser.registerPlayer(name, id);
 
 		if (this.parser.debugMode) {
 			console.log('Changed primary player to ' + name + '.');

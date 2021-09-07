@@ -1,20 +1,21 @@
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                from 'rxjs/operators';
 import { AuraFilter }                                  from 'src/app/Interface/AuraFilter';
-import { SerializableConfig }        from 'src/app/Interface/SerializableConfig';
-import { AggroListFrameConfig }      from 'src/app/Model/Config/AggroListFrameConfig';
-import { AuraBarFrameConfig }        from 'src/app/Model/Config/AuraBarFrameConfig';
-import { ColorConfig }               from 'src/app/Model/Config/ColorConfig';
-import { ConfigFrameConfig }         from 'src/app/Model/Config/ConfigFrameConfig';
-import { ControlFrameConfig }        from 'src/app/Model/Config/ControlFrameConfig';
-import { CustomElementsFrameConfig } from 'src/app/Model/Config/CustomElementsFrameConfig';
-import { PartyFrameConfig }          from 'src/app/Model/Config/PartyFrameConfig';
-import { PlayerFrameConfig }         from 'src/app/Model/Config/PlayerFrameConfig';
-import { TargetFrameConfig }         from 'src/app/Model/Config/TargetFrameConfig';
-import { TargetOfTargetFrameConfig } from 'src/app/Model/Config/TargetOfTargetFrameConfig';
-import { TooltipConfig }             from 'src/app/Model/Config/TooltipConfig';
-import { TTSConfig }                 from 'src/app/Model/Config/TTSConfig';
-import { DistinctBehaviorSubject }   from 'src/app/Model/DistinctBehaviorSubject';
+import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
+import { AggroListFrameConfig }                        from 'src/app/Model/Config/AggroListFrameConfig';
+import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
+import { ColorConfig }                                 from 'src/app/Model/Config/ColorConfig';
+import { ConfigFrameConfig }                           from 'src/app/Model/Config/ConfigFrameConfig';
+import { ControlFrameConfig }                          from 'src/app/Model/Config/ControlFrameConfig';
+import { CustomElementsFrameConfig }                   from 'src/app/Model/Config/CustomElementsFrameConfig';
+import { FocusFrameConfig }                            from 'src/app/Model/Config/FocusFrameConfig';
+import { PartyFrameConfig }                            from 'src/app/Model/Config/PartyFrameConfig';
+import { PlayerFrameConfig }                           from 'src/app/Model/Config/PlayerFrameConfig';
+import { TargetFrameConfig }                           from 'src/app/Model/Config/TargetFrameConfig';
+import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { TooltipConfig }                               from 'src/app/Model/Config/TooltipConfig';
+import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
+import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
 	// @formatter:off
@@ -54,6 +55,7 @@ export class MainConfig implements SerializableConfig {
 		player: new PlayerFrameConfig(),
 		target: new TargetFrameConfig(),
 		targetOfTarget: new TargetOfTargetFrameConfig(),
+		focus: new FocusFrameConfig(),
 		party: new PartyFrameConfig(),
 		aggroList: new AggroListFrameConfig(),
 		auraBar: new AuraBarFrameConfig()
@@ -93,6 +95,7 @@ export class MainConfig implements SerializableConfig {
 		this.frames.player.unserialize(value.frames.player);
 		this.frames.target.unserialize(value.frames.target);
 		this.frames.targetOfTarget.unserialize(value.frames.targetOfTarget);
+		this.frames.focus.unserialize(value.frames.focus);
 		this.frames.party.unserialize(value.frames.party);
 		this.frames.aggroList.unserialize(value.frames.aggroList);
 		this.frames.auraBar.unserialize(value.frames.auraBar);
@@ -116,6 +119,7 @@ export class MainConfig implements SerializableConfig {
 				player: this.frames.player.serialize(),
 				target: this.frames.target.serialize(),
 				targetOfTarget: this.frames.targetOfTarget.serialize(),
+				focus: this.frames.focus.serialize(),
 				party: this.frames.party.serialize(),
 				aggroList: this.frames.aggroList.serialize(),
 				auraBar: this.frames.auraBar.serialize()
