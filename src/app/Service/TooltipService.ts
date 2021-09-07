@@ -19,8 +19,6 @@ export class TooltipService {
 		this.tooltip.shown = true;
 		this.tooltip.cd.detectChanges();
 
-		console.log(rect, this.tooltip)
-
 		const tooltipEl = this.tooltip.el.nativeElement;
 		const tooltipRect = tooltipEl.getBoundingClientRect();
 		tooltipEl.style.top = (rect.top - tooltipRect.height) + 'px';
