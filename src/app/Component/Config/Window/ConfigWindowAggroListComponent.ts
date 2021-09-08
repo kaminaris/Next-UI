@@ -40,10 +40,21 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-select [frameName]="frameName" [items]="barDirections" prop="manaBarDirection" label="Bar Direction"></config-select>
 		</config-group>
 
+		<config-group title="Role Icon">
+			<config-checkbox [frameName]="frameName" prop="showRoleIcon" label="Show Role Icon"></config-checkbox>
+			<config-select [frameName]="frameName" [items]="anchors" prop="roleIconAnchor" label="Icon Anchor"></config-select>
+			<config-position [frameName]="frameName" prop="roleIconPosition" label="Icon Position"></config-position>
+			<config-color [frameName]="frameName" prop="roleIconColor" label="Icon Color"></config-color>
+			<config-input [frameName]="frameName" inputType="number" prop="roleIconSize" label="Icon Size"></config-input>
+		</config-group>
+
 		<config-group title="Auras">
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
 			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
+			<config-checkbox [frameName]="frameName" prop="auraOnlyOwn" label="Only own"></config-checkbox>
+			<config-multiselect [frameName]="frameName" [items]="filters" bindValue="name" bindLabel="name"
+				prop="auraFilters" label="Aura Filters"></config-multiselect>
 		</config-group>
 
 		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>

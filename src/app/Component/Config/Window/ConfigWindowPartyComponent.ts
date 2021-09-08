@@ -41,6 +41,14 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-select [frameName]="frameName" [items]="barDirections" prop="manaBarDirection" label="Bar Direction"></config-select>
 		</config-group>
 
+		<config-group title="Role Icon">
+			<config-checkbox [frameName]="frameName" prop="showRoleIcon" label="Show Role Icon"></config-checkbox>
+			<config-select [frameName]="frameName" [items]="anchors" prop="roleIconAnchor" label="Icon Anchor"></config-select>
+			<config-position [frameName]="frameName" prop="roleIconPosition" label="Icon Position"></config-position>
+			<config-color [frameName]="frameName" prop="roleIconColor" label="Icon Color"></config-color>
+			<config-input [frameName]="frameName" inputType="number" prop="roleIconSize" label="Icon Size"></config-input>
+		</config-group>
+	
 		<config-group title="Auras">
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>

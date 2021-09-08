@@ -45,6 +45,9 @@ import { IconEye }     from 'src/app/Component/Icon/IconEye';
 import { IconMover }   from 'src/app/Component/Icon/IconMover';
 import { IconPlus }    from 'src/app/Component/Icon/IconPlus';
 import { IconSpeaker } from 'src/app/Component/Icon/IconSpeaker';
+import { IconDps }     from 'src/app/Component/Icon/Role/IconDps';
+import { IconHealer }  from 'src/app/Component/Icon/Role/IconHealer';
+import { IconTank }    from 'src/app/Component/Icon/Role/IconTank';
 
 import { AggroListComponent }      from 'src/app/Component/UnitFrame/AggroListComponent';
 import { AggroMemberComponent }    from 'src/app/Component/UnitFrame/AggroMemberComponent';
@@ -53,6 +56,7 @@ import { FocusComponent }          from 'src/app/Component/UnitFrame/FocusCompon
 import { PartyComponent }          from 'src/app/Component/UnitFrame/PartyComponent';
 import { PartyMemberComponent }    from 'src/app/Component/UnitFrame/PartyMemberComponent';
 import { PlayerComponent }         from 'src/app/Component/UnitFrame/PlayerComponent';
+import { RoleIconComponent }       from 'src/app/Component/UnitFrame/RoleIconComponent';
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
@@ -109,6 +113,9 @@ export function getBaseUrl() {
 
 		// Icons
 		IconMover, IconCog, IconClose, IconSpeaker, IconEye, IconApps, IconPlus,
+
+		// Role icons
+		RoleIconComponent, IconDps, IconTank, IconHealer,
 
 		// Config UI
 		ConfigGroupComponent, ConfigInputComponent, ConfigSizeComponent, ConfigPositionComponent,

@@ -1,6 +1,13 @@
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { debounceTime }                       from 'rxjs/operators';
-import { Aura }                               from './Aura';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { debounceTime }                                from 'rxjs/operators';
+import { Aura }                                        from './Aura';
+
+export const healers = ['CNJ', 'WHM', 'SCH', 'AST'];
+export const tanks = ['GLA', 'MRD', 'PLD', 'WAR', 'DRK', 'GNB'];
+export const dpses = [
+	'PGL', 'LNC', 'ARC', 'THM', 'MNK', 'DRG', 'BRD', 'BLM', 'ACN', 'SMN', 'ROG', 'NIN', 'MCH', 'SAM', 'RDM', 'BLU',
+	'DNC'
+];
 
 export class Combatant {
 	static ENV_ID = 3758096384;
@@ -11,6 +18,7 @@ export class Combatant {
 	level = new BehaviorSubject<number>(1);
 	isPlayer = false;
 	isNPC = false;
+	isTarget = false;
 	inParty = new BehaviorSubject<boolean>(false);
 
 	hp = new BehaviorSubject<number>(100);
@@ -19,11 +27,11 @@ export class Combatant {
 	mana = new BehaviorSubject<number>(10000);
 	manaMax = 10000;
 
-	get isHealer() { return ['SCH', 'WHM', 'AST'].indexOf(this.job.value) >= 0 }
-	get isTank() { return ['PLD', 'WAR', 'DRK', 'GNB'].indexOf(this.job.value) >= 0 }
+	role: 'tank' | 'healer' | 'dps' = null;
 
 	auras = new BehaviorSubject<Aura[]>([]);
 
+	changeTrigger = new Subject<boolean>();
 	anyChanged: Observable<any>;
 	anyChangedDelayed: Observable<any>;
 
@@ -34,10 +42,24 @@ export class Combatant {
 			this.inParty,
 			this.hp,
 			this.mana,
-			this.auras
+			this.auras,
+			this.changeTrigger
 		);
 
 		this.anyChangedDelayed = this.anyChanged.pipe(debounceTime(1));
+
+		this.job.subscribe((j: string) => {
+			// determine role
+			if (healers.indexOf(j) >= 0) {
+				this.role = 'healer';
+			}
+			else if (tanks.indexOf(j) >= 0) {
+				this.role = 'tank';
+			}
+			else if (dpses.indexOf(j) >= 0) {
+				this.role = 'dps';
+			}
+		});
 	}
 
 	static isPlayerId(id: number) {
@@ -105,7 +127,7 @@ export class Combatant {
 	) {
 		const auras = this.auras.value;
 		let aura = auras.find(a => {
-			return a.appliedBy === appliedBy && (a.id === id || a.name === name)
+			return a.appliedBy === appliedBy && (a.id === id || a.name === name);
 		});
 		if (!aura) {
 			const newAura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);

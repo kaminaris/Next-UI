@@ -60,6 +60,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraOnlyOwn: false,
 			auraFilters: [],
 
+			showRoleIcon: false,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
+
 			widgets: {
 				job: {
 					show: true,
@@ -124,6 +130,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraAnchor: 'bottomLeft',
 			auraOnlyOwn: true,
 			auraFilters: [],
+
+			showRoleIcon: false,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
 
 			widgets: {
 				job: {
@@ -190,6 +202,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraOnlyOwn: false,
 			auraFilters: [],
 
+			showRoleIcon: true,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
+
 			widgets: {
 				job: {
 					show: false,
@@ -254,6 +272,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraAnchor: 'bottomLeft',
 			auraOnlyOwn: false,
 			auraFilters: [],
+
+			showRoleIcon: false,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
 
 			widgets: {
 				job: {
@@ -322,6 +346,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraOnlyOwn: false,
 			auraFilters: [],
 
+			showRoleIcon: true,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
+
 			widgets: {
 				job: {
 					show: true,
@@ -388,6 +418,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraOnlyOwn: true,
 			auraFilters: [],
 
+			showRoleIcon: false,
+			roleIconColor: 'rgba(255,255,255,1)',
+			roleIconSize: 20,
+			roleIconAnchor: 'topRight',
+			roleIconPosition: {x: 30, y: 5},
 			widgets: {
 				name: {
 					show: true,

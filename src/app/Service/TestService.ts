@@ -110,7 +110,13 @@ export class TestService {
 	randomTarget() {
 		const combatatns = this.parser.combatants.value;
 		const rCombatant = this.randomElement(combatatns);
-		this.parser.target.next(rCombatant);
+		this.parser.setTarget('target', rCombatant);
+	}
+
+	targetRandomPartyMember() {
+		const combatatns = this.parser.party.value;
+		const rCombatant = this.randomElement(combatatns);
+		this.parser.setTarget('target', rCombatant);
 	}
 
 	randomTargetOfTarget() {

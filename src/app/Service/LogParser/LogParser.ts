@@ -89,7 +89,14 @@ export class LogParser {
 	constructor(
 		public tts: TTSService,
 		public eventDispatcher: EventDispatcher
-	) {}
+	) {
+		// guard target of target in case of target dying
+		this.target.subscribe((v) => {
+			if (!v && this.targetOfTarget.value) {
+				this.targetOfTarget.next(null);
+			}
+		});
+	}
 
 	parse(event: string[]) {
 		const eventId = +event[0];
@@ -215,58 +222,57 @@ export class LogParser {
 
 	}
 
-	targetUpdate(e: EnmityTargetData) {
-		if (e.Focus) {
-			if (!this.focus.value || (this.focus.value && e.Focus.ID !== this.focus.value.id)) {
-				let focusTarget = this.combatantFromEnmityActor(e.Focus);
-				this.focus.next(focusTarget);
-			}
-		} else {
-			if (this.focus.value) {
-				this.focus.next(null);
-			}
-		}
-
-		if (!e.Target) {
-			// clear if there is no target and target is set
-			if (this.target.value) {
-				this.target.next(null);
-			}
-
-			// also clear target of target
-			if (this.targetOfTarget.value) {
-				this.target.next(null);
-			}
-		}
-		else {
-			// there is target set and its different from the one in memory
-			if (this.target.value && this.target.value.id === e.Target.ID) {
-
-			}
-			else {
-				let target = this.combatantFromEnmityActor(e.Target);
-				console.log('target changed', target, 'prev', this.target.value);
-				this.target.next(target);
-			}
-
-			if (!e.TargetOfTarget) {
-				if (this.targetOfTarget.value) {
-					this.targetOfTarget.next(null);
-				}
-			}
-			else {
+	setTarget(
+		type: keyof Pick<LogParser, 'target' | 'targetOfTarget' | 'focus'>,
+		c: Combatant | number,
+		name?: string
+	) {
+		if (type === 'target') {
+			for (const combatant of this.combatants.value) {
 				if (
-					this.targetOfTarget.value &&
-					this.targetOfTarget.value.id === e.TargetOfTarget.ID
+					c === null && combatant.isTarget ||
+					c instanceof Combatant && c.id !== combatant.id && c.name !== combatant.name
 				) {
-
-				}
-				else {
-					let targetOfTarget = this.combatantFromEnmityActor(e.TargetOfTarget);
-					this.targetOfTarget.next(targetOfTarget);
-					console.log('target of target changed', targetOfTarget);
+					combatant.isTarget = false;
+					combatant.changeTrigger.next(true);
 				}
 			}
+		}
+
+		const subject = this[type];
+		if (c === null) {
+			if (subject.value) {
+				subject.next(null);
+			}
+			return;
+		}
+
+		if (!(c instanceof Combatant)) {
+			c = this.findCombatant(c, name);
+		}
+
+		const currentTarget = subject.value;
+		if (currentTarget && currentTarget.id === c.id && currentTarget.name === c.name) {
+			return;
+		}
+
+		if (type === 'target') {
+			c.isTarget = true;
+			c.changeTrigger.next(true);
+		}
+		subject.next(c);
+	}
+
+	targetUpdate(e: EnmityTargetData) {
+		const newFocus = e.Focus ? this.combatantFromEnmityActor(e.Focus) : null;
+		this.setTarget('focus', newFocus);
+
+		const newTarget = e.Target ? this.combatantFromEnmityActor(e.Target) : null;
+		this.setTarget('target', newTarget);
+
+		if (newTarget) {
+			const newTargetOfTarget = e.TargetOfTarget ? this.combatantFromEnmityActor(e.TargetOfTarget) : null;
+			this.setTarget('targetOfTarget', newTargetOfTarget);
 		}
 	}
 

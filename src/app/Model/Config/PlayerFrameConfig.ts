@@ -43,6 +43,21 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	get useClassColor(): boolean { return this.useClassColorSub.value; }
 	set useClassColor(v: boolean) { this.useClassColorSub.next(v); }
 
+	get showRoleIcon(): boolean { return this.showRoleIconSub.value; }
+	set showRoleIcon(v: boolean) { this.showRoleIconSub.next(v); }
+
+	get roleIconAnchor(): Anchor { return this.roleIconAnchorSub.value; }
+	set roleIconAnchor(v: Anchor) { this.roleIconAnchorSub.next(v); }
+
+	get roleIconPosition(): FramePositionInterface { return this.roleIconPositionSub.value; }
+	set roleIconPosition(v: FramePositionInterface) { this.roleIconPositionSub.next(v); }
+
+	get roleIconColor(): string { return this.roleIconColorSub.value; }
+	set roleIconColor(v: string) { this.roleIconColorSub.next(v); }
+
+	get roleIconSize(): number { return this.roleIconSizeSub.value; }
+	set roleIconSize(v: number) { this.roleIconSizeSub.next(v); }
+
 	get showMana(): boolean { return this.showManaSub.value; }
 	set showMana(v: boolean) { this.showManaSub.next(v); }
 
@@ -76,6 +91,11 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	manaColorSub = new DistinctBehaviorSubject<string>('');
 	manaHeightSub = new DistinctBehaviorSubject<string>('');
 	useClassColorSub = new DistinctBehaviorSubject<boolean>(true);
+	showRoleIconSub = new DistinctBehaviorSubject<boolean>(true);
+	roleIconAnchorSub = new DistinctBehaviorSubject<Anchor>('topRight');
+	roleIconPositionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
+	roleIconColorSub = new DistinctBehaviorSubject<string>('');
+	roleIconSizeSub = new DistinctBehaviorSubject<number>(24);
 	showManaSub = new DistinctBehaviorSubject<boolean>(true);
 
 	borderWidthSub = new DistinctBehaviorSubject<number>(1);
@@ -108,6 +128,11 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			this.manaColorSub,
 			this.manaHeightSub,
 			this.useClassColorSub,
+			this.showRoleIconSub,
+			this.roleIconAnchorSub,
+			this.roleIconPositionSub,
+			this.roleIconColorSub,
+			this.roleIconSizeSub,
 			this.showManaSub,
 			this.borderWidthSub,
 			this.borderColorSub,
@@ -133,6 +158,11 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 			manaColor: this.manaColor,
 			manaHeight: this.manaHeight,
 			useClassColor: this.useClassColor,
+			showRoleIcon: this.showRoleIcon,
+			roleIconAnchor: this.roleIconAnchor,
+			roleIconPosition: this.roleIconPosition,
+			roleIconColor: this.roleIconColor,
+			roleIconSize: this.roleIconSize,
 			showMana: this.showMana,
 			borderWidth: this.borderWidth,
 			borderColor: this.borderColor,
@@ -163,6 +193,11 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 		this.manaColor = value.manaColor;
 		this.manaHeight = value.manaHeight;
 		this.useClassColor = value.useClassColor;
+		this.showRoleIcon = value.showRoleIcon;
+		this.roleIconAnchor = value.roleIconAnchor;
+		this.roleIconPosition = value.roleIconPosition;
+		this.roleIconColor = value.roleIconColor;
+		this.roleIconSize = value.roleIconSize;
 		this.showMana = value.showMana;
 		this.borderWidth = value.borderWidth;
 		this.borderColor = value.borderColor;

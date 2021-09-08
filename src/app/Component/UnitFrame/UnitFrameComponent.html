@@ -2,10 +2,22 @@
 <div class="d-flex flex-column player-frame cursor-pointer"
 		*ngIf="combatant"
 		style="height: 100%; border-style: solid"
+		[class.is-target]="combatant?.isTarget"
 		[style.border-width.px]="ownConfig.borderWidth"
 		[style.border-color]="ownConfig.borderColor"
 		(click)="setTarget()"
 >
+
+	<role-icon class="position-absolute z20"
+			*ngIf="ownConfig.showRoleIcon"
+			anchor-element
+			[anchorSub]="ownConfig.roleIconAnchorSub"
+			[positionSub]="ownConfig.roleIconPositionSub"
+			[style.color]="ownConfig.roleIconColor"
+			[combatant]="combatant"
+			[size]="ownConfig.roleIconSize"
+	></role-icon>
+
 	<div class="d-flex position-absolute z10"
 			*ngIf="ownConfig.aurasEnabled"
 			anchor-element
