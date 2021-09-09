@@ -1,5 +1,8 @@
 import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime }               from 'rxjs/operators';
+import { getSubjects }                from 'src/app/Function/getSubjects';
+import { serialize }                  from 'src/app/Function/serialize';
+import { unserialize }                from 'src/app/Function/unserialize';
 import { FramePositionInterface }     from 'src/app/Interface/FramePositionInterface';
 import { FrameSizeInterface }         from 'src/app/Interface/FrameSizeInterface';
 import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
@@ -9,13 +12,12 @@ export class BaseFrameConfig implements SerializableConfig {
 	// @formatter:off
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
+	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	get size(): FrameSizeInterface { return this.sizeSub.value; }
 	set size(v: FrameSizeInterface) { this.sizeSub.next(v); }
-	// @formatter:on
-
-	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 	sizeSub = new DistinctBehaviorSubject<FrameSizeInterface>({ width: 0, height: 0 });
+	// @formatter:on
 
 	anyChangedCache: Observable<any>;
 
@@ -25,18 +27,14 @@ export class BaseFrameConfig implements SerializableConfig {
 	};
 
 	getSubjects(): Subject<any>[] {
-		return [this.positionSub, this.sizeSub];
+		return getSubjects(this);
 	}
 
 	serialize(): any {
-		return {
-			position: this.position,
-			size: this.size
-		};
+		return serialize(this);
 	}
 
 	unserialize(value: any): void {
-		this.position = Object.assign({}, value.position);
-		this.size = Object.assign({}, value.size);
+		unserialize(this, value);
 	}
 }

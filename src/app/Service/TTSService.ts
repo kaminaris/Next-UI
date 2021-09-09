@@ -5,6 +5,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 export class TTSService {
 	femaleSpeakers = [
 		'Tataru',
+		'Yda',
 		'Lucia',
 		'Alisaie',
 		'Kan-E-Senna',
@@ -14,11 +15,13 @@ export class TTSService {
 		'Midnight Dew',
 		'Matoya',
 		'Hilda',
+		'Merlwyb',
 		'Luciae',
 		'Nadinie',
 		'Ingaret',
 		'Celaine',
 		'Krile',
+		'Yugiri',
 	];
 	voices: SpeechSynthesisVoice[] = [];
 

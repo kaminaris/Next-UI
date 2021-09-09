@@ -98,7 +98,7 @@ export class ConfigWindowAuraFilterComponent {
 
 	selectedFilter: AuraFilter;
 
-	filters: AuraFilter[];
+	filters: AuraFilter[] = [];
 	newFilterName = '';
 
 	exportInput = '';

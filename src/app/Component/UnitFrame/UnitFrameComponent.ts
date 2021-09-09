@@ -92,6 +92,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.cd.detectChanges();
 		}));
 
+		this.subs.push(this.conf.config.colorConfig.anyChanged.subscribe(() => {
+			this.setBarColor();
+			this.cd.detectChanges();
+		}));
+
 		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
 			this.cd.detectChanges();
 		}));
@@ -173,17 +178,24 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.mana = c.mana.value;
 		this.manaMax = c.manaMax;
 		this.job = c.job.value;
+		if (this.job === 'NONE') {
+			this.job = '';
+		}
 		this.level = c.level.value;
 		this.calcHp();
 		this.calcMana();
+		this.setBarColor(c);
 
-		if (this.ownConfig.useClassColor && c.job.value !== 'NONE') {
+		this.cd.detectChanges();
+	}
+
+	setBarColor(c?: Combatant) {
+		c ??= this.combatant;
+		if (this.ownConfig.useClassColor && c && c.job.value !== 'NONE') {
 			this.barColor = this.config.colorConfig.getJobColorByName(c.job.value);
 		}
 		else {
 			this.barColor = this.ownConfig.barColor;
 		}
-
-		this.cd.detectChanges();
 	}
 }

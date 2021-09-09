@@ -19,28 +19,4 @@ export class PartyFrameConfig extends PlayerFrameConfig implements SerializableC
 	unitFrameHeightSub = new DistinctBehaviorSubject<string>('');
 	unitFrameMarginSub = new DistinctBehaviorSubject<number>(1);
 	sorterSub = new DistinctBehaviorSubject<SorterType>(null);
-
-	getSubjects(): Subject<any>[] {
-		return [
-			...super.getSubjects(),
-			this.unitFrameHeightSub,
-			this.unitFrameMarginSub,
-			this.sorterSub,
-		];
-	}
-
-	serialize(): any {
-		const obj = super.serialize();
-		obj.unitFrameHeight = this.unitFrameHeight;
-		obj.unitFrameMargin = this.unitFrameMargin;
-		obj.sorter = this.sorter;
-		return obj;
-	}
-
-	unserialize(value: Partial<PartyFrameConfig>) {
-		super.unserialize(value);
-		this.unitFrameHeight = value.unitFrameHeight;
-		this.unitFrameMargin = value.unitFrameMargin;
-		this.sorter = value.sorter;
-	}
 }

@@ -1,5 +1,8 @@
 import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime }               from 'rxjs/operators';
+import { getSubjects }                from 'src/app/Function/getSubjects';
+import { serialize }                  from 'src/app/Function/serialize';
+import { unserialize }                from 'src/app/Function/unserialize';
 import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
 import { TextWidgetConfig }           from 'src/app/Model/Config/TextWidgetConfig';
 import { DistinctBehaviorSubject }    from 'src/app/Model/DistinctBehaviorSubject';
@@ -8,22 +11,20 @@ export class AuraBarFrameConfig implements SerializableConfig {
 	// @formatter:off
 	get iconSize() { return this.iconSizeSub.value; }
 	set iconSize(v: string) { this.iconSizeSub.next(v); }
+	iconSizeSub = new DistinctBehaviorSubject<string>('');
 
 	get cooldownPrecision() { return this.cooldownPrecisionSub.value; }
 	set cooldownPrecision(v: number) { this.cooldownPrecisionSub.next(v); }
+	cooldownPrecisionSub = new DistinctBehaviorSubject<number>(0);
 
 	get borderWidth(): number { return this.borderWidthSub.value; }
 	set borderWidth(v: number) { this.borderWidthSub.next(v); }
+	borderWidthSub = new DistinctBehaviorSubject<number>(1);
 
 	get borderColor(): string { return this.borderColorSub.value; }
 	set borderColor(v: string) { this.borderColorSub.next(v); }
-	// @formatter:on
-
-	iconSizeSub = new DistinctBehaviorSubject<string>('');
-	cooldownPrecisionSub = new DistinctBehaviorSubject<number>(0);
-
-	borderWidthSub = new DistinctBehaviorSubject<number>(1);
 	borderColorSub = new DistinctBehaviorSubject<string>('');
+	// @formatter:on
 
 	widgets = {
 		duration: new TextWidgetConfig(),
@@ -38,36 +39,14 @@ export class AuraBarFrameConfig implements SerializableConfig {
 	};
 
 	getSubjects(): Subject<any>[] {
-		return [
-			this.iconSizeSub,
-			this.cooldownPrecisionSub,
-			this.borderWidthSub,
-			this.borderColorSub,
-		];
+		return getSubjects(this);
 	}
 
 	serialize(): any {
-		return {
-			iconSize: this.iconSize,
-			borderWidth: this.borderWidth,
-			borderColor: this.borderColor,
-			cooldownPrecision: this.cooldownPrecision,
-			widgets: {
-				duration: this.widgets.duration.serialize(),
-				stacks: this.widgets.stacks.serialize(),
-			}
-		};
+		return serialize(this);
 	}
 
 	unserialize(value: any): void {
-		this.iconSize = value.iconSize;
-		this.borderWidth = value.borderWidth;
-		this.borderColor = value.borderColor;
-		this.cooldownPrecision = value.cooldownPrecision;
-
-		if (value.widgets) {
-			this.widgets.duration.unserialize(value.widgets.duration);
-			this.widgets.stacks.unserialize(value.widgets.stacks);
-		}
+		unserialize(this, value);
 	}
 }

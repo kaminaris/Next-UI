@@ -1,5 +1,8 @@
 import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime }               from 'rxjs/operators';
+import { getSubjects }                from 'src/app/Function/getSubjects';
+import { serialize }                  from 'src/app/Function/serialize';
+import { unserialize }                from 'src/app/Function/unserialize';
 import { Anchor }                     from 'src/app/Interface/Anchor';
 import { FramePositionInterface }     from 'src/app/Interface/FramePositionInterface';
 import { SerializableConfig }         from 'src/app/Interface/SerializableConfig';
@@ -10,29 +13,28 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	// @formatter:off
 	get show(): boolean { return this.showSub.value; }
 	set show(v: boolean) { this.showSub.next(v); }
+	showSub = new DistinctBehaviorSubject<boolean>(true);
 
 	get anchor(): Anchor { return this.anchorSub.value; }
 	set anchor(v: Anchor) { this.anchorSub.next(v); }
+	anchorSub = new DistinctBehaviorSubject<Anchor>('topLeft');
 
 	get fontColor(): string { return this.fontColorSub.value; }
 	set fontColor(v: string) { this.fontColorSub.next(v); }
+	fontColorSub = new DistinctBehaviorSubject<string>('');
 
 	get fontSize(): string { return this.fontSizeSub.value; }
 	set fontSize(v: string) { this.fontSizeSub.next(v); }
+	fontSizeSub = new DistinctBehaviorSubject<string>('');
 
 	get outline(): boolean { return this.outlineSub.value; }
 	set outline(v: boolean) { this.outlineSub.next(v); }
+	outlineSub = new DistinctBehaviorSubject<boolean>(true);
 
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
-	// @formatter:on
-
-	showSub = new DistinctBehaviorSubject<boolean>(true);
-	anchorSub = new DistinctBehaviorSubject<Anchor>('topLeft');
-	fontColorSub = new DistinctBehaviorSubject<string>('');
-	fontSizeSub = new DistinctBehaviorSubject<string>('');
-	outlineSub = new DistinctBehaviorSubject<boolean>(true);
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
+	// @formatter:on
 
 	anyChangedCache: Observable<any>;
 
@@ -42,34 +44,14 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	};
 
 	getSubjects(): Subject<any>[] {
-		return [
-			this.showSub,
-			this.anchorSub,
-			this.fontColorSub,
-			this.fontSizeSub,
-			this.positionSub,
-			this.outlineSub
-		];
+		return getSubjects(this);
 	}
 
-	serialize(): Partial<TextWidgetConfig> {
-		return {
-			show: this.show,
-			anchor: this.anchor,
-			fontColor: this.fontColor,
-			fontSize: this.fontSize,
-			position: this.position,
-			outline: this.outline
-		};
+	serialize(): any {
+		return serialize(this);
 	}
 
-	unserialize(value: Partial<TextWidgetConfig>): void {
-		this.show = value.show;
-		this.anchor = value.anchor;
-		this.fontColor = value.fontColor;
-		this.fontSize = value.fontSize;
-		this.outline = value.outline;
-		this.position = Object.assign({}, value.position);
+	unserialize(value: any): void {
+		unserialize(this, value);
 	}
-
 }

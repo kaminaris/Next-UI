@@ -8,7 +8,13 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 	hpTemplate: '[hp] / [hpMax] ([hpPct]%)',
 	manaTemplate: '[mana] / [manaMax] ([manaPct]%)',
 	ttsConfig: {
-		enabled: false
+		enabled: false,
+		maleRate: 1,
+		malePitch: 1,
+		maleVolume: 0.8,
+		femaleRate: 1,
+		femalePitch: 1,
+		femaleVolume: 0.8,
 	},
 	colorConfig: {
 		enabled: true

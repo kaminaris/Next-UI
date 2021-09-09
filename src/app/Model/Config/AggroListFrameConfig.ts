@@ -8,39 +8,14 @@ export class AggroListFrameConfig extends PlayerFrameConfig implements Serializa
 	// @formatter:off
 	get unitFrameHeight(): string { return this.unitFrameHeightSub.value; }
 	set unitFrameHeight(v: string) { this.unitFrameHeightSub.next(v); }
+	unitFrameHeightSub = new DistinctBehaviorSubject<string>('');
 
 	get unitFrameMargin(): number { return this.unitFrameMarginSub.value; }
 	set unitFrameMargin(v: number) { this.unitFrameMarginSub.next(v); }
+	unitFrameMarginSub = new DistinctBehaviorSubject<number>(1);
 
 	get sorter(): SorterType { return this.sorterSub.value; }
 	set sorter(v: SorterType) { this.sorterSub.next(v); }
-	// @formatter:on
-
-	unitFrameHeightSub = new DistinctBehaviorSubject<string>('');
-	unitFrameMarginSub = new DistinctBehaviorSubject<number>(1);
 	sorterSub = new DistinctBehaviorSubject<SorterType>(null);
-
-	getSubjects(): Subject<any>[] {
-		return [
-			...super.getSubjects(),
-			this.unitFrameHeightSub,
-			this.unitFrameMarginSub,
-			this.sorterSub,
-		];
-	}
-
-	serialize(): any {
-		const obj = super.serialize();
-		obj.unitFrameHeight = this.unitFrameHeight;
-		obj.unitFrameMargin = this.unitFrameMargin;
-		obj.sorter = this.sorter;
-		return obj;
-	}
-
-	unserialize(value: Partial<AggroListFrameConfig>) {
-		super.unserialize(value);
-		this.unitFrameHeight = value.unitFrameHeight;
-		this.unitFrameMargin = value.unitFrameMargin;
-		this.sorter = value.sorter;
-	}
+	// @formatter:on
 }

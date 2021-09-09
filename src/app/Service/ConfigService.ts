@@ -70,7 +70,7 @@ export class ConfigService {
 
 		const subs: BehaviorSubject<any>[] = [];
 		this.findObservers(this.config, subs);
-		console.log(subs);
+
 		merge(...subs)
 			.pipe(debounceTime(10))
 			.subscribe(() => {
