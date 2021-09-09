@@ -67,11 +67,6 @@ export class AbilityHitHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z + fieldOffset] ?? '');
 		const heading = parseFloat(event[indexes.heading + fieldOffset] ?? '');
 
-		// if (id === '105C29A0') console.log(id, 's',mana)
-		// this.parser.updateCombatant(
-		// 	id, name, hp, hpMax, mana, manaMax
-		// );
-
 		if (this.parser.debugMode) {
 			// tested
 			console.log(

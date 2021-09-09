@@ -47,6 +47,6 @@ export class XivPluginService {
 	}
 
 	onMessage(event: any) {
-		console.log('XiVPlugin disconnected', event);
+		console.log('XiVPlugin', event);
 	}
 }

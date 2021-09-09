@@ -38,7 +38,6 @@ export class ConfigWindowColorComponent {
 	}
 
 	setProp($event: any, jobId: number) {
-		console.log('setting job color', jobId, $event)
 		this.config.colorConfig.setJobColor(jobId, $event);
 	}
 

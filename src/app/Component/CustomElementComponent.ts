@@ -46,7 +46,6 @@ export class CustomElementComponent implements OnInit, OnDestroy {
 		this.subs.push(this.element.update.subscribe(() => {
 			setTimeout(() => {
 				this.cd.detectChanges()
-				console.log('up', this);
 			}, 5);
 		}));
 	}
