@@ -75,8 +75,8 @@ export class TestService {
 			} while (combs.indexOf(pick) >= 0 || pick.job.value === 'NONE')
 			combs.push(pick);
 		}
-		console.log('party set', combs);
-		this.parser.party.next(combs);
+
+		this.parser.setParty(combs);
 	}
 
 	resetParty() {
@@ -140,7 +140,7 @@ export class TestService {
 			this.randomElement(combatants),
 		];
 
-		this.parser.aggroList.next(rCombatants);
+		this.parser.setAggroList(rCombatants);
 	}
 
 	randomAuras(duration = 5) {

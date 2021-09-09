@@ -2,6 +2,7 @@ import { Component }     from '@angular/core';
 import { barDirections } from 'src/app/Data/barDirections';
 import { barStyles }     from 'src/app/Data/barStyles';
 import { anchors }       from 'src/app/Data/anchors';
+import { sorters }       from 'src/app/Data/sorters';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
@@ -9,15 +10,16 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	selector: 'config-window-aggro-list',
 	template: `
 		<h4 class="ta-c">Aggro List Frame Configuration</h4>
-
+		<config-group title="Frame">
+			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
+			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+			<config-select [frameName]="frameName" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
+		</config-group>
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
 
 			<config-position [frameName]="frameName" prop="position" label="Position"></config-position>
 			<config-size [frameName]="frameName" prop="size" label="Size"></config-size>
-
-			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
-			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
 
 			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
 
@@ -71,6 +73,7 @@ export class ConfigWindowAggroListComponent {
 	barStyles = barStyles;
 	barDirections = barDirections;
 	filters = this.conf.config.filters;
+	sorters = sorters.filter(s => s.canApplyToAggro);
 
 	constructor(public conf: ConfigService) {
 		this.conf.config.filtersSub.subscribe(v => this.filters = v);

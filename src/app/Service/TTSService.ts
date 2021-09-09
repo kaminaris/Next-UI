@@ -6,6 +6,7 @@ export class TTSService {
 	femaleSpeakers = [
 		'Tataru',
 		'Lucia',
+		'Alisaie',
 		'Kan-E-Senna',
 		'Y\'mhitra',
 		'Geva',

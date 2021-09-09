@@ -2,6 +2,7 @@ import { Component }     from '@angular/core';
 import { barDirections } from 'src/app/Data/barDirections';
 import { barStyles }     from 'src/app/Data/barStyles';
 import { anchors }       from 'src/app/Data/anchors';
+import { sorters }       from 'src/app/Data/sorters';
 import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
@@ -12,6 +13,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<config-group title="Frame">
 			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
 			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+			<config-select [frameName]="frameName" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
 		</config-group>
 
 		<config-group title="Basic">
@@ -48,7 +50,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-color [frameName]="frameName" prop="roleIconColor" label="Icon Color"></config-color>
 			<config-input [frameName]="frameName" inputType="number" prop="roleIconSize" label="Icon Size"></config-input>
 		</config-group>
-	
+
 		<config-group title="Auras">
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
@@ -72,6 +74,7 @@ export class ConfigWindowPartyComponent {
 	barStyles = barStyles;
 	barDirections = barDirections;
 	filters = this.conf.config.filters;
+	sorters = sorters.filter(s => s.canApplyToParty);
 
 	constructor(public conf: ConfigService) {
 		this.conf.config.filtersSub.subscribe(v => this.filters = v);

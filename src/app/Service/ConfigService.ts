@@ -1,14 +1,14 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, merge, Subject }         from 'rxjs';
 import { debounceTime }                            from 'rxjs/operators';
-import { AuraFilter }                              from 'src/app/Interface/AuraFilter';
+import { sorters }                                 from 'src/app/Data/sorters';
 import { ConfigProfile }                           from 'src/app/Interface/ConfigProfile';
+import { Combatant }                               from 'src/app/Model/Combatant';
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
 import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Service/defaultConfig';
 import extend                                      from 'just-extend';
-import { Util }                                    from 'src/app/Service/LogParser/Util';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -43,9 +43,15 @@ export class ConfigService {
 	formatHP: (data: any) => string;
 	formatMana: (data: any) => string;
 
+	/**
+	 * Sorters
+	 */
+	partySorter: (a: Combatant, b: Combatant) => number;
+	aggroSorter: (a: Combatant, b: Combatant) => number;
+
 	constructor(
 		protected rendererFactory: RendererFactory2,
-		protected compressionService: CompressionService
+		protected compressionService: CompressionService,
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
 
@@ -76,9 +82,12 @@ export class ConfigService {
 		this.loadProfiles();
 		this.makeFormatHPFunction();
 		this.makeFormatManaFunction();
+		this.setSorters();
 
 		this.config.hpTemplateSub.subscribe(this.makeFormatHPFunction.bind(this));
 		this.config.manaTemplateSub.subscribe(this.makeFormatManaFunction.bind(this));
+		this.config.frames.party.sorterSub.subscribe(this.setSorters.bind(this));
+		this.config.frames.aggroList.sorterSub.subscribe(this.setSorters.bind(this));
 	}
 
 	cloneDefaultConfig() {
@@ -110,6 +119,15 @@ export class ConfigService {
 		catch (e) {
 			console.log(e);
 			this.formatMana = new Function('data', 'return `INV - ${data.mana}`') as any;
+		}
+	}
+
+	setSorters() {
+		if (this.config.frames.party.sorter) {
+			this.partySorter = sorters.find(s => s.type === this.config.frames.party.sorter)?.sorter;
+		}
+		if (this.config.frames.aggroList.sorter) {
+			this.aggroSorter = sorters.find(s => s.type === this.config.frames.aggroList.sorter)?.sorter;
 		}
 	}
 

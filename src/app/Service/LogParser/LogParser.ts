@@ -4,6 +4,7 @@ import { EffectData }                                      from 'src/app/Interfa
 import { AggroTarget, AggroTargetTarget, EnmityAggroList } from 'src/app/Interface/EnmityAggroList';
 import { ActorInterface, EnmityTargetData }                from 'src/app/Interface/EnmityTargetData';
 import { PartyMember }                                     from 'src/app/Interface/PartyMember';
+import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { AbilityHitCloneHandler }                          from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
 import { EventDispatcher }                                 from './EventDispatcher';
 import { Util }                                            from './Util';
@@ -88,7 +89,8 @@ export class LogParser {
 
 	constructor(
 		public tts: TTSService,
-		public eventDispatcher: EventDispatcher
+		public eventDispatcher: EventDispatcher,
+		public config: ConfigService,
 	) {
 		// guard target of target in case of target dying
 		this.target.subscribe((v) => {
@@ -165,6 +167,14 @@ export class LogParser {
 		return combatant;
 	}
 
+	setParty(combatants: Combatant[]) {
+		if (this.config.partySorter) {
+			combatants.sort(this.config.partySorter);
+		}
+
+		this.party.next(combatants);
+	}
+
 	partyChanged(party: PartyMember[]) {
 		const members = this.party.value;
 		let hasChange = false;
@@ -213,7 +223,7 @@ export class LogParser {
 		}
 
 		if (hasChange) {
-			this.party.next(newMembers);
+			this.setParty(newMembers);
 
 			if (this.debugMode) {
 				console.log('PARTY CHANGED', this.party.value);
@@ -276,6 +286,14 @@ export class LogParser {
 		}
 	}
 
+	setAggroList(combatants: Combatant[]) {
+		if (this.config.aggroSorter) {
+			combatants.sort(this.config.aggroSorter);
+		}
+
+		this.aggroList.next(combatants);
+	}
+
 	aggroListUpdate(e: EnmityAggroList) {
 		// Most common occurrence, ignore
 		if (e.AggroList.length === 0 && this.aggroList.value.length === 0) {
@@ -287,15 +305,12 @@ export class LogParser {
 		if (e.AggroList.length !== this.aggroList.value.length) {
 
 			// this doesn't work
-			// e.AggroList.sort((a, b) => a.Order - b.Order);
-			// e.AggroList.sort((a, b) => b.HateRate - a.HateRate);
-
 			for (const a of e.AggroList) {
 				const c = this.combatantFromEnmityActor(a);
 				combatants.push(c);
 			}
 
-			this.aggroList.next(combatants);
+			this.setAggroList(combatants);
 			return;
 		}
 
