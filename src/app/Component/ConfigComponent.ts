@@ -1,6 +1,6 @@
-import { Component }     from '@angular/core';
-import { ConfigService } from 'src/app/Service/ConfigService';
-import {default as config}       from '../../../package.json';
+import { Component, Inject } from '@angular/core';
+import { ConfigService }     from 'src/app/Service/ConfigService';
+import { default as config } from '../../../package.json';
 
 @Component({
 	selector: 'config-window',
@@ -8,7 +8,7 @@ import {default as config}       from '../../../package.json';
 		<ng-content></ng-content>
 		<div class="d-flex flex-column config-window">
 			<div class="config-bar d-flex">
-				<img src="/assets/nu.png" style="width: 39px; background: #fff;" alt="NextUI">
+				<img [src]="logoUrl" style="width: 39px; background: #fff;" alt="NextUI">
 				<h4 class="mt-1">
 					NextUI - Config <small class="text-muted">(v{{ version }})</small>
 				</h4>
@@ -49,6 +49,7 @@ import {default as config}       from '../../../package.json';
 })
 export class ConfigComponent {
 	version = config.version;
+	logoUrl = this.baseUrl + '/assets/nu.png';
 
 	categories = [
 		{ value: 'main', label: 'General settings' },
@@ -68,7 +69,10 @@ export class ConfigComponent {
 
 	currentCategory = 'main';
 
-	constructor(public conf: ConfigService) {}
+	constructor(
+		public conf: ConfigService,
+		@Inject('BASE_URL') protected baseUrl: string
+	) {}
 
 	switchWindow(pane: string) {
 		this.currentCategory = pane;
