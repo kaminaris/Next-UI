@@ -12,7 +12,10 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 		<h4 class="ta-c">Party Frame Configuration</h4>
 		<config-group title="Frame">
 			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
+			<config-input [frameName]="frameName" prop="unitFrameWidth" label="Frame Width"></config-input>
 			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+			<config-select [frameName]="frameName" [items]="barStyles" prop="direction" label="Direction"></config-select>
+			<config-checkbox [frameName]="frameName" prop="wrap" label="Wrap"></config-checkbox>
 			<config-select [frameName]="frameName" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
 		</config-group>
 

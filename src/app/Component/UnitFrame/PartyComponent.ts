@@ -8,10 +8,14 @@ import { LogParser }                                       from 'src/app/Service
 	selector: 'party',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column">
+		<div class="d-flex"
+			[ngClass]="partyContainerClass"
+		>
 			<party-member class="d-block position-relative"
 				[style.margin-bottom.px]="ownConfig.unitFrameMargin"
+				[style.margin-right.px]="ownConfig.unitFrameMargin"
 				[style.height]="ownConfig.unitFrameHeight"
+				[style.width]="ownConfig.unitFrameWidth"
 				*ngFor="let c of party"
 				[combatant]="c"
 			></party-member>
@@ -24,6 +28,7 @@ export class PartyComponent implements OnInit, OnDestroy {
 	subs: Subscription[] = [];
 
 	ownConfig = this.conf.config.frames.party;
+	partyContainerClass = {};
 
 	constructor(
 		protected conf: ConfigService,
@@ -36,12 +41,23 @@ export class PartyComponent implements OnInit, OnDestroy {
 			this.party = party;
 			this.cd.detectChanges();
 		}));
+
+		this.getContainerClass();
+		this.ownConfig.anyChanged.subscribe(this.getContainerClass.bind(this));
 	}
 
 	ngOnDestroy() {
 		for (const sub of this.subs) {
 			sub.unsubscribe();
 		}
+	}
+
+	getContainerClass() {
+		this.partyContainerClass = {
+			'flex-column': this.ownConfig.direction === 'vertical',
+			'flex-row': this.ownConfig.direction === 'horizontal',
+			'flex-wrap': this.ownConfig.wrap
+		};
 	}
 
 }
