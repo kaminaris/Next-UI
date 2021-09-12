@@ -21,6 +21,17 @@ export class AbilityCancelHandler implements HandlerInterface {
 		const abilityName = event[indexes.abilityName] ?? '';
 		const reason = event[indexes.reason] ?? '';
 
+		this.parser.eventDispatcher.ability.next({
+			type: 'cancel',
+			abilityName,
+			abilityId,
+			targetId: 0,
+			targetName: '',
+			duration: 0,
+			sourceId: id,
+			sourceName: name
+		});
+
 		if (this.parser.debugMode) {
 			console.log(
 				`Cancel ability: ${ id }, ${ name }, ${ abilityId }, ${ abilityName }, ${ reason }`

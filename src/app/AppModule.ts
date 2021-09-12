@@ -32,11 +32,16 @@ import { ConfigWindowTargetOfTargetComponent } from 'src/app/Component/Config/Wi
 import { ConfigWindowTooltipComponent }        from 'src/app/Component/Config/Window/ConfigWindowTooltipComponent';
 import { ConfigWindowTTSComponent }            from 'src/app/Component/Config/Window/ConfigWindowTTSComponent';
 
-import { ConfigComponent }              from 'src/app/Component/ConfigComponent';
-import { ControlComponent }             from 'src/app/Component/ControlComponent';
-import { CustomElementComponent }       from 'src/app/Component/CustomElementComponent';
-import { CustomElementsPanelComponent } from 'src/app/Component/CustomElementsPanelComponent';
-import { ProgressBarComponent }         from 'src/app/Component/ProgressBarComponent';
+import { ConfigComponent }                     from 'src/app/Component/ConfigComponent';
+import { ControlComponent }                    from 'src/app/Component/ControlComponent';
+import { CustomElementExportConfigComponent }  from 'src/app/Component/CustomElement/Config/CustomElementExportConfigComponent';
+import { CustomElementGeneralConfigComponent } from 'src/app/Component/CustomElement/Config/CustomElementGeneralConfigComponent';
+import { CustomElementTriggerConfigComponent } from 'src/app/Component/CustomElement/Config/CustomElementTriggerConfigComponent';
+import { CustomElementVisualConfigComponent }  from 'src/app/Component/CustomElement/Config/CustomElementVisualConfigComponent';
+import { TriggerChatConfigComponent }          from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
+import { CustomElementComponent }              from 'src/app/Component/CustomElementComponent';
+import { CustomElementsPanelComponent }        from 'src/app/Component/CustomElementsPanelComponent';
+import { ProgressBarComponent }                from 'src/app/Component/ProgressBarComponent';
 
 import { IconApps }    from 'src/app/Component/Icon/IconApps';
 import { IconClose }   from 'src/app/Component/Icon/IconClose';
@@ -103,6 +108,11 @@ export function getBaseUrl() {
 
 		// Custom Elements
 		CustomElementComponent, CustomElementsPanelComponent,
+		CustomElementGeneralConfigComponent,
+		CustomElementVisualConfigComponent,
+		CustomElementTriggerConfigComponent,
+		CustomElementExportConfigComponent,
+		TriggerChatConfigComponent,
 
 		// Pipes
 		DurationPipe,

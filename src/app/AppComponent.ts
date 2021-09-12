@@ -18,9 +18,6 @@ import { TestService }                                             from 'src/app
 	templateUrl: './AppComponent.html'
 })
 export class AppComponent implements OnInit {
-	size = 40;
-	aura = new Aura(1199);
-
 	charName = 'YOU';
 
 	moveMode = false;
@@ -45,9 +42,6 @@ export class AppComponent implements OnInit {
 		this.config.customCssSub.subscribe(() => {
 			this.setCustomCss();
 		});
-		//
-		// this.aura.id = 1199;
-		//
 		// this.conf.configChanged.subscribe(() => {
 		// 	// console.log('changes detected', this.config.frames.player.position);
 		//

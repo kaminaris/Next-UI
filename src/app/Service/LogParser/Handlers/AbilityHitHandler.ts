@@ -46,7 +46,7 @@ export class AbilityHitHandler implements HandlerInterface {
 		const damage = event[indexes.damage + fieldOffset] ?? '';
 		const abilityId = parseInt(event[indexes.abilityId]?.toUpperCase() ?? '');
 		const abilityName = event[indexes.abilityName] ?? '';
-		const targetId = event[indexes.targetId]?.toUpperCase() ?? '';
+		const targetId = parseInt(event[indexes.targetId] || '0', 16);
 		const targetName = event[indexes.targetName] ?? '';
 
 		const targetHp = parseInt(event[indexes.targetHp + fieldOffset] ?? '');
@@ -66,6 +66,17 @@ export class AbilityHitHandler implements HandlerInterface {
 		const y = parseFloat(event[indexes.y + fieldOffset] ?? '');
 		const z = parseFloat(event[indexes.z + fieldOffset] ?? '');
 		const heading = parseFloat(event[indexes.heading + fieldOffset] ?? '');
+
+		this.parser.eventDispatcher.ability.next({
+			type: 'hit',
+			abilityName,
+			abilityId,
+			targetId,
+			targetName,
+			duration: 0,
+			sourceId: id,
+			sourceName: name
+		});
 
 		if (this.parser.debugMode) {
 			// tested

@@ -21,11 +21,22 @@ eventId = 0x14
 		const abilityIdHex = event[indexes.abilityId]?.toUpperCase() ?? '';
 		const abilityId = parseInt(abilityIdHex);
 		const abilityName = event[indexes.abilityName] ?? '';
-		const targetId = event[indexes.targetId]?.toUpperCase() ?? '';
+		const targetId = parseInt(event[indexes.targetId] || '0', 16);
 		const targetName = event[indexes.targetName] ?? '';
-		const duration = event[indexes.duration] ?? '';
+		const duration = parseInt(event[indexes.duration] ?? '0');
 
 		const target = targetName.length === 0 ? 'Unknown' : targetName;
+
+		this.parser.eventDispatcher.ability.next({
+			type: 'use',
+			abilityName,
+			abilityId,
+			targetId,
+			targetName,
+			duration,
+			sourceId: id,
+			sourceName: name
+		});
 
 		const combatant = this.parser.findCombatant(id, name);
 		if (!combatant) {

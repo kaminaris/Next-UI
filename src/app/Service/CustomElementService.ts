@@ -1,7 +1,7 @@
 import { Injectable }          from '@angular/core';
 import { CustomElement }       from 'src/app/Model/CustomElement/CustomElement';
-import { Trigger }             from 'src/app/Model/CustomElement/Trigger';
 import { AlwaysActiveTrigger } from 'src/app/Model/CustomElement/Trigger/AlwaysActiveTrigger';
+import { NeverActiveTrigger }  from 'src/app/Model/CustomElement/Trigger/NeverActiveTrigger';
 import { StatusTrigger }       from 'src/app/Model/CustomElement/Trigger/StatusTrigger';
 import { LogParser }           from 'src/app/Service/LogParser/LogParser';
 
@@ -16,30 +16,35 @@ export class CustomElementService {
 	addCustomElement() {
 		const el = new CustomElement();
 		el.name = 'New Custom Element';
-		el.text = '';
-		el.type = 'text';
 
-		const trig = new AlwaysActiveTrigger(this.parser);
-		trig.type = 'status';
-		trig.unit = 'player';
-		el.trigger = trig;
+		el.trigger = new NeverActiveTrigger(this.parser);
 
 		this.elements.push(el);
 
 		el.trigger.attach();
 	}
 
+	configureElement(e?: CustomElement) {
+		if (e) {
+			e.uiActive = true;
+		}
+
+		for (const element of this.elements) {
+			if (e && e === element) {
+				continue;
+			}
+			element.uiActive = false;
+		}
+	}
+
 	TESTaddCustomElement() {
 		const el = new CustomElement();
 		el.name = 'New Custom Element';
-		el.text = '';
-		el.type = 'text';
 		el.opacity = 0.7;
 		el.image = 'https://emoji.gg/assets/emoji/6757_Sadge.png';
 
 		const trig = new AlwaysActiveTrigger(this.parser);
 		trig.type = 'status';
-		trig.unit = 'player';
 		el.trigger = trig;
 
 		this.elements.push(el);
@@ -50,12 +55,9 @@ export class CustomElementService {
 	TESTADDPELETON() {
 		const el = new CustomElement();
 		el.name = 'Peloton';
-		el.text = 'PELOTON';
-		el.type = 'text';
 
 		const trig = new StatusTrigger(this.parser);
 		trig.type = 'status';
-		trig.unit = 'player';
 		trig.options.statusName = 'Peloton';
 		trig.options.targetName = '';
 		el.trigger = trig;

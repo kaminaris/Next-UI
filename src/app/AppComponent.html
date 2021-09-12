@@ -126,18 +126,18 @@
 	<ng-container *ngFor="let customElement of elementService.elements">
 		<custom-element class="draggable d-block frame-custom-element no-sel"
 				[element]="customElement"
-				[class.frame-bg]="moveMode"
+				[class.frame-bg]="moveMode || customElement.uiActive"
 				[style.width.px]="customElement.size.width"
 				[style.height.px]="customElement.size.height"
-				[ngDraggable]="moveMode"
-				[ngResizable]="moveMode"
+				[ngDraggable]="moveMode || customElement.uiActive"
+				[ngResizable]="moveMode || customElement.uiActive"
 				[handle]="customElementDragHandle"
 				rzHandles="all"
 				[position]="customElement.position"
 				(rzStop)="saveCustomElementSize(customElement, $event)"
 				(endOffset)="saveCustomElementPosition(customElement, $event)"
 		>
-			<div #customElementDragHandle class="grab-handle" [style.display]="moveMode ? 'block': 'none'">
+			<div #customElementDragHandle class="grab-handle" [style.display]="moveMode || customElement.uiActive ? 'block': 'none'">
 				<icon-mover [size]="20"></icon-mover>
 			</div>
 		</custom-element>

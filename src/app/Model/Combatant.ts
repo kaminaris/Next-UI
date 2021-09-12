@@ -117,6 +117,11 @@ export class Combatant {
 		this.mana.next(mana);
 	}
 
+	getAura(id?: number, name?: string, filter?: (a: Aura) => boolean) {
+		const auras = filter ? this.auras.value.filter(filter) : this.auras.value;
+		return auras.find(a => (id && a.id === id) || (name && a.name === name));
+	}
+
 	updateAura(
 		id: number,
 		name: string,

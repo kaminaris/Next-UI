@@ -1,6 +1,6 @@
 import { Component }            from '@angular/core';
-import { TextWidgetConfig }     from 'src/app/Model/Config/TextWidgetConfig';
 import { CustomElement }        from 'src/app/Model/CustomElement/CustomElement';
+import { CustomElementText }    from 'src/app/Model/CustomElement/CustomElementText';
 import { ConfigService }        from 'src/app/Service/ConfigService';
 import { CustomElementService } from 'src/app/Service/CustomElementService';
 import { anchors }              from 'src/app/Data/anchors';
@@ -11,7 +11,10 @@ import { anchors }              from 'src/app/Data/anchors';
 		<ng-content></ng-content>
 		<div class="d-flex flex-column config-window">
 			<div class="config-bar">
-				<h4 class="mt-1">NextUI - Custom Elements</h4>
+				<h4 class="mt-1">
+					NextUI - Custom Elements
+				</h4>
+
 				<button class="btn btn-sm btn-danger config-close-btn position-absolute" (click)="closeConfig()">
 					<icon-close></icon-close>
 				</button>
@@ -35,105 +38,39 @@ import { anchors }              from 'src/app/Data/anchors';
 				<div class="flex-grow" style="overflow-y: auto;">
 					<ng-container *ngIf="currentElement">
 						<ul class="nav nav-tabs nav-fill">
-							<li class="nav-item">
+							<li class="nav-item" *ngFor="let cat of categories">
 								<button type="button" class="nav-link"
-									[class.active]="currentTab === 'general'"
-									(click)="switchTab('general')"
+									[class.active]="currentTab === cat.value"
+									(click)="switchTab(cat.value)"
 								>
-									General
-								</button>
-							</li>
-							<li class="nav-item">
-								<button type="button" class="nav-link"
-									[class.active]="currentTab === 'visual'"
-									(click)="switchTab('visual')"
-								>
-									Visual
-								</button>
-							</li>
-							<li class="nav-item">
-								<button type="button" class="nav-link"
-									[class.active]="currentTab === 'trigger'"
-									(click)="switchTab('trigger')"
-								>
-									Trigger
+									{{ cat.label }}
 								</button>
 							</li>
 						</ul>
-						<div *ngIf="currentTab === 'general'" style="padding: 10px;">
-							<div class="row">
-								<div class="col-12">
-									<h5>General Config</h5>
-								</div>
-								<div class="col-6 mb-3">
-									<label for="custom-element-name" class="form-label">Name</label>
-									<input type="text" class="form-control form-control-sm" id="custom-element-name"
-										placeholder="Enter your custom element name here..."
-										[(ngModel)]="currentElement.name"
-										[ngModelOptions]="{standalone: true}"
-									>
-								</div>
-								<div class="col-6 mb-3">
-									<label for="custom-element-type" class="form-label">Type</label>
-									<ng-select
-										class="form-control form-control-sm"
-										[(ngModel)]="currentElement.type"
-										[items]="types"
-										[clearable]="false"
-										[searchable]="false"
-										bindLabel="label"
-										bindValue="id"
-									></ng-select>
-								</div>
-							</div>
-						</div>
-						<div *ngIf="currentTab === 'visual'" style="padding: 10px;">
-							<div class="row">
-								<div class="col-12">
-									<h5>Visual Config</h5>
-								</div>
-								<div class="col-12 mb-3">
-									<label for="custom-element-image" class="form-label">Background Image</label>
-									<input type="text" class="form-control form-control-sm"
-										id="custom-element-image"
-										placeholder="Enter background image URL here..."
-										[(ngModel)]="currentElement.image"
-										[ngModelOptions]="{standalone: true}"
-										(ngModelChange)="update()"
-									>
-								</div>
-								<div class="col-12 mb-3">
-									<label for="custom-element-opacity" class="form-label">Opacity</label>
-									<input class="w100p" type="range"
-										id="custom-element-opacity"
-										[min]="0"
-										[max]="1"
-										[step]="0.01"
-										[(ngModel)]="currentElement.opacity"
-										(ngModelChange)="update()"
-									>
-								</div>
-								<div class="col-12">
-									<button type="button" class="btn btn-success" (click)="addNewText()">
-										<icon-plus></icon-plus>
-									</button>
-									<div *ngFor="let t of currentElement.texts">
-										<config-checkbox [configObj]="t" prop="show" label="Show"></config-checkbox>
-										<config-select [configObj]="t" [items]="anchors" prop="anchor" label="Anchor"></config-select>
-										<config-position [configObj]="t" prop="position" label="Position"></config-position>
-										<config-color [configObj]="t" prop="fontColor" label="Font Color"></config-color>
-										<config-input [configObj]="t" prop="fontSize" label="Font Size"></config-input>
-										<config-checkbox [configObj]="t" prop="outline" label="Text Outline"></config-checkbox>
-									</div>
-									<config-text-widget *ngFor="let t of currentElement.texts" [></config-text-widget>
-								</div>
-							</div>
-
-							<!--							https://emoji.gg/assets/emoji/6757_Sadge.png-->
-						</div>
-						<div *ngIf="currentTab === 'trigger'" style="padding: 10px;">
-							<h5>Trigger Config</h5>
-						</div>
+						
+						<custom-element-general-config class="d-block p-2"
+							*ngIf="currentTab === 'general'"
+							[customElement]="currentElement" 
+						>
+						</custom-element-general-config>
+						
+						<custom-element-visual-config class="d-block p-2"
+							*ngIf="currentTab === 'visual'"
+							[customElement]="currentElement"
+						>
+						</custom-element-visual-config>
+						
+						<custom-element-trigger-config class="d-block p-2"
+							*ngIf="currentTab === 'trigger'" 
+							[customElement]="currentElement"
+						>
+						</custom-element-trigger-config>
+						
+						<custom-element-export-config class="d-block p-2"
+							*ngIf="currentTab === 'export'" 
+							[customElement]="currentElement"
+						>
+						</custom-element-export-config>
 					</ng-container>
 				</div>
 			</div>
@@ -143,13 +80,14 @@ import { anchors }              from 'src/app/Data/anchors';
 export class CustomElementsPanelComponent {
 	currentElement: CustomElement;
 
+	categories = [
+		{ value: 'general', label: 'General' },
+		{ value: 'visual', label: 'Visual' },
+		{ value: 'trigger', label: 'Trigger' },
+		{ value: 'export', label: 'Export/Import' },
+	];
 	currentTab = 'general';
 
-	types = [
-		{ id: 'text', label: 'Text' },
-		{ id: 'image', label: 'Image' },
-		{ id: 'progressbar', label: 'Progress Bar' }
-	];
 	anchors = anchors;
 
 	constructor(
@@ -159,15 +97,13 @@ export class CustomElementsPanelComponent {
 
 	closeConfig() {
 		this.conf.toggleCustomElementsPanel();
+		this.elementService.configureElement(null);
 	}
 
 	selectElement(value: CustomElement) {
 		this.currentElement = value;
 
-		for (const el of this.elementService.elements) {
-			el.uiActive = false;
-		}
-		this.currentElement.uiActive = true;
+		this.elementService.configureElement(value);
 	}
 
 	update() {
@@ -178,11 +114,7 @@ export class CustomElementsPanelComponent {
 		this.currentTab = tab;
 	}
 
-	addNewText() {
-		this.currentElement?.texts.push(new TextWidgetConfig());
-	}
-
 	createNew() {
-
+		this.elementService.addCustomElement();
 	}
 }

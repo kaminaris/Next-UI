@@ -64,6 +64,10 @@ export class TestService {
 		}, 500);
 	}
 
+	chatMessage(m: string, s: string = 'player') {
+		this.parser.parse(['0', '', 'type', s, m, '']);
+	}
+
 	setParty(full = false) {
 		const count = full ? 8 : 4;
 

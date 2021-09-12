@@ -7,6 +7,7 @@ export abstract class BaseConfigComponent {
 	@Input() label: string;
 	@Input() prop: string;
 	@Input() customSet = false;
+	@Input() reset = true;
 
 	@Input() widgetName: string;
 	@Input() frameName: keyof MainConfig['frames'];
