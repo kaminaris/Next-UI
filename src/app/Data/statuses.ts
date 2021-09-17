@@ -22421,7 +22421,7 @@ export const statuses = [
     {
         id: 811,
         name: 'Walking Dead',
-        description: 'Most attacks will not reduce HP below 1. The inability to restore 100% of HP before timer runs out will result in KO.',
+        description: 'Most attacks will not reduce HP below 1. The inability to restore 100% of HP before elapsed runs out will result in KO.',
         category: 2,
         isPermanent: 0,
         maxStacks: 0,

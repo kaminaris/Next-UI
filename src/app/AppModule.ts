@@ -32,16 +32,21 @@ import { ConfigWindowTargetOfTargetComponent } from 'src/app/Component/Config/Wi
 import { ConfigWindowTooltipComponent }        from 'src/app/Component/Config/Window/ConfigWindowTooltipComponent';
 import { ConfigWindowTTSComponent }            from 'src/app/Component/Config/Window/ConfigWindowTTSComponent';
 
-import { ConfigComponent }                     from 'src/app/Component/ConfigComponent';
-import { ControlComponent }                    from 'src/app/Component/ControlComponent';
-import { CustomElementExportConfigComponent }  from 'src/app/Component/CustomElement/Config/CustomElementExportConfigComponent';
-import { CustomElementGeneralConfigComponent } from 'src/app/Component/CustomElement/Config/CustomElementGeneralConfigComponent';
-import { CustomElementTriggerConfigComponent } from 'src/app/Component/CustomElement/Config/CustomElementTriggerConfigComponent';
-import { CustomElementVisualConfigComponent }  from 'src/app/Component/CustomElement/Config/CustomElementVisualConfigComponent';
-import { TriggerChatConfigComponent }          from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
-import { CustomElementComponent }              from 'src/app/Component/CustomElementComponent';
-import { CustomElementsPanelComponent }        from 'src/app/Component/CustomElementsPanelComponent';
-import { ProgressBarComponent }                from 'src/app/Component/ProgressBarComponent';
+import { ConfigComponent }                          from 'src/app/Component/ConfigComponent';
+import { ControlComponent }                         from 'src/app/Component/ControlComponent';
+import { CustomElementExportConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementExportConfigComponent';
+import { CustomElementGeneralConfigComponent }      from 'src/app/Component/CustomElement/Config/CustomElementGeneralConfigComponent';
+import { CustomElementTriggerConfigComponent }      from 'src/app/Component/CustomElement/Config/CustomElementTriggerConfigComponent';
+import { CustomElementVisualConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementVisualConfigComponent';
+import { CustomElementGroupExportConfigComponent }  from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupExportConfigComponent';
+import { CustomElementGroupGeneralConfigComponent } from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupGeneralConfigComponent';
+import { CustomElementGroupVisualConfigComponent }  from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupVisualConfigComponent';
+import { TriggerChatConfigComponent }               from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
+import { TriggerStatusConfigComponent }             from 'src/app/Component/CustomElement/Config/Trigger/TriggerStatusConfigComponent';
+import { CustomElementComponent }                   from 'src/app/Component/CustomElement/CustomElementComponent';
+import { CustomElementGroupComponent }              from 'src/app/Component/CustomElement/CustomElementGroupComponent';
+import { CustomElementsPanelComponent }             from 'src/app/Component/CustomElementsPanelComponent';
+import { ProgressBarComponent }                     from 'src/app/Component/ProgressBarComponent';
 
 import { IconApps }    from 'src/app/Component/Icon/IconApps';
 import { IconClose }   from 'src/app/Component/Icon/IconClose';
@@ -107,12 +112,20 @@ export function getBaseUrl() {
 		ConfigWindowFocusComponent,
 
 		// Custom Elements
-		CustomElementComponent, CustomElementsPanelComponent,
+		CustomElementComponent,
+		CustomElementGroupComponent,
+		CustomElementsPanelComponent,
 		CustomElementGeneralConfigComponent,
 		CustomElementVisualConfigComponent,
 		CustomElementTriggerConfigComponent,
 		CustomElementExportConfigComponent,
+
+		CustomElementGroupGeneralConfigComponent,
+		CustomElementGroupExportConfigComponent,
+		CustomElementGroupVisualConfigComponent,
+
 		TriggerChatConfigComponent,
+		TriggerStatusConfigComponent,
 
 		// Pipes
 		DurationPipe,

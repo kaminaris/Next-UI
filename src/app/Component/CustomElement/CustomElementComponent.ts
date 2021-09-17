@@ -14,14 +14,17 @@ import { ConfigService }                                          from 'src/app/
 		<div class="custom-element" *ngIf="show || element.uiActive"
 			[style.opacity]="element.opacity"
 		>
-			<div class="position-absolute z10" text-widget *ngFor="let tw of element.texts" [config]="tw">
+			<div class="position-absolute z20" text-widget *ngFor="let tw of element.texts" [config]="tw">
 				{{ tw.getFormattedText(data) }}
 			</div>
 
-			<progress-bar *ngIf="element.progressBar"
+			<progress-bar class="position-absolute fill-abs z10"
+				*ngIf="element.progressBar"
 				height="100%"
 				width="100%"
-				[percent]="data?.progress"
+				[percent]="data?.progressRaw"
+				[bgColor]="element.progressBarBgColor"
+				[fillColor]="element.progressBarFillColor"
 			></progress-bar>
 
 			<img class="custom-element-image"
@@ -65,25 +68,32 @@ export class CustomElementComponent implements OnInit, OnDestroy {
 			sub.unsubscribe();
 		}
 
-		this.show = this.element.trigger.active.value;
-		this.data = this.element.trigger.data.value;
+		const trigger = this.element.trigger;
+		this.show = trigger.active.value;
+		this.data = trigger.data.value;
 
-		this.triggerSubs.push(this.element.trigger.active.subscribe((a: boolean) => {
+		this.triggerSubs.push(trigger.active.subscribe((a: boolean) => {
 			this.show = a;
 			this.cd.detectChanges();
 			console.log('TRIGGER CHANGE', a);
 		}));
 
-		this.triggerSubs.push(this.element.trigger.tick.subscribe(() => {
-			Object.assign(this.data, {
-				duration: this.element.trigger.triggerDuration,
-				elapsed: this.element.trigger.triggerTimer,
-			});
+		this.triggerSubs.push(trigger.tick.subscribe(() => {
+			const newData = {
+				duration: trigger.duration.toFixed(1),
+				durationRaw: trigger.duration,
+				elapsed: trigger.elapsed.toFixed(1),
+				elapsedRaw: trigger.elapsed,
+				progress: ((trigger.elapsed / trigger.duration) * 100).toFixed(1),
+				progressRaw: (trigger.elapsed / trigger.duration) * 100
+			};
+
+			Object.assign(this.data, newData);
 			console.log('TICK', this.data)
 			this.cd.detectChanges();
 		}));
 
-		this.triggerSubs.push(this.element.trigger.data.subscribe((e?: TriggerData) => {
+		this.triggerSubs.push(trigger.data.subscribe((e?: TriggerData) => {
 			Object.assign(this.data, e);
 			this.cd.detectChanges();
 			console.log('TRIGGER DATA CHANGE', e);

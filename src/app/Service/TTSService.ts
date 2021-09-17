@@ -15,6 +15,8 @@ export class TTSService {
 		'Y\'shtola',
 		'Midnight Dew',
 		'Matoya',
+		'Sarisha',
+		'Vajra',
 		'Hilda',
 		'Cirina',
 		'Merlwyb',

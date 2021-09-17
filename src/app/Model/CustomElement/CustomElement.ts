@@ -24,6 +24,8 @@ export class CustomElement {
 
 	progress = 0;
 	progressBar = false;
+	progressBarBgColor = 'rgba(33,32,33,0.8)';
+	progressBarFillColor = 'rgba(200, 50, 50, 0.7)';
 
 	// just for config mode
 	uiActive = false;

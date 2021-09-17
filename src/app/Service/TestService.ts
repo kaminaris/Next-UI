@@ -171,6 +171,10 @@ export class TestService {
 			this.parser.player.value.id,
 			duration
 		)
+
+		setTimeout(() => {
+			this.parser.player.value.removeAura(s.id, s.name);
+		}, duration * 1000);
 	}
 
 	clearTarget() {

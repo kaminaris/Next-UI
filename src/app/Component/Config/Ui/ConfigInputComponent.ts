@@ -8,7 +8,7 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 		<div class="config-input">
 			<input class="form-control form-control-sm w100p" [type]="inputType" [(ngModel)]="configObj[prop]">
 		</div>
-		<div class="config-reset">
+		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`

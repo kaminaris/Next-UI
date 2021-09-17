@@ -24,8 +24,8 @@ export interface TriggerData {
 	elapsed?: number; // any trigger elapsed seconds (if known)
 	progress?: number; // any trigger percent value (for progress bars)
 
-	sourceId?: string; // chat trigger speaker name
-	sourceName?: string; // chat trigger speaker name
+	sourceId?: number;
+	sourceName?: string;
 
 	targetId?: number;
 	targetName?: string;
@@ -38,8 +38,8 @@ export interface TriggerData {
 
 export class Trigger {
 	type: TriggerType = null;
-	triggerDuration = 5000;
-	triggerTimer = 0;
+	duration = 5;
+	elapsed = 0;
 
 	tickPeriod = 100;
 	hasTick = false;
@@ -58,18 +58,11 @@ export class Trigger {
 			this.activatedAt = a ? new Date().valueOf() : null;
 
 			if (this.hasTick) {
-				if (this.tickInterval) {
-					window.clearInterval(this.tickInterval);
-				}
+				this.clearTick();
 
-				this.tickInterval = window.setInterval(() => {
-					this.triggerTimer = (new Date().valueOf() - this.activatedAt) / 1000;
-					console.log(this.triggerTimer, new Date().valueOf(), this.activatedAt, 'tck')
-					if (this.triggerTimer >= this.triggerDuration) {
-						window.clearInterval(this.tickInterval);
-					}
-					this.tick.next(this.triggerTimer);
-				}, this.tickPeriod);
+				if (a) {
+					this.startTick();
+				}
 			}
 		});
 	}
@@ -86,6 +79,25 @@ export class Trigger {
 		for (const sub of this.subs) {
 			sub.unsubscribe();
 		}
+	}
+
+	clearTick() {
+		if (this.tickInterval) {
+			window.clearInterval(this.tickInterval);
+		}
+	}
+
+	startTick() {
+		this.tickInterval = window.setInterval(() => {
+			this.elapsed = (new Date().valueOf() - this.activatedAt) / 1000;
+			console.log(this.elapsed, new Date().valueOf(), this.activatedAt, 'tck')
+
+			if (this.elapsed >= this.duration) {
+				this.elapsed = this.duration;
+				window.clearInterval(this.tickInterval);
+			}
+			this.tick.next(this.elapsed);
+		}, this.tickPeriod);
 	}
 
 	/**

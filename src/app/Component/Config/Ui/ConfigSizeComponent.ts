@@ -12,7 +12,7 @@ import { FrameSizeInterface }  from 'src/app/Interface/FrameSizeInterface';
 			<label class="ta-r" style="width: 20%">Height: </label>
 			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="size.height" (ngModelChange)="apply()">
 		</div>
-		<div class="config-reset">
+		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`

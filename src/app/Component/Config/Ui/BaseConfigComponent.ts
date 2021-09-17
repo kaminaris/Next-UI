@@ -16,6 +16,7 @@ export abstract class BaseConfigComponent {
 	@Output() getProp = new EventEmitter<{ value: any }>();
 	@Output() setProp = new EventEmitter<any>();
 	@Output() resetProp = new EventEmitter<any>();
+	@Output() afterSet = new EventEmitter<any>();
 
 	constructor(
 		public conf: ConfigService,
@@ -36,6 +37,7 @@ export abstract class BaseConfigComponent {
 	resetConfig(prop: string) {
 		if (this.customSet) {
 			this.resetProp.emit(true);
+			this.afterSet.emit(true);
 			return;
 		}
 
@@ -61,5 +63,6 @@ export abstract class BaseConfigComponent {
 		else {
 			this.setProp.emit(v);
 		}
+		this.afterSet.emit(true);
 	}
 }

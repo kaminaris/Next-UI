@@ -34,7 +34,7 @@ export class ChatTrigger extends Trigger {
 			// chat triggers must have timed trigger
 			setTimeout(() => {
 				this.active.next(false);
-			}, this.triggerDuration);
+			}, this.duration * 1000);
 		}));
 	}
 }

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { CustomElement }    from 'src/app/Model/CustomElement/CustomElement';
+import { Component, Input, OnInit } from '@angular/core';
+import { CustomElement }            from 'src/app/Model/CustomElement/CustomElement';
 import { ChatTrigger }      from 'src/app/Model/CustomElement/Trigger/ChatTrigger';
 
 @Component({
@@ -9,7 +9,6 @@ import { ChatTrigger }      from 'src/app/Model/CustomElement/Trigger/ChatTrigge
 			<div class="config-label">Speaker Name</div>
 			<div class="config-input">
 				<input type="text" class="form-control form-control-sm"
-					id="custom-element-image"
 					[(ngModel)]="trigger.options.speaker"
 					[ngModelOptions]="{standalone: true}"
 					(ngModelChange)="update()"
@@ -20,7 +19,6 @@ import { ChatTrigger }      from 'src/app/Model/CustomElement/Trigger/ChatTrigge
 			<div class="config-label">Message</div>
 			<div class="config-input">
 				<input type="text" class="form-control form-control-sm"
-					id="custom-element-image"
 					placeholder="Trigger will activate if it contains a part of this"
 					[(ngModel)]="trigger.options.message"
 					[ngModelOptions]="{standalone: true}"
@@ -28,13 +26,33 @@ import { ChatTrigger }      from 'src/app/Model/CustomElement/Trigger/ChatTrigge
 				>
 			</div>
 		</div>
+		<div class="custom-config-row">
+			<div class="config-label">Visible time [ms]</div>
+			<div class="config-input">
+				<input type="number" class="form-control form-control-sm"
+					placeholder="How long should it be visible"
+					[(ngModel)]="newDuration"
+					[ngModelOptions]="{standalone: true}"
+					(ngModelChange)="update()"
+				>
+			</div>
+		</div>
 	`
 })
-export class TriggerChatConfigComponent {
+export class TriggerChatConfigComponent implements OnInit {
 	@Input() customElement: CustomElement;
 	@Input() trigger: ChatTrigger;
 
+	newDuration = 0;
+
+	ngOnInit() {
+		this.newDuration = this.trigger.duration;
+	}
+
 	update() {
+		if (!isNaN(this.newDuration)) {
+			this.trigger.duration = +this.newDuration;
+		}
 		this.customElement?.update.next(true);
 	}
 }

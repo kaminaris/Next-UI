@@ -7,42 +7,62 @@ import { CustomElementText } from 'src/app/Model/CustomElement/CustomElementText
 	selector: 'custom-element-visual-config',
 	template: `
 		<div class="col-12 mb-3">
+			<config-group title="Placement">
+				<config-position label="Position"
+					[configObj]="customElement"
+					prop="position"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-position>
+
+				<config-size label="Size"
+					[configObj]="customElement"
+					prop="size"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-size>
+			</config-group>
+
 			<config-group title="Visuals">
-				<div class="custom-config-row">
-					<div class="config-label">Image</div>
-					<div class="config-input">
-						<input type="text" class="form-control form-control-sm"
-							id="custom-element-image"
-							placeholder="Enter background image URL here..."
-							[(ngModel)]="customElement.image"
-							[ngModelOptions]="{standalone: true}"
-							(ngModelChange)="update()"
-						>
-					</div>
-				</div>
-				<div class="custom-config-row">
-					<div class="config-label">Opacity</div>
-					<div class="config-input">
-						<input class="w100p" type="range"
-							[min]="0"
-							[max]="1"
-							[step]="0.01"
-							[(ngModel)]="customElement.opacity"
-							(ngModelChange)="update()"
-						>
-					</div>
-				</div>
+				<config-input label="Image"
+					[configObj]="customElement"
+					prop="image"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-input>
+
+
+				<config-range label="Opacity"
+					[configObj]="customElement"
+					prop="opacity"
+					[reset]="false"
+					[min]="0"
+					[max]="1"
+					[step]="0.01"
+					(afterSet)="update()"
+				></config-range>
 			</config-group>
 			<config-group title="Progress Bar">
-				<div class="custom-config-row">
-					<div class="config-label">Show Progressbar</div>
-					<div class="config-input">
-						<input class="form-check-input" type="checkbox"
-							[(ngModel)]="customElement.progressBar"
-							(ngModelChange)="update()"
-						>
-					</div>
-				</div>
+				<config-checkbox label="Enabled"
+					[configObj]="customElement"
+					prop="progressBar"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-checkbox>
+
+				<config-color label="Background"
+					[configObj]="customElement"
+					prop="progressBarBgColor"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-color>
+
+				<config-color label="Bar Color"
+					[configObj]="customElement"
+					prop="progressBarFillColor"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-color>
 			</config-group>
 
 			<config-group title="Texts">
@@ -84,5 +104,13 @@ export class CustomElementVisualConfigComponent {
 
 	addNewText() {
 		this.customElement?.texts.push(new CustomElementText());
+	}
+
+	setProp(propName: string, $event: any) {
+		(this.customElement as any)[propName] = $event;
+	}
+
+	getProp(propName: string, $event: { value: any }) {
+		$event.value = (this.customElement as any)[propName];
 	}
 }

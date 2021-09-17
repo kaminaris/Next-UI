@@ -8,15 +8,16 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 		<div class="config-input">
 			<ng-select
 				class="form-control form-control-sm"
-				[(ngModel)]="configObj[prop]"
+				[(ngModel)]="value"
 				[items]="items"
 				[clearable]="false"
 				[searchable]="false"
 				[bindLabel]="bindLabel"
 				[bindValue]="bindValue"
+				(ngModelChange)="changeComplete($event)"
 			></ng-select>
 		</div>
-		<div class="config-reset">
+		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
@@ -25,4 +26,27 @@ export class ConfigSelectComponent extends BaseConfigComponent {
 	@Input() items: any[];
 	@Input() bindLabel = 'label';
 	@Input() bindValue = 'value';
+
+	value: any;
+
+	ngOnInit() {
+		super.ngOnInit();
+		this.value = this.getValue();
+		if (!this.value) {
+			this.value = null;
+		}
+	}
+
+	changeComplete($event: any) {
+		this.setValue($event);
+		this.value = $event;
+	}
+
+	resetConfig(prop: string) {
+		super.resetConfig(prop);
+		this.value = this.getValue();
+		if (!this.value) {
+			this.value = null;
+		}
+	}
 }

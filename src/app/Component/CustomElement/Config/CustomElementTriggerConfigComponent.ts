@@ -28,14 +28,23 @@ import { LogParser }                from 'src/app/Service/LogParser/LogParser';
 		<config-group title="Always Active" *ngIf="triggerType === 'always-active'">
 			<p>Trigger is always active thus element will be visible at all times</p>
 		</config-group>
+		
 		<config-group title="Never Active" *ngIf="triggerType === 'never-active'">
 			<p>Trigger is never active thus element will be hidden</p>
 		</config-group>
+		
 		<config-group title="Chat Trigger" *ngIf="triggerType === 'chat'">
 			<trigger-chat-config 
 				[customElement]="customElement" 
 				[trigger]="customElement.trigger"
 			></trigger-chat-config>
+		</config-group>
+		
+		<config-group title="Status Trigger" *ngIf="triggerType === 'status'">
+			<trigger-status-config 
+				[customElement]="customElement" 
+				[trigger]="customElement.trigger"
+			></trigger-status-config>
 		</config-group>
 		
 	`

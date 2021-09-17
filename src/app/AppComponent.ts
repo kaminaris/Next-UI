@@ -8,6 +8,7 @@ import { PlayerDetails }                                           from 'src/app
 import { Aura }                                                    from 'src/app/Model/Aura';
 import { MainConfig }                                              from 'src/app/Model/Config/MainConfig';
 import { CustomElement }                                           from 'src/app/Model/CustomElement/CustomElement';
+import { CustomElementGroup }                                      from 'src/app/Model/CustomElement/CustomElementGroup';
 import { ConfigService }                                           from 'src/app/Service/ConfigService';
 import { CustomElementService }                                    from 'src/app/Service/CustomElementService';
 import { LogParser }                                               from 'src/app/Service/LogParser/LogParser';
@@ -137,6 +138,14 @@ export class AppComponent implements OnInit {
 
 	saveCustomElementPosition(customElement: CustomElement, $event: IPosition) {
 		customElement.position = $event;
+	}
+
+	saveCustomElementGroupSize(group: CustomElementGroup, $event: IResizeEvent) {
+		group.size = $event.size;
+	}
+
+	saveCustomElementGroupPosition(group: CustomElementGroup, $event: IPosition) {
+		group.position = $event;
 	}
 
 	test() {

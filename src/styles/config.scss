@@ -55,7 +55,7 @@ config-range,
 .config-window {
 	width:            800px;
 	height:           600px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: $ui-background-color;
 	border:           $config-border;
 	color:            $config-color;
 
@@ -78,25 +78,5 @@ config-range,
 	.config-pane {
 		width:        200px;
 		border-right: $config-border;
-
-		//button {
-		//	width:            100%;
-		//	height:           30px;
-		//	display:          block;
-		//	line-height:      30px;
-		//	border:           0;
-		//	outline:          0;
-		//	border-bottom:    $config-border;
-		//	background-color: transparent;
-		//	color:            $config-color;
-		//
-		//	&:hover {
-		//		box-shadow: inset 0px -5px 20px 0 $config-border-color;
-		//	}
-		//
-		//	&.active {
-		//		background-color: $config-border-color;
-		//	}
-		//}
 	}
 }

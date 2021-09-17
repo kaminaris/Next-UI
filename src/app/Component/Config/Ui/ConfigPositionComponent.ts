@@ -12,7 +12,7 @@ import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface
 			<label class="ta-r" style="width: 20%">Y: </label>
 			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="position.y" (ngModelChange)="apply()">
 		</div>
-		<div class="config-reset">
+		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`

@@ -123,6 +123,26 @@
 		</div>
 	</control>
 
+	<ng-container *ngFor="let group of elementService.elementGroups">
+		<custom-element-group class="draggable d-block frame-custom-element no-sel"
+				[group]="group"
+				[class.frame-bg]="moveMode || group.uiActive"
+				[style.width.px]="group.size.width"
+				[style.height.px]="group.size.height"
+				[ngDraggable]="moveMode || group.uiActive"
+				[ngResizable]="moveMode || group.uiActive"
+				[handle]="customElementGroupDragHandle"
+				rzHandles="all"
+				[position]="group.position"
+				(rzStop)="saveCustomElementGroupSize(group, $event)"
+				(endOffset)="saveCustomElementGroupPosition(group, $event)"
+		>
+			<div #customElementGroupDragHandle class="grab-handle" [style.display]="moveMode || group.uiActive ? 'block': 'none'">
+				<icon-mover [size]="20"></icon-mover>
+			</div>
+		</custom-element-group>
+	</ng-container>
+
 	<ng-container *ngFor="let customElement of elementService.elements">
 		<custom-element class="draggable d-block frame-custom-element no-sel"
 				[element]="customElement"

@@ -12,7 +12,7 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 				{{ configObj[prop] }}
 			</span>
 		</div>
-		<div class="config-reset">
+		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
