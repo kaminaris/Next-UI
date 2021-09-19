@@ -16,6 +16,6 @@ export class AggroListFrameConfig extends PlayerFrameConfig implements Serializa
 
 	get sorter(): SorterType { return this.sorterSub.value; }
 	set sorter(v: SorterType) { this.sorterSub.next(v); }
-	sorterSub = new DistinctBehaviorSubject<SorterType>(null);
+	sorterSub = new DistinctBehaviorSubject<SorterType>('default');
 	// @formatter:on
 }

@@ -20,6 +20,22 @@ import { CustomElementGroup } from 'src/app/Model/CustomElement/CustomElementGro
 					[reset]="false"
 					(afterSet)="update()"
 				></config-size>
+
+				<config-checkbox label="Dynamic Position"
+					[configObj]="group"
+					prop="dynamic"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-checkbox>
+
+				<config-checkbox label="Vertical"
+					[configObj]="group"
+					prop="vertical"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-checkbox>
+				
+				
 			</config-group>
 		</div>
 	`

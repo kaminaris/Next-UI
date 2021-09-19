@@ -12,17 +12,20 @@ const indexes = {
 };
 
 export class AbilityUseHandler implements HandlerInterface {
-eventId = 0x14
+	eventId = 0x14;
+
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
-		const abilityIdHex = event[indexes.abilityId]?.toUpperCase() ?? '';
-		const abilityId = parseInt(abilityIdHex);
+
+		const abilityId = parseInt(event[indexes.abilityId] || '0', 16);
 		const abilityName = event[indexes.abilityName] ?? '';
+
 		const targetId = parseInt(event[indexes.targetId] || '0', 16);
 		const targetName = event[indexes.targetName] ?? '';
+
 		const duration = parseInt(event[indexes.duration] ?? '0');
 
 		const target = targetName.length === 0 ? 'Unknown' : targetName;
@@ -37,7 +40,16 @@ eventId = 0x14
 			sourceId: id,
 			sourceName: name
 		});
-
+console.log({
+	type: 'use',
+	abilityName,
+	abilityId,
+	targetId,
+	targetName,
+	duration,
+	sourceId: id,
+	sourceName: name
+})
 		const combatant = this.parser.findCombatant(id, name);
 		if (!combatant) {
 			return;
@@ -45,13 +57,13 @@ eventId = 0x14
 
 		if (combatant.isPlayer) {
 			console.log(
-				`Cast start: ${abilityName} on ${target} (${duration})`
+				`Cast start: ${ abilityName } on ${ target } (${ duration })`
 			);
 		}
 
 		if (this.parser.debugMode) {
 			console.log(
-				abilityIdHex +
+				abilityId +
 				':' + name +
 				' starts using ' + abilityName +
 				' on ' + target + '.'

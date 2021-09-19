@@ -47,6 +47,13 @@ import { LogParser }                from 'src/app/Service/LogParser/LogParser';
 			></trigger-status-config>
 		</config-group>
 		
+		<config-group title="Status Trigger" *ngIf="triggerType === 'ability-use'">
+			<trigger-ability-use-config 
+				[customElement]="customElement" 
+				[trigger]="customElement.trigger"
+			></trigger-ability-use-config>
+		</config-group>
+		
 	`
 })
 export class CustomElementTriggerConfigComponent implements OnInit {

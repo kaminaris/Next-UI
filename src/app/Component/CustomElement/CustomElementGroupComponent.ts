@@ -16,22 +16,25 @@ import { ConfigService }                                          from 'src/app/
 		<ng-content></ng-content>
 		<div class="position-relative"
 			[class.d-flex]="group.dynamic"
+			[class.flex-column]="group.vertical"
 		>
 			<custom-element *ngFor="let customElement of group.children"
-				class="draggable d-block frame-custom-element no-sel"
+				class="d-block frame-custom-element no-sel"
+				[class.draggable]="!group.dynamic"
 				[element]="customElement"
 				[class.frame-bg]="moveMode || customElement.uiActive"
 				[style.width.px]="customElement.size.width"
 				[style.height.px]="customElement.size.height"
-				[ngDraggable]="moveMode || customElement.uiActive"
+				[ngDraggable]="!group.dynamic && (moveMode || customElement.uiActive)"
 				[ngResizable]="moveMode || customElement.uiActive"
 				(rzStop)="saveCustomElementSize(customElement, $event)"
 				(endOffset)="saveCustomElementPosition(customElement, $event)"
 				[handle]="customElementDragHandle"
 				rzHandles="all"
-				[position]="customElement.position"
+				[position]="group.dynamic ? { x: 0, y: 0 } : customElement.position"
 			>
-				<div #customElementDragHandle class="grab-handle" [style.display]="moveMode || customElement.uiActive ? 'block': 'none'">
+				<div #customElementDragHandle class="grab-handle" 
+					[style.display]="!group.dynamic && (moveMode || customElement.uiActive) ? 'block': 'none'">
 					<icon-mover [size]="20"></icon-mover>
 				</div>
 			</custom-element>

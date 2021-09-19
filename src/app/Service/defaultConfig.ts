@@ -14,7 +14,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 		maleVolume: 0.8,
 		femaleRate: 1,
 		femalePitch: 1,
-		femaleVolume: 0.8,
+		femaleVolume: 0.8
 	},
 	colorConfig: {
 		enabled: true
@@ -70,7 +70,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 
 			widgets: {
 				job: {
@@ -141,7 +141,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 
 			widgets: {
 				job: {
@@ -212,7 +212,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 
 			widgets: {
 				job: {
@@ -283,7 +283,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 
 			widgets: {
 				job: {
@@ -354,12 +354,13 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraAnchor: 'left',
 			auraOnlyOwn: false,
 			auraFilters: [],
+			sorter: 'default',
 
 			showRoleIcon: true,
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 
 			widgets: {
 				job: {
@@ -426,12 +427,13 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			auraAnchor: 'left',
 			auraOnlyOwn: true,
 			auraFilters: [],
+			sorter: 'default',
 
 			showRoleIcon: false,
 			roleIconColor: 'rgba(255,255,255,1)',
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
-			roleIconPosition: {x: 30, y: 5},
+			roleIconPosition: { x: 30, y: 5 },
 			widgets: {
 				name: {
 					show: true,
@@ -496,7 +498,7 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 					fontSize: '14px',
 					position: { x: -3, y: -8 },
 					outline: true
-				},
+				}
 			}
 		}
 	}

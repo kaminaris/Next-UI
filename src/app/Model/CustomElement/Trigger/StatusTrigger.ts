@@ -21,11 +21,12 @@ export class StatusTrigger extends Trigger {
 		unit: '',
 		targetName: '',
 		multiTarget: false,
-		appliedByPlayer: true,
+		appliedByPlayer: true
 	};
 
 	attach() {
-		this.detach();
+		super.attach();
+
 		if (this.options.multiTarget) {
 			this.subs.push(this.parser.eventDispatcher.status.subscribe(this.multiSearch.bind(this)));
 			return;
@@ -101,7 +102,7 @@ export class StatusTrigger extends Trigger {
 		this.data.next({
 			statusId: ev.statusId,
 			targetName: ev.targetName,
-			targetId: ev.targetId,
-		})
+			targetId: ev.targetId
+		});
 	}
 }

@@ -7,7 +7,7 @@ export class NeverActiveTrigger extends Trigger {
 	type: TriggerType = 'never-active';
 
 	attach() {
-		this.detach();
+		super.attach();
 		this.active.next(false);
 	}
 }

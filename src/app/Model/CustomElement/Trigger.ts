@@ -33,6 +33,9 @@ export interface TriggerData {
 	statusId?: number;
 	statusName?: string;
 
+	abilityId?: number;
+	abilityName?: string;
+
 	message?: string; // chat message or event message
 }
 
@@ -43,7 +46,9 @@ export class Trigger {
 
 	tickPeriod = 100;
 	hasTick = false;
+	deactivateOnTickEnd = false;
 	tickInterval: number = null;
+	activeSub: Subscription = null;
 
 	options: any;
 
@@ -53,8 +58,14 @@ export class Trigger {
 
 	activatedAt = 0;
 
-	constructor(protected parser: LogParser) {
-		this.active.subscribe((a: boolean) => {
+	constructor(protected parser: LogParser) {}
+
+	protected subs: Subscription[] = [];
+
+	attach() {
+		this.detach();
+
+		this.activeSub = this.active.subscribe((a: boolean) => {
 			this.activatedAt = a ? new Date().valueOf() : null;
 
 			if (this.hasTick) {
@@ -67,13 +78,8 @@ export class Trigger {
 		});
 	}
 
-	protected subs: Subscription[] = [];
-
-	attach() {
-		this.detach();
-	}
-
 	detach() {
+		this.activeSub?.unsubscribe();
 		this.active.next(false);
 
 		for (const sub of this.subs) {
@@ -90,11 +96,15 @@ export class Trigger {
 	startTick() {
 		this.tickInterval = window.setInterval(() => {
 			this.elapsed = (new Date().valueOf() - this.activatedAt) / 1000;
-			console.log(this.elapsed, new Date().valueOf(), this.activatedAt, 'tck')
 
 			if (this.elapsed >= this.duration) {
-				this.elapsed = this.duration;
-				window.clearInterval(this.tickInterval);
+				this.elapsed = 0;
+				this.clearTick();
+
+				if (this.deactivateOnTickEnd) {
+					this.active.next(false);
+
+				}
 			}
 			this.tick.next(this.elapsed);
 		}, this.tickPeriod);

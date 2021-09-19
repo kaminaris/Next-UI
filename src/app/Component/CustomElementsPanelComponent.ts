@@ -14,6 +14,7 @@ import { anchors }              from 'src/app/Data/anchors';
 			<div class="config-bar">
 				<h4 class="mt-1">
 					NextUI - Custom Elements
+					<button type="button" class="btn btn-sm btn-success" (click)="save()">Save</button>
 				</h4>
 
 				<button class="btn btn-sm btn-danger config-close-btn position-absolute" (click)="closeConfig()">
@@ -193,5 +194,9 @@ export class CustomElementsPanelComponent {
 
 	createNewGroup() {
 		this.elementService.addCustomElementGroup();
+	}
+
+	save() {
+		this.elementService.saveCustomElements();
 	}
 }

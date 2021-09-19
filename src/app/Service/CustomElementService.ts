@@ -13,7 +13,9 @@ export class CustomElementService {
 
 	constructor(
 		protected parser: LogParser
-	) {}
+	) {
+		this.loadCustomElements();
+	}
 
 	addCustomElement(group?: CustomElementGroup) {
 		const el = new CustomElement();
@@ -23,7 +25,8 @@ export class CustomElementService {
 
 		if (group) {
 			group.children.push(el);
-		} else {
+		}
+		else {
 			this.elements.push(el);
 		}
 
@@ -113,5 +116,52 @@ export class CustomElementService {
 		this.elements.push(el);
 
 		el.trigger.attach();
+	}
+
+	saveCustomElements() {
+		const r: any = {
+			elements: [],
+			groups: []
+		};
+
+		for (const element of this.elements) {
+			r.elements.push(element.serialize());
+		}
+
+		for (const group of this.elementGroups) {
+			r.groups.push(group.serialize());
+		}
+
+		localStorage.setItem('customElements', JSON.stringify(r));
+	}
+
+	loadCustomElements() {
+		let c: any = localStorage.getItem('customElements') || '';
+		try {
+			c = JSON.parse(c);
+		}
+		catch (e) {
+			c = {};
+		}
+
+		if (c.elements && Array.isArray(c.elements)) {
+			for (const el of c.elements) {
+				const element = new CustomElement();
+				element.unserialize(el, this.parser);
+				element.trigger.attach();
+				this.elements.push(element);
+			}
+		}
+
+		if (c.groups && Array.isArray(c.groups)) {
+			for (const gr of c.groups) {
+				const group = new CustomElementGroup();
+				group.unserialize(gr, this.parser);
+				for (const element of group.children) {
+					element.trigger.attach();
+				}
+				this.elementGroups.push(group);
+			}
+		}
 	}
 }

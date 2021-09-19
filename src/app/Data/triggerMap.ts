@@ -1,5 +1,6 @@
 import { Type }                 from '@angular/core';
 import { Trigger, TriggerType } from 'src/app/Model/CustomElement/Trigger';
+import { AbilityUseTrigger }    from 'src/app/Model/CustomElement/Trigger/AbilityUseTrigger';
 import { AlwaysActiveTrigger }  from 'src/app/Model/CustomElement/Trigger/AlwaysActiveTrigger';
 import { ChatTrigger }          from 'src/app/Model/CustomElement/Trigger/ChatTrigger';
 import { NeverActiveTrigger }   from 'src/app/Model/CustomElement/Trigger/NeverActiveTrigger';
@@ -36,5 +37,11 @@ export const triggerMap: TriggerMap[] = [
 		label: 'Status',
 		description: '',
 		trigger: StatusTrigger
+	},
+	{
+		name: 'ability-use',
+		label: 'Ability Use',
+		description: '',
+		trigger: AbilityUseTrigger
 	}
 ];

@@ -18,6 +18,8 @@ export abstract class BaseConfigComponent {
 	@Output() resetProp = new EventEmitter<any>();
 	@Output() afterSet = new EventEmitter<any>();
 
+	// copied value from object
+
 	constructor(
 		public conf: ConfigService,
 		protected cd: ChangeDetectorRef

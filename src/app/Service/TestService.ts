@@ -16,6 +16,7 @@ export class TestService {
 	}
 
 	testMode() {
+		document.body.style.backgroundImage = 'url(https://i.imgur.com/fP3kF8J.jpeg)';
 		this.parser.registerPlayer('Player Name', 1);
 		const player = this.parser.player.value;
 		player.job.next('MCH');
@@ -76,7 +77,7 @@ export class TestService {
 			let pick: Combatant;
 			do {
 				pick = this.randomElement(this.parser.combatants.value);
-			} while (combs.indexOf(pick) >= 0 || pick.job.value === 'NONE')
+			} while (combs.indexOf(pick) >= 0 || pick.job.value === 'NONE');
 			combs.push(pick);
 		}
 
@@ -141,7 +142,7 @@ export class TestService {
 			this.randomElement(combatants),
 			this.randomElement(combatants),
 			this.randomElement(combatants),
-			this.randomElement(combatants),
+			this.randomElement(combatants)
 		];
 
 		this.parser.setAggroList(rCombatants);
@@ -162,6 +163,24 @@ export class TestService {
 		}
 	}
 
+	abilityUse(abilityId: number, abilityName: string) {
+		this.parser.parse([
+			0x14.toString(),
+			'',
+
+			this.parser.player.value.id.toString(16),
+			this.parser.player.value.name,
+
+			abilityId.toString(16),
+			abilityName,
+
+			this.parser.target.value.id.toString(16),
+			this.parser.target.value.name,
+
+			'5'
+		]);
+	}
+
 	addPlayerAura(id: number, duration = 30, stacks = 1) {
 		const s = statuses.find(s => s.id === id);
 		this.parser.player.value.updateAura(
@@ -170,7 +189,7 @@ export class TestService {
 			stacks,
 			this.parser.player.value.id,
 			duration
-		)
+		);
 
 		setTimeout(() => {
 			this.parser.player.value.removeAura(s.id, s.name);
@@ -187,6 +206,6 @@ export class TestService {
 	}
 
 	randomRange(min: number, max: number) {
-		return Math.floor(Math.random() * (max - min + 1) + min)
+		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 }

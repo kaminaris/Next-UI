@@ -50,6 +50,22 @@ import { CustomElementText } from 'src/app/Model/CustomElement/CustomElementText
 					(afterSet)="update()"
 				></config-checkbox>
 
+				<config-checkbox label="Circular"
+					[configObj]="customElement"
+					prop="progressBarCircular"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-checkbox>
+
+				<config-input label="Circular Radius" 
+					*ngIf="customElement.progressBarCircular"
+					inputType="number"
+					[configObj]="customElement"
+					prop="progressBarRadius"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-input>
+
 				<config-color label="Background"
 					[configObj]="customElement"
 					prop="progressBarBgColor"

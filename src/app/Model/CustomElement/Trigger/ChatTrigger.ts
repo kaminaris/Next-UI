@@ -10,7 +10,7 @@ export class ChatTrigger extends Trigger {
 	};
 
 	attach() {
-		this.detach();
+		super.attach();
 
 		this.subs.push(this.parser.eventDispatcher.chat.subscribe(ev => {
 

@@ -19,13 +19,19 @@ import { ConfigService }                                          from 'src/app/
 			</div>
 
 			<progress-bar class="position-absolute fill-abs z10"
-				*ngIf="element.progressBar"
-				height="100%"
-				width="100%"
+				*ngIf="element.progressBar && !element.progressBarCircular"
 				[percent]="data?.progressRaw"
 				[bgColor]="element.progressBarBgColor"
 				[fillColor]="element.progressBarFillColor"
 			></progress-bar>
+
+			<progress-bar-circular class="position-absolute fill-abs z10"
+				*ngIf="element.progressBar && element.progressBarCircular"
+				[radius]="element.progressBarRadius"
+				[percent]="data?.progressRaw"
+				[bgColor]="element.progressBarBgColor"
+				[fillColor]="element.progressBarFillColor"
+			></progress-bar-circular>
 
 			<img class="custom-element-image"
 				*ngIf="element.image"

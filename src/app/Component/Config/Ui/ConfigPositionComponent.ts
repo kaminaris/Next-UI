@@ -7,9 +7,9 @@ import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface
 	template: `
 		<div class="config-label">{{ label }}</div>
 		<div class="config-input d-flex flex-row">
-			<label class="ta-r" style="width: 20%">X: </label>
+			<label class="ta-r lh-30 pe-1" style="width: 20%">X: </label>
 			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="position.x" (ngModelChange)="apply()">
-			<label class="ta-r" style="width: 20%">Y: </label>
+			<label class="ta-r lh-30 pe-1" style="width: 20%">Y: </label>
 			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="position.y" (ngModelChange)="apply()">
 		</div>
 		<div class="config-reset" *ngIf="reset">

@@ -24,6 +24,8 @@ export class CustomElement {
 
 	progress = 0;
 	progressBar = false;
+	progressBarCircular = false;
+	progressBarRadius = 90;
 	progressBarBgColor = 'rgba(33,32,33,0.8)';
 	progressBarFillColor = 'rgba(200, 50, 50, 0.7)';
 
@@ -47,7 +49,13 @@ export class CustomElement {
 			opacity: this.opacity,
 			image: this.image,
 			texts: texts,
+
 			progressBar: this.progressBar,
+			progressBarCircular: this.progressBarCircular,
+			progressBarRadius: this.progressBarRadius,
+			progressBarBgColor: this.progressBarBgColor,
+			progressBarFillColor: this.progressBarFillColor,
+
 			trigger: this.trigger.serialize()
 		};
 	}
@@ -58,12 +66,18 @@ export class CustomElement {
 		this.size = Object.assign({}, data.size);
 		this.opacity = data.opacity;
 		this.image = data.image;
+
 		this.progressBar = data.progressBar;
+		this.progressBarCircular = data.progressBarCircular;
+		this.progressBarRadius = data.progressBarRadius;
+		this.progressBarBgColor = data.progressBarBgColor;
+		this.progressBarFillColor = data.progressBarFillColor;
+
 		const texts = [];
 		for (const t of data.texts) {
 			const newText = new CustomElementText();
 			newText.unserialize(t);
-			texts.push(newText)
+			texts.push(newText);
 		}
 		this.texts = texts;
 

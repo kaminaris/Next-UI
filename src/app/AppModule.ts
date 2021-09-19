@@ -41,11 +41,13 @@ import { CustomElementVisualConfigComponent }       from 'src/app/Component/Cust
 import { CustomElementGroupExportConfigComponent }  from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupExportConfigComponent';
 import { CustomElementGroupGeneralConfigComponent } from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupGeneralConfigComponent';
 import { CustomElementGroupVisualConfigComponent }  from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupVisualConfigComponent';
+import { TriggerAbilityUseConfigComponent }         from 'src/app/Component/CustomElement/Config/Trigger/TriggerAbilityUseConfigComponent';
 import { TriggerChatConfigComponent }               from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
 import { TriggerStatusConfigComponent }             from 'src/app/Component/CustomElement/Config/Trigger/TriggerStatusConfigComponent';
 import { CustomElementComponent }                   from 'src/app/Component/CustomElement/CustomElementComponent';
 import { CustomElementGroupComponent }              from 'src/app/Component/CustomElement/CustomElementGroupComponent';
 import { CustomElementsPanelComponent }             from 'src/app/Component/CustomElementsPanelComponent';
+import { ProgressBarCircularComponent }             from 'src/app/Component/ProgressBarCircularComponent';
 import { ProgressBarComponent }                     from 'src/app/Component/ProgressBarComponent';
 
 import { IconApps }    from 'src/app/Component/Icon/IconApps';
@@ -103,6 +105,7 @@ export function getBaseUrl() {
 		PlayerComponent,
 		ControlComponent,
 		ProgressBarComponent,
+		ProgressBarCircularComponent,
 
 		// Config Windows
 		ConfigWindowMainComponent, ConfigWindowPlayerComponent, ConfigWindowTargetComponent,
@@ -126,6 +129,7 @@ export function getBaseUrl() {
 
 		TriggerChatConfigComponent,
 		TriggerStatusConfigComponent,
+		TriggerAbilityUseConfigComponent,
 
 		// Pipes
 		DurationPipe,
