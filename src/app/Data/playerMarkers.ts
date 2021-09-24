@@ -1,0 +1,16 @@
+export const playerMarkers = [
+	{ id: 0, name: 'Target to Attack 1' },
+	{ id: 1, name: 'Target to Attack 2' },
+	{ id: 2, name: 'Target to Attack 3' },
+	{ id: 3, name: 'Target to Attack 4' },
+	{ id: 4, name: 'Target to Attack 5' },
+	{ id: 5, name: 'Target to Bind 1' },
+	{ id: 6, name: 'Target to Bind 2' },
+	{ id: 7, name: 'Target to Bind 3' },
+	{ id: 8, name: 'Target to Ignore 1' },
+	{ id: 9, name: 'Target to Ignore 2' },
+	{ id: 10, name: 'Square' },
+	{ id: 11, name: 'Circle' },
+	{ id: 12, name: 'Plus' },
+	{ id: 13, name: 'Triangle' },
+]

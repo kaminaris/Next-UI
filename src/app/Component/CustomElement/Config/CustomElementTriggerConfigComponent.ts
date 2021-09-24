@@ -54,6 +54,20 @@ import { LogParser }                from 'src/app/Service/LogParser/LogParser';
 			></trigger-ability-use-config>
 		</config-group>
 		
+		<config-group title="Head Marker Trigger" *ngIf="triggerType === 'head-marker'">
+			<trigger-head-marker-config 
+				[customElement]="customElement" 
+				[trigger]="customElement.trigger"
+			></trigger-head-marker-config>
+		</config-group>
+		
+		<config-group title="Player Marker Trigger" *ngIf="triggerType === 'player-marker'">
+			<trigger-player-marker-config 
+				[customElement]="customElement" 
+				[trigger]="customElement.trigger"
+			></trigger-player-marker-config>
+		</config-group>
+		
 	`
 })
 export class CustomElementTriggerConfigComponent implements OnInit {

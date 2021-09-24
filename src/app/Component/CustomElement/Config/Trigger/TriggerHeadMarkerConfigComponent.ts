@@ -1,46 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CustomElement }            from 'src/app/Model/CustomElement/CustomElement';
 import { Trigger }                  from 'src/app/Model/CustomElement/Trigger';
+import { HeadMarkerTrigger }        from 'src/app/Model/CustomElement/Trigger/HeadMarkerTrigger';
 import { StatusTrigger }            from 'src/app/Model/CustomElement/Trigger/StatusTrigger';
 
 @Component({
-	selector: 'trigger-status-config',
+	selector: 'trigger-head-marker-config',
 	template: `
-		<config-checkbox [configObj]="trigger.options" prop="multiTarget" label="Multi Target"
-			(afterSet)="update()"
-			[reset]="false"
-		></config-checkbox>
-
-		<config-input [configObj]="trigger.options" prop="statusName" label="Status Name"
-			[reset]="false"
-			(afterSet)="update()"
-		></config-input>
-
-		<config-input [configObj]="trigger.options" prop="statusId" label="Status ID"
+		<config-input [configObj]="trigger.options" prop="headMarkerId" label="Head Marker ID"
 			inputType="number"
 			[reset]="false"
 			(afterSet)="update()"
 		></config-input>
 
-		<ng-container *ngIf="!trigger.options.multiTarget">
-			<config-select [configObj]="trigger.options" prop="unit" label="Unit"
-				[items]="unitTargets"
-				(afterSet)="update()"
-			></config-select>
-		</ng-container>
-
-		<ng-container *ngIf="trigger.options.multiTarget">
-			<config-input [configObj]="trigger.options" label="Actor Name"
-				prop="targetName"
-				[reset]="false"
-				(afterSet)="update()"
-			></config-input>
-		</ng-container>
-
-		<config-checkbox [configObj]="trigger.options" prop="appliedByPlayer" label="Only applied by player"
-			(afterSet)="update()"
+		<config-input [configObj]="trigger.options" label="Actor Name"
+			prop="targetName"
 			[reset]="false"
-		></config-checkbox>
+			(afterSet)="update()"
+		></config-input>
 
 		<config-input [configObj]="this" label="Visible time [s]"
 			prop="newDuration"
@@ -50,9 +27,9 @@ import { StatusTrigger }            from 'src/app/Model/CustomElement/Trigger/St
 		></config-input>
 	`
 })
-export class TriggerStatusConfigComponent implements OnInit {
+export class TriggerHeadMarkerConfigComponent implements OnInit {
 	@Input() customElement: CustomElement;
-	@Input() trigger: StatusTrigger | Trigger;
+	@Input() trigger: HeadMarkerTrigger | Trigger;
 
 	newDuration = 0;
 

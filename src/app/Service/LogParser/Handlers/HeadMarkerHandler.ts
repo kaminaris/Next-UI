@@ -13,9 +13,15 @@ export class HeadMarkerHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		const id = event[indexes.targetId]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.targetId] || '0', 16);
 		const name = event[indexes.targetName] ?? '';
-		const headMarkerId = event[indexes.headMarkerId] ?? '';
+		const headMarkerId = parseInt(event[indexes.headMarkerId] || '0', 16);
+
+		this.parser.eventDispatcher.headMarker.next({
+			headMarkerId,
+			targetId: id,
+			targetName: name
+		});
 
 		if (this.parser.debugMode) {
 			console.log(

@@ -29,24 +29,12 @@ import { AbilityUseTrigger }        from 'src/app/Model/CustomElement/Trigger/Ab
 			(afterSet)="update()"
 		></config-input>
 		
-		<config-input [configObj]="this" label="Visible time [ms]"
+		<config-input [configObj]="this" label="Visible time [s]"
 			prop="newDuration"
 			inputType="number"
 			[reset]="false"
 			(afterSet)="update()"
 		></config-input>
-		
-<!--		<div class="custom-config-row">-->
-<!--			<div class="config-label">Visible time [ms]</div>-->
-<!--			<div class="config-input">-->
-<!--				<input type="number" class="form-control form-control-sm"-->
-<!--					placeholder="How long should it be visible"-->
-<!--					[(ngModel)]="newDuration"-->
-<!--					[ngModelOptions]="{standalone: true}"-->
-<!--					(ngModelChange)="update()"-->
-<!--				>-->
-<!--			</div>-->
-<!--		</div>-->
 	`
 })
 export class TriggerAbilityUseConfigComponent implements OnInit {

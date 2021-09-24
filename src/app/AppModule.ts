@@ -43,6 +43,8 @@ import { CustomElementGroupGeneralConfigComponent } from 'src/app/Component/Cust
 import { CustomElementGroupVisualConfigComponent }  from 'src/app/Component/CustomElement/Config/Group/CustomElementGroupVisualConfigComponent';
 import { TriggerAbilityUseConfigComponent }         from 'src/app/Component/CustomElement/Config/Trigger/TriggerAbilityUseConfigComponent';
 import { TriggerChatConfigComponent }               from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
+import { TriggerHeadMarkerConfigComponent }         from 'src/app/Component/CustomElement/Config/Trigger/TriggerHeadMarkerConfigComponent';
+import { TriggerPlayerMarkerConfigComponent }       from 'src/app/Component/CustomElement/Config/Trigger/TriggerPlayerMarkerConfigComponent';
 import { TriggerStatusConfigComponent }             from 'src/app/Component/CustomElement/Config/Trigger/TriggerStatusConfigComponent';
 import { CustomElementComponent }                   from 'src/app/Component/CustomElement/CustomElementComponent';
 import { CustomElementGroupComponent }              from 'src/app/Component/CustomElement/CustomElementGroupComponent';
@@ -130,6 +132,8 @@ export function getBaseUrl() {
 		TriggerChatConfigComponent,
 		TriggerStatusConfigComponent,
 		TriggerAbilityUseConfigComponent,
+		TriggerHeadMarkerConfigComponent,
+		TriggerPlayerMarkerConfigComponent,
 
 		// Pipes
 		DurationPipe,

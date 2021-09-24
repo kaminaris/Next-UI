@@ -16,10 +16,21 @@ export class PlayerMarkerHandler implements HandlerInterface {
 	constructor(public parser: LogParser) {}
 
 	handle(event: string[]) {
-		const id = event[indexes.targetId]?.toUpperCase() ?? '';
+		const id = parseInt(event[indexes.targetId] || '0', 16);
 		const name = event[indexes.targetName] ?? '';
-		const operation = event[indexes.operation] ?? '';
-		const markerId = event[indexes.markerId] ?? '';
+		const operation = (event[indexes.operation] ?? '').toLowerCase();
+		const markerId = parseInt(event[indexes.markerId] ?? '0');
+
+		if (!operation) {
+			return;
+		}
+
+		this.parser.eventDispatcher.playerMarker.next({
+			markerId: markerId,
+			operation: operation as any,
+			targetId: id,
+			targetName: name
+		});
 
 		if (this.parser.debugMode) {
 			console.log(

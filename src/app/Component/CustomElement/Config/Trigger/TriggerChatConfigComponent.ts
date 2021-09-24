@@ -26,17 +26,13 @@ import { ChatTrigger }      from 'src/app/Model/CustomElement/Trigger/ChatTrigge
 				>
 			</div>
 		</div>
-		<div class="custom-config-row">
-			<div class="config-label">Visible time [ms]</div>
-			<div class="config-input">
-				<input type="number" class="form-control form-control-sm"
-					placeholder="How long should it be visible"
-					[(ngModel)]="newDuration"
-					[ngModelOptions]="{standalone: true}"
-					(ngModelChange)="update()"
-				>
-			</div>
-		</div>
+		
+		<config-input [configObj]="this" label="Visible time [s]"
+			prop="newDuration"
+			inputType="number"
+			[reset]="false"
+			(afterSet)="update()"
+		></config-input>
 	`
 })
 export class TriggerChatConfigComponent implements OnInit {

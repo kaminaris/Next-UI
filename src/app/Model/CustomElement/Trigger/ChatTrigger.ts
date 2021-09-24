@@ -3,6 +3,7 @@ import { Trigger, TriggerType } from 'src/app/Model/CustomElement/Trigger';
 export class ChatTrigger extends Trigger {
 	type: TriggerType = 'chat';
 	hasTick = true;
+	deactivateOnTickEnd = true;
 
 	options = {
 		speaker: '',
@@ -25,16 +26,17 @@ export class ChatTrigger extends Trigger {
 				this.active.next(false);
 				return;
 			}
-			console.log('EV', ev)
+
 			this.active.next(true);
 			this.data.next({
 				sourceName: ev.speaker,
 				message: ev.message,
 			});
+
 			// chat triggers must have timed trigger
-			setTimeout(() => {
-				this.active.next(false);
-			}, this.duration * 1000);
+			// setTimeout(() => {
+			// 	this.active.next(false);
+			// }, this.duration * 1000);
 		}));
 	}
 }

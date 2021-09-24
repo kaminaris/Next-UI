@@ -36,6 +36,10 @@ export interface TriggerData {
 	abilityId?: number;
 	abilityName?: string;
 
+	headMarkerId?: number;
+	playerMarkerId?: number;
+	playerMarkerName?: string;
+
 	message?: string; // chat message or event message
 }
 
@@ -108,6 +112,23 @@ export class Trigger {
 			}
 			this.tick.next(this.elapsed);
 		}, this.tickPeriod);
+	}
+
+	evaluateUnit(unit: keyof Pick<LogParser, 'target' | 'focus' | 'player' | 'targetOfTarget'>) {
+		const combatant = this.parser[unit].value;
+		if (!combatant) {
+			return null;
+		}
+
+		return combatant;
+	}
+
+	evaluateUnitName(unit: keyof Pick<LogParser, 'target' | 'focus' | 'player' | 'targetOfTarget'>) {
+		return this.evaluateUnit(unit)?.name;
+	}
+
+	isSpecialUnitName(unit: any) {
+		return ['target', 'focus', 'player', 'targetOfTarget'].indexOf(unit) >= 0;
 	}
 
 	/**
