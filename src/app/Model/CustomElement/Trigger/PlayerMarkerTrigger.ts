@@ -13,7 +13,6 @@ export class PlayerMarkerTrigger extends Trigger {
 		super.attach();
 
 		this.subs.push(this.parser.eventDispatcher.playerMarker.subscribe(ev => {
-			console.log('EVENT', ev);
 			if (this.options.markerId !== 999 && ev.markerId !== this.options.markerId) {
 				return;
 			}
@@ -23,7 +22,6 @@ export class PlayerMarkerTrigger extends Trigger {
 					this.isSpecialUnitName(this.options.targetName) ?
 					this.evaluateUnitName(this.options.targetName as any) : this.options.targetName
 				;
-				console.log('EVENT EV NAME', evaluatedName);
 				if (ev.targetName.indexOf(evaluatedName) < 0) {
 					// message does not match
 					return;

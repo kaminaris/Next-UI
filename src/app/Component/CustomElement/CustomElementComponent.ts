@@ -81,7 +81,6 @@ export class CustomElementComponent implements OnInit, OnDestroy {
 		this.triggerSubs.push(trigger.active.subscribe((a: boolean) => {
 			this.show = a;
 			this.cd.detectChanges();
-			console.log('TRIGGER CHANGE', a);
 		}));
 
 		this.triggerSubs.push(trigger.tick.subscribe(() => {
@@ -95,14 +94,12 @@ export class CustomElementComponent implements OnInit, OnDestroy {
 			};
 
 			Object.assign(this.data, newData);
-			console.log('TICK', this.data)
 			this.cd.detectChanges();
 		}));
 
 		this.triggerSubs.push(trigger.data.subscribe((e?: TriggerData) => {
 			Object.assign(this.data, e);
 			this.cd.detectChanges();
-			console.log('TRIGGER DATA CHANGE', e);
 		}));
 	}
 

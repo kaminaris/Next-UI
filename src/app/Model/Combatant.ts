@@ -8,6 +8,8 @@ export const dpses = [
 	'PGL', 'LNC', 'ARC', 'THM', 'MNK', 'DRG', 'BRD', 'BLM', 'ACN', 'SMN', 'ROG', 'NIN', 'MCH', 'SAM', 'RDM', 'BLU',
 	'DNC'
 ];
+export const crafters = ['CRP', 'BSM', 'ARM', 'GSM', 'LTW', 'WVR', 'ALC', 'CUL'];
+export const gatherer = ['BTN', 'MIN', 'FSH'];
 
 export class Combatant {
 	static ENV_ID = 3758096384;
@@ -19,6 +21,9 @@ export class Combatant {
 	isPlayer = false;
 	isNPC = false;
 	isTarget = false;
+	isGatherer = false;
+	isCrafter = false;
+	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer }
 	inParty = new BehaviorSubject<boolean>(false);
 
 	hp = new BehaviorSubject<number>(100);
@@ -59,6 +64,9 @@ export class Combatant {
 			else if (dpses.indexOf(j) >= 0) {
 				this.role = 'dps';
 			}
+
+			this.isCrafter = crafters.indexOf(j) >= 0;
+			this.isGatherer = gatherer.indexOf(j) >= 0;
 		});
 	}
 

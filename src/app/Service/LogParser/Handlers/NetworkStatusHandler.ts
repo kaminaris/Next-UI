@@ -48,8 +48,9 @@ export class NetworkStatusHandler implements HandlerInterface {
 		const job = Util.jobEnumToJob(jobId);
 
 		const level = parseInt(padded.substr(4, 2), 16);
+
 		this.parser.updateCombatant(
-			id, name, hp, hpMax, mana, manaMax, job, level
+			id, name, hp, hpMax, mana, manaMax, job, level, null, 'network-status'
 		);
 	}
 }

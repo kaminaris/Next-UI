@@ -55,7 +55,6 @@ export class TriggerAbilityUseConfigComponent implements OnInit {
 	}
 
 	update() {
-		console.log(this.newDuration, !isNaN(this.newDuration))
 		if (!isNaN(this.newDuration)) {
 			this.trigger.duration = +this.newDuration;
 		}

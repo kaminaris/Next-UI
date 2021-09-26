@@ -81,7 +81,6 @@ export class CustomElementTriggerConfigComponent implements OnInit {
 	constructor(protected parser: LogParser) {}
 
 	ngOnInit() {
-		console.log(this.customElement)
 		this.triggerType = this.customElement.trigger?.type ?? 'never-active';
 		this.triggerTypeSelected = this.triggerType;
 	}

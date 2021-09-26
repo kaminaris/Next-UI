@@ -39,7 +39,7 @@ export class ActionSyncHandler implements HandlerInterface {
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
 		this.parser.updateCombatant(
-			id, name, hp, hpMax, mana, manaMax
+			id, name, hp, hpMax, mana, manaMax, null, null, null, 'action-sync'
 		);
 	}
 }

@@ -69,18 +69,19 @@ export class AppComponent implements OnInit {
 
 	playerChangedEvent(e: { type: string, detail: PlayerDetails }) {
 		const details = e.detail;
-		if (!this.parser.player) {
+		if (!this.parser.player.value) {
 			this.parser.registerPlayer(details.name, details.id);
 			return;
 		}
+		const player = this.parser.player.value;
 
 		this.parser.updateCombatant(
 			details.id,
 			details.name,
 			details.currentHP,
 			details.maxHP,
-			details.currentMP,
-			details.maxMP,
+			player.isGatherer || player.isCrafter ? null : details.currentMP,
+			player.isGatherer || player.isCrafter ? null : details.maxMP,
 			details.job,
 			details.level
 		);

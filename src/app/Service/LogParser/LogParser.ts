@@ -90,7 +90,7 @@ export class LogParser {
 	constructor(
 		public tts: TTSService,
 		public eventDispatcher: EventDispatcher,
-		public config: ConfigService,
+		public config: ConfigService
 	) {
 		// guard target of target in case of target dying
 		this.target.subscribe((v) => {
@@ -135,7 +135,8 @@ export class LogParser {
 		manaMax: number,
 		job?: string,
 		level?: number,
-		isNpc = false
+		isNpc = false,
+		source = 'any'
 	) {
 		const combatants = this.combatants.value;
 		let combatant = this.findCombatant(id, name);
@@ -147,11 +148,7 @@ export class LogParser {
 			combatant.name = name;
 			combatant.updateJob(job);
 			combatant.updateLevel(level);
-
 			combatant.updateHp(hp, hpMax);
-			if (mana || manaMax) {
-				combatant.updateMana(mana, manaMax);
-			}
 
 			combatants.push(combatant);
 			this.combatants.next(combatants);
@@ -161,7 +158,12 @@ export class LogParser {
 			combatant.updateJob(job);
 			combatant.updateLevel(level);
 			combatant.updateHp(hp, hpMax);
-			combatant.updateMana(mana, manaMax);
+		}
+
+		if ((mana || manaMax) && !(source === 'hp-updated' && combatant.isCrafterOrGatherer)) {
+			combatant.updateMana(
+				mana, combatant.isCrafterOrGatherer && source === 'action-sync' ? null : manaMax
+			);
 		}
 
 		return combatant;
