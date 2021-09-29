@@ -26,6 +26,8 @@ export class Combatant {
 	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer }
 	inParty = new BehaviorSubject<boolean>(false);
 
+	sign = new BehaviorSubject<number>(null);
+
 	hp = new BehaviorSubject<number>(100);
 	hpMax = 100;
 

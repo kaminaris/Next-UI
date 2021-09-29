@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+export type XivSocketCommand = 'setTarget' | 'setFocus' | 'setMouseOver' | 'setMouseOverEx' | 'clearMouseOverEx';
+
 @Injectable({ providedIn: 'root' })
 export class XivPluginService {
 	socket: WebSocket;
@@ -23,14 +25,18 @@ export class XivPluginService {
 		this.socket.addEventListener('message', this.onMessage.bind(this));
 	}
 
-	setTarget(targetId: number) {
+	generateGuid() {
+		return 'NU' + Math.random().toString(36).substr(2, 9);
+	}
+
+	setTarget(targetId: number, type: XivSocketCommand = 'setTarget') {
 		if (!this.connected) {
 			return;
 		}
 
 		this.socket.send(JSON.stringify({
-			guid: 'aaa',
-			type: 'setTarget',
+			guid: this.generateGuid(),
+			type: type,
 			target: targetId,
 			message: ''
 		}));

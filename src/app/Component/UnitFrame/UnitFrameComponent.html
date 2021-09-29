@@ -6,6 +6,8 @@
 		[style.border-width.px]="ownConfig.borderWidth"
 		[style.border-color]="ownConfig.borderColor"
 		(click)="setTarget()"
+		(mouseenter)="setMouseOver()"
+		(mouseleave)="clearMouseOver()"
 >
 
 	<role-icon class="position-absolute z20"

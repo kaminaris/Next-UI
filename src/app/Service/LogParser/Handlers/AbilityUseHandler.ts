@@ -40,16 +40,16 @@ export class AbilityUseHandler implements HandlerInterface {
 			sourceId: id,
 			sourceName: name
 		});
-console.log({
-	type: 'use',
-	abilityName,
-	abilityId,
-	targetId,
-	targetName,
-	duration,
-	sourceId: id,
-	sourceName: name
-})
+// console.log({
+// 	type: 'use',
+// 	abilityName,
+// 	abilityId,
+// 	targetId,
+// 	targetName,
+// 	duration,
+// 	sourceId: id,
+// 	sourceName: name
+// })
 		const combatant = this.parser.findCombatant(id, name);
 		if (!combatant) {
 			return;

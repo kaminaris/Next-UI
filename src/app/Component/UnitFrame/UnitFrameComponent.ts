@@ -65,6 +65,21 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.xiv.setTarget(this.combatant.id);
 	}
 
+	setMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		this.xiv.setTarget(this.combatant.id, 'setMouseOverEx');
+	}
+
+	clearMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+		this.xiv.setTarget(this.combatant.id, 'clearMouseOverEx');
+	}
+
 	ngOnInit(): void {
 		this.cd.detach();
 
