@@ -33,7 +33,7 @@ import { LimitGaugeHandler }                               from './Handlers/Limi
 import { NameplateToggleHandler }                          from './Handlers/NameplateToggleHandler';
 import { TetherHandler }                                   from './Handlers/TetherHandler';
 import { AbilityCancelHandler }                            from './Handlers/AbilityCancelHandler';
-import { PlayerMarkerHandler }                             from './Handlers/PlayerMarkerHandler';
+import { SignHandler }                                     from './Handlers/SignHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -76,7 +76,7 @@ export class LogParser {
 		new AuraGainedHandler(this), // 0x1A
 		new HeadMarkerHandler(this), // 0x1B
 		new FloorMarkerHandler(this), // 0x1C
-		new PlayerMarkerHandler(this), // 0x1D
+		new SignHandler(this), // 0x1D
 		new AuraLostHandler(this), // 0x1E
 		new JobGaugeHandler(this), // 0x1F
 		new NameplateToggleHandler(this), // 0x22

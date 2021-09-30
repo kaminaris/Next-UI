@@ -54,6 +54,22 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	set useClassColor(v: boolean) { this.useClassColorSub.next(v); }
 	useClassColorSub = new DistinctBehaviorSubject<boolean>(true);
 
+	get showSign(): boolean { return this.showSignSub.value; }
+	set showSign(v: boolean) { this.showSignSub.next(v); }
+	showSignSub = new DistinctBehaviorSubject<boolean>(true);
+
+	get signAnchor(): Anchor { return this.signAnchorSub.value; }
+	set signAnchor(v: Anchor) { this.signAnchorSub.next(v); }
+	signAnchorSub = new DistinctBehaviorSubject<Anchor>('topRight');
+
+	get signPosition(): FramePositionInterface { return this.signPositionSub.value; }
+	set signPosition(v: FramePositionInterface) { this.signPositionSub.next(v); }
+	signPositionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
+
+	get signSize(): number { return this.signSizeSub.value; }
+	set signSize(v: number) { this.signSizeSub.next(v); }
+	signSizeSub = new DistinctBehaviorSubject<number>(24);
+
 	get showRoleIcon(): boolean { return this.showRoleIconSub.value; }
 	set showRoleIcon(v: boolean) { this.showRoleIconSub.next(v); }
 	showRoleIconSub = new DistinctBehaviorSubject<boolean>(true);

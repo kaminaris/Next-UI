@@ -71,6 +71,7 @@ import { PartyComponent }          from 'src/app/Component/UnitFrame/PartyCompon
 import { PartyMemberComponent }    from 'src/app/Component/UnitFrame/PartyMemberComponent';
 import { PlayerComponent }         from 'src/app/Component/UnitFrame/PlayerComponent';
 import { RoleIconComponent }       from 'src/app/Component/UnitFrame/RoleIconComponent';
+import { SignComponent }           from 'src/app/Component/UnitFrame/SignComponent';
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
@@ -147,6 +148,7 @@ export function getBaseUrl() {
 
 		// Role icons
 		RoleIconComponent, IconDps, IconTank, IconHealer,
+		SignComponent,
 
 		// Config UI
 		ConfigGroupComponent, ConfigInputComponent, ConfigSizeComponent, ConfigPositionComponent,

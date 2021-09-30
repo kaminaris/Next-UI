@@ -72,6 +72,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
 
+			showSign: true,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
+
 			widgets: {
 				job: {
 					show: true,
@@ -142,6 +147,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
+
+			showSign: true,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
 
 			widgets: {
 				job: {
@@ -214,6 +224,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
 
+			showSign: true,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
+
 			widgets: {
 				job: {
 					show: false,
@@ -284,6 +299,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
+
+			showSign: false,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
 
 			widgets: {
 				job: {
@@ -362,6 +382,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
 
+			showSign: true,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
+
 			widgets: {
 				job: {
 					show: true,
@@ -434,6 +459,12 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			roleIconSize: 20,
 			roleIconAnchor: 'topRight',
 			roleIconPosition: { x: 30, y: 5 },
+
+			showSign: false,
+			signAnchor: 'topRight',
+			signPosition: { x: 50, y: 0 },
+			signSize: 48,
+
 			widgets: {
 				name: {
 					show: true,

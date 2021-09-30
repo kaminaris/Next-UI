@@ -15,6 +15,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
 			<config-select [frameName]="frameName" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
 		</config-group>
+		
 		<config-group title="Basic">
 			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
 
@@ -48,6 +49,13 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-position [frameName]="frameName" prop="roleIconPosition" label="Icon Position"></config-position>
 			<config-color [frameName]="frameName" prop="roleIconColor" label="Icon Color"></config-color>
 			<config-input [frameName]="frameName" inputType="number" prop="roleIconSize" label="Icon Size"></config-input>
+		</config-group>
+
+		<config-group title="Sign">
+			<config-checkbox [frameName]="frameName" prop="showSign" label="Show Sign"></config-checkbox>
+			<config-select [frameName]="frameName" [items]="anchors" prop="signAnchor" label="Sign Anchor"></config-select>
+			<config-position [frameName]="frameName" prop="signPosition" label="Sign Position"></config-position>
+			<config-input [frameName]="frameName" inputType="number" prop="signSize" label="Sign Size"></config-input>
 		</config-group>
 
 		<config-group title="Auras">

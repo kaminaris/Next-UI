@@ -20,6 +20,15 @@
 			[size]="ownConfig.roleIconSize"
 	></role-icon>
 
+	<sign-icon class="position-absolute z30"
+			*ngIf="ownConfig.showSign"
+			anchor-element
+			[anchorSub]="ownConfig.signAnchorSub"
+			[positionSub]="ownConfig.signPositionSub"
+			[combatant]="combatant"
+			[size]="ownConfig.signSize"
+	></sign-icon>
+
 	<div class="d-flex position-absolute z10"
 			*ngIf="ownConfig.aurasEnabled"
 			anchor-element

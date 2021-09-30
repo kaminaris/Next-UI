@@ -65,6 +65,14 @@ export class TestService {
 		}, 500);
 	}
 
+	partyRandomSigns() {
+		for (const c of this.parser.party.value) {
+			const sign = Math.random() < 0.5 ? this.randomRange(0, 13) : null;
+			console.log(sign)
+			c.sign.next(sign);
+		}
+	}
+
 	chatMessage(m: string, s: string = 'player') {
 		this.parser.parse(['0', '', 'type', s, m, '']);
 	}
