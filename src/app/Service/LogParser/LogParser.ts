@@ -344,6 +344,7 @@ export class LogParser {
 		const job = (actor as ActorInterface).Job ? Util.jobEnumToJob((actor as ActorInterface).Job) : null;
 
 		let combatant = this.findCombatant(actor.ID, actor.Name);
+
 		if (!combatant) {
 			combatant = this.updateCombatant(
 				actor.ID,
@@ -353,8 +354,8 @@ export class LogParser {
 				null,
 				null,
 				(actor as ActorInterface).PosX ?? null,
-				(actor as ActorInterface).PosY ?? null,
 				(actor as ActorInterface).PosZ ?? null,
+				(actor as ActorInterface).PosY ?? null,
 				job,
 				null,
 				isNpc

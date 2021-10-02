@@ -113,6 +113,9 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 			this.distanceToPlayer = player.calcDistance(this.combatant);
 			this.inRange = this.ownConfig.distanceThreshold >= this.distanceToPlayer;
+			// console.log('DISTANCE', this.distanceToPlayer, this.combatant.name,)
+			// console.log('PLAYER', {x: player.x, y: player.y, z: player.z})
+			// console.log('TRG', {x: this.combatant.x, y: this.combatant.y, z: this.combatant.z})
 			this.cd.detectChanges();
 		}, this.distanceInterval);
 	}

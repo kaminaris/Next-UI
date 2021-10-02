@@ -83,8 +83,8 @@ export class AppComponent implements OnInit {
 			player.isGatherer || player.isCrafter ? null : details.currentMP,
 			player.isGatherer || player.isCrafter ? null : details.maxMP,
 			details.pos.x,
-			details.pos.z,
 			details.pos.y,
+			details.pos.z,
 			details.job,
 			details.level
 		);
