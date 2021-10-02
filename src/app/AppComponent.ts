@@ -80,11 +80,11 @@ export class AppComponent implements OnInit {
 			details.name,
 			details.currentHP,
 			details.maxHP,
-			details.pos.x,
-			details.pos.y,
-			details.pos.z,
 			player.isGatherer || player.isCrafter ? null : details.currentMP,
 			player.isGatherer || player.isCrafter ? null : details.maxMP,
+			details.pos.x,
+			details.pos.z,
+			details.pos.y,
 			details.job,
 			details.level
 		);

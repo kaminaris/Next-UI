@@ -82,9 +82,7 @@ export class Combatant {
 	}
 
 	calcDistance(to: Combatant) {
-		return Math.sqrt(
-			Math.pow(this.x - to.x, 2) + Math.pow(this.y - to.y, 2) + Math.pow(this.z - to.z, 2)
-		);
+		return Math.hypot(this.x - to.x, this.y - to.y, this.z - to.z);
 	}
 
 	updatePosition(x: number, y: number, z: number) {
@@ -181,7 +179,7 @@ export class Combatant {
 				gainedAt
 			);
 		}
-		console.log('aura updated', aura, id, name);
+
 		aura?.expired.asObservable().pipe(first()).subscribe(() => {
 			this.removeAura(aura.id, aura.name);
 			console.log('REM AURA', aura.id, aura.name);
