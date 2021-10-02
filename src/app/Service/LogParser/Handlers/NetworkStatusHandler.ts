@@ -50,7 +50,7 @@ export class NetworkStatusHandler implements HandlerInterface {
 		const level = parseInt(padded.substr(4, 2), 16);
 
 		this.parser.updateCombatant(
-			id, name, hp, hpMax, mana, manaMax, job, level, null, 'network-status'
+			id, name, hp, hpMax, mana, manaMax, x, y, z, job, level, null, 'network-status'
 		);
 	}
 }

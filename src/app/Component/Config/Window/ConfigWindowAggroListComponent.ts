@@ -58,6 +58,12 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-input [frameName]="frameName" inputType="number" prop="signSize" label="Sign Size"></config-input>
 		</config-group>
 
+		<config-group title="Distance">
+			<config-checkbox [frameName]="frameName" prop="distanceEnabled" label="Distance Enabled"></config-checkbox>
+			<config-input [frameName]="frameName" inputType="number" prop="distanceOpacity" label="Opacity"></config-input>
+			<config-input [frameName]="frameName" inputType="number" prop="distanceThreshold" label="Threshold"></config-input>
+		</config-group>
+
 		<config-group title="Auras">
 			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
 			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>

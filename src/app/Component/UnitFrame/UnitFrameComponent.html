@@ -5,6 +5,7 @@
 		[class.is-target]="combatant?.isTarget"
 		[style.border-width.px]="ownConfig.borderWidth"
 		[style.border-color]="ownConfig.borderColor"
+		[style.opacity]="inRange ? 1 : ownConfig.distanceOpacity / 100"
 		(click)="setTarget()"
 		(mouseenter)="setMouseOver()"
 		(mouseleave)="clearMouseOver()"

@@ -133,6 +133,9 @@ export class LogParser {
 		hpMax: number,
 		mana: number,
 		manaMax: number,
+		x?: number,
+		y?: number,
+		z?: number,
 		job?: string,
 		level?: number,
 		isNpc = false,
@@ -141,29 +144,29 @@ export class LogParser {
 		const combatants = this.combatants.value;
 		let combatant = this.findCombatant(id, name);
 
+		let shouldAdd = false;
 		if (!combatant) {
 			combatant = new Combatant();
 			combatant.id = id;
 			combatant.isNPC = isNpc || !Combatant.isPlayerId(id);
-			combatant.name = name;
-			combatant.updateJob(job);
-			combatant.updateLevel(level);
-			combatant.updateHp(hp, hpMax);
+			shouldAdd = true;
+		}
 
-			combatants.push(combatant);
-			this.combatants.next(combatants);
-		}
-		else {
-			combatant.name = name;
-			combatant.updateJob(job);
-			combatant.updateLevel(level);
-			combatant.updateHp(hp, hpMax);
-		}
+		combatant.name = name;
+		combatant.updatePosition(x, y, z);
+		combatant.updateJob(job);
+		combatant.updateLevel(level);
+		combatant.updateHp(hp, hpMax);
 
 		if ((mana || manaMax) && !(source === 'hp-updated' && combatant.isCrafterOrGatherer)) {
 			combatant.updateMana(
 				mana, combatant.isCrafterOrGatherer && source === 'action-sync' ? null : manaMax
 			);
+		}
+
+		if (shouldAdd) {
+			combatants.push(combatant);
+			this.combatants.next(combatants);
 		}
 
 		return combatant;
@@ -177,7 +180,8 @@ export class LogParser {
 		this.party.next(combatants);
 	}
 
-	partyChanged(party: PartyMember[]) {
+	partyChanged(p: PartyMember[]) {
+		const party = p.slice(0, 8);
 		const members = this.party.value;
 		let hasChange = false;
 		const newMembers = [];
@@ -348,6 +352,9 @@ export class LogParser {
 				hpMax,
 				null,
 				null,
+				(actor as ActorInterface).PosX ?? null,
+				(actor as ActorInterface).PosY ?? null,
+				(actor as ActorInterface).PosZ ?? null,
 				job,
 				null,
 				isNpc

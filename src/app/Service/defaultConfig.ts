@@ -77,6 +77,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
 
+			distanceEnabled: false,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
+
 			widgets: {
 				job: {
 					show: true,
@@ -152,6 +156,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signAnchor: 'topRight',
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
+
+			distanceEnabled: true,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
 
 			widgets: {
 				job: {
@@ -229,6 +237,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
 
+			distanceEnabled: true,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
+
 			widgets: {
 				job: {
 					show: false,
@@ -304,6 +316,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signAnchor: 'topRight',
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
+
+			distanceEnabled: false,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
 
 			widgets: {
 				job: {
@@ -387,6 +403,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
 
+			distanceEnabled: true,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
+
 			widgets: {
 				job: {
 					show: true,
@@ -464,6 +484,10 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 			signAnchor: 'topRight',
 			signPosition: { x: 50, y: 0 },
 			signSize: 48,
+
+			distanceEnabled: true,
+			distanceOpacity: 60,
+			distanceThreshold: 30,
 
 			widgets: {
 				name: {

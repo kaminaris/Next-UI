@@ -1,6 +1,6 @@
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { debounceTime }                                from 'rxjs/operators';
-import { Aura }                                        from './Aura';
+import { BehaviorSubject, first, merge, Observable, Subject } from 'rxjs';
+import { debounceTime }                                       from 'rxjs/operators';
+import { Aura }                                               from './Aura';
 
 export const healers = ['CNJ', 'WHM', 'SCH', 'AST'];
 export const tanks = ['GLA', 'MRD', 'PLD', 'WAR', 'DRK', 'GNB'];
@@ -23,9 +23,14 @@ export class Combatant {
 	isTarget = false;
 	isGatherer = false;
 	isCrafter = false;
-	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer }
-	inParty = new BehaviorSubject<boolean>(false);
 
+	x = 0;
+	y = 0;
+	z = 0;
+
+	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
+
+	inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);
 
 	hp = new BehaviorSubject<number>(100);
@@ -74,6 +79,24 @@ export class Combatant {
 
 	static isPlayerId(id: number) {
 		return id.toString(16).startsWith('1');
+	}
+
+	calcDistance(to: Combatant) {
+		return Math.sqrt(
+			Math.pow(this.x - to.x, 2) + Math.pow(this.y - to.y, 2) + Math.pow(this.z - to.z, 2)
+		);
+	}
+
+	updatePosition(x: number, y: number, z: number) {
+		if (typeof x !== 'undefined' && x !== null) {
+			this.x = x;
+		}
+		if (typeof y !== 'undefined' && y !== null) {
+			this.y = y;
+		}
+		if (typeof z !== 'undefined' && z !== null) {
+			this.z = z;
+		}
 	}
 
 	updateJob(job: string) {
@@ -145,8 +168,8 @@ export class Combatant {
 			return a.appliedBy === appliedBy && (a.id === id || a.name === name);
 		});
 		if (!aura) {
-			const newAura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);
-			auras.push(newAura);
+			aura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);
+			auras.push(aura);
 			this.auras.next(auras);
 		}
 		else {
@@ -158,7 +181,11 @@ export class Combatant {
 				gainedAt
 			);
 		}
-
+		console.log('aura updated', aura, id, name);
+		aura?.expired.asObservable().pipe(first()).subscribe(() => {
+			this.removeAura(aura.id, aura.name);
+			console.log('REM AURA', aura.id, aura.name);
+		});
 		return aura;
 	}
 

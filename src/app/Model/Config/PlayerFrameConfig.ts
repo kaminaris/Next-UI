@@ -117,6 +117,18 @@ export class PlayerFrameConfig extends BaseFrameConfig implements SerializableCo
 	get auraOnlyOwn(): boolean { return this.auraOnlyOwnSub.value; }
 	set auraOnlyOwn(v: boolean) { this.auraOnlyOwnSub.next(v); }
 	auraOnlyOwnSub = new DistinctBehaviorSubject<boolean>(true);
+
+	get distanceEnabled(): boolean { return this.distanceEnabledSub.value; }
+	set distanceEnabled(v: boolean) { this.distanceEnabledSub.next(v); }
+	distanceEnabledSub = new DistinctBehaviorSubject<boolean>(false);
+
+	get distanceThreshold(): number { return this.distanceThresholdSub.value; }
+	set distanceThreshold(v: number) { this.distanceThresholdSub.next(v); }
+	distanceThresholdSub = new DistinctBehaviorSubject<number>(30);
+
+	get distanceOpacity(): number { return this.distanceOpacitySub.value; }
+	set distanceOpacity(v: number) { this.distanceOpacitySub.next(v); }
+	distanceOpacitySub = new DistinctBehaviorSubject<number>(50);
 	// @formatter:on
 
 	widgets = {

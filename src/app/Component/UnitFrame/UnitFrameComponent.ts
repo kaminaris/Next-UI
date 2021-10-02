@@ -49,6 +49,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 	barColor = this.ownConfig.barColor;
 
+	distanceToPlayer = 0;
+	distanceInterval = 200;
+	distanceTimer: number = null;
+	inRange = true;
+
 	constructor(
 		public conf: ConfigService,
 		protected parser: LogParser,
@@ -57,34 +62,15 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		protected auraService: AuraService
 	) {}
 
-	setTarget() {
-		if (!this.combatant || !this.combatant.id) {
-			return;
-		}
-
-		this.xiv.setTarget(this.combatant.id);
-	}
-
-	setMouseOver() {
-		if (!this.combatant || !this.combatant.id) {
-			return;
-		}
-
-		this.xiv.setTarget(this.combatant.id, 'setMouseOverEx');
-	}
-
-	clearMouseOver() {
-		if (!this.combatant || !this.combatant.id) {
-			return;
-		}
-		this.xiv.setTarget(this.combatant.id, 'clearMouseOverEx');
-	}
-
 	ngOnInit(): void {
 		this.cd.detach();
 
 		if (this.combatant) {
 			this.initializeCombatant();
+		}
+
+		if (this.ownConfig.distanceEnabled) {
+			this.startDistanceTimer();
 		}
 
 		// Unit frame can work in standalone mode without subject
@@ -116,6 +102,51 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.cd.detectChanges();
 		}));
 	}
+
+	startDistanceTimer() {
+		this.stopDistanceTimer();
+		this.distanceTimer = setInterval(() => {
+			const player = this.parser.player.value;
+			if (!player || !this.combatant) {
+				return;
+			}
+
+			this.distanceToPlayer = player.calcDistance(this.combatant);
+			this.inRange = this.ownConfig.distanceThreshold >= this.distanceToPlayer;
+			this.cd.detectChanges();
+		}, this.distanceInterval);
+	}
+
+	stopDistanceTimer() {
+		if (this.distanceTimer) {
+			clearInterval(this.distanceTimer);
+			this.distanceTimer = null;
+		}
+	}
+
+	setTarget() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		this.xiv.setTarget(this.combatant.id);
+	}
+
+	setMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		this.xiv.setTarget(this.combatant.id, 'setMouseOverEx');
+	}
+
+	clearMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+		this.xiv.setTarget(this.combatant.id, 'clearMouseOverEx');
+	}
+
 
 	initializeCombatant() {
 		this.copyFrom(this.combatant);
@@ -177,6 +208,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			sub.unsubscribe();
 		}
 
+		this.stopDistanceTimer();
 		this.unsubAllCombatantSubs();
 	}
 

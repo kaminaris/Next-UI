@@ -1,5 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
-import { statuses }        from 'src/app/Data/statuses';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { statuses }                             from 'src/app/Data/statuses';
 
 export class Aura {
 	name = '';
@@ -12,10 +12,29 @@ export class Aura {
 	gainedAt = new BehaviorSubject<Date>(null);
 	expiresAt = new BehaviorSubject<Date>(null);
 	duration = new BehaviorSubject<number>(0);
+	expired = new Subject<boolean>();
+
+	protected expiredTimeout: number;
 
 	constructor(
 		public id: number
-	) {}
+	) {
+		this.expiresAt.subscribe((v: Date) => {
+			if (!v) {
+				return;
+			}
+			const diff = v.valueOf() - new Date().valueOf();
+			console.log('AURA EXP in', diff, diff/1000)
+
+			if (this.expiredTimeout) {
+				clearTimeout(this.expiredTimeout);
+			}
+
+			this.expiredTimeout = setTimeout(() => {
+				this.expired.next(true);
+			}, diff);
+		});
+	}
 
 	static createAura(
 		id: number,
@@ -90,7 +109,8 @@ export class Aura {
 		if (
 			newExpire === null && this.expiresAt.value !== null ||
 			newExpire !== null && this.expiresAt.value === null ||
-			newExpire !== null && this.expiresAt.value !== null && newExpire.valueOf() !== this.expiresAt.value.valueOf()
+			newExpire !== null && this.expiresAt.value !== null && newExpire.valueOf()
+			!== this.expiresAt.value.valueOf()
 		) {
 			this.expiresAt.next(newExpire);
 		}

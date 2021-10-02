@@ -8,6 +8,7 @@ export class XivPluginService {
 	port = 32805;
 
 	connected = false;
+	retries = 1;
 
 	constructor() {
 		this.connect();
@@ -18,11 +19,16 @@ export class XivPluginService {
 			this.socket.close();
 		}
 
-		this.socket = new WebSocket(`ws://127.0.0.1:${ this.port }/ws`);
-		this.socket.addEventListener('open', this.onOpen.bind(this));
-		this.socket.addEventListener('close', this.onClose.bind(this));
-		this.socket.addEventListener('error', this.onClose.bind(this));
-		this.socket.addEventListener('message', this.onMessage.bind(this));
+		try {
+			this.socket = new WebSocket(`ws://127.0.0.1:${ this.port }/ws`);
+			this.socket.addEventListener('open', this.onOpen.bind(this));
+			this.socket.addEventListener('close', this.onClose.bind(this));
+			this.socket.addEventListener('error', this.onError.bind(this));
+			this.socket.addEventListener('message', this.onMessage.bind(this));
+		}
+		catch (e) {
+			console.log(e);
+		}
 	}
 
 	generateGuid() {
@@ -44,6 +50,7 @@ export class XivPluginService {
 
 	onOpen() {
 		console.log('XiVPlugin connected');
+		this.retries = 1;
 		this.connected = true;
 	}
 
@@ -52,7 +59,20 @@ export class XivPluginService {
 		this.connected = false;
 	}
 
+	onError() {
+		console.log('XiVPlugin error');
+		this.connected = false;
+		if (this.retries >= 5) {
+			return;
+		}
+		console.log('Cannot connect to XIV Plugin, retrying in 1s, attempt: ' + this.retries);
+		this.retries++;
+		setTimeout(() => {
+			this.connect();
+		}, 1000);
+	}
+
 	onMessage(event: any) {
-		console.log('XiVPlugin', event);
+		// console.log('XiVPlugin', event);
 	}
 }

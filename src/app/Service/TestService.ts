@@ -68,7 +68,7 @@ export class TestService {
 	partyRandomSigns() {
 		for (const c of this.parser.party.value) {
 			const sign = Math.random() < 0.5 ? this.randomRange(0, 13) : null;
-			console.log(sign)
+			console.log(sign);
 			c.sign.next(sign);
 		}
 	}
@@ -116,7 +116,12 @@ export class TestService {
 		const level = 5 + Math.ceil(Math.random() * 50);
 
 		this.parser.updateCombatant(
-			id, name, hp, hpMax, 10000, 10000, job, level
+			id, name, hp, hpMax, 10000, 10000,
+			this.randomRange(-50, 50),
+			this.randomRange(-50, 50),
+			this.randomRange(-50, 50),
+			job,
+			level
 		);
 	}
 
