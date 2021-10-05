@@ -10,10 +10,10 @@ export interface TabDef {
 	template: `
 		<ul class="nav nav-tabs  justify-content-center">
 			<li class="nav-item" *ngFor="let t of tabs">
-				<a class="nav-link" href=""
+				<span class="nav-link cursor-pointer" 
 					[class.active]="t.active"
 					(click)="navigate(t, $event)"
-				>{{ t.name }}</a>
+				>{{ t.name }}</span>
 			</li>
 		</ul>
 	`

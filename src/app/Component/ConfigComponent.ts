@@ -22,13 +22,13 @@ import { default as config } from '../../../package.json';
 					<div class="btn-group-vertical w100p">
 						<button class="btn btn-sm"
 							*ngFor="let cat of categories"
-							[ngClass]="currentCategory === cat.value ? 'btn-info' : 'btn-outline-info'"
+							[ngClass]="currentCategory === cat.value ? 'btn-dark bg-light text-dark' : 'btn-outline-dark text-light'"
 							(click)="switchWindow(cat.value)">
 							{{ cat.label }}
 						</button>
 					</div>
 				</div>
-				<div class="flex-grow" style="overflow-y: auto;">
+				<div class="config-pane-content" style="overflow-y: auto;">
 					<config-main *ngIf="currentCategory === 'main'"></config-main>
 					<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
 					<config-window-tts *ngIf="currentCategory === 'tts'"></config-window-tts>

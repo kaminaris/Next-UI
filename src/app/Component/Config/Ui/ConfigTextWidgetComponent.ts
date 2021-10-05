@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { anchors }          from 'src/app/Data/anchors';
+import { TextWidgetConfig } from 'src/app/Model/Config/TextWidgetConfig';
 
 @Component({
 	selector: 'config-text-widget',
@@ -15,7 +16,7 @@ import { anchors }          from 'src/app/Data/anchors';
 	`
 })
 export class ConfigTextWidgetComponent {
-	@Input() configObj: any;
+	@Input() configObj: TextWidgetConfig;
 	@Input() configPath: string;
 	@Input() title: string;
 	anchors = anchors;

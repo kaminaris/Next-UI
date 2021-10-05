@@ -24,10 +24,10 @@ import { TTSService }        from 'src/app/Service/TTSService';
 			<div class="custom-config-row">
 				<div class="config-label">Test voice</div>
 				<div class="config-input">
-					<input type="text" class="w100p" [(ngModel)]="maleMessage">
+					<input type="text" class="form-control form-control-sm w100p" [(ngModel)]="maleMessage">
 				</div>
 				<div class="config-reset">
-					<button type="button" class="btn btn-success" (click)="testVoice('male')">Test</button>
+					<button type="button" class="btn btn-sm btn-success w100p" (click)="testVoice('male')">Test</button>
 				</div>
 			</div>
 		</config-group>
@@ -44,10 +44,10 @@ import { TTSService }        from 'src/app/Service/TTSService';
 			<div class="custom-config-row">
 				<div class="config-label">Female voice</div>
 				<div class="config-input">
-					<input type="text" class="w100p" [(ngModel)]="femaleMessage">
+					<input type="text" class="form-control form-control-sm w100p" [(ngModel)]="femaleMessage">
 				</div>
 				<div class="config-reset">
-					<button type="button" class="btn btn-success" (click)="testVoice('female')">Test</button>
+					<button type="button" class="btn btn-sm btn-success w100p" (click)="testVoice('female')">Test</button>
 				</div>
 			</div>
 

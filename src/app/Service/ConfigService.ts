@@ -167,9 +167,11 @@ export class ConfigService {
 
 		const exp = configPath.split('.').filter(n => n);
 		while (exp.length > 0) {
-			defObj = defObj[exp.shift()];
+			const k = exp.shift();
+			defObj = defObj[k];
+			obj = obj[k];
 		}
-
+console.log(defObj, obj, prop)
 		obj[prop] = defObj[prop];
 	}
 

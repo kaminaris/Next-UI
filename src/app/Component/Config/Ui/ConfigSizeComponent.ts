@@ -22,7 +22,7 @@ import { FrameSizeInterface }  from 'src/app/Interface/FrameSizeInterface';
 			>
 		</div>
 		<div class="config-reset" *ngIf="reset">
-			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning w100p" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

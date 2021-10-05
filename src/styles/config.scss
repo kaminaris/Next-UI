@@ -23,6 +23,9 @@ config-range,
 .config-label {
 	flex:         0 0 110px;
 	margin-right: 5px;
+	text-align:   right;
+	font-size:    14px;
+	line-height:  30px;
 }
 
 .config-reset {
@@ -39,12 +42,13 @@ config-range,
 	vertical-align: middle;
 	margin-right:   5px;
 	flex:           0 0 40px;
+	border:         1px solid $input-border-color;
 }
 
 .config-close-btn {
-	right: 6px;
-	top: 7px;
-	width: 30px;
+	right:  6px;
+	top:    7px;
+	width:  30px;
 	height: 26px;
 }
 
@@ -57,7 +61,7 @@ config-range,
 	height:           600px;
 	background-color: $ui-background-color;
 	border:           $config-border;
-	color:            $config-color;
+	//color:            $config-color;
 
 	table {
 		color: $config-color;
@@ -78,5 +82,10 @@ config-range,
 	.config-pane {
 		width:        200px;
 		border-right: $config-border;
+		flex:         1 1 160px;
+	}
+
+	.config-pane-content {
+		flex: 1 1 640px;
 	}
 }

@@ -10,7 +10,7 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 			<label [for]="'checkbox' + id"></label>
 		</div>
 		<div class="config-reset" *ngIf="reset">
-			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning w100p" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })

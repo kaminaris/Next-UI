@@ -107,6 +107,7 @@ export class LogParser {
 			if (!actor || e.totalTime < 0.1) {
 				return;
 			}
+
 			actor.cast.start(e.actionId, e.actionName, e.totalTime);
 		});
 	}

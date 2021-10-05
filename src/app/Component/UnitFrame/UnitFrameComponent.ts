@@ -98,7 +98,8 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.cd.detectChanges();
 		}));
 
-		this.subs.push(this.ownConfig.anyChanged.subscribe(() => {
+		this.subs.push(this.ownConfig.anyChangedRecursive.subscribe(() => {
+			console.log('DOES THIS?')
 			this.cd.detectChanges();
 		}));
 	}

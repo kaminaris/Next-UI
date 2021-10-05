@@ -29,17 +29,12 @@ export class UnitFrameDataTextConfigComponent implements OnInit {
 	barStyles = barStyles;
 	barDirections = barDirections;
 
-	paths: {
-		name: string,
-		job: string,
-		hp: string,
-		mana: string,
-		level: string,
-	};
+	paths: any = {};
 
 	ngOnInit() {
+		console.log(this.configObj, this.configPath)
 		for (const key in this.configObj) {
-			(this.paths as any)[key] = this.configPath + '.' + key;
+			this.paths[key] = this.configPath + '.' + key;
 		}
 	}
 }

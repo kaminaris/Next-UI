@@ -13,7 +13,7 @@ import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface
 			<input class="form-control form-control-sm" style="width: 30%" type="number" [(ngModel)]="position.y" (ngModelChange)="apply()">
 		</div>
 		<div class="config-reset" *ngIf="reset">
-			<button class="btn btn-sm btn-warning" type="button" (click)="resetConfig(prop)">Reset</button>
+			<button class="btn btn-sm btn-warning w100p" type="button" (click)="resetConfig(prop)">Reset</button>
 		</div>
 	`
 })
@@ -26,7 +26,7 @@ export class ConfigPositionComponent extends BaseConfigComponent {
 	}
 
 	apply() {
-		this.configObj[this.prop] = { x: this.position.x, y: this.position.y };
+		this.setValue({ x: this.position.x, y: this.position.y });
 	}
 
 	resetConfig(prop: string) {
@@ -35,6 +35,7 @@ export class ConfigPositionComponent extends BaseConfigComponent {
 	}
 
 	copyFromModel() {
-		this.position = { x: this.configObj[this.prop].x, y: this.configObj[this.prop].y };
+		const val = this.getValue();
+		this.position = { x: val.x, y: val.y };
 	}
 }
