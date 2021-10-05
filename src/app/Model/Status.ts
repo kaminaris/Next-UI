@@ -1,7 +1,7 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { statuses }                             from 'src/app/Data/statuses';
 
-export class Aura {
+export class Status {
 	name = '';
 	description = '';
 	appliedBy: number = null;
@@ -24,7 +24,6 @@ export class Aura {
 				return;
 			}
 			const diff = v.valueOf() - new Date().valueOf();
-			console.log('AURA EXP in', diff, diff/1000)
 
 			if (this.expiredTimeout) {
 				clearTimeout(this.expiredTimeout);
@@ -36,7 +35,7 @@ export class Aura {
 		});
 	}
 
-	static createAura(
+	static createStatus(
 		id: number,
 		name: string = '',
 		stacks: number,
@@ -45,7 +44,7 @@ export class Aura {
 		gainedAt?: Date,
 		priority?: number
 	) {
-		const a = new Aura(id);
+		const a = new Status(id);
 		a.name = name;
 		a.stacks.next(stacks);
 		if (appliedBy) {
@@ -74,7 +73,7 @@ export class Aura {
 		return a;
 	}
 
-	updateAura(
+	updateStatus(
 		name?: string,
 		stacks?: number,
 		appliedBy?: number,

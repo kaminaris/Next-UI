@@ -2,9 +2,9 @@ import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                from 'rxjs/operators';
 import { getSubjects }                                 from 'src/app/Function/getSubjects';
 import { serialize }                                   from 'src/app/Function/serialize';
-import { unserialize }                                 from 'src/app/Function/unserialize';
-import { AuraFilter }                                  from 'src/app/Interface/AuraFilter';
-import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
+import { unserialize }        from 'src/app/Function/unserialize';
+import { StatusFilter }       from 'src/app/Interface/StatusFilter';
+import { SerializableConfig } from 'src/app/Interface/SerializableConfig';
 import { AggroListFrameConfig }                        from 'src/app/Model/Config/AggroListFrameConfig';
 import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
 import { ColorConfig }                                 from 'src/app/Model/Config/ColorConfig';
@@ -42,9 +42,9 @@ export class MainConfig implements SerializableConfig {
 	set numberFormat(v: string) { this.numberFormatSub.next(v); }
 	numberFormatSub = new DistinctBehaviorSubject<string>('');
 
-	get filters(): AuraFilter[] { return this.filtersSub.value; }
-	set filters(v: AuraFilter[]) { this.filtersSub.next(v); }
-	filtersSub = new BehaviorSubject<AuraFilter[]>([]);
+	get filters(): StatusFilter[] { return this.filtersSub.value; }
+	set filters(v: StatusFilter[]) { this.filtersSub.next(v); }
+	filtersSub = new BehaviorSubject<StatusFilter[]>([]);
 	// @formatter:on
 
 	ttsConfig = new TTSConfig();

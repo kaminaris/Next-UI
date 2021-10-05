@@ -1,6 +1,7 @@
 import { BehaviorSubject, first, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                       from 'rxjs/operators';
-import { Aura }                                               from './Aura';
+import { Cast }   from 'src/app/Model/Cast';
+import { Status } from 'src/app/Model/Status';
 
 export const healers = ['CNJ', 'WHM', 'SCH', 'AST'];
 export const tanks = ['GLA', 'MRD', 'PLD', 'WAR', 'DRK', 'GNB'];
@@ -41,7 +42,9 @@ export class Combatant {
 
 	role: 'tank' | 'healer' | 'dps' = null;
 
-	auras = new BehaviorSubject<Aura[]>([]);
+	auras = new BehaviorSubject<Status[]>([]);
+
+	cast = new Cast();
 
 	changeTrigger = new Subject<boolean>();
 	anyChanged: Observable<any>;
@@ -148,7 +151,7 @@ export class Combatant {
 		this.mana.next(mana);
 	}
 
-	getAura(id?: number, name?: string, filter?: (a: Aura) => boolean) {
+	getAura(id?: number, name?: string, filter?: (a: Status) => boolean) {
 		const auras = filter ? this.auras.value.filter(filter) : this.auras.value;
 		return auras.find(a => (id && a.id === id) || (name && a.name === name));
 	}
@@ -166,12 +169,12 @@ export class Combatant {
 			return a.appliedBy === appliedBy && (a.id === id || a.name === name);
 		});
 		if (!aura) {
-			aura = Aura.createAura(id, name, stacks, appliedBy, duration, gainedAt);
+			aura = Status.createStatus(id, name, stacks, appliedBy, duration, gainedAt);
 			auras.push(aura);
 			this.auras.next(auras);
 		}
 		else {
-			aura.updateAura(
+			aura.updateStatus(
 				name,
 				stacks,
 				appliedBy,
@@ -182,7 +185,6 @@ export class Combatant {
 
 		aura?.expired.asObservable().pipe(first()).subscribe(() => {
 			this.removeAura(aura.id, aura.name);
-			console.log('REM AURA', aura.id, aura.name);
 		});
 		return aura;
 	}

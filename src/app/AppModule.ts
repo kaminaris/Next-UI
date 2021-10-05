@@ -31,6 +31,15 @@ import { ConfigWindowTargetComponent }         from 'src/app/Component/Config/Wi
 import { ConfigWindowTargetOfTargetComponent } from 'src/app/Component/Config/Window/ConfigWindowTargetOfTargetComponent';
 import { ConfigWindowTooltipComponent }        from 'src/app/Component/Config/Window/ConfigWindowTooltipComponent';
 import { ConfigWindowTTSComponent }            from 'src/app/Component/Config/Window/ConfigWindowTTSComponent';
+import { UnitFrameBasicConfigComponent }       from 'src/app/Component/Config/Window/Partial/UnitFrameBasicConfigComponent';
+import { UnitFrameCastBarComponent }           from 'src/app/Component/Config/Window/Partial/UnitFrameCastBarComponent';
+import { UnitFrameDataTextConfigComponent }    from 'src/app/Component/Config/Window/Partial/UnitFrameDataTextConfigComponent';
+import { UnitFrameDistanceConfigComponent }    from 'src/app/Component/Config/Window/Partial/UnitFrameDistanceConfigComponent';
+import { UnitFrameHealthBarConfigComponent }   from 'src/app/Component/Config/Window/Partial/UnitFrameHealthBarConfigComponent';
+import { UnitFrameManaBarConfigComponent }     from 'src/app/Component/Config/Window/Partial/UnitFrameManaBarConfigComponent';
+import { UnitFrameRoleConfigComponent }        from 'src/app/Component/Config/Window/Partial/UnitFrameRoleConfigComponent';
+import { UnitFrameSignConfigComponent }        from 'src/app/Component/Config/Window/Partial/UnitFrameSignConfigComponent';
+import { UnitFrameStatusConfigComponent }      from 'src/app/Component/Config/Window/Partial/UnitFrameStatusConfigComponent';
 
 import { ConfigComponent }                          from 'src/app/Component/ConfigComponent';
 import { ControlComponent }                         from 'src/app/Component/ControlComponent';
@@ -52,16 +61,17 @@ import { CustomElementsPanelComponent }             from 'src/app/Component/Cust
 import { ProgressBarCircularComponent }             from 'src/app/Component/ProgressBarCircularComponent';
 import { ProgressBarComponent }                     from 'src/app/Component/ProgressBarComponent';
 
-import { IconApps }    from 'src/app/Component/Icon/IconApps';
-import { IconClose }   from 'src/app/Component/Icon/IconClose';
-import { IconCog }     from 'src/app/Component/Icon/IconCog';
-import { IconEye }     from 'src/app/Component/Icon/IconEye';
-import { IconMover }   from 'src/app/Component/Icon/IconMover';
-import { IconPlus }    from 'src/app/Component/Icon/IconPlus';
-import { IconSpeaker } from 'src/app/Component/Icon/IconSpeaker';
-import { IconDps }     from 'src/app/Component/Icon/Role/IconDps';
-import { IconHealer }  from 'src/app/Component/Icon/Role/IconHealer';
-import { IconTank }    from 'src/app/Component/Icon/Role/IconTank';
+import { IconApps }      from 'src/app/Component/Icon/IconApps';
+import { IconClose }     from 'src/app/Component/Icon/IconClose';
+import { IconCog }       from 'src/app/Component/Icon/IconCog';
+import { IconEye }       from 'src/app/Component/Icon/IconEye';
+import { IconMover }     from 'src/app/Component/Icon/IconMover';
+import { IconPlus }      from 'src/app/Component/Icon/IconPlus';
+import { IconSpeaker }   from 'src/app/Component/Icon/IconSpeaker';
+import { IconDps }       from 'src/app/Component/Icon/Role/IconDps';
+import { IconHealer }    from 'src/app/Component/Icon/Role/IconHealer';
+import { IconTank }      from 'src/app/Component/Icon/Role/IconTank';
+import { TabsComponent } from 'src/app/Component/TabsComponent';
 
 import { AggroListComponent }      from 'src/app/Component/UnitFrame/AggroListComponent';
 import { AggroMemberComponent }    from 'src/app/Component/UnitFrame/AggroMemberComponent';
@@ -75,6 +85,7 @@ import { SignComponent }           from 'src/app/Component/UnitFrame/SignCompone
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
+import { CastBarComponent }   from 'src/app/Component/CastBarComponent';
 import { TextWidget }         from 'src/app/Component/TextWidget';
 import { TooltipComponent }   from 'src/app/Component/TooltipComponent';
 import { UnitFrameComponent } from 'src/app/Component/UnitFrame/UnitFrameComponent';
@@ -95,6 +106,7 @@ export function getBaseUrl() {
 		TextWidget,
 		AuraIconComponent,
 		TooltipComponent,
+		TabsComponent,
 
 		// Unit Frame components
 		UnitFrameComponent,
@@ -109,6 +121,7 @@ export function getBaseUrl() {
 		ControlComponent,
 		ProgressBarComponent,
 		ProgressBarCircularComponent,
+		CastBarComponent,
 
 		// Config Windows
 		ConfigWindowMainComponent, ConfigWindowPlayerComponent, ConfigWindowTargetComponent,
@@ -116,6 +129,11 @@ export function getBaseUrl() {
 		ConfigWindowProfileComponent, ConfigWindowAuraFilterComponent, ConfigWindowAggroListComponent,
 		ConfigWindowAuraComponent, ConfigWindowTTSComponent, ConfigWindowTooltipComponent,
 		ConfigWindowFocusComponent,
+
+		// Config partials
+		UnitFrameBasicConfigComponent, UnitFrameHealthBarConfigComponent, UnitFrameManaBarConfigComponent,
+		UnitFrameRoleConfigComponent, UnitFrameSignConfigComponent, UnitFrameDistanceConfigComponent,
+		UnitFrameStatusConfigComponent, UnitFrameCastBarComponent, UnitFrameDataTextConfigComponent,
 
 		// Custom Elements
 		CustomElementComponent,

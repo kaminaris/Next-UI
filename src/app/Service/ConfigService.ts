@@ -7,7 +7,7 @@ import { Combatant }                               from 'src/app/Model/Combatant
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
 import { CompressionService }                      from 'src/app/Service/CompressionService';
-import { defaultConfig }                           from 'src/app/Service/defaultConfig';
+import { defaultConfig }                           from 'src/app/Data/Config/defaultConfig';
 import extend                                      from 'just-extend';
 
 @Injectable({ providedIn: 'root' })
@@ -161,19 +161,13 @@ export class ConfigService {
 		this.config.unserialize(config);
 	}
 
-	resetConfig(prop: string, frameName?: keyof MainConfig['frames'], widgetName?: string) {
+	resetConfig(prop: string, configPath: string) {
 		let obj = this.config as any;
 		let defObj = this.defaultConfig as any;
 
-		if (frameName) {
-			if (widgetName) {
-				obj = (this.config.frames[frameName] as any).widgets[widgetName];
-				defObj = (this.defaultConfig.frames[frameName] as any).widgets[widgetName];
-			}
-			else {
-				obj = (this.config.frames as any)[frameName] as any;
-				defObj = this.defaultConfig.frames[frameName] as any;
-			}
+		const exp = configPath.split('.').filter(n => n);
+		while (exp.length > 0) {
+			defObj = defObj[exp.shift()];
 		}
 
 		obj[prop] = defObj[prop];

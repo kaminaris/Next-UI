@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Subject }    from 'rxjs';
 
 export type XivSocketCommand = 'setTarget' | 'setFocus' | 'setMouseOver' | 'setMouseOverEx' | 'clearMouseOverEx';
+
+export interface CastInfo {
+	event: string;
+	target: string;
+	actionId: number;
+	actionName: string;
+	currentTime: number;
+	totalTime: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class XivPluginService {
@@ -9,6 +19,10 @@ export class XivPluginService {
 
 	connected = false;
 	retries = 1;
+
+	events = {
+		castStart: new Subject<CastInfo>()
+	};
 
 	constructor() {
 		this.connect();
@@ -57,14 +71,21 @@ export class XivPluginService {
 	onClose() {
 		console.log('XiVPlugin disconnected');
 		this.connected = false;
+		this.reconnect();
+
 	}
 
 	onError() {
 		console.log('XiVPlugin error');
 		this.connected = false;
+		this.reconnect();
+	}
+
+	reconnect() {
 		if (this.retries >= 5) {
 			return;
 		}
+
 		console.log('Cannot connect to XIV Plugin, retrying in 1s, attempt: ' + this.retries);
 		this.retries++;
 		setTimeout(() => {
@@ -73,6 +94,17 @@ export class XivPluginService {
 	}
 
 	onMessage(event: any) {
-		// console.log('XiVPlugin', event);
+		try {
+			const data = JSON.parse(event.data);
+			if (data.event) {
+				const ev = (this.events as any)[data.event] as Subject<any>;
+				if (ev) {
+					ev.next(data);
+				}
+			}
+			console.log('XiVPlugin', data);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 }

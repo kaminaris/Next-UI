@@ -3,49 +3,61 @@
 		*ngIf="combatant"
 		style="height: 100%; border-style: solid"
 		[class.is-target]="combatant?.isTarget"
-		[style.border-width.px]="ownConfig.borderWidth"
-		[style.border-color]="ownConfig.borderColor"
-		[style.opacity]="inRange ? 1 : ownConfig.distanceOpacity / 100"
+		[style.border-width.px]="ownConfig.basic.borderWidth"
+		[style.border-color]="ownConfig.basic.borderColor"
+		[style.opacity]="inRange ? 1 : ownConfig.distance.opacity / 100"
 		(click)="setTarget()"
 		(mouseenter)="setMouseOver()"
 		(mouseleave)="clearMouseOver()"
 >
 
 	<role-icon class="position-absolute z20"
-			*ngIf="ownConfig.showRoleIcon"
+			*ngIf="ownConfig.role.show"
 			anchor-element
-			[anchorSub]="ownConfig.roleIconAnchorSub"
-			[positionSub]="ownConfig.roleIconPositionSub"
-			[style.color]="ownConfig.roleIconColor"
+			[anchorSub]="ownConfig.role.anchorSub"
+			[positionSub]="ownConfig.role.positionSub"
+			[style.color]="ownConfig.role.color"
 			[combatant]="combatant"
-			[size]="ownConfig.roleIconSize"
+			[size]="ownConfig.role.size"
 	></role-icon>
 
 	<sign-icon class="position-absolute z30"
-			*ngIf="ownConfig.showSign"
+			*ngIf="ownConfig.sign.show"
 			anchor-element
-			[anchorSub]="ownConfig.signAnchorSub"
-			[positionSub]="ownConfig.signPositionSub"
+			[anchorSub]="ownConfig.sign.anchorSub"
+			[positionSub]="ownConfig.sign.positionSub"
 			[combatant]="combatant"
-			[size]="ownConfig.signSize"
+			[size]="ownConfig.sign.size"
 	></sign-icon>
 
 	<div class="d-flex position-absolute z10"
-			*ngIf="ownConfig.aurasEnabled"
+			*ngIf="ownConfig.status.show"
 			anchor-element
-			[anchorSub]="ownConfig.auraAnchorSub"
-			[positionSub]="ownConfig.auraPositionSub"
+			[anchorSub]="ownConfig.status.anchorSub"
+			[positionSub]="ownConfig.status.positionSub"
 	>
 		<aura-icon class="d-block" *ngFor="let aura of auras" [aura]="aura"></aura-icon>
 	</div>
+
+	<cast-bar class="d-flex position-absolute z20"
+			*ngIf="ownConfig.castBar.show"
+			anchor-element
+			[anchorSub]="ownConfig.castBar.anchorSub"
+			[positionSub]="ownConfig.castBar.positionSub"
+			[config]="ownConfig.castBar"
+			[style.width.px]="ownConfig.castBar.size.width"
+			[style.height.px]="ownConfig.castBar.size.height"
+			[cast]="combatant?.cast"
+	>
+	</cast-bar>
 
 	<progress-bar
 			class="flex-fill"
 			[percent]="hpPct"
 			[fillColor]="barColor"
-			[bgColor]="ownConfig.backgroundColor"
-			[barStyle]="ownConfig.barStyle"
-			[barDirection]="ownConfig.barDirection"
+			[bgColor]="ownConfig.basic.backgroundColor"
+			[barStyle]="ownConfig.healthBar.barStyle"
+			[barDirection]="ownConfig.healthBar.barDirection"
 	>
 		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
 			{{ name }}
@@ -65,13 +77,13 @@
 	</progress-bar>
 	<progress-bar
 			class="flex-shrink-0"
-			*ngIf="ownConfig.showMana"
-			[style.height]="ownConfig.manaHeight"
-			[fillColor]="ownConfig.manaColor"
-			[bgColor]="ownConfig.backgroundColor"
+			*ngIf="ownConfig.manaBar.show"
+			[style.height]="ownConfig.manaBar.height"
+			[fillColor]="ownConfig.manaBar.barColor"
+			[bgColor]="ownConfig.basic.backgroundColor"
 			[percent]="manaPct"
-			[barStyle]="ownConfig.manaBarStyle"
-			[barDirection]="ownConfig.manaBarDirection"
+			[barStyle]="ownConfig.manaBar.barStyle"
+			[barDirection]="ownConfig.manaBar.barDirection"
 	>
 		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
 			{{ manaText }}

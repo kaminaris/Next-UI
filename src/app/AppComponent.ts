@@ -4,9 +4,9 @@ import { IResizeEvent }                                            from 'angular
 import { EnmityAggroList }                                         from 'src/app/Interface/EnmityAggroList';
 import { EnmityTargetData }                                        from 'src/app/Interface/EnmityTargetData';
 import { PartyMember }                                             from 'src/app/Interface/PartyMember';
-import { PlayerDetails }                                           from 'src/app/Interface/PlayerDetails';
-import { Aura }                                                    from 'src/app/Model/Aura';
-import { MainConfig }                                              from 'src/app/Model/Config/MainConfig';
+import { PlayerDetails } from 'src/app/Interface/PlayerDetails';
+import { Status }        from 'src/app/Model/Status';
+import { MainConfig }    from 'src/app/Model/Config/MainConfig';
 import { CustomElement }                                           from 'src/app/Model/CustomElement/CustomElement';
 import { CustomElementGroup }                                      from 'src/app/Model/CustomElement/CustomElementGroup';
 import { ConfigService }                                           from 'src/app/Service/ConfigService';
@@ -129,11 +129,35 @@ export class AppComponent implements OnInit {
 	}
 
 	saveFramePosition(unitFrame: keyof MainConfig['frames'], $event: IPosition) {
-		(this.config.frames[unitFrame] as any).position = $event;
+		switch (unitFrame) {
+			case 'aggroList':
+			case 'party':
+			case 'player':
+			case 'focus':
+			case 'target':
+			case 'targetOfTarget':
+				this.config.frames[unitFrame].basic.position = $event;
+				break;
+			default:
+				(this.config.frames[unitFrame] as any).position = $event;
+				break;
+		}
 	}
 
 	saveFrameSize(unitFrame: keyof MainConfig['frames'], $event: IResizeEvent) {
-		(this.config.frames[unitFrame] as any).size = $event.size;
+		switch (unitFrame) {
+			case 'aggroList':
+			case 'party':
+			case 'player':
+			case 'focus':
+			case 'target':
+			case 'targetOfTarget':
+				this.config.frames[unitFrame].basic.size = $event.size;
+				break;
+			default:
+				(this.config.frames[unitFrame] as any).size = $event;
+				break;
+		}
 	}
 
 	saveCustomElementSize(customElement: CustomElement, $event: IResizeEvent) {
@@ -150,10 +174,6 @@ export class AppComponent implements OnInit {
 
 	saveCustomElementGroupPosition(group: CustomElementGroup, $event: IPosition) {
 		group.position = $event;
-	}
-
-	test() {
-		this.config.frames.player.position = { x: 100, y: 100 };
 	}
 
 	setCustomCss() {

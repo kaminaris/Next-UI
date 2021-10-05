@@ -1,12 +1,12 @@
 import { Injectable }      from '@angular/core';
-import { AuraFilter }      from 'src/app/Interface/AuraFilter';
+import { StatusFilter }    from 'src/app/Interface/StatusFilter';
 import { AuraFilterSpell } from 'src/app/Interface/AuraFilterSpell';
-import { Aura }            from 'src/app/Model/Aura';
+import { Status }          from 'src/app/Model/Status';
 import { Combatant }       from 'src/app/Model/Combatant';
 import { LogParser }       from 'src/app/Service/LogParser/LogParser';
 
 @Injectable({ providedIn: 'root' })
-export class AuraService {
+export class StatusService {
 	player: Combatant;
 
 	constructor(protected parser: LogParser) {
@@ -14,8 +14,8 @@ export class AuraService {
 		this.parser.player.subscribe(p => this.player = p);
 	}
 
-	filterAuras(auras: Aura[], filters: AuraFilter[], onlyOwn: boolean) {
-		let result: Aura[] = [...auras];
+	filterAuras(auras: Status[], filters: StatusFilter[], onlyOwn: boolean) {
+		let result: Status[] = [...auras];
 		if (onlyOwn && this.player) {
 			result = result.filter(a => a.appliedBy === this.player.id);
 		}
@@ -37,7 +37,7 @@ export class AuraService {
 		return result;
 	}
 
-	filterHasMatch(aura: Aura, filter: AuraFilterSpell) {
+	filterHasMatch(aura: Status, filter: AuraFilterSpell) {
 		if (aura.id === filter.id || aura.name === filter.name) {
 			return true;
 		}

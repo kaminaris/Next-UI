@@ -9,9 +9,8 @@ export abstract class BaseConfigComponent {
 	@Input() customSet = false;
 	@Input() reset = true;
 
-	@Input() widgetName: string;
-	@Input() frameName: keyof MainConfig['frames'];
 	@Input() configObj: any = {};
+	@Input() configPath: string;
 
 	@Output() getProp = new EventEmitter<{ value: any }>();
 	@Output() setProp = new EventEmitter<any>();
@@ -26,14 +25,6 @@ export abstract class BaseConfigComponent {
 	) {}
 
 	ngOnInit() {
-		if (this.frameName) {
-			if (this.widgetName) {
-				this.configObj = (this.conf.config.frames as any)[this.frameName].widgets[this.widgetName];
-			}
-			else {
-				this.configObj = (this.conf.config.frames as any)[this.frameName];
-			}
-		}
 	}
 
 	resetConfig(prop: string) {
@@ -43,7 +34,7 @@ export abstract class BaseConfigComponent {
 			return;
 		}
 
-		this.conf.resetConfig(prop, this.frameName, this.widgetName);
+		this.conf.resetConfig(prop, this.configPath);
 		this.cd.detectChanges();
 	}
 

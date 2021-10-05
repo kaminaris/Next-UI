@@ -1,6 +1,6 @@
 import { AuraFilterSpell } from './AuraFilterSpell';
 
-export interface AuraFilter {
+export interface StatusFilter {
 	name: string;
 	type: 'whitelist' | 'blacklist';
 	filter: AuraFilterSpell[];

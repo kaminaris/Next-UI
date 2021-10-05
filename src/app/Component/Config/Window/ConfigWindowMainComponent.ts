@@ -50,7 +50,7 @@ export class ConfigWindowMainComponent {
 	constructor(public conf: ConfigService) {}
 
 	resetConfig(prop: string) {
-		this.conf.resetConfig(prop);
+		this.conf.resetConfig(prop, '');
 	}
 
 	closeConfig() {

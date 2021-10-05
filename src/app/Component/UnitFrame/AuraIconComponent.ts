@@ -2,7 +2,7 @@ import {
 	ChangeDetectorRef, Component, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges
 }                        from '@angular/core';
 import { Subscription }  from 'rxjs';
-import { Aura }          from 'src/app/Model/Aura';
+import { Status }        from 'src/app/Model/Status';
 import { ConfigService } from 'src/app/Service/ConfigService';
 
 @Component({
@@ -40,7 +40,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	`
 })
 export class AuraIconComponent implements OnInit, OnDestroy {
-	@Input() aura: Aura;
+	@Input() aura: Status;
 	@Input() size = 30;
 	auraId = 0;
 	src = '';

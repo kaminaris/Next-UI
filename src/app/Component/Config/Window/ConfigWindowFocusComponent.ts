@@ -1,24 +1,21 @@
-import { Component }     from '@angular/core';
-import { MainConfig }    from 'src/app/Model/Config/MainConfig';
-import { barDirections } from 'src/app/Data/barDirections';
-import { barStyles }     from 'src/app/Data/barStyles';
-import { anchors }       from 'src/app/Data/anchors';
-import { ConfigService } from 'src/app/Service/ConfigService';
+import { Component }             from '@angular/core';
+import { ConfigWindowUnitFrame } from 'src/app/Component/Config/Window/ConfigWindowUnitFrame';
+import { ConfigService }         from 'src/app/Service/ConfigService';
 
 @Component({
 	selector: 'config-window-focus',
 	templateUrl: 'ConfigWindowUnitFrame.html'
 })
-export class ConfigWindowFocusComponent {
+export class ConfigWindowFocusComponent extends ConfigWindowUnitFrame {
 	title = 'Focus Frame Configuration';
 
-	frameName: keyof MainConfig['frames'] = 'focus';
-	anchors = anchors;
-	barStyles = barStyles;
-	barDirections = barDirections;
+	configObj = this.conf.config.frames.focus;
+	configPath = 'focus';
+
 	filters = this.conf.config.filters;
 
 	constructor(public conf: ConfigService) {
+		super()
 		this.conf.config.filtersSub.subscribe(v => this.filters = v);
 	}
 }

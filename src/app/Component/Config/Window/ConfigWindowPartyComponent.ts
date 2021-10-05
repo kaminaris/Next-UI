@@ -1,98 +1,90 @@
-import { Component }     from '@angular/core';
-import { barDirections } from 'src/app/Data/barDirections';
-import { barStyles }     from 'src/app/Data/barStyles';
-import { anchors }       from 'src/app/Data/anchors';
-import { sorters }       from 'src/app/Data/sorters';
-import { MainConfig }    from 'src/app/Model/Config/MainConfig';
-import { ConfigService } from 'src/app/Service/ConfigService';
+import { Component }             from '@angular/core';
+import { ConfigWindowUnitFrame } from 'src/app/Component/Config/Window/ConfigWindowUnitFrame';
+import { barDirections }         from 'src/app/Data/barDirections';
+import { barStyles }             from 'src/app/Data/barStyles';
+import { anchors }               from 'src/app/Data/anchors';
+import { sorters }               from 'src/app/Data/sorters';
+import { ConfigService }         from 'src/app/Service/ConfigService';
 
 @Component({
 	selector: 'config-window-party',
 	template: `
 		<h4 class="ta-c">Party Frame Configuration</h4>
-		<config-group title="Frame">
-			<config-input [frameName]="frameName" prop="unitFrameHeight" label="Frame Height"></config-input>
-			<config-input [frameName]="frameName" prop="unitFrameWidth" label="Frame Width"></config-input>
-			<config-input [frameName]="frameName" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
-			<config-select [frameName]="frameName" [items]="barStyles" prop="direction" label="Direction"></config-select>
-			<config-checkbox [frameName]="frameName" prop="wrap" label="Wrap"></config-checkbox>
-			<config-select [frameName]="frameName" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
-		</config-group>
 
-		<config-group title="Basic">
-			<config-checkbox [frameName]="frameName" prop="enabled" label="Enabled"></config-checkbox>
+		<tabs-header [tabs]="tabs" (tabChanged)="tabChanged($event)"></tabs-header>
 
-			<config-position [frameName]="frameName" prop="position" label="Position"></config-position>
-			<config-size [frameName]="frameName" prop="size" label="Size"></config-size>
+		<ng-container [ngSwitch]="currentTabIndex">
+			<unit-frame-basic class="d-block p-3" *ngSwitchCase="0"
+				[configObj]="configObj.basic"
+				[configPath]="configPath"
+			></unit-frame-basic>
 
-			<config-color [frameName]="frameName" prop="backgroundColor" label="Background"></config-color>
+			<unit-frame-health-bar class="d-block p-3" *ngSwitchCase="1"
+				[configObj]="configObj.healthBar"
+				[configPath]="configPath"
+			></unit-frame-health-bar>
 
-			<config-range [frameName]="frameName" prop="borderWidth" [min]="0" [max]="20" [step]="1" label="Border Width"></config-range>
-			<config-color [frameName]="frameName" prop="borderColor" label="Border Color"></config-color>
-		</config-group>
+			<unit-frame-mana-bar class="d-block p-3" *ngSwitchCase="2"
+				[configObj]="configObj.manaBar"
+				[configPath]="configPath"
+			></unit-frame-mana-bar>
 
-		<config-group title="Health Bar">
-			<config-color [frameName]="frameName" prop="barColor" label="HP Color"></config-color>
-			<config-checkbox [frameName]="frameName" prop="useClassColor" label="Use Class Color"></config-checkbox>
-			<config-select [frameName]="frameName" [items]="barStyles" prop="barStyle" label="Bar Style"></config-select>
-			<config-select [frameName]="frameName" [items]="barDirections" prop="barDirection" label="Bar Direction"></config-select>
-		</config-group>
+			<unit-frame-role class="d-block p-3" *ngSwitchCase="3"
+				[configObj]="configObj.role"
+				[configPath]="configPath"
+			></unit-frame-role>
 
-		<config-group title="Mana Bar">
-			<config-checkbox [frameName]="frameName" prop="showMana" label="Show Mana"></config-checkbox>
-			<config-input [frameName]="frameName" prop="manaHeight" label="Mana Height"></config-input>
-			<config-color [frameName]="frameName" prop="manaColor" label="Mana Color"></config-color>
-			<config-select [frameName]="frameName" [items]="barStyles" prop="manaBarStyle" label="Bar Style"></config-select>
-			<config-select [frameName]="frameName" [items]="barDirections" prop="manaBarDirection" label="Bar Direction"></config-select>
-		</config-group>
+			<unit-frame-sign class="d-block p-3" *ngSwitchCase="4"
+				[configObj]="configObj.sign"
+				[configPath]="configPath"
+			></unit-frame-sign>
 
-		<config-group title="Role Icon">
-			<config-checkbox [frameName]="frameName" prop="showRoleIcon" label="Show Role Icon"></config-checkbox>
-			<config-select [frameName]="frameName" [items]="anchors" prop="roleIconAnchor" label="Icon Anchor"></config-select>
-			<config-position [frameName]="frameName" prop="roleIconPosition" label="Icon Position"></config-position>
-			<config-color [frameName]="frameName" prop="roleIconColor" label="Icon Color"></config-color>
-			<config-input [frameName]="frameName" inputType="number" prop="roleIconSize" label="Icon Size"></config-input>
-		</config-group>
+			<unit-frame-distance class="d-block p-3" *ngSwitchCase="5"
+				[configObj]="configObj.distance"
+				[configPath]="configPath"
+			></unit-frame-distance>
 
-		<config-group title="Sign">
-			<config-checkbox [frameName]="frameName" prop="showSign" label="Show Sign"></config-checkbox>
-			<config-select [frameName]="frameName" [items]="anchors" prop="signAnchor" label="Sign Anchor"></config-select>
-			<config-position [frameName]="frameName" prop="signPosition" label="Sign Position"></config-position>
-			<config-input [frameName]="frameName" inputType="number" prop="signSize" label="Sign Size"></config-input>
-		</config-group>
+			<unit-frame-status class="d-block p-3" *ngSwitchCase="6"
+				[configObj]="configObj.status"
+				[configPath]="configPath"
+				[filters]="filters"
+			></unit-frame-status>
 
-		<config-group title="Distance">
-			<config-checkbox [frameName]="frameName" prop="distanceEnabled" label="Distance Enabled"></config-checkbox>
-			<config-input [frameName]="frameName" inputType="number" prop="distanceOpacity" label="Opacity"></config-input>
-			<config-input [frameName]="frameName" inputType="number" prop="distanceThreshold" label="Threshold"></config-input>
-		</config-group>
+			<unit-frame-cast-bar class="d-block p-3" *ngSwitchCase="7"
+				[configObj]="configObj.castBar"
+				[configPath]="configPath"
+			></unit-frame-cast-bar>
 
-		<config-group title="Auras">
-			<config-checkbox [frameName]="frameName" prop="aurasEnabled" label="Enabled"></config-checkbox>
-			<config-position [frameName]="frameName" prop="auraPosition" label="Aura Position"></config-position>
-			<config-select [frameName]="frameName" [items]="anchors" prop="auraAnchor" label="Aura Anchor"></config-select>
-			<config-checkbox [frameName]="frameName" prop="auraOnlyOwn" label="Only own"></config-checkbox>
-			<config-multiselect [frameName]="frameName" [items]="filters" bindValue="name" bindLabel="name"
-				prop="auraFilters" label="Aura Filters"></config-multiselect>
-		</config-group>
+			<unit-frame-data-text class="d-block p-3" *ngSwitchCase="7"
+				[configObj]="configObj.widgets"
+				[configPath]="configPath"
+			></unit-frame-data-text>
 
-		<config-text-widget title="Name label" [frameName]="frameName" widgetName="name"></config-text-widget>
-		<config-text-widget title="Job label" [frameName]="frameName" widgetName="job"></config-text-widget>
-		<config-text-widget title="HP label" [frameName]="frameName" widgetName="hp"></config-text-widget>
-		<config-text-widget title="Mana label" [frameName]="frameName" widgetName="mana"></config-text-widget>
-		<config-text-widget title="Level label" [frameName]="frameName" widgetName="level"></config-text-widget>
+			<div class="d-block p-3" *ngSwitchCase="8">
+				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameHeight" label="Frame Height"></config-input>
+				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameWidth" label="Frame Width"></config-input>
+				<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
+				<config-select [configObj]="configObj" [configPath]="configPath" [items]="barStyles" prop="direction" label="Direction"></config-select>
+				<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="wrap" label="Wrap"></config-checkbox>
+				<config-select [configObj]="configObj" [configPath]="configPath" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
+			</div>
+		</ng-container>
 	`
 })
-export class ConfigWindowPartyComponent {
-	frameName: keyof MainConfig['frames'] = 'party';
+export class ConfigWindowPartyComponent extends ConfigWindowUnitFrame {
 	configObj = this.conf.config.frames.party;
+	configPath = 'frames.party';
+
 	anchors = anchors;
 	barStyles = barStyles;
 	barDirections = barDirections;
+
 	filters = this.conf.config.filters;
 	sorters = sorters.filter(s => s.canApplyToParty);
 
 	constructor(public conf: ConfigService) {
+		super();
 		this.conf.config.filtersSub.subscribe(v => this.filters = v);
+		this.tabs.push({ name: 'Party Settings' });
 	}
 }

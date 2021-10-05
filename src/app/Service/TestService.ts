@@ -108,6 +108,16 @@ export class TestService {
 		}
 	}
 
+	castSpell(id: number, name: string, duration: number) {
+		const p = this.parser.player.value;
+		p.cast.start(id, name, duration);
+	}
+
+	cancelSpell(reason: string) {
+		const p = this.parser.player.value;
+		p.cast.stop(true, reason);
+	}
+
 	addCombatant(enemy = true, job = 'NONE', name?: string) {
 		const id = Math.ceil(Math.random() * 10000);
 		name ??= enemy ? 'Some Enemy' + id.toString(16) : 'Some NPC' + id.toString(16);

@@ -27,6 +27,7 @@ export class ProgressBarComponent {
 	@Input() height = '100%';
 	@Input() bgColor = 'rgba(0,0,0,0.0)';
 	@Input() fillColor = 'rgb(69,226,0)';
+	@Input() smooth = false;
 
 	get styleComputed() {
 		return {
@@ -37,6 +38,7 @@ export class ProgressBarComponent {
 			bottom: this.barStyle === 'vertical' && this.barDirection === 'start' ? '0' : '',
 			right: this.barStyle === 'horizontal' && this.barDirection === 'end' ? '0' : '',
 			left: this.barStyle === 'horizontal' && this.barDirection === 'start' ? '0' : '',
+			transition: this.smooth ? 'width 0.1s linear' : undefined,
 		}
 	}
 }

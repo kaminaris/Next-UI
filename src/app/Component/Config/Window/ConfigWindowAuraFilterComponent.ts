@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { AuraDefinition }    from 'src/app/Interface/AuraDefinition';
-import { AuraFilter }        from 'src/app/Interface/AuraFilter';
-import { ConfigService }     from 'src/app/Service/ConfigService';
+import { AuraDefinition } from 'src/app/Interface/AuraDefinition';
+import { StatusFilter }   from 'src/app/Interface/StatusFilter';
+import { ConfigService }  from 'src/app/Service/ConfigService';
 import { statuses }          from 'src/app/Data/statuses';
 
 @Component({
@@ -96,9 +96,9 @@ export class ConfigWindowAuraFilterComponent {
 		{ value: 'whitelist', label: 'Whitelist' }
 	];
 
-	selectedFilter: AuraFilter;
+	selectedFilter: StatusFilter;
 
-	filters: AuraFilter[] = [];
+	filters: StatusFilter[] = [];
 	newFilterName = '';
 
 	exportInput = '';

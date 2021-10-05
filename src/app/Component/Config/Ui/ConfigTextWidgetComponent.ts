@@ -5,18 +5,18 @@ import { anchors }          from 'src/app/Data/anchors';
 	selector: 'config-text-widget',
 	template: `
 		<config-group [title]="title">
-			<config-checkbox [frameName]="frameName" [widgetName]="widgetName" prop="show" label="Show"></config-checkbox>
-			<config-select [frameName]="frameName" [items]="anchors" [widgetName]="widgetName" prop="anchor" label="Anchor"></config-select>
-			<config-position [frameName]="frameName" [widgetName]="widgetName" prop="position" label="Position"></config-position>
-			<config-color [frameName]="frameName" [widgetName]="widgetName" prop="fontColor" label="Font Color"></config-color>
-			<config-input [frameName]="frameName" [widgetName]="widgetName" prop="fontSize" label="Font Size"></config-input>
-			<config-checkbox [frameName]="frameName" [widgetName]="widgetName" prop="outline" label="Text Outline"></config-checkbox>
+			<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="show" label="Show"></config-checkbox>
+			<config-select [configObj]="configObj" [configPath]="configPath" [items]="anchors" prop="anchor" label="Anchor"></config-select>
+			<config-position [configObj]="configObj" [configPath]="configPath" prop="position" label="Position"></config-position>
+			<config-color [configObj]="configObj" [configPath]="configPath" prop="fontColor" label="Font Color"></config-color>
+			<config-input [configObj]="configObj" [configPath]="configPath" prop="fontSize" label="Font Size"></config-input>
+			<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="outline" label="Text Outline"></config-checkbox>
 		</config-group>
 	`
 })
 export class ConfigTextWidgetComponent {
-	@Input() title = '';
-	@Input() frameName: any;
-	@Input() widgetName: any;
+	@Input() configObj: any;
+	@Input() configPath: string;
+	@Input() title: string;
 	anchors = anchors;
 }

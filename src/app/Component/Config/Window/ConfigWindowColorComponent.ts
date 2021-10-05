@@ -25,10 +25,6 @@ export class ConfigWindowColorComponent {
 
 	constructor(public conf: ConfigService) {}
 
-	resetConfig(prop: string) {
-		this.conf.resetConfig(prop);
-	}
-
 	closeConfig() {
 		this.conf.closeConfig();
 	}

@@ -6,6 +6,7 @@ import { ActorInterface, EnmityTargetData }                from 'src/app/Interfa
 import { PartyMember }                                     from 'src/app/Interface/PartyMember';
 import { ConfigService }                                   from 'src/app/Service/ConfigService';
 import { AbilityHitCloneHandler }                          from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
+import { XivPluginService }                                from 'src/app/Service/XivPluginService';
 import { EventDispatcher }                                 from './EventDispatcher';
 import { Util }                                            from './Util';
 import { TTSService }                                      from '../TTSService';
@@ -90,13 +91,23 @@ export class LogParser {
 	constructor(
 		public tts: TTSService,
 		public eventDispatcher: EventDispatcher,
-		public config: ConfigService
+		public config: ConfigService,
+		public xiv: XivPluginService
 	) {
 		// guard target of target in case of target dying
 		this.target.subscribe((v) => {
 			if (!v && this.targetOfTarget.value) {
 				this.targetOfTarget.next(null);
 			}
+		});
+
+		xiv.events.castStart.subscribe((e) => {
+			const target = e.target as keyof Pick<LogParser, 'target' | 'focus' | 'player' | 'targetOfTarget'>;
+			const actor = this[target].value;
+			if (!actor || e.totalTime < 0.1) {
+				return;
+			}
+			actor.cast.start(e.actionId, e.actionName, e.totalTime);
 		});
 	}
 

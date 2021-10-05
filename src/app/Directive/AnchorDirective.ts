@@ -2,6 +2,7 @@ import { Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core'
 import { BehaviorSubject, Subscription }                    from 'rxjs';
 import { calculateAnchor }                                  from 'src/app/Function/calculateAnchor';
 import { Anchor }                                           from 'src/app/Interface/Anchor';
+import { DistinctBehaviorSubject }                          from 'src/app/Model/DistinctBehaviorSubject';
 
 @Directive({
 	selector: '[anchor-element]'
@@ -13,8 +14,8 @@ export class AnchorDirective implements OnInit, OnDestroy {
 	@HostBinding('style.left') left: string;
 	@HostBinding('style.transform') transform: string;
 
-	@Input() anchorSub: BehaviorSubject<Anchor>;
-	@Input() positionSub: BehaviorSubject<{ x: number, y: number }>;
+	@Input() anchorSub: BehaviorSubject<Anchor> | DistinctBehaviorSubject<Anchor>;
+	@Input() positionSub: BehaviorSubject<{ x: number, y: number }> | DistinctBehaviorSubject<{ x: number, y: number }>;
 
 	subs: Subscription[] = [];
 

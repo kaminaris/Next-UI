@@ -1,15 +1,15 @@
 <div id="main-content" style="position:relative;">
 	<ng-container *ngIf="conf.uiVisible">
 		<player class="draggable d-block frame-player no-sel"
-				*ngIf="config.frames.player.enabled"
+				*ngIf="config.frames.player.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.player.size.width"
-				[style.height.px]="config.frames.player.size.height"
+				[style.width.px]="config.frames.player.basic.size.width"
+				[style.height.px]="config.frames.player.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="playerDragHandle"
 				rzHandles="all"
-				[position]="config.frames.player.position"
+				[position]="config.frames.player.basic.position"
 				(rzStop)="saveFrameSize('player', $event)"
 				(endOffset)="saveFramePosition('player', $event)"
 		>
@@ -19,15 +19,15 @@
 		</player>
 
 		<target class="draggable d-block frame-target no-sel"
-				*ngIf="config.frames.target.enabled"
+				*ngIf="config.frames.target.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.target.size.width"
-				[style.height.px]="config.frames.target.size.height"
+				[style.width.px]="config.frames.target.basic.size.width"
+				[style.height.px]="config.frames.target.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="targetDragHandle"
 				rzHandles="all"
-				[position]="config.frames.target.position"
+				[position]="config.frames.target.basic.position"
 				(rzStop)="saveFrameSize('target', $event)"
 				(endOffset)="saveFramePosition('target', $event)"
 		>
@@ -37,15 +37,15 @@
 		</target>
 
 		<target-of-target class="draggable d-block frame-target-of-target no-sel"
-				*ngIf="config.frames.targetOfTarget.enabled"
+				*ngIf="config.frames.targetOfTarget.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.targetOfTarget.size.width"
-				[style.height.px]="config.frames.targetOfTarget.size.height"
+				[style.width.px]="config.frames.targetOfTarget.basic.size.width"
+				[style.height.px]="config.frames.targetOfTarget.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="targetOfTargetDragHandle"
 				rzHandles="all"
-				[position]="config.frames.targetOfTarget.position"
+				[position]="config.frames.targetOfTarget.basic.position"
 				(rzStop)="saveFrameSize('targetOfTarget', $event)"
 				(endOffset)="saveFramePosition('targetOfTarget', $event)"
 		>
@@ -55,15 +55,15 @@
 		</target-of-target>
 
 		<focus class="draggable d-block frame-focus no-sel"
-				*ngIf="config.frames.focus.enabled"
+				*ngIf="config.frames.focus.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.focus.size.width"
-				[style.height.px]="config.frames.focus.size.height"
+				[style.width.px]="config.frames.focus.basic.size.width"
+				[style.height.px]="config.frames.focus.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="focusDragHandle"
 				rzHandles="all"
-				[position]="config.frames.focus.position"
+				[position]="config.frames.focus.basic.position"
 				(rzStop)="saveFrameSize('focus', $event)"
 				(endOffset)="saveFramePosition('focus', $event)"
 		>
@@ -73,15 +73,15 @@
 		</focus>
 
 		<party class="draggable d-block frame-party no-sel"
-				*ngIf="config.frames.party.enabled"
+				*ngIf="config.frames.party.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.party.size.width"
-				[style.height.px]="config.frames.party.size.height"
+				[style.width.px]="config.frames.party.basic.size.width"
+				[style.height.px]="config.frames.party.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="partyDragHandle"
 				rzHandles="all"
-				[position]="config.frames.party.position"
+				[position]="config.frames.party.basic.position"
 				(rzStop)="saveFrameSize('party', $event)"
 				(endOffset)="saveFramePosition('party', $event)"
 		>
@@ -91,15 +91,15 @@
 		</party>
 
 		<aggro-list class="draggable d-block frame-aggro-list no-sel"
-				*ngIf="config.frames.aggroList.enabled"
+				*ngIf="config.frames.aggroList.basic.enabled"
 				[class.frame-bg]="moveMode"
-				[style.width.px]="config.frames.aggroList.size.width"
-				[style.height.px]="config.frames.aggroList.size.height"
+				[style.width.px]="config.frames.aggroList.basic.size.width"
+				[style.height.px]="config.frames.aggroList.basic.size.height"
 				[ngDraggable]="moveMode"
 				[ngResizable]="moveMode"
 				[handle]="aggroListDragHandle"
 				rzHandles="all"
-				[position]="config.frames.aggroList.position"
+				[position]="config.frames.aggroList.basic.position"
 				(rzStop)="saveFrameSize('aggroList', $event)"
 				(endOffset)="saveFramePosition('aggroList', $event)"
 		>

@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export function unserialize(instance: any, data: any) {
 	for (const key in instance) {
@@ -25,10 +25,16 @@ export function unserialize(instance: any, data: any) {
 			}
 		}
 		else if (typeof origValue === 'object') {
-			if ('unserialize' in instance[key]) {
+			if (origValue instanceof Observable) {
+				continue;
+			}
+			else if ('unserialize' in instance[key]) {
 				instance[key].unserialize(data[key]);
 			}
 			else {
+				if (key === 'source') {
+					console.log('WTFFFF', data, instance, origValue)
+				}
 				unserialize(instance[key], data[key]);
 			}
 

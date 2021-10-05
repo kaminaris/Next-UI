@@ -17,8 +17,10 @@ export class AbilityCancelHandler implements HandlerInterface {
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
 		const name = event[indexes.name] ?? '';
-		const abilityId = parseInt(event[indexes.abilityId]?.toUpperCase() ?? '');
+
+		const abilityId = parseInt(event[indexes.abilityId] || '0', 16);
 		const abilityName = event[indexes.abilityName] ?? '';
+
 		const reason = event[indexes.reason] ?? '';
 
 		this.parser.eventDispatcher.ability.next({
@@ -31,6 +33,13 @@ export class AbilityCancelHandler implements HandlerInterface {
 			sourceId: id,
 			sourceName: name
 		});
+
+		const combatant = this.parser.findCombatant(id, name);
+		if (!combatant) {
+			return;
+		}
+		console.log(event);
+		combatant.cast.stop(true, reason, abilityId);
 
 		if (this.parser.debugMode) {
 			console.log(

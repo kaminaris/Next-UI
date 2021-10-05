@@ -1,5 +1,5 @@
-import { Aura }             from 'src/app/Model/Aura';
-import { LogParser }        from '../LogParser';
+import { Status }    from 'src/app/Model/Status';
+import { LogParser } from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {

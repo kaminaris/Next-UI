@@ -6,12 +6,12 @@ import {
 	OnInit
 }                                        from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { Aura }                          from 'src/app/Model/Aura';
+import { Status }                        from 'src/app/Model/Status';
 import { Combatant }                     from 'src/app/Model/Combatant';
-import { AuraService }                   from 'src/app/Service/AuraService';
 import { ConfigService }                 from 'src/app/Service/ConfigService';
 import { LogParser }                     from 'src/app/Service/LogParser/LogParser';
 import { Util }                          from 'src/app/Service/LogParser/Util';
+import { StatusService }                 from 'src/app/Service/StatusService';
 import { XivPluginService }              from 'src/app/Service/XivPluginService';
 
 @Component({
@@ -45,9 +45,9 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	@Input() combatantSubject: BehaviorSubject<Combatant>;
 	@Input() combatant: Combatant;
 
-	auras: Aura[] = [];
+	auras: Status[] = [];
 
-	barColor = this.ownConfig.barColor;
+	barColor = this.ownConfig.healthBar.barColor;
 
 	distanceToPlayer = 0;
 	distanceInterval = 200;
@@ -59,7 +59,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		protected parser: LogParser,
 		protected cd: ChangeDetectorRef,
 		protected xiv: XivPluginService,
-		protected auraService: AuraService
+		protected auraService: StatusService
 	) {}
 
 	ngOnInit(): void {
@@ -69,7 +69,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.initializeCombatant();
 		}
 
-		if (this.ownConfig.distanceEnabled) {
+		if (this.ownConfig.distance.enabled) {
 			this.startDistanceTimer();
 		}
 
@@ -112,7 +112,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			}
 
 			this.distanceToPlayer = player.calcDistance(this.combatant);
-			this.inRange = this.ownConfig.distanceThreshold >= this.distanceToPlayer;
+			this.inRange = this.ownConfig.distance.threshold >= this.distanceToPlayer;
 			// console.log('DISTANCE', this.distanceToPlayer, this.combatant.name,)
 			// console.log('PLAYER', {x: player.x, y: player.y, z: player.z})
 			// console.log('TRG', {x: this.combatant.x, y: this.combatant.y, z: this.combatant.z})
@@ -150,7 +150,6 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.xiv.setTarget(this.combatant.id, 'clearMouseOverEx');
 	}
 
-
 	initializeCombatant() {
 		this.copyFrom(this.combatant);
 
@@ -160,14 +159,14 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 		this.combatantSubs.push(this.combatant.auras.subscribe(this.filterAuras.bind(this)));
 
-		this.combatantSubs.push(this.ownConfig.useClassColorSub.subscribe(() => {
+		this.combatantSubs.push(this.ownConfig.healthBar.useClassColorSub.subscribe(() => {
 			this.copyFrom(this.combatant);
 		}));
 	}
 
-	filterAuras(auras: Aura[]) {
-		const filters = this.config.filters.filter(f => this.ownConfig.auraFilters.indexOf(f.name) >= 0);
-		this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.auraOnlyOwn);
+	filterAuras(auras: Status[]) {
+		const filters = this.config.filters.filter(f => this.ownConfig.status.filters.indexOf(f.name) >= 0);
+		this.auras = this.auraService.filterAuras(auras, filters, this.ownConfig.status.onlyOwn);
 		this.cd.detectChanges();
 	}
 
@@ -241,11 +240,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 	setBarColor(c?: Combatant) {
 		c ??= this.combatant;
-		if (this.ownConfig.useClassColor && c && c.job.value !== 'NONE') {
+		if (this.ownConfig.healthBar.useClassColor && c && c.job.value !== 'NONE') {
 			this.barColor = this.config.colorConfig.getJobColorByName(c.job.value);
 		}
 		else {
-			this.barColor = this.ownConfig.barColor;
+			this.barColor = this.ownConfig.healthBar.barColor;
 		}
 	}
 }
