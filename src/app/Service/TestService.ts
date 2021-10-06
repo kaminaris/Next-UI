@@ -110,7 +110,7 @@ export class TestService {
 
 	castSpell(id: number, name: string, duration: number) {
 		const p = this.parser.player.value;
-		p.cast.start(id, name, duration);
+		p.cast.start(id, name, duration, (this.parser.config.config.castDelay/1000));
 	}
 
 	cancelSpell(reason: string) {

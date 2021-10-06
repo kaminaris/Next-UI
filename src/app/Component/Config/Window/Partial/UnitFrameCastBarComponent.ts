@@ -8,6 +8,8 @@ import { UnitFrameCastBarConfig } from 'src/app/Model/Config/UnitFrame/UnitFrame
 	selector: 'unit-frame-cast-bar',
 	template: `
 		<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="show" label="Show"></config-checkbox>
+		<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="showIcon" label="Show Icon"></config-checkbox>
+		<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="showSlideCast" label="Show Slide Cast"></config-checkbox>
 		<config-select [configObj]="configObj" [configPath]="configPath" [items]="anchors" prop="anchor" label="Anchor"></config-select>
 		<config-position [configObj]="configObj" [configPath]="configPath" prop="position" label="Position"></config-position>
 		<config-size [configObj]="configObj" [configPath]="configPath" prop="size" label="Size"></config-size>
@@ -15,6 +17,9 @@ import { UnitFrameCastBarConfig } from 'src/app/Model/Config/UnitFrame/UnitFrame
 		<config-color [configObj]="configObj" [configPath]="configPath" prop="backgroundColor" label="Background Color"></config-color>
 		<config-select [configObj]="configObj" [configPath]="configPath" [items]="barStyles" prop="barStyle" label="Bar Style"></config-select>
 		<config-select [configObj]="configObj" [configPath]="configPath" [items]="barDirections" prop="barDirection" label="Bar Direction"></config-select>
+
+		<config-range [configObj]="configObj" [configPath]="configPath" prop="borderWidth" [min]="0" [max]="20" [step]="1" label="Border Width"></config-range>
+		<config-color [configObj]="configObj" [configPath]="configPath" prop="borderColor" label="Border Color"></config-color>
 
 		<config-group title="Text Label">
 			<config-checkbox [configObj]="configObj.widgets.name" prop="show" label="Show"></config-checkbox>

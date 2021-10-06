@@ -50,13 +50,17 @@ export const defaultPlayerConfig: RecursivePartial<PlayerFrameConfig> = {
 	},
 	castBar: {
 		show: true,
+		showIcon: true,
+		showSlideCast: true,
 		backgroundColor: 'rgba(33,32,33,0.8)',
 		barColor: '#6f02a5',
-		anchor: 'bottom',
-		position: { x: 0, y: 20 },
-		size: { width: 200, height: 20 },
+		anchor: 'top',
+		position: { x: 0, y: -19 },
+		size: { width: 260, height: 20 },
 		barStyle: 'horizontal',
 		barDirection: 'start',
+		borderWidth: 1,
+		borderColor: 'rgba(16,16,16,1)',
 
 		widgets: {
 			name: {

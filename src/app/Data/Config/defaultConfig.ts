@@ -13,6 +13,8 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 	numberFormat: 'full',
 	hpTemplate: '[hp] / [hpMax] ([hpPct]%)',
 	manaTemplate: '[mana] / [manaMax] ([manaPct]%)',
+	castDelay: 400,
+
 	ttsConfig: {
 		enabled: false,
 		maleRate: 1,

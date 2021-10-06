@@ -45,6 +45,10 @@ export class MainConfig implements SerializableConfig {
 	get filters(): StatusFilter[] { return this.filtersSub.value; }
 	set filters(v: StatusFilter[]) { this.filtersSub.next(v); }
 	filtersSub = new BehaviorSubject<StatusFilter[]>([]);
+
+	get castDelay(): number { return this.castDelaySub.value; }
+	set castDelay(v: number) { this.castDelaySub.next(v); }
+	castDelaySub = new DistinctBehaviorSubject<number>(300);
 	// @formatter:on
 
 	ttsConfig = new TTSConfig();

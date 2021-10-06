@@ -99,7 +99,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(this.ownConfig.anyChangedRecursive.subscribe(() => {
-			console.log('DOES THIS?')
+			console.log('DOES THIS?');
 			this.cd.detectChanges();
 		}));
 	}
@@ -112,8 +112,14 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 				return;
 			}
 
-			this.distanceToPlayer = player.calcDistance(this.combatant);
-			this.inRange = this.ownConfig.distance.threshold >= this.distanceToPlayer;
+			if (this.combatant.id === Combatant.ENV_ID) {
+				this.inRange = true;
+			}
+			else {
+				this.distanceToPlayer = player.calcDistance(this.combatant);
+				this.inRange = this.ownConfig.distance.threshold >= this.distanceToPlayer;
+			}
+
 			// console.log('DISTANCE', this.distanceToPlayer, this.combatant.name,)
 			// console.log('PLAYER', {x: player.x, y: player.y, z: player.z})
 			// console.log('TRG', {x: this.combatant.x, y: this.combatant.y, z: this.combatant.z})

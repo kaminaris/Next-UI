@@ -4,6 +4,7 @@ export class Cast {
 	id: number = null;
 	name: string = null;
 	duration: number = null;
+	delay: number = null;
 
 	elapsed = new BehaviorSubject<number>(0);
 	started = new BehaviorSubject<Date>(null);
@@ -12,18 +13,19 @@ export class Cast {
 	protected interval: number = null;
 	protected timeout: number = null;
 
-	start(id: number, name: string, duration: number) {
+	start(id: number, name: string, duration: number, delay?: number) {
 		this.stop();
 
 		const startTime = new Date();
 		this.id = id;
 		this.name = name;
-		this.duration = duration;
+		this.duration = duration + (delay || 0);
+		this.delay = delay || 0;
 		this.started.next(startTime);
 
 		this.tick();
 		this.interval = window.setInterval(this.tick.bind(this), 50);
-		this.timeout = window.setTimeout(this.stop.bind(this), this.duration * 1000 + 10);
+		this.timeout = window.setTimeout(this.stop.bind(this), this.duration * 1000 + 50);
 	}
 
 	tick() {

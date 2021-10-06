@@ -13,6 +13,14 @@ export class UnitFrameCastBarConfig extends BaseConfig {
 	set show(v: boolean) { this.showSub.next(v); }
 	showSub = new DistinctBehaviorSubject<boolean>(true);
 
+	get showIcon(): boolean { return this.showIconSub.value; }
+	set showIcon(v: boolean) { this.showIconSub.next(v); }
+	showIconSub = new DistinctBehaviorSubject<boolean>(true);
+
+	get showSlideCast(): boolean { return this.showSlideCastSub.value; }
+	set showSlideCast(v: boolean) { this.showSlideCastSub.next(v); }
+	showSlideCastSub = new DistinctBehaviorSubject<boolean>(true);
+
 	get anchor(): Anchor { return this.anchorSub.value; }
 	set anchor(v: Anchor) { this.anchorSub.next(v); }
 	anchorSub = new DistinctBehaviorSubject<Anchor>('topLeft');
@@ -40,6 +48,14 @@ export class UnitFrameCastBarConfig extends BaseConfig {
 	get barDirection(): BarDirection { return this.barDirectionSub.value; }
 	set barDirection(v: BarDirection) { this.barDirectionSub.next(v); }
 	barDirectionSub = new DistinctBehaviorSubject<BarDirection>('start');
+
+	get borderWidth(): number { return this.borderWidthSub.value; }
+	set borderWidth(v: number) { this.borderWidthSub.next(v); }
+	borderWidthSub = new DistinctBehaviorSubject<number>(1);
+
+	get borderColor(): string { return this.borderColorSub.value; }
+	set borderColor(v: string) { this.borderColorSub.next(v); }
+	borderColorSub = new DistinctBehaviorSubject<string>('');
 	// @formatter:on
 
 	widgets = {
