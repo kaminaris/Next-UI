@@ -108,7 +108,8 @@ export class LogParser {
 				return;
 			}
 
-			actor.cast.start(e.actionId, e.actionName, e.totalTime);
+			const delay = (this.config.config.castDelay / 1000);
+			actor.cast.start(e.actionId, e.actionName, e.totalTime - delay, delay);
 		});
 	}
 

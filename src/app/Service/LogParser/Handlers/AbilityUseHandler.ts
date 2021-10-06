@@ -52,7 +52,8 @@ export class AbilityUseHandler implements HandlerInterface {
 				combatant.cast.start(
 					abilityId,
 					abilityName,
-					duration + (this.parser.config.config.castDelay / 1000)
+					duration,
+					(this.parser.config.config.castDelay / 1000)
 				);
 			}
 		}

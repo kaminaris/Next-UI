@@ -28,7 +28,7 @@ import { UnitFrameCastBarConfig } from 'src/app/Model/Config/UnitFrame/UnitFrame
 				<div class="position-absolute h100p" 
 					*ngIf="config.showSlideCast"
 					[style.width.%]="slideCastFill"
-					style="background: rgba(100, 32, 32, 0.7); right: 0"
+					style="background: rgba(200, 32, 32, 0.7); right: 0"
 				>
 				</div>
 
