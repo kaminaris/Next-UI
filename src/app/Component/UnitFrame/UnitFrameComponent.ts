@@ -1,10 +1,10 @@
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
-	Component, Input,
+	Component, HostListener, Input,
 	OnDestroy,
 	OnInit
-}                                        from '@angular/core';
+} from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Status }                        from 'src/app/Model/Status';
 import { Combatant }                     from 'src/app/Model/Combatant';
@@ -61,6 +61,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		protected xiv: XivPluginService,
 		protected auraService: StatusService
 	) {}
+
+	@HostListener('contextmenu', ['$event'])
+	onRightClick(event: MouseEvent) {
+		event.preventDefault();
+	}
 
 	ngOnInit(): void {
 		this.cd.detach();
