@@ -14,7 +14,7 @@ import { anchors }              from 'src/app/Data/anchors';
 		<window-panel (close)="closeConfig()">
 			<ng-container header>
 				<img [src]="logoUrl" style="width: 39px; background: #fff;" alt="NextUI">
-				<h4 class="mt-1">
+				<h4 class="mt-1 ms-2">
 					NextUI - Custom Elements
 				</h4>
 				<button type="button" class="btn btn-sm btn-success ms-3" (click)="save()">Save</button>

@@ -39,6 +39,7 @@ export abstract class BaseConfigComponent {
 		if (this.customSet) {
 			this.resetProp.emit(true);
 			this.afterSet.emit(true);
+			this.value = this.getValue();
 			return;
 		}
 

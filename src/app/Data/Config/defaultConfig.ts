@@ -8,7 +8,7 @@ import { defaultPlayerConfig }         from './defaultPlayerConfig';
 import { defaultTargetConfig }         from './defaultTargetConfig';
 
 export const defaultConfig: RecursivePartial<MainConfig> = {
-	fontFamily: 'Noto Sans Condensed',
+	fontFamily: 'Segoe UI',
 	customCss: '',
 	numberFormat: 'full',
 	hpTemplate: '[hp] / [hpMax] ([hpPct]%)',

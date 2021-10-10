@@ -34,7 +34,7 @@ $enable-rounded: false;
 body {
 	background-color:  transparent;
 	background-repeat: repeat;
-	overflow: hidden;
+	overflow:          hidden;
 
 	&.grid {
 		background-image: url(assets/bg2.png);
@@ -126,7 +126,7 @@ input, button {
 	}
 
 	&.frame-custom-element {
-		outline:          2px dashed $blue-border;
+		outline: 2px dashed $blue-border;
 	}
 }
 
@@ -135,7 +135,7 @@ input, button {
 }
 
 .control-bar {
-	padding:          5px;
+	padding: 5px;
 }
 
 .btn-icon {
@@ -151,9 +151,7 @@ input, button {
 	height: 28px;
 }
 
-
 .top-right-5 { top: 5px; right: 5px }
-
 
 .text-outline-1 {
 	@include stroke();
@@ -161,4 +159,23 @@ input, button {
 
 .text-outline-2 {
 	@include stroke(#000, 2px);
+}
+
+.nav-pills {
+	display:               grid;
+	grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+
+	.nav-link {
+		padding:    4px 1rem;
+		color:      $light;
+		background: $body-bg;
+		border: 1px solid $dark;
+		text-align: center;
+
+		&.active {
+			color:      $dark;
+			background: $light;
+
+		}
+	}
 }

@@ -20,7 +20,10 @@ import { BaseConfigComponent }   from 'src/app/Component/Config/Ui/BaseConfigCom
 				[style.background]="value"
 				(click)="toggleWidget()"
 			></button>
-			<input type="text" class="form-control form-control-sm color-input-field" [(ngModel)]="value">
+			<input type="text" class="form-control form-control-sm color-input-field" 
+				[(ngModel)]="value"
+				(ngModelChange)="setValue(value)"
+			>
 		</div>
 		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning w100p" type="button" (click)="resetConfig(prop)">Reset</button>

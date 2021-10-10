@@ -10,7 +10,7 @@ import { default as config } from '../../../package.json';
 		<window-panel (close)="closeConfig()">
 			<ng-container header>
 				<img [src]="logoUrl" style="width: 39px; background: #fff;" alt="NextUI">
-				<h4 class="mt-1">
+				<h4 class="mt-1 ms-2">
 					NextUI - Config <small class="text-muted">(v{{ version }})</small>
 				</h4>
 			</ng-container>

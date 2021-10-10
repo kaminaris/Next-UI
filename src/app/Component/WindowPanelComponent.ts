@@ -13,7 +13,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 			</div>
 
 			<div class="config-content d-flex flex-row">
-				<div class="config-pane">
+				<div class="config-pane" style="padding-top: 10px;">
 					<ng-content select="[pane]"></ng-content>
 				</div>
 				<div class="config-pane-content">
