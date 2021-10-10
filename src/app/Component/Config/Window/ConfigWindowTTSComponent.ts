@@ -6,9 +6,7 @@ import { TTSService }        from 'src/app/Service/TTSService';
 @Component({
 	selector: 'config-window-tts',
 	template: `
-		<h4 class="ta-c">Text To Speech Config</h4>
-		
-		<config-group title="Main Config">
+		<config-group title="Text To Speech">
 			<config-checkbox [configObj]="config" prop="enabled" label="Enabled"></config-checkbox>
 		</config-group>
 		

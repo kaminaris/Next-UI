@@ -20,6 +20,7 @@ export class TTSService {
 		'Sarisha',
 		'Tesleen',
 		'Lyna',
+		'Ryne',
 		'Adalberta',
 		'Vajra',
 		'Hilda',

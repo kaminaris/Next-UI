@@ -38,7 +38,7 @@ export class ProgressBarComponent {
 			bottom: this.barStyle === 'vertical' && this.barDirection === 'start' ? '0' : '',
 			right: this.barStyle === 'horizontal' && this.barDirection === 'end' ? '0' : '',
 			left: this.barStyle === 'horizontal' && this.barDirection === 'start' ? '0' : '',
-			transition: this.smooth ? 'width 0.1s linear' : undefined,
+			transition: this.smooth ?  (this.barStyle === 'vertical' ? 'height' :'width') + ' 0.1s linear' : undefined,
 		}
 	}
 }

@@ -5,8 +5,6 @@ import { Util }          from 'src/app/Service/LogParser/Util';
 @Component({
 	selector: 'config-window-color',
 	template: `
-		<h4 class="ta-c">Color Configuration</h4>
-
 		<config-group title="Job Colors">
 			<config-color *ngFor="let j of jobs"
 				[customSet]="true"

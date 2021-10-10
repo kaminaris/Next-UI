@@ -1,15 +1,12 @@
 import { Component }          from '@angular/core';
 import { ConfigProfile }      from 'src/app/Interface/ConfigProfile';
 import { MainConfig }         from 'src/app/Model/Config/MainConfig';
-import { CompressionService } from 'src/app/Service/CompressionService';
 import { ConfigService }      from 'src/app/Service/ConfigService';
 
 @Component({
 	selector: 'config-window-profile',
 	template: `
-		<h4 class="ta-c">Profiles</h4>
-
-		<config-group title="Basic">
+		<config-group title="Profiles">
 			<div class="custom-config-row">
 				<div class="config-label">Create New</div>
 				<div class="config-input">

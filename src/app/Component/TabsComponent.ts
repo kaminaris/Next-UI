@@ -8,7 +8,7 @@ export interface TabDef {
 @Component({
 	selector: 'tabs-header',
 	template: `
-		<ul class="nav nav-tabs  justify-content-center">
+		<ul class="nav nav-pills fz-14 justify-content-center">
 			<li class="nav-item" *ngFor="let t of tabs">
 				<span class="nav-link cursor-pointer" 
 					[class.active]="t.active"

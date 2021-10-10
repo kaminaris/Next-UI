@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'colors';
 
 .config-group {
 	margin:  5px;
@@ -59,8 +60,10 @@ config-range,
 .config-window {
 	width:            800px;
 	height:           600px;
-	background-color: $ui-background-color;
+	//background-color: $ui-background-color;
+	background-color: $body-bg;
 	border:           $config-border;
+	box-shadow:       0 0 10px 5px rgba(0, 0, 0, 0.5);
 	//color:            $config-color;
 
 	table {
@@ -74,18 +77,18 @@ config-range,
 	}
 
 	.config-bar {
-		height:        40px;
-		flex:          0 0 40px;
-		border-bottom: $config-border;
+		height: 40px;
+		flex:   0 0 40px;
 	}
 
 	.config-pane {
-		width:        200px;
-		border-right: $config-border;
-		flex:         1 1 160px;
+		width: 200px;
+		flex:  1 1 160px;
 	}
 
 	.config-pane-content {
-		flex: 1 1 640px;
+		flex:       1 1 640px;
+		overflow-y: auto;
+		padding:    10px;
 	}
 }

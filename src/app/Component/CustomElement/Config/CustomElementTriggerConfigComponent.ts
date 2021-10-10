@@ -68,6 +68,13 @@ import { LogParser }                from 'src/app/Service/LogParser/LogParser';
 			></trigger-player-marker-config>
 		</config-group>
 		
+		<config-group title="Pull Timer Trigger" *ngIf="triggerType === 'pull-timer'">
+			<trigger-pull-timer-config 
+				[customElement]="customElement" 
+				[trigger]="customElement.trigger"
+			></trigger-pull-timer-config>
+		</config-group>
+		
 	`
 })
 export class CustomElementTriggerConfigComponent implements OnInit {

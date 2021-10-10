@@ -19,15 +19,4 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 })
 export class ConfigInputComponent extends BaseConfigComponent {
 	@Input() inputType = 'text';
-	value: any;
-
-	ngOnInit() {
-		super.ngOnInit();
-		this.value = this.getValue();
-	}
-
-	resetConfig(prop: string) {
-		super.resetConfig(prop);
-		this.value = this.getValue();
-	}
 }

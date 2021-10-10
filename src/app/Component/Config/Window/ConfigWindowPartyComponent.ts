@@ -9,65 +9,63 @@ import { ConfigService }         from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-window-party',
 	template: `
-		<h4 class="ta-c">Party Frame Configuration</h4>
-
 		<tabs-header [tabs]="tabs" (tabChanged)="tabChanged($event)"></tabs-header>
 
 		<ng-container [ngSwitch]="currentTabIndex">
-			<unit-frame-basic class="d-block p-3" *ngSwitchCase="0"
+			<unit-frame-basic class="d-block pt-2" *ngSwitchCase="0"
 				[configObj]="configObj.basic"
 				[configPath]="configPath"
 			></unit-frame-basic>
 
-			<unit-frame-health-bar class="d-block p-3" *ngSwitchCase="1"
+			<unit-frame-health-bar class="d-block pt-2" *ngSwitchCase="1"
 				[configObj]="configObj.healthBar"
 				[configPath]="configPath"
 			></unit-frame-health-bar>
 
-			<unit-frame-mana-bar class="d-block p-3" *ngSwitchCase="2"
+			<unit-frame-mana-bar class="d-block pt-2" *ngSwitchCase="2"
 				[configObj]="configObj.manaBar"
 				[configPath]="configPath"
 			></unit-frame-mana-bar>
 
-			<unit-frame-role class="d-block p-3" *ngSwitchCase="3"
+			<unit-frame-role class="d-block pt-2" *ngSwitchCase="3"
 				[configObj]="configObj.role"
 				[configPath]="configPath"
 			></unit-frame-role>
 
-			<unit-frame-sign class="d-block p-3" *ngSwitchCase="4"
+			<unit-frame-sign class="d-block pt-2" *ngSwitchCase="4"
 				[configObj]="configObj.sign"
 				[configPath]="configPath"
 			></unit-frame-sign>
 
-			<unit-frame-distance class="d-block p-3" *ngSwitchCase="5"
+			<unit-frame-distance class="d-block pt-2" *ngSwitchCase="5"
 				[configObj]="configObj.distance"
 				[configPath]="configPath"
 			></unit-frame-distance>
 
-			<unit-frame-status class="d-block p-3" *ngSwitchCase="6"
+			<unit-frame-status class="d-block pt-2" *ngSwitchCase="6"
 				[configObj]="configObj.status"
 				[configPath]="configPath"
 				[filters]="filters"
 			></unit-frame-status>
 
-			<unit-frame-cast-bar class="d-block p-3" *ngSwitchCase="7"
+			<unit-frame-cast-bar class="d-block pt-2" *ngSwitchCase="7"
 				[configObj]="configObj.castBar"
 				[configPath]="configPath"
 			></unit-frame-cast-bar>
 
-			<unit-frame-data-text class="d-block p-3" *ngSwitchCase="7"
+			<unit-frame-data-text class="d-block pt-2" *ngSwitchCase="8"
 				[configObj]="configObj.widgets"
 				[configPath]="configPath"
 			></unit-frame-data-text>
 
-			<div class="d-block p-3" *ngSwitchCase="8">
+			<config-group title="Party Settings" class="d-block pt-2" *ngSwitchCase="9">
 				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameHeight" label="Frame Height"></config-input>
 				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameWidth" label="Frame Width"></config-input>
 				<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
 				<config-select [configObj]="configObj" [configPath]="configPath" [items]="barStyles" prop="direction" label="Direction"></config-select>
 				<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="wrap" label="Wrap"></config-checkbox>
 				<config-select [configObj]="configObj" [configPath]="configPath" [items]="sorters" prop="sorter" bindLabel="name" bindValue="type" label="Sort By"></config-select>
-			</div>
+			</config-group>
 		</ng-container>
 	`
 })

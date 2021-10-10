@@ -27,8 +27,6 @@ export class ConfigSelectComponent extends BaseConfigComponent {
 	@Input() bindLabel = 'label';
 	@Input() bindValue = 'value';
 
-	value: any;
-
 	ngOnInit() {
 		super.ngOnInit();
 		this.value = this.getValue();

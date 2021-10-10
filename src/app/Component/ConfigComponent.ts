@@ -6,45 +6,40 @@ import { default as config } from '../../../package.json';
 	selector: 'config-window',
 	template: `
 		<ng-content></ng-content>
-		<div class="d-flex flex-column config-window">
-			<div class="config-bar d-flex">
+
+		<window-panel (close)="closeConfig()">
+			<ng-container header>
 				<img [src]="logoUrl" style="width: 39px; background: #fff;" alt="NextUI">
 				<h4 class="mt-1">
 					NextUI - Config <small class="text-muted">(v{{ version }})</small>
 				</h4>
-				<button class="btn btn-sm btn-danger config-close-btn position-absolute" (click)="closeConfig()">
-					<icon-close></icon-close>
-				</button>
-			</div>
+			</ng-container>
 
-			<div class="config-content d-flex flex-row">
-				<div class="config-pane">
-					<div class="btn-group-vertical w100p">
-						<button class="btn btn-sm"
-							*ngFor="let cat of categories"
-							[ngClass]="currentCategory === cat.value ? 'btn-dark bg-light text-dark' : 'btn-outline-dark text-light'"
-							(click)="switchWindow(cat.value)">
-							{{ cat.label }}
-						</button>
-					</div>
+			<ng-container pane>
+				<div class="btn-group-vertical w100p">
+					<button class="btn btn-sm"
+						*ngFor="let cat of categories"
+						[ngClass]="currentCategory === cat.value ? 'btn-dark bg-light text-dark' : 'btn-outline-dark text-light'"
+						(click)="switchWindow(cat.value)">
+						{{ cat.label }}
+					</button>
 				</div>
-				<div class="config-pane-content" style="overflow-y: auto;">
-					<config-main *ngIf="currentCategory === 'main'"></config-main>
-					<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
-					<config-window-tts *ngIf="currentCategory === 'tts'"></config-window-tts>
-					<config-window-player *ngIf="currentCategory === 'player'"></config-window-player>
-					<config-window-target *ngIf="currentCategory === 'target'"></config-window-target>
-					<config-window-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-window-target-of-target>
-					<config-window-focus *ngIf="currentCategory === 'focus'"></config-window-focus>
-					<config-window-party *ngIf="currentCategory === 'party'"></config-window-party>
-					<config-window-aggro-list *ngIf="currentCategory === 'aggroList'"></config-window-aggro-list>
-					<config-window-aura *ngIf="currentCategory === 'aura'"></config-window-aura>
-					<config-window-aura-filter *ngIf="currentCategory === 'auraFilter'"></config-window-aura-filter>
-					<config-window-tooltip *ngIf="currentCategory === 'tooltip'"></config-window-tooltip>
-					<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
-				</div>
-			</div>
-		</div>
+			</ng-container>
+
+			<config-main *ngIf="currentCategory === 'main'"></config-main>
+			<config-window-color *ngIf="currentCategory === 'color'"></config-window-color>
+			<config-window-tts *ngIf="currentCategory === 'tts'"></config-window-tts>
+			<config-window-player *ngIf="currentCategory === 'player'"></config-window-player>
+			<config-window-target *ngIf="currentCategory === 'target'"></config-window-target>
+			<config-window-target-of-target *ngIf="currentCategory === 'targetOfTarget'"></config-window-target-of-target>
+			<config-window-focus *ngIf="currentCategory === 'focus'"></config-window-focus>
+			<config-window-party *ngIf="currentCategory === 'party'"></config-window-party>
+			<config-window-aggro-list *ngIf="currentCategory === 'aggroList'"></config-window-aggro-list>
+			<config-window-aura *ngIf="currentCategory === 'aura'"></config-window-aura>
+			<config-window-aura-filter *ngIf="currentCategory === 'auraFilter'"></config-window-aura-filter>
+			<config-window-tooltip *ngIf="currentCategory === 'tooltip'"></config-window-tooltip>
+			<config-window-profile *ngIf="currentCategory === 'profile'"></config-window-profile>
+		</window-panel>
 	`
 })
 export class ConfigComponent {

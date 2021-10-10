@@ -11,16 +11,16 @@ import { BaseConfigComponent }   from 'src/app/Component/Config/Ui/BaseConfigCom
 				<div class="position-absolute z10" *ngIf="colorVisible">
 					<color-sketch
 						[mode]="colorMode"
-						[color]="color"
+						[color]="value"
 						(onChangeComplete)="changeComplete($event)"
 					></color-sketch>
 				</div>
 			</div>
 			<button class="btn btn-sm color-btn" type="button"
-				[style.background]="color"
+				[style.background]="value"
 				(click)="toggleWidget()"
 			></button>
-			<input type="text" class="form-control form-control-sm color-input-field" [(ngModel)]="color">
+			<input type="text" class="form-control form-control-sm color-input-field" [(ngModel)]="value">
 		</div>
 		<div class="config-reset" *ngIf="reset">
 			<button class="btn btn-sm btn-warning w100p" type="button" (click)="resetConfig(prop)">Reset</button>
@@ -31,13 +31,10 @@ export class ConfigColorComponent extends BaseConfigComponent {
 	colorVisible = false;
 	colorMode = ColorMode.RGB;
 
-	color: any;
-
 	ngOnInit() {
 		super.ngOnInit();
-		this.color = this.getValue();
-		if (!this.color) {
-			this.color = 'rgba(0, 0, 0, 1)';
+		if (!this.value) {
+			this.value = 'rgba(0, 0, 0, 1)';
 		}
 	}
 
@@ -45,7 +42,7 @@ export class ConfigColorComponent extends BaseConfigComponent {
 		const c = $event.color.rgb;
 		const colorText = `rgba(${ c.r }, ${ c.g }, ${ c.b }, ${ c.a })`;
 		this.setValue(colorText);
-		this.color = colorText;
+		this.value = colorText;
 	}
 
 	toggleWidget() {
@@ -54,9 +51,8 @@ export class ConfigColorComponent extends BaseConfigComponent {
 
 	resetConfig(prop: string) {
 		super.resetConfig(prop);
-		this.color = this.getValue();
-		if (!this.color) {
-			this.color = 'rgba(0, 0, 0, 1)';
+		if (!this.value) {
+			this.value = 'rgba(0, 0, 0, 1)';
 		}
 	}
 }

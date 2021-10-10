@@ -2,9 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { playerMarkers }            from 'src/app/Data/playerMarkers';
 import { CustomElement }            from 'src/app/Model/CustomElement/CustomElement';
 import { Trigger }                  from 'src/app/Model/CustomElement/Trigger';
-import { HeadMarkerTrigger }        from 'src/app/Model/CustomElement/Trigger/HeadMarkerTrigger';
 import { PlayerMarkerTrigger }      from 'src/app/Model/CustomElement/Trigger/PlayerMarkerTrigger';
-import { StatusTrigger }            from 'src/app/Model/CustomElement/Trigger/StatusTrigger';
 
 @Component({
 	selector: 'trigger-player-marker-config',

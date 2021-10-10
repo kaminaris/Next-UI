@@ -7,9 +7,7 @@ import { statuses }          from 'src/app/Data/statuses';
 @Component({
 	selector: 'config-window-aura-filter',
 	template: `
-		<h4 class="ta-c">Aura Filters</h4>
-
-		<config-group title="Basic">
+		<config-group title="Aura Filters">
 			<div class="custom-config-row">
 				<div class="config-label">Create New Filter</div>
 				<div class="config-input">

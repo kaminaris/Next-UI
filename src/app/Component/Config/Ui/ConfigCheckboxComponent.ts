@@ -6,7 +6,10 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 	template: `
 		<div class="config-label">{{ label }}</div>
 		<div class="config-input">
-			<input class="form-check-input" [id]="'checkbox' + id" type="checkbox" [(ngModel)]="configObj[prop]">
+			<input class="form-check-input" [id]="'checkbox' + id" type="checkbox" 
+				[(ngModel)]="value"
+				(ngModelChange)="setValue(value)"
+			>
 			<label [for]="'checkbox' + id"></label>
 		</div>
 		<div class="config-reset" *ngIf="reset">

@@ -19,18 +19,21 @@ import { ConfigService }                                          from 'src/app/
 			</div>
 
 			<progress-bar class="position-absolute fill-abs z10"
-				*ngIf="element.progressBar && !element.progressBarCircular"
+				*ngIf="element.progressBar.show && !element.progressBar.circular"
 				[percent]="data?.progressRaw"
-				[bgColor]="element.progressBarBgColor"
-				[fillColor]="element.progressBarFillColor"
+				[bgColor]="element.progressBar.bgColor"
+				[fillColor]="element.progressBar.fillColor"
+				[barStyle]="element.progressBar.barStyle"
+				[barDirection]="element.progressBar.barDirection"
+				[smooth]="element.progressBar.smooth"
 			></progress-bar>
 
 			<progress-bar-circular class="position-absolute fill-abs z10"
-				*ngIf="element.progressBar && element.progressBarCircular"
-				[radius]="element.progressBarRadius"
+				*ngIf="element.progressBar.show && element.progressBar.circular"
+				[radius]="element.progressBar.radius"
 				[percent]="data?.progressRaw"
-				[bgColor]="element.progressBarBgColor"
-				[fillColor]="element.progressBarFillColor"
+				[bgColor]="element.progressBar.bgColor"
+				[fillColor]="element.progressBar.fillColor"
 			></progress-bar-circular>
 
 			<img class="custom-element-image"
@@ -89,9 +92,12 @@ export class CustomElementComponent implements OnInit, OnDestroy {
 				durationRaw: trigger.duration,
 				elapsed: trigger.elapsed.toFixed(1),
 				elapsedRaw: trigger.elapsed,
+				left: (trigger.duration - trigger.elapsed).toFixed(1),
+				leftRaw: (trigger.duration - trigger.elapsed),
 				progress: ((trigger.elapsed / trigger.duration) * 100).toFixed(1),
 				progressRaw: (trigger.elapsed / trigger.duration) * 100
 			};
+
 
 			Object.assign(this.data, newData);
 			this.cd.detectChanges();

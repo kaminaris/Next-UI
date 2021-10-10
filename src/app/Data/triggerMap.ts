@@ -6,6 +6,7 @@ import { ChatTrigger }          from 'src/app/Model/CustomElement/Trigger/ChatTr
 import { HeadMarkerTrigger }    from 'src/app/Model/CustomElement/Trigger/HeadMarkerTrigger';
 import { NeverActiveTrigger }   from 'src/app/Model/CustomElement/Trigger/NeverActiveTrigger';
 import { PlayerMarkerTrigger }  from 'src/app/Model/CustomElement/Trigger/PlayerMarkerTrigger';
+import { PullTimerTrigger }     from 'src/app/Model/CustomElement/Trigger/PullTimerTrigger';
 import { StatusTrigger }        from 'src/app/Model/CustomElement/Trigger/StatusTrigger';
 
 interface TriggerMap {
@@ -57,5 +58,11 @@ export const triggerMap: TriggerMap[] = [
 		label: 'Player Marker',
 		description: '',
 		trigger: PlayerMarkerTrigger
+	},
+	{
+		name: 'pull-timer',
+		label: 'Pull Timer',
+		description: '',
+		trigger: PullTimerTrigger
 	}
 ];

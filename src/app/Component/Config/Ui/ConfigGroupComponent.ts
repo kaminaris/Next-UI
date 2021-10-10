@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 @Component({
 	selector: 'config-group',
 	template:`
-		<div class="config-group">
-			<h5 class="ta-c">{{ title }}</h5>
-			<div class="config-group-content">
+		<div class="card mb-3">
+			<h5 class="card-header fz-16">{{ title }}</h5>
+			<div class="card-body">
 				<ng-content></ng-content>
 			</div>
 		</div>

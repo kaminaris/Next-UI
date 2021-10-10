@@ -4,9 +4,11 @@ import { UnitFrameDistanceConfig } from 'src/app/Model/Config/UnitFrame/UnitFram
 @Component({
 	selector: 'unit-frame-distance',
 	template: `
-		<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="enabled" label="Distance Enabled"></config-checkbox>
-		<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="opacity" label="Opacity"></config-input>
-		<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="threshold" label="Threshold"></config-input>
+		<config-group title="Distance Opacity">
+			<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="enabled" label="Distance Enabled"></config-checkbox>
+			<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="opacity" label="Opacity"></config-input>
+			<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="threshold" label="Threshold"></config-input>
+		</config-group>
 	`
 })
 export class UnitFrameDistanceConfigComponent {

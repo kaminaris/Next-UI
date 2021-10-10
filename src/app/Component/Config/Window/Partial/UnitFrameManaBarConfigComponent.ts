@@ -7,11 +7,13 @@ import { UnitFrameManaBarConfig }   from 'src/app/Model/Config/UnitFrame/UnitFra
 @Component({
 	selector: 'unit-frame-mana-bar',
 	template: `
-		<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="show" label="Show Mana Bar"></config-checkbox>
-		<config-input [configObj]="configObj" [configPath]="configPath" prop="height" label="Mana Height"></config-input>
-		<config-color [configObj]="configObj" [configPath]="configPath" prop="barColor" label="Mana Color"></config-color>
-		<config-select [configObj]="configObj" [configPath]="configPath" [items]="barStyles" prop="barStyle" label="Bar Style"></config-select>
-		<config-select [configObj]="configObj" [configPath]="configPath" [items]="barDirections" prop="barDirection" label="Bar Direction"></config-select>
+		<config-group title="Mana Bar">
+			<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="show" label="Show Mana Bar"></config-checkbox>
+			<config-input [configObj]="configObj" [configPath]="configPath" prop="height" label="Mana Height"></config-input>
+			<config-color [configObj]="configObj" [configPath]="configPath" prop="barColor" label="Mana Color"></config-color>
+			<config-select [configObj]="configObj" [configPath]="configPath" [items]="barStyles" prop="barStyle" label="Bar Style"></config-select>
+			<config-select [configObj]="configObj" [configPath]="configPath" [items]="barDirections" prop="barDirection" label="Bar Direction"></config-select>
+		</config-group>
 	`
 })
 export class UnitFrameManaBarConfigComponent {

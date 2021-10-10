@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Subject }                                                   from 'rxjs';
 import { MainConfig }                                                from 'src/app/Model/Config/MainConfig';
-import { ConfigService }                          from 'src/app/Service/ConfigService';
+import { ConfigService }                                             from 'src/app/Service/ConfigService';
 
 @Component({ template: '' })
 export abstract class BaseConfigComponent {
@@ -8,9 +9,11 @@ export abstract class BaseConfigComponent {
 	@Input() prop: string;
 	@Input() customSet = false;
 	@Input() reset = true;
+	value: any;
 
 	@Input() configObj: any = {};
 	@Input() configPath: string;
+	@Input() updateSubject: Subject<any>;
 
 	@Output() getProp = new EventEmitter<{ value: any }>();
 	@Output() setProp = new EventEmitter<any>();
@@ -25,6 +28,11 @@ export abstract class BaseConfigComponent {
 	) {}
 
 	ngOnInit() {
+		this.value = this.getValue();
+		this.updateSubject?.subscribe(() => {
+			this.value = this.getValue();
+			console.log('WAS UPDATED', this.getValue())
+		});
 	}
 
 	resetConfig(prop: string) {
@@ -35,6 +43,7 @@ export abstract class BaseConfigComponent {
 		}
 
 		this.conf.resetConfig(prop, this.configPath);
+		this.value = this.getValue();
 		this.cd.detectChanges();
 	}
 

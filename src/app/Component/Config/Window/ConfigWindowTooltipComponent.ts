@@ -1,13 +1,10 @@
 import { Component }     from '@angular/core';
 import { ConfigService } from 'src/app/Service/ConfigService';
-import { Util }          from 'src/app/Service/LogParser/Util';
 
 @Component({
 	selector: 'config-window-tooltip',
 	template: `
-		<h4 class="ta-c">Tooltip Configuration</h4>
-
-		<config-group title="Basic">
+		<config-group title="Tooltip Configuration">
 			<config-checkbox [configObj]="config" prop="enabled" label="Enabled"></config-checkbox>
 			<config-input [configObj]="config" prop="width" label="Max Width"></config-input>
 			<config-input [configObj]="config" prop="padding" label="Padding"></config-input>

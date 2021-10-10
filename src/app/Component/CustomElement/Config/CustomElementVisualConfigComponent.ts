@@ -1,6 +1,8 @@
 import { Component, Input }  from '@angular/core';
 import { CustomElement }     from 'src/app/Model/CustomElement/CustomElement';
 import { anchors }           from 'src/app/Data/anchors';
+import { barDirections }     from 'src/app/Data/barDirections';
+import { barStyles }         from 'src/app/Data/barStyles';
 import { CustomElementText } from 'src/app/Model/CustomElement/CustomElementText';
 
 @Component({
@@ -44,41 +46,65 @@ import { CustomElementText } from 'src/app/Model/CustomElement/CustomElementText
 			</config-group>
 			<config-group title="Progress Bar">
 				<config-checkbox label="Enabled"
-					[configObj]="customElement"
-					prop="progressBar"
+					[configObj]="customElement.progressBar"
+					prop="show"
 					[reset]="false"
 					(afterSet)="update()"
 				></config-checkbox>
 
 				<config-checkbox label="Circular"
-					[configObj]="customElement"
-					prop="progressBarCircular"
+					[configObj]="customElement.progressBar"
+					prop="circular"
 					[reset]="false"
 					(afterSet)="update()"
 				></config-checkbox>
 
-				<config-input label="Circular Radius" 
-					*ngIf="customElement.progressBarCircular"
+				<config-checkbox label="Smooth"
+					[configObj]="customElement.progressBar"
+					prop="smooth"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-checkbox>
+
+				<config-input label="Circular Radius"
+					*ngIf="customElement.progressBar.circular"
 					inputType="number"
-					[configObj]="customElement"
-					prop="progressBarRadius"
+					[configObj]="customElement.progressBar"
+					prop="radius"
 					[reset]="false"
 					(afterSet)="update()"
 				></config-input>
 
 				<config-color label="Background"
-					[configObj]="customElement"
-					prop="progressBarBgColor"
+					[configObj]="customElement.progressBar"
+					prop="bgColor"
 					[reset]="false"
 					(afterSet)="update()"
 				></config-color>
 
 				<config-color label="Bar Color"
-					[configObj]="customElement"
-					prop="progressBarFillColor"
+					[configObj]="customElement.progressBar"
+					prop="fillColor"
 					[reset]="false"
 					(afterSet)="update()"
 				></config-color>
+
+				<config-select label="Bar Style"
+					[configObj]="customElement.progressBar"
+					[items]="barStyles"
+					prop="barStyle"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-select>
+
+				<config-select label="Bar Direction"
+					[configObj]="customElement.progressBar"
+					[items]="barDirections"
+					prop="barDirection"
+					[reset]="false"
+					(afterSet)="update()"
+				></config-select>
+
 			</config-group>
 
 			<config-group title="Texts">
@@ -113,6 +139,8 @@ import { CustomElementText } from 'src/app/Model/CustomElement/CustomElementText
 export class CustomElementVisualConfigComponent {
 	@Input() customElement: CustomElement;
 	anchors = anchors;
+	barStyles = barStyles;
+	barDirections = barDirections;
 
 	update() {
 		this.customElement?.update.next(true);

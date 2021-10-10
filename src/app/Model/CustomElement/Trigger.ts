@@ -7,6 +7,7 @@ export type TriggerType =
 	| 'always-active'
 	| 'status'
 	| 'chat'
+	| 'pull-timer'
 	| 'hp'
 	| 'mana'
 	| 'floor-marker'
@@ -41,6 +42,7 @@ export interface TriggerData {
 	playerMarkerName?: string;
 
 	message?: string; // chat message or event message
+	label?: string; // custom label
 }
 
 export class Trigger {

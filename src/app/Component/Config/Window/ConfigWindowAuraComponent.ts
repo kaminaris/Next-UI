@@ -5,9 +5,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-window-aura',
 	template: `
-		<h4 class="ta-c">Aura Icons</h4>
-
-		<config-group title="Basic">
+		<config-group title="Aura Icons">
 			<config-checkbox [configObj]="configObj" [configPath]="configPath" prop="enabled" label="Enabled"></config-checkbox>
 			<config-input [configObj]="configObj" [configPath]="configPath" prop="iconSize" label="Icon Size"></config-input>
 			<config-color [configObj]="configObj" [configPath]="configPath" prop="barColor" label="Border Color"></config-color>

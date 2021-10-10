@@ -43,6 +43,7 @@ import { UnitFrameStatusConfigComponent }      from 'src/app/Component/Config/Wi
 
 import { ConfigComponent }                          from 'src/app/Component/ConfigComponent';
 import { ControlComponent }                         from 'src/app/Component/ControlComponent';
+import { CustomElementActionConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementActionConfigComponent';
 import { CustomElementExportConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementExportConfigComponent';
 import { CustomElementGeneralConfigComponent }      from 'src/app/Component/CustomElement/Config/CustomElementGeneralConfigComponent';
 import { CustomElementTriggerConfigComponent }      from 'src/app/Component/CustomElement/Config/CustomElementTriggerConfigComponent';
@@ -54,6 +55,7 @@ import { TriggerAbilityUseConfigComponent }         from 'src/app/Component/Cust
 import { TriggerChatConfigComponent }               from 'src/app/Component/CustomElement/Config/Trigger/TriggerChatConfigComponent';
 import { TriggerHeadMarkerConfigComponent }         from 'src/app/Component/CustomElement/Config/Trigger/TriggerHeadMarkerConfigComponent';
 import { TriggerPlayerMarkerConfigComponent }       from 'src/app/Component/CustomElement/Config/Trigger/TriggerPlayerMarkerConfigComponent';
+import { TriggerPullTimerConfigComponent }          from 'src/app/Component/CustomElement/Config/Trigger/TriggerPullTimerConfigComponent';
 import { TriggerStatusConfigComponent }             from 'src/app/Component/CustomElement/Config/Trigger/TriggerStatusConfigComponent';
 import { CustomElementComponent }                   from 'src/app/Component/CustomElement/CustomElementComponent';
 import { CustomElementGroupComponent }              from 'src/app/Component/CustomElement/CustomElementGroupComponent';
@@ -85,13 +87,14 @@ import { SignComponent }           from 'src/app/Component/UnitFrame/SignCompone
 import { TargetComponent }         from 'src/app/Component/UnitFrame/TargetComponent';
 import { TargetOfTargetComponent } from 'src/app/Component/UnitFrame/TargetOfTargetComponent';
 
-import { CastBarComponent }   from 'src/app/Component/CastBarComponent';
-import { TextWidget }         from 'src/app/Component/TextWidget';
-import { TooltipComponent }   from 'src/app/Component/TooltipComponent';
-import { UnitFrameComponent } from 'src/app/Component/UnitFrame/UnitFrameComponent';
-import { AnchorDirective }    from 'src/app/Directive/AnchorDirective';
-import { TooltipDirective }   from 'src/app/Directive/TooltipDirective';
-import { DurationPipe }       from 'src/app/Pipe/DurationPipe';
+import { CastBarComponent }     from 'src/app/Component/CastBarComponent';
+import { TextWidget }           from 'src/app/Component/TextWidget';
+import { TooltipComponent }     from 'src/app/Component/TooltipComponent';
+import { UnitFrameComponent }   from 'src/app/Component/UnitFrame/UnitFrameComponent';
+import { WindowPanelComponent } from 'src/app/Component/WindowPanelComponent';
+import { AnchorDirective }      from 'src/app/Directive/AnchorDirective';
+import { TooltipDirective }     from 'src/app/Directive/TooltipDirective';
+import { DurationPipe }         from 'src/app/Pipe/DurationPipe';
 
 export function getBaseUrl() {
 	return document.getElementsByTagName('base')[0].href;
@@ -103,6 +106,7 @@ export function getBaseUrl() {
 		AppComponent,
 
 		// Custom components
+		WindowPanelComponent,
 		TextWidget,
 		AuraIconComponent,
 		TooltipComponent,
@@ -142,6 +146,7 @@ export function getBaseUrl() {
 		CustomElementGeneralConfigComponent,
 		CustomElementVisualConfigComponent,
 		CustomElementTriggerConfigComponent,
+		CustomElementActionConfigComponent,
 		CustomElementExportConfigComponent,
 
 		CustomElementGroupGeneralConfigComponent,
@@ -153,6 +158,7 @@ export function getBaseUrl() {
 		TriggerAbilityUseConfigComponent,
 		TriggerHeadMarkerConfigComponent,
 		TriggerPlayerMarkerConfigComponent,
+		TriggerPullTimerConfigComponent,
 
 		// Pipes
 		DurationPipe,

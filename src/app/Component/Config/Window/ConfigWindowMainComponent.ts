@@ -4,9 +4,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 @Component({
 	selector: 'config-main',
 	template: `
-		<h4 class="ta-c">Main Configuration</h4>
-
-		<config-group title="General">
+		<config-group title="Main Configuration">
 			<config-input [configObj]="config" prop="fontFamily" label="Font family"></config-input>
 			<config-select [configObj]="config" [items]="conf.numberFormats" prop="numberFormat" bindLabel="name"
 				bindValue="value" label="Number Format"></config-select>

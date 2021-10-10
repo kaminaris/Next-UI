@@ -1,10 +1,23 @@
 import { Subject }                from 'rxjs';
 import { triggerMap }             from 'src/app/Data/triggerMap';
+import { BarDirection }           from 'src/app/Interface/BarDirection';
+import { BarStyle }               from 'src/app/Interface/BarStyle';
 import { FramePositionInterface } from 'src/app/Interface/FramePositionInterface';
 import { FrameSizeInterface }     from 'src/app/Interface/FrameSizeInterface';
 import { CustomElementText }      from 'src/app/Model/CustomElement/CustomElementText';
 import { LogParser }              from 'src/app/Service/LogParser/LogParser';
 import { Trigger }                from './Trigger';
+
+export interface CustomElementProgressBarConfig {
+	show: boolean;
+	circular: boolean,
+	smooth: boolean,
+	radius: number,
+	bgColor: string,
+	fillColor: string,
+	barStyle: BarStyle,
+	barDirection: BarDirection,
+}
 
 export class CustomElement {
 	name = '';
@@ -23,11 +36,16 @@ export class CustomElement {
 	texts: CustomElementText[] = [];
 
 	progress = 0;
-	progressBar = false;
-	progressBarCircular = false;
-	progressBarRadius = 90;
-	progressBarBgColor = 'rgba(33,32,33,0.8)';
-	progressBarFillColor = 'rgba(200, 50, 50, 0.7)';
+	progressBar: CustomElementProgressBarConfig = {
+		show: false,
+		circular: false,
+		smooth: true,
+		radius: 90,
+		bgColor: 'rgba(33,32,33,0.8)',
+		fillColor: 'rgba(200, 50, 50, 0.7)',
+		barStyle: 'horizontal',
+		barDirection: 'start'
+	};
 
 	// just for config mode
 	uiActive = false;
@@ -50,11 +68,7 @@ export class CustomElement {
 			image: this.image,
 			texts: texts,
 
-			progressBar: this.progressBar,
-			progressBarCircular: this.progressBarCircular,
-			progressBarRadius: this.progressBarRadius,
-			progressBarBgColor: this.progressBarBgColor,
-			progressBarFillColor: this.progressBarFillColor,
+			progressBar: Object.assign({}, this.progressBar),
 
 			trigger: this.trigger.serialize()
 		};
@@ -67,11 +81,7 @@ export class CustomElement {
 		this.opacity = data.opacity;
 		this.image = data.image;
 
-		this.progressBar = data.progressBar;
-		this.progressBarCircular = data.progressBarCircular;
-		this.progressBarRadius = data.progressBarRadius;
-		this.progressBarBgColor = data.progressBarBgColor;
-		this.progressBarFillColor = data.progressBarFillColor;
+		Object.assign(this.progressBar, data.progressBar);
 
 		const texts = [];
 		for (const t of data.texts) {
