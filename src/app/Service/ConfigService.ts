@@ -9,6 +9,7 @@ import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctB
 import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Data/Config/defaultConfig';
 import extend                                      from 'just-extend';
+import { XivPluginService }                        from 'src/app/Service/XivPluginService';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -52,6 +53,7 @@ export class ConfigService {
 	constructor(
 		protected rendererFactory: RendererFactory2,
 		protected compressionService: CompressionService,
+		protected xiv: XivPluginService,
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
 
@@ -214,13 +216,7 @@ console.log(defObj, obj, prop)
 		else {
 			this.renderer.removeClass(document.body, 'config-bg');
 		}
-		try {
-			(window as any).OverlayPluginApi.setAcceptFocus(this.configMode.value);
-		}
-		catch (e) {
-			console.log('Overlay Plugin Api not found');
-		}
-
+		this.setAcceptFocus(this.configMode.value);
 	}
 
 	toggleCustomElementsPanel() {
@@ -236,8 +232,13 @@ console.log(defObj, obj, prop)
 		else {
 			this.renderer.removeClass(document.body, 'grid');
 		}
+		this.setAcceptFocus(this.customElementsMode.value);
+	}
+
+	setAcceptFocus(accept: boolean) {
 		try {
-			(window as any).OverlayPluginApi.setAcceptFocus(this.customElementsMode.value);
+			this.xiv.setAcceptFocus(accept);
+			(window as any).OverlayPluginApi.setAcceptFocus(accept);
 		}
 		catch (e) {
 			console.log('Overlay Plugin Api not found');

@@ -62,6 +62,18 @@ export class XivPluginService {
 		}));
 	}
 
+	setAcceptFocus(accept: boolean) {
+		if (!this.connected) {
+			return;
+		}
+
+		this.socket.send(JSON.stringify({
+			guid: this.generateGuid(),
+			type: 'setAcceptFocus',
+			accept
+		}));
+	}
+
 	onOpen() {
 		console.log('XiVPlugin connected');
 		this.retries = 1;
