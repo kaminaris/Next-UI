@@ -3,11 +3,11 @@ import { debounceTime }                                       from 'rxjs/operato
 import { Cast }   from 'src/app/Model/Cast';
 import { Status } from 'src/app/Model/Status';
 
-export const healers = ['CNJ', 'WHM', 'SCH', 'AST'];
+export const healers = ['CNJ', 'WHM', 'SCH', 'AST', 'SGE'];
 export const tanks = ['GLA', 'MRD', 'PLD', 'WAR', 'DRK', 'GNB'];
 export const dpses = [
 	'PGL', 'LNC', 'ARC', 'THM', 'MNK', 'DRG', 'BRD', 'BLM', 'ACN', 'SMN', 'ROG', 'NIN', 'MCH', 'SAM', 'RDM', 'BLU',
-	'DNC'
+	'DNC', 'RPR'
 ];
 export const crafters = ['CRP', 'BSM', 'ARM', 'GSM', 'LTW', 'WVR', 'ALC', 'CUL'];
 export const gatherer = ['BTN', 'MIN', 'FSH'];

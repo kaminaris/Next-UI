@@ -84,23 +84,27 @@ export class ActService {
 			}
 			else {
 				this.connected = true;
+				console.log('ACT Connected!');
 
-				this.win.dispatchOverlayEvent = this.onMessage.bind(this);
+				this.win.__OverlayCallback = this.onMessage.bind(this);
 
 				this.sendMessage = (obj: any): Promise<any> => {
-					return new Promise<any>(resolve => {
+					return new Promise<any>(resolve2 => {
 						this.win.OverlayPluginApi.callHandler(JSON.stringify(obj), (data: any) => {
-							resolve(data);
+							resolve2(JSON.parse(data));
 						});
 					});
 				};
+				resolve(true);
 			}
 		})
 	}
 
 	onMessage(msg: any) {
 		try {
-			msg = JSON.parse(msg.data);
+			if (msg.data && typeof msg.data === 'string') {
+				msg = JSON.parse(msg.data);
+			}
 		}
 		catch (e) {
 			console.error('Invalid message received: ', msg);
@@ -133,9 +137,6 @@ export class ActService {
 		// this.win.addOverlayListener('EnmityTargetData', this.enmityTargetData.bind(this));
 		// this.win.addOverlayListener('EnmityAggroList', this.enmityAggroList.bind(this));
 		// this.win.addOverlayListener('onPlayerChangedEvent', this.playerChangedEvent.bind(this));
-
-		this.win.startOverlayEvents();
-
 	}
 
 	overlayStateUpdate(e: any) {
