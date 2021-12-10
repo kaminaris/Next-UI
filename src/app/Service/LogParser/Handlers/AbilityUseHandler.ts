@@ -47,7 +47,7 @@ export class AbilityUseHandler implements HandlerInterface {
 		}
 
 		if (duration > 0) {
-			if (!(this.parser.xiv.connected && combatant.isPlayer)) {
+			// if (!(this.parser.xiv.connected && combatant.isPlayer)) {
 				// Approximately 300ms is needed for cast bars if working with network event
 				combatant.cast.start(
 					abilityId,
@@ -55,7 +55,7 @@ export class AbilityUseHandler implements HandlerInterface {
 					duration,
 					(this.parser.config.config.castDelay / 1000)
 				);
-			}
+			// }
 		}
 
 		if (combatant.isPlayer) {

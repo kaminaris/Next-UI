@@ -1,40 +1,36 @@
-import { Injectable }                                      from '@angular/core';
-import { BehaviorSubject }                                 from 'rxjs';
-import { EffectData }                                      from 'src/app/Interface/EffectData';
-import { AggroTarget, AggroTargetTarget, EnmityAggroList } from 'src/app/Interface/EnmityAggroList';
-import { ActorInterface, EnmityTargetData }                from 'src/app/Interface/EnmityTargetData';
-import { PartyMember }                                     from 'src/app/Interface/PartyMember';
-import { ConfigService }                                   from 'src/app/Service/ConfigService';
-import { AbilityHitCloneHandler }                          from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
-import { XivPluginService }                                from 'src/app/Service/XivPluginService';
-import { EventDispatcher }                                 from './EventDispatcher';
-import { Util }                                            from './Util';
-import { TTSService }                                      from '../TTSService';
-import { Combatant }                                       from '../../Model/Combatant';
-import { FloorMarkerHandler }                              from './Handlers/FloorMarkerHandler';
-import { HeadMarkerHandler }                               from './Handlers/HeadMarkerHandler';
-import { JobGaugeHandler }                                 from './Handlers/JobGaugeHandler';
-import { HpUpdatedHandler }                                from './Handlers/HpUpdatedHandler';
-import { AuraGainedHandler }                               from './Handlers/AuraGainedHandler';
-import { AuraLostHandler }                                 from './Handlers/AuraLostHandler';
-import { PlayerChangedHandler }                            from './Handlers/PlayerChangedHandler';
-import { RemovedCombatantHandler }                         from './Handlers/RemovedCombatantHandler';
-import { AddedCombatantHandler }                           from './Handlers/AddedCombatantHandler';
-import { ChatEventHandler }                                from './Handlers/ChatEventHandler';
-import { HandlerInterface }                                from './Handlers/HandlerInterface';
-import { ZoneChangedHandler }                              from './Handlers/ZoneChangedHandler';
-import { AbilityHitHandler }                               from './Handlers/AbilityHitHandler';
-import { AbilityUseHandler }                               from './Handlers/AbilityUseHandler';
-import { ActionSyncHandler }                               from './Handlers/ActionSyncHandler';
-import { CombatantDefeatedHandler }                        from './Handlers/CombatantDefeatedHandler';
-import { NetworkStatusHandler }                            from './Handlers/NetworkStatusHandler';
-import { OverTimeTickHandler }                             from './Handlers/OverTimeTickHandler';
-import { PlayerStatsHandler }                              from './Handlers/PlayerStatsHandler';
-import { LimitGaugeHandler }                               from './Handlers/LimitGaugeHandler';
-import { NameplateToggleHandler }                          from './Handlers/NameplateToggleHandler';
-import { TetherHandler }                                   from './Handlers/TetherHandler';
-import { AbilityCancelHandler }                            from './Handlers/AbilityCancelHandler';
-import { SignHandler }                                     from './Handlers/SignHandler';
+import { Injectable }               from '@angular/core';
+import { BehaviorSubject }          from 'rxjs';
+import { EffectData }               from 'src/app/Interface/EffectData';
+import { PartyMember }              from 'src/app/Interface/PartyMember';
+import { ConfigService }            from 'src/app/Service/ConfigService';
+import { AbilityHitCloneHandler }   from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
+import { EventDispatcher }          from './EventDispatcher';
+import { TTSService }               from '../TTSService';
+import { Combatant }                from '../../Model/Combatant';
+import { FloorMarkerHandler }       from './Handlers/FloorMarkerHandler';
+import { HeadMarkerHandler }        from './Handlers/HeadMarkerHandler';
+import { JobGaugeHandler }          from './Handlers/JobGaugeHandler';
+import { HpUpdatedHandler }         from './Handlers/HpUpdatedHandler';
+import { AuraGainedHandler }        from './Handlers/AuraGainedHandler';
+import { AuraLostHandler }          from './Handlers/AuraLostHandler';
+import { PlayerChangedHandler }     from './Handlers/PlayerChangedHandler';
+import { RemovedCombatantHandler }  from './Handlers/RemovedCombatantHandler';
+import { AddedCombatantHandler }    from './Handlers/AddedCombatantHandler';
+import { ChatEventHandler }         from './Handlers/ChatEventHandler';
+import { HandlerInterface }         from './Handlers/HandlerInterface';
+import { ZoneChangedHandler }       from './Handlers/ZoneChangedHandler';
+import { AbilityHitHandler }        from './Handlers/AbilityHitHandler';
+import { AbilityUseHandler }        from './Handlers/AbilityUseHandler';
+import { ActionSyncHandler }        from './Handlers/ActionSyncHandler';
+import { CombatantDefeatedHandler } from './Handlers/CombatantDefeatedHandler';
+import { NetworkStatusHandler }     from './Handlers/NetworkStatusHandler';
+import { OverTimeTickHandler }      from './Handlers/OverTimeTickHandler';
+import { PlayerStatsHandler }       from './Handlers/PlayerStatsHandler';
+import { LimitGaugeHandler }        from './Handlers/LimitGaugeHandler';
+import { NameplateToggleHandler }   from './Handlers/NameplateToggleHandler';
+import { TetherHandler }            from './Handlers/TetherHandler';
+import { AbilityCancelHandler }     from './Handlers/AbilityCancelHandler';
+import { SignHandler }              from './Handlers/SignHandler';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -91,25 +87,13 @@ export class LogParser {
 	constructor(
 		public tts: TTSService,
 		public eventDispatcher: EventDispatcher,
-		public config: ConfigService,
-		public xiv: XivPluginService
+		public config: ConfigService
 	) {
 		// guard target of target in case of target dying
 		this.target.subscribe((v) => {
 			if (!v && this.targetOfTarget.value) {
 				this.targetOfTarget.next(null);
 			}
-		});
-
-		xiv.events.castStart.subscribe((e) => {
-			const target = e.target as keyof Pick<LogParser, 'target' | 'focus' | 'player' | 'targetOfTarget'>;
-			const actor = this[target].value;
-			if (!actor || e.totalTime < 0.1) {
-				return;
-			}
-
-			const delay = (this.config.config.castDelay / 1000);
-			actor.cast.start(e.actionId, e.actionName, e.totalTime - delay, delay);
 		});
 	}
 
@@ -120,6 +104,13 @@ export class LogParser {
 				handler.handle(event);
 				return;
 			}
+		}
+	}
+
+	removeHandler(eventId: number) {
+		const idx = this.handlers.findIndex(v => v.eventId === eventId);
+		if (idx >= 0) {
+			this.handlers.splice(idx, 1);
 		}
 	}
 
@@ -169,8 +160,10 @@ export class LogParser {
 		combatant.updatePosition(x, y, z);
 		combatant.updateJob(job);
 		combatant.updateLevel(level);
+		if (hp > combatant.hpMax) {
+			console.log(source, hp, combatant.hpMax);
+		}
 		combatant.updateHp(hp, hpMax);
-
 		if ((mana || manaMax) && !(source === 'hp-updated' && combatant.isCrafterOrGatherer)) {
 			combatant.updateMana(
 				mana, combatant.isCrafterOrGatherer && source === 'action-sync' ? null : manaMax
@@ -191,64 +184,6 @@ export class LogParser {
 		}
 
 		this.party.next(combatants);
-	}
-
-	partyChanged(p: PartyMember[]) {
-		const party = p.slice(0, 8);
-		const members = this.party.value;
-		let hasChange = false;
-		const newMembers = [];
-
-		// handle remove party members
-		for (const member of members) {
-			if (party.find(pm => parseInt(pm.id, 16) === member.id)) {
-				// still a member, don't touch
-				newMembers.push(member);
-				continue;
-			}
-
-			// not a member anymore
-			member.inParty.next(false);
-			hasChange = true;
-		}
-
-		// handle new party members
-		for (const partyMember of party) {
-			const newMemberId = parseInt(partyMember.id, 16);
-			if (members.find(m => m.id === newMemberId)) {
-				// already in party, dont touch
-				continue;
-			}
-
-			// new member
-			const combatants = this.combatants.value;
-			let combatant = this.findCombatant(newMemberId);
-
-			if (!combatant) {
-				combatant = new Combatant();
-				combatant.id = newMemberId;
-				combatant.name = partyMember.name;
-				combatant.job.next(Util.jobEnumToJob(partyMember.job));
-
-				// Add it back to list of all actors
-				combatants.push(combatant);
-				this.combatants.next(combatants);
-			}
-
-			combatant.inParty.next(true);
-			newMembers.push(combatant);
-
-			hasChange = true;
-		}
-
-		if (hasChange) {
-			this.setParty(newMembers);
-
-			if (this.debugMode) {
-				console.log('PARTY CHANGED', this.party.value);
-			}
-		}
-
 	}
 
 	setTarget(
@@ -292,19 +227,6 @@ export class LogParser {
 		subject.next(c);
 	}
 
-	targetUpdate(e: EnmityTargetData) {
-		const newFocus = e.Focus ? this.combatantFromEnmityActor(e.Focus) : null;
-		this.setTarget('focus', newFocus);
-
-		const newTarget = e.Target ? this.combatantFromEnmityActor(e.Target) : null;
-		this.setTarget('target', newTarget);
-
-		if (newTarget) {
-			const newTargetOfTarget = e.TargetOfTarget ? this.combatantFromEnmityActor(e.TargetOfTarget) : null;
-			this.setTarget('targetOfTarget', newTargetOfTarget);
-		}
-	}
-
 	setAggroList(combatants: Combatant[]) {
 		if (this.config.aggroSorter) {
 			combatants.sort(this.config.aggroSorter);
@@ -313,69 +235,12 @@ export class LogParser {
 		this.aggroList.next(combatants);
 	}
 
-	aggroListUpdate(e: EnmityAggroList) {
-		// Most common occurrence, ignore
-		if (e.AggroList.length === 0 && this.aggroList.value.length === 0) {
-			return;
-		}
-
-		let combatants = [];
-		// check if whole list needs change
-		if (e.AggroList.length !== this.aggroList.value.length) {
-
-			// this doesn't work
-			for (const a of e.AggroList) {
-				const c = this.combatantFromEnmityActor(a);
-				combatants.push(c);
-			}
-
-			this.setAggroList(combatants);
-			return;
-		}
-
-		// special treatment if just their data changed?
-	}
-
 	findCombatant(id: number, name?: string) {
 		if (id !== Combatant.ENV_ID) {
 			return this.combatants.value.find(c => c.id === id);
 		}
 
 		return this.combatants.value.find(c => c.name === name);
-	}
-
-	combatantFromEnmityActor(actor: ActorInterface | AggroTarget) {
-		let hp = actor.CurrentHP;
-		let hpMax = actor.MaxHP;
-		let isNpc = false;
-		if (!Combatant.isPlayerId(actor.ID)) {
-			hp = 1;
-			hpMax = 1;
-			isNpc = true;
-		}
-
-		const job = (actor as ActorInterface).Job ? Util.jobEnumToJob((actor as ActorInterface).Job) : null;
-
-		let combatant = this.findCombatant(actor.ID, actor.Name);
-
-		if (!combatant) {
-			combatant = this.updateCombatant(
-				actor.ID,
-				actor.Name,
-				hp,
-				hpMax,
-				null,
-				null,
-				(actor as ActorInterface).PosX ?? null,
-				(actor as ActorInterface).PosZ ?? null,
-				(actor as ActorInterface).PosY ?? null,
-				job,
-				null,
-				isNpc
-			);
-		}
-
-		return combatant;
 	}
 
 	updateEffectsFromEnmity(c: Combatant, effects: EffectData[]) {

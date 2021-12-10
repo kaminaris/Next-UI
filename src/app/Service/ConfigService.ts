@@ -9,7 +9,7 @@ import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctB
 import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Data/Config/defaultConfig';
 import extend                                      from 'just-extend';
-import { XivPluginService }                        from 'src/app/Service/XivPluginService';
+import { XivService }                              from 'src/app/Service/Xiv/XivService';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -37,6 +37,7 @@ export class ConfigService {
 	moveMode = new BehaviorSubject<boolean>(false);
 	configMode = new BehaviorSubject<boolean>(false);
 	customElementsMode = new BehaviorSubject<boolean>(false);
+	acceptFocus = new BehaviorSubject<boolean>(false);
 	renderer: Renderer2;
 
 	configChanged = new Subject();
@@ -53,7 +54,6 @@ export class ConfigService {
 	constructor(
 		protected rendererFactory: RendererFactory2,
 		protected compressionService: CompressionService,
-		protected xiv: XivPluginService,
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
 
@@ -173,7 +173,7 @@ export class ConfigService {
 			defObj = defObj[k];
 			obj = obj[k];
 		}
-console.log(defObj, obj, prop)
+
 		obj[prop] = defObj[prop];
 	}
 
@@ -216,7 +216,7 @@ console.log(defObj, obj, prop)
 		else {
 			this.renderer.removeClass(document.body, 'config-bg');
 		}
-		this.setAcceptFocus(this.configMode.value);
+		this.acceptFocus.next(this.configMode.value);
 	}
 
 	toggleCustomElementsPanel() {
@@ -232,17 +232,7 @@ console.log(defObj, obj, prop)
 		else {
 			this.renderer.removeClass(document.body, 'grid');
 		}
-		this.setAcceptFocus(this.customElementsMode.value);
-	}
-
-	setAcceptFocus(accept: boolean) {
-		try {
-			this.xiv.setAcceptFocus(accept);
-			(window as any).OverlayPluginApi.setAcceptFocus(accept);
-		}
-		catch (e) {
-			console.log('Overlay Plugin Api not found');
-		}
+		this.acceptFocus.next(this.customElementsMode.value);
 	}
 
 	toggleUi() {

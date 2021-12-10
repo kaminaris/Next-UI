@@ -83,6 +83,8 @@ export class ColorConfig implements SerializableConfig {
 		this.jobColor.set(Util.jobs.ACN, 'rgba(50,103,11,1)');
 		this.jobColor.set(Util.jobs.RDM, 'rgba(172,41,151,1)');
 		this.jobColor.set(Util.jobs.BLU, 'rgba(24,61,154,1)');
+		this.jobColor.set(Util.jobs.SGE, 'rgba(133,196,212,1)');
+		this.jobColor.set(Util.jobs.RPR, 'rgba(234,221,111,1)');
 		// this.jobColor.set(Util.jobs.LMB, 'rgba(255,187,0,1)');
 		// this.jobColor.set(Util.jobs.CBO, 'rgba(117,117,117,1)');
 		this.jobColor.set(Util.jobs.CRP, 'rgba(69,69,69,1)');

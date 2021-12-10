@@ -4,15 +4,15 @@ import {
 	Component, HostListener, Input,
 	OnDestroy,
 	OnInit
-} from '@angular/core';
+}                                        from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Status }                        from 'src/app/Model/Status';
 import { Combatant }                     from 'src/app/Model/Combatant';
 import { ConfigService }                 from 'src/app/Service/ConfigService';
 import { LogParser }                     from 'src/app/Service/LogParser/LogParser';
 import { Util }                          from 'src/app/Service/LogParser/Util';
+import { MainService }                   from 'src/app/Service/MainService';
 import { StatusService }                 from 'src/app/Service/StatusService';
-import { XivPluginService }              from 'src/app/Service/XivPluginService';
 
 @Component({
 	selector: 'unit-frame',
@@ -57,8 +57,8 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	constructor(
 		public conf: ConfigService,
 		protected parser: LogParser,
+		protected main: MainService,
 		protected cd: ChangeDetectorRef,
-		protected xiv: XivPluginService,
 		protected auraService: StatusService
 	) {}
 
@@ -144,7 +144,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		this.xiv.setTarget(this.combatant.id);
+		this.main.setTarget(this.combatant.id);
 	}
 
 	setMouseOver() {
@@ -152,14 +152,14 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		this.xiv.setTarget(this.combatant.id, 'setMouseOverEx');
+		this.main.setTarget(this.combatant.id, 'setMouseOverEx');
 	}
 
 	clearMouseOver() {
 		if (!this.combatant || !this.combatant.id) {
 			return;
 		}
-		this.xiv.setTarget(this.combatant.id, 'clearMouseOverEx');
+		this.main.setTarget(this.combatant.id, 'clearMouseOverEx');
 	}
 
 	initializeCombatant() {

@@ -54,7 +54,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const timestamp = new Date(event[1] ?? '0');
 
 		this.parser.updateCombatant(
-			id, name, hp, hpMax, mana, manaMax, x, y, z, job, level
+			id, name, hp, hpMax, mana, manaMax, x, y, z, job, level, null, 'added-combatant'
 		);
 
 		if (this.parser.debugMode) {
