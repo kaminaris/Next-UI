@@ -3,7 +3,7 @@ export interface AuraDefinition {
 	name: string;
 	description: string;
 	category: number;
-	isPermanent: number;
+	isPermanent: boolean;
 	maxStacks: number;
 	partyListPriority: number;
 }
