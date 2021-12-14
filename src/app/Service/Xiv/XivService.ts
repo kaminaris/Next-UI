@@ -1,13 +1,21 @@
-import { Injectable }      from '@angular/core';
-import { Subject }         from 'rxjs';
-import { Combatant }       from 'src/app/Model/Combatant';
-import { ConfigService }   from 'src/app/Service/ConfigService';
-import { LogParser }       from 'src/app/Service/LogParser/LogParser';
-import { Util }            from 'src/app/Service/LogParser/Util';
-import { Actor }           from 'src/app/Service/Xiv/Interface/Actor';
-import { CastInfo }        from 'src/app/Service/Xiv/Interface/CastInfo';
-import { EventActorsList } from 'src/app/Service/Xiv/Interface/EventActorsList';
-import { XivChatType }     from 'src/app/Service/Xiv/Interface/XivChatType';
+import { Injectable }         from '@angular/core';
+import { Subject }            from 'rxjs';
+import { Combatant }          from 'src/app/Model/Combatant';
+import { ConfigService }      from 'src/app/Service/ConfigService';
+import { LogParser }          from 'src/app/Service/LogParser/LogParser';
+import { Util }               from 'src/app/Service/LogParser/Util';
+import { ActorChangedEvent }  from './Interface/ActorChangedEvent';
+import { ChatMessageEvent }   from './Interface/ChatMessageEvent';
+import { NetworkEvent }       from './Interface/NetworkEvent';
+import { TargetChangedEvent } from './Interface/TargetChangedEvent';
+import { ActorSetPos }        from './Interface/ActorSetPos';
+import { PartyMember }        from './Interface/PartyMember';
+import { Actor }              from './Interface/Actor';
+import { ActorCast }          from './Interface/ActorCast';
+import { ActorMove }          from './Interface/ActorMove';
+import { EventActorsList }    from './Interface/EventActorsList';
+
+import { ActorControl, ActorControlCategory, ActorControlSelf, ActorControlTarget } from './Interface/ActorControl';
 
 export type XivSocketCommand = 'setTarget' | 'setFocus' | 'setMouseOver' | 'setMouseOverEx' | 'clearMouseOverEx';
 
@@ -19,12 +27,20 @@ export class XivService {
 	connected = false;
 
 	events = {
-		castStart: new Subject<CastInfo>(),
 		playerLogin: new Subject<{ player: Actor }>(),
 		playerLogout: new Subject<any>(),
-		chatMessage: new Subject<{ typeId: XivChatType, senderId: number, sender: string, message: string }>(),
-		actorChanged: new Subject<{ actorId: number, removed: boolean, actor: Actor }>(),
-		targetChanged: new Subject<{ actorId: number, actorName: string, actor: Actor, targetType: string }>()
+
+		chatMessage: new Subject<{ data: ChatMessageEvent }>(),
+		actorChanged: new Subject<{ data: ActorChangedEvent }>(),
+		targetChanged: new Subject<{ data: TargetChangedEvent }>(),
+		actorCast: new Subject<NetworkEvent & { data: ActorCast }>(),
+		actorMove: new Subject<NetworkEvent & { data: ActorMove }>(),
+		actorSetPos: new Subject<NetworkEvent & { data: ActorSetPos }>(),
+		actorControl: new Subject<NetworkEvent & { data: ActorControl }>(),
+		actorControlSelf: new Subject<NetworkEvent & { data: ActorControlSelf }>(),
+		actorControlTarget: new Subject<NetworkEvent & { data: ActorControlTarget }>(),
+		zoneChanged: new Subject<{ zone: number }>(),
+		partyChanged: new Subject<{ data: PartyMember[] }>()
 	};
 
 	constructor(
@@ -38,7 +54,6 @@ export class XivService {
 			return false;
 		}
 		await this.progressiveUpgrade();
-		this.subscribeTargets();
 
 		this.config.acceptFocus.subscribe(value => {
 			this.setAcceptFocus(value);
@@ -48,33 +63,82 @@ export class XivService {
 		this.events.actorChanged.subscribe(this.actorChanged.bind(this));
 		this.events.targetChanged.subscribe(this.targetChanged.bind(this));
 		this.events.chatMessage.subscribe(this.chatMessage.bind(this));
+		this.events.actorCast.subscribe(this.actorCast.bind(this));
+		this.events.actorControl.subscribe(this.actorControl.bind(this));
+		this.events.zoneChanged.subscribe(this.zoneChanged.bind(this));
 		await this.subscribeEvents();
 		return connected;
 	}
 
-	async chatMessage(data: { typeId: XivChatType, senderId: number, sender: string, message: string }) {
-		const type = 'say';
-		this.parser.eventDispatcher.chat.next({ type, speaker: data.sender, message: data.message });
+	zoneChanged(data: { zone: number }) {
+		console.log('Zone changed: ' + data.zone);
 
-		// so far we don't need that
-		if (data.sender) {
-			this.parser.tts.say(type, data.sender, data.message);
+		const combatants = this.parser.combatants.value;
+		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));
+
+		for (const c of this.parser.combatants.value) {
+			c.clearPermaAuras();
 		}
 	}
 
-	async actorChanged(data: { actorId: number, removed: boolean, actor: Actor }) {
-		if (data.removed) {
+	async actorCast(data: NetworkEvent & { data: ActorCast }) {
+		const cast = data.data;
+		const c = this.parser.findCombatant(cast.targetActorId, cast.targetActorName);
+		if (!c) {
+			return;
+		}
+
+		const delay = (this.config.config.castDelay / 1000);
+		c.cast.start(
+			cast.actionId,
+			'Spell',
+			cast.castTime - delay,
+			delay
+		);
+	}
+
+	async actorControl(data: NetworkEvent & { data: ActorControl }) {
+		const ctrl = data.data;
+		const c = this.parser.findCombatant(ctrl.targetActorId, ctrl.targetActorName);
+		if (!c) {
+			return;
+		}
+
+		if (ctrl.category === ActorControlCategory.CancelAbility) {
+			c.cast.cancel();
+		}
+	}
+
+	chatMessage(ev: { data: ChatMessageEvent }) {
+		const type = 'say';
+		this.parser.eventDispatcher.chat.next({ type, speaker: ev.data.sender, message: ev.data.message });
+
+		if (ev.data.sender) {
+			this.parser.tts.say(type, ev.data.sender, ev.data.message);
+		}
+	}
+
+	async actorChanged(ev: { data: ActorChangedEvent }) {
+		if (ev.data.removed) {
 			const combatants = this.parser.combatants.value;
-			const idx = combatants.findIndex(c => c.id === data.actorId);
+			const idx = combatants.findIndex(c => c.id === ev.data.actorId);
 			if (idx >= 0) {
 				combatants.splice(idx, 1);
 				this.parser.combatants.next(combatants);
 			}
 			return;
 		}
+
+		if (!ev.data.actor) {
+			return;
+		}
+
+		this.updateCombatantFromActor(ev.data.actor);
 	}
 
-	async targetChanged(data: { actorId: number, actorName: string, actor: Actor, targetType: string }) {
+	async targetChanged(ev: { data: TargetChangedEvent }) {
+		const data = ev.data;
+
 		let c: Combatant;
 		if (data.actor) {
 			c = this.updateCombatantFromActor(data.actor);
@@ -121,10 +185,11 @@ export class XivService {
 	}
 
 	async subscribeEvents() {
-		const response = await this.doRequest('subscribeEvents', {
+		const response = await this.doRequest('subscribeTo', {
 			request: {
 				events: [
-					'chatMessage'
+					'chatMessage', 'actorCast', 'actorMove', 'actorControl', 'targetChanged',
+					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp'
 				]
 			}
 		});
@@ -169,27 +234,13 @@ export class XivService {
 		return 'NU' + Math.random().toString(36).substr(2, 9);
 	}
 
-	subscribeTargets() {
-		this.events.castStart.subscribe((e) => {
-			const target = e.target as keyof Pick<LogParser, 'target' | 'focus' | 'player' | 'targetOfTarget'>;
-			const actor = this.parser[target].value;
-			if (!actor || e.totalTime < 0.1) {
-				return;
-			}
-
-			const delay = (this.config.config.castDelay / 1000);
-			actor.cast.start(e.actionId, e.actionName, e.totalTime - delay, delay);
-		});
-	}
-
 	async getPlayer(): Promise<Actor> {
 		const response = await this.doRequest('getPlayer');
-		return response.player;
+		return response.data;
 	}
 
-	async watchActor(id: number): Promise<Actor> {
-		const response = await this.doRequest('watchActor', { request: { requestFor: id } });
-		return response.player;
+	async watchActor(id: number) {
+		await this.doRequest('watchActor', { request: { requestFor: id } });
 	}
 
 	updateCombatantFromActor(a: Actor) {
@@ -212,7 +263,7 @@ export class XivService {
 
 	async loadCombatants() {
 		const actors = await this.getActors();
-		for (const actor of actors.actors) {
+		for (const actor of actors.data) {
 			this.updateCombatantFromActor(actor);
 		}
 	}
@@ -249,18 +300,19 @@ export class XivService {
 				return null;
 			}
 
+			let tim: number;
 			const guid = this.generateGuid();
 			const oneTime = (event: any) => {
 				try {
 					const response = JSON.parse(event.data);
 					if (response.guid === guid) {
+						clearTimeout(tim);
 						resolve(response);
 						this.socket.removeEventListener('message', oneTime);
 					}
 				}
 				catch (e) {
 					console.log(e);
-					//resolve(null);
 				}
 			};
 
@@ -270,6 +322,10 @@ export class XivService {
 				type: type
 			}, data);
 			this.socket.send(JSON.stringify(dataToSend));
+			tim = setTimeout(() => {
+				resolve(null);
+				this.socket.removeEventListener('message', oneTime);
+			}, timeout);
 		});
 	}
 

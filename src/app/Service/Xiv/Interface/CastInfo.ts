@@ -6,3 +6,4 @@ export interface CastInfo {
 	currentTime: number;
 	totalTime: number;
 }
+
