@@ -83,7 +83,6 @@ export class CastBarComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(this.cast.stopped.subscribe((e: { date: Date, canceled: boolean, reason?: string }) => {
-			console.log(e);
 			if (!e) {
 				return;
 			}
@@ -133,7 +132,7 @@ export class CastBarComponent implements OnInit, OnDestroy {
 	setAbilityIcon() {
 		const act = actions.find(a => a.id === this.cast.id);
 		if (act) {
-			this.abilityIcon = this.baseUrl + 'assets/action/' + act.icon;
+			this.abilityIcon = this.baseUrl + 'assets/icons/' + act.iconId + '.png';
 		}
 	}
 }

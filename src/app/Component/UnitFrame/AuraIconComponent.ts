@@ -66,7 +66,7 @@ export class AuraIconComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.stacks = this.aura.stacks.value;
-		this.src = this.baseUrl + 'assets/status/' + this.aura.id + '.png';
+		this.src = this.baseUrl + 'assets/icons/' + this.aura.iconId + '.png';
 		this.updateInterval = (1000 / 2) / Math.pow(10, this.ownConfig.cooldownPrecision);
 		this.startTimeout();
 

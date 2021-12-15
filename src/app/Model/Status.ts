@@ -6,6 +6,7 @@ export class Status {
 	description = '';
 	appliedBy: number = null;
 	isBuff = true;
+	iconId: number;
 	priority = 100;
 
 	stacks = new BehaviorSubject<number>(0);
@@ -62,6 +63,7 @@ export class Status {
 
 		const statusDef = statuses.find(s => s.id === a.id);
 		if (statusDef) {
+			a.iconId = statusDef.iconId;
 			a.isBuff = statusDef.category === 1;
 			a.description = statusDef.description;
 			a.priority = statusDef.partyListPriority;

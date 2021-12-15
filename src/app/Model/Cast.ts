@@ -1,4 +1,6 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject }  from 'rxjs';
+import { actions }          from 'src/app/Data/actions';
+import { ActionDefinition } from 'src/app/Interface/ActionDefinition';
 
 export class Cast {
 	id: number = null;
@@ -13,13 +15,17 @@ export class Cast {
 	protected interval: number = null;
 	protected timeout: number = null;
 
-	start(id: number, name: string, duration: number, delay?: number) {
+	start(id: number, name?: string, duration?: number, delay?: number) {
 		this.stop();
 
 		const startTime = new Date();
 		this.id = id;
-		this.name = name;
-		this.duration = duration + (delay || 0);
+		let action: ActionDefinition;
+		if (!name || isNaN(duration)) {
+			action = actions.find(a => a.id === id);
+		}
+		this.name = name ?? action.name;
+		this.duration = (!isNaN(duration) ? duration : action.castTime) + (delay || 0);
 		this.delay = delay || 0;
 		this.started.next(startTime);
 

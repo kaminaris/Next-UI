@@ -154,7 +154,7 @@ export class ConfigWindowAuraFilterComponent {
 		);
 
 		this.auraMatchMap[i] = matched;
-		this.auraMatchIcon[i] = matched ? this.baseUrl + 'assets/status/' + matched.id + '.png' : '';
+		this.auraMatchIcon[i] = matched ? this.baseUrl + 'assets/icons/' + matched.iconId + '.png' : '';
 	}
 
 	matchAll() {

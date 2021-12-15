@@ -4,6 +4,11 @@ import { Combatant }          from 'src/app/Model/Combatant';
 import { ConfigService }      from 'src/app/Service/ConfigService';
 import { LogParser }          from 'src/app/Service/LogParser/LogParser';
 import { Util }               from 'src/app/Service/LogParser/Util';
+import { EffectResultBasic }  from 'src/app/Service/Xiv/Interface/EffectResultBasic';
+import { EffectResult }       from './Interface/EffectResult';
+import { NpcSpawn }           from './Interface/NpcSpawn';
+import { UpdateHpMpTp }       from './Interface/UpdateHpMpTp';
+import { PlayerSpawn }        from './Interface/PlayerSpawn';
 import { ActorChangedEvent }  from './Interface/ActorChangedEvent';
 import { ChatMessageEvent }   from './Interface/ChatMessageEvent';
 import { NetworkEvent }       from './Interface/NetworkEvent';
@@ -14,6 +19,7 @@ import { Actor }              from './Interface/Actor';
 import { ActorCast }          from './Interface/ActorCast';
 import { ActorMove }          from './Interface/ActorMove';
 import { EventActorsList }    from './Interface/EventActorsList';
+import { ObjectDespawn }      from './Interface/ObjectDespawn';
 
 import { ActorControl, ActorControlCategory, ActorControlSelf, ActorControlTarget } from './Interface/ActorControl';
 
@@ -39,6 +45,12 @@ export class XivService {
 		actorControl: new Subject<NetworkEvent & { data: ActorControl }>(),
 		actorControlSelf: new Subject<NetworkEvent & { data: ActorControlSelf }>(),
 		actorControlTarget: new Subject<NetworkEvent & { data: ActorControlTarget }>(),
+		objectDespawn: new Subject<NetworkEvent & { data: ObjectDespawn }>(),
+		playerSpawn: new Subject<NetworkEvent & { data: PlayerSpawn }>(),
+		npcSpawn: new Subject<NetworkEvent & { data: NpcSpawn }>(),
+		updateHpMpTp: new Subject<NetworkEvent & { data: UpdateHpMpTp }>(),
+		effectResult: new Subject<NetworkEvent & { data: EffectResult }>(),
+		effectResultBasic: new Subject<NetworkEvent & { data: EffectResultBasic }>(),
 		zoneChanged: new Subject<{ zone: number }>(),
 		partyChanged: new Subject<{ data: PartyMember[] }>()
 	};
@@ -66,8 +78,113 @@ export class XivService {
 		this.events.actorCast.subscribe(this.actorCast.bind(this));
 		this.events.actorControl.subscribe(this.actorControl.bind(this));
 		this.events.zoneChanged.subscribe(this.zoneChanged.bind(this));
+		this.events.objectDespawn.subscribe(this.objectDespawn.bind(this));
+		this.events.playerSpawn.subscribe(this.playerSpawn.bind(this));
+		this.events.npcSpawn.subscribe(this.npcSpawn.bind(this));
+		this.events.updateHpMpTp.subscribe(this.updateHpMpTp.bind(this));
+		this.events.effectResult.subscribe(this.effectResult.bind(this));
+		this.events.effectResultBasic.subscribe(this.effectResultBasic.bind(this));
 		await this.subscribeEvents();
 		return connected;
+	}
+
+	toPascalCase(str: string) {
+		return str
+			.split(' ')
+			.map(word => word[0].toUpperCase().concat(word.slice(1)))
+			.join(' ')
+	}
+
+	effectResult(ev: { data: EffectResult }) {
+		const data = ev.data;
+		this.parser.updateCombatant(
+			data.targetActorId,
+			null,
+			data.currentHp,
+			data.maxHp,
+			data.currentMp,
+			null,
+		);
+		console.log('effectResult', ev.data);
+	}
+
+	effectResultBasic(ev: { data: EffectResultBasic }) {
+		const data = ev.data;
+		this.parser.updateCombatant(
+			data.targetActorId,
+			null,
+			data.currentHp,
+			null,
+			null,
+			null,
+		);
+		console.log('effectResultBasic', ev.data);
+	}
+
+	updateHpMpTp(ev: { data: UpdateHpMpTp }) {
+		const data = ev.data;
+		this.parser.updateCombatant(
+			data.targetActorId,
+			null,
+			data.currentHp,
+			null,
+			data.currentMp,
+			null,
+		);
+	}
+
+	npcSpawn(ev: { data: NpcSpawn }) {
+		const npc = ev.data;
+		if (!npc.targetId || !npc.name) {
+			return;
+		}
+		this.parser.updateCombatant(
+			npc.spawnerId,
+			this.toPascalCase(npc.name),
+			npc.hp,
+			npc.hpMax,
+			10000,
+			10000,
+			npc.position.x,
+			npc.position.y,
+			npc.position.z,
+			null,
+			npc.level,
+			true,
+			'npc-spawn'
+		);
+		console.log('NPC SPAWN', ev);
+	}
+
+	playerSpawn(ev: { data: PlayerSpawn }) {
+		const player = ev.data;
+		this.parser.updateCombatant(
+			player.targetId,
+			player.name,
+			player.hp,
+			player.hpMax,
+			10000,
+			10000,
+			player.position.x,
+			player.position.y,
+			player.position.z,
+			null,
+			player.level,
+			true,
+			'npc-spawn'
+		);
+		console.log('PLAYER SPAWN', ev);
+	}
+
+	objectDespawn(ev: { data: ObjectDespawn }) {
+		if (ev.data.actorId) {
+			const combatants = this.parser.combatants.value;
+			const idx = combatants.findIndex(c => c.id === ev.data.actorId);
+			if (idx >= 0) {
+				combatants.splice(idx, 1);
+				this.parser.combatants.next(combatants);
+			}
+		}
 	}
 
 	zoneChanged(data: { zone: number }) {
@@ -81,8 +198,8 @@ export class XivService {
 		}
 	}
 
-	async actorCast(data: NetworkEvent & { data: ActorCast }) {
-		const cast = data.data;
+	async actorCast(ev: NetworkEvent & { data: ActorCast }) {
+		const cast = ev.data;
 		const c = this.parser.findCombatant(cast.targetActorId, cast.targetActorName);
 		if (!c) {
 			return;
@@ -91,7 +208,7 @@ export class XivService {
 		const delay = (this.config.config.castDelay / 1000);
 		c.cast.start(
 			cast.actionId,
-			'Spell',
+			null,
 			cast.castTime - delay,
 			delay
 		);
@@ -189,6 +306,7 @@ export class XivService {
 			request: {
 				events: [
 					'chatMessage', 'actorCast', 'actorMove', 'actorControl', 'targetChanged',
+					'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic',
 					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp'
 				]
 			}
@@ -365,7 +483,7 @@ export class XivService {
 					ev.next(data);
 				}
 			}
-			console.log('XiVPlugin', data);
+			//console.log('XiVPlugin', data);
 		}
 		catch (e) {
 			console.log(e);
