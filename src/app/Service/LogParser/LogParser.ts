@@ -132,7 +132,7 @@ export class LogParser {
 
 	updateCombatant(
 		id: number,
-		name: string,
+		name?: string,
 		hp: number = 1,
 		hpMax: number = 1,
 		mana: number = 10000,
@@ -156,13 +156,15 @@ export class LogParser {
 			shouldAdd = true;
 		}
 
-		combatant.name = name;
+		if (name) {
+			combatant.name = name;
+		}
 		combatant.updatePosition(x, y, z);
 		combatant.updateJob(job);
 		combatant.updateLevel(level);
-		if (hp > combatant.hpMax) {
-			console.log(source, hp, combatant.hpMax);
-		}
+		// if (hp > combatant.hpMax) {
+		// 	console.log(source, hp, combatant.hpMax);
+		// }
 		combatant.updateHp(hp, hpMax);
 		if ((mana || manaMax) && !(source === 'hp-updated' && combatant.isCrafterOrGatherer)) {
 			combatant.updateMana(

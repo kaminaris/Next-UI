@@ -1,3 +1,5 @@
+import { Position } from './Position';
+
 export interface Actor {
 	hp: number;
 	hpMax: number;
@@ -13,9 +15,5 @@ export interface Actor {
 	cpMax: number;
 	rotation: number;
 	companyTag: string;
-	position: {
-		X: number,
-		Y: number,
-		Z: number
-	};
+	position: Position;
 }

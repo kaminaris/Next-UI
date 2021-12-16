@@ -158,13 +158,16 @@ export class Combatant {
 
 	updateAura(
 		id: number,
-		name: string,
+		name: string = null,
 		stacks: number,
 		appliedBy: number,
 		duration: number,
 		gainedAt?: Date
 	) {
 		const auras = this.auras.value;
+		if (name === null) {
+			name = auras.find(a => a.id === id)?.name;
+		}
 		let aura = auras.find(a => {
 			return a.appliedBy === appliedBy && (a.id === id || a.name === name);
 		});
@@ -189,9 +192,11 @@ export class Combatant {
 		return aura;
 	}
 
-	removeAura(id: number, name: string) {
+	removeAura(id: number, name?: string, appliedBy?: number) {
 		const auras = this.auras.value;
-		let auraIdx = auras.findIndex(a => a.id === id || a.name === name);
+		let auraIdx = auras.findIndex(
+			a => (appliedBy ? a.appliedBy === appliedBy : true) && (a.id === id || a.name === name)
+		);
 		if (auraIdx < 0) {
 			return;
 		}
