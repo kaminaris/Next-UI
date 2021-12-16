@@ -12,21 +12,11 @@ export class RemovedCombatantHandler implements HandlerInterface {
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
-		const combatants = this.parser.combatants.value;
 
-		// has to stay this way
-		const combatantIdx = combatants.findIndex(c => c.id === id);
-		if (combatantIdx >= 0) {
-			combatants.splice(combatantIdx, 1);
-
-			this.parser.combatants.next(combatants);
-		}
+		this.parser.removeCombatant(id);
 
 		if (this.parser.debugMode) {
-			console.log(
-				':Removed combatant ' + id +
-				combatants[combatantIdx]
-			);
+			console.log('Removed combatant ' + id);
 		}
 	}
 }

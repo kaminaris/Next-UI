@@ -180,6 +180,15 @@ export class LogParser {
 		return combatant;
 	}
 
+	removeCombatant(id: number | Combatant) {
+		const combatants = this.combatants.value;
+		const idx = id instanceof Combatant ? combatants.indexOf(id) : combatants.findIndex(c => c.id === id);
+		if (idx >= 0) {
+			combatants.splice(idx, 1);
+			this.combatants.next(combatants);
+		}
+	}
+
 	setParty(combatants: Combatant[]) {
 		if (this.config.partySorter) {
 			combatants.sort(this.config.partySorter);

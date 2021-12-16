@@ -17,13 +17,12 @@ import { ActorChangedEvent }      from './Interface/ActorChangedEvent';
 import { ChatMessageEvent }       from './Interface/ChatMessageEvent';
 import { NetworkEvent }           from './Interface/NetworkEvent';
 import { TargetChangedEvent }     from './Interface/TargetChangedEvent';
-import { ActorSetPos }        from './Interface/ActorSetPos';
-import { PartyMember }        from './Interface/PartyMember';
-import { Actor }              from './Interface/Actor';
-import { ActorCast }          from './Interface/ActorCast';
-import { ActorMove }          from './Interface/ActorMove';
-import { EventActorsList }    from './Interface/EventActorsList';
-import { ObjectDespawn }      from './Interface/ObjectDespawn';
+import { ActorSetPos }            from './Interface/ActorSetPos';
+import { PartyMember }            from './Interface/PartyMember';
+import { Actor }                  from './Interface/Actor';
+import { ActorCast }              from './Interface/ActorCast';
+import { ActorMove }              from './Interface/ActorMove';
+import { ObjectDespawn }          from './Interface/ObjectDespawn';
 
 import { StatusEffectList, StatusEffectList2, StatusEffectList3 } from './Interface/StatusEffectList';
 
@@ -133,7 +132,7 @@ export class XivService {
 				ev.data.position.z
 			);
 		}
-		console.log('PM', ev.data.targetActorId, ev.data.targetActorName,  ev.data.position);
+		console.log('PM', ev.data.targetActorId, ev.data.targetActorName, ev.data.position);
 	}
 
 	updatePositionInstance(ev: { data: UpdatePositionInstance }) {
@@ -145,7 +144,6 @@ export class XivService {
 				ev.data.position.z
 			);
 		}
-		console.log('PM', ev.data.targetActorId, ev.data.targetActorName,  ev.data.position);
 	}
 
 	actorMove(ev: { data: ActorMove }) {
@@ -156,9 +154,6 @@ export class XivService {
 				ev.data.position.y,
 				ev.data.position.z
 			);
-		}
-		if (ev.data.targetActorId === 0x4000BA26) {
-			console.log('AM', ev.data.targetActorId, ev.data.targetActorName,  ev.data.position);
 		}
 	}
 
@@ -287,12 +282,7 @@ export class XivService {
 
 	objectDespawn(ev: { data: ObjectDespawn }) {
 		if (ev.data.actorId) {
-			const combatants = this.parser.combatants.value;
-			const idx = combatants.findIndex(c => c.id === ev.data.actorId);
-			if (idx >= 0) {
-				combatants.splice(idx, 1);
-				this.parser.combatants.next(combatants);
-			}
+			this.parser.removeCombatant(ev.data.actorId);
 		}
 	}
 
@@ -323,7 +313,7 @@ export class XivService {
 		);
 	}
 
-	async actorControl(ev: NetworkEvent & { data: ActorControl }) {
+	async actorControl(ev: { data: ActorControl }) {
 		const ctrl = ev.data;
 		const c = this.parser.findCombatant(ctrl.targetActorId, ctrl.targetActorName);
 		if (!c) {
@@ -335,19 +325,14 @@ export class XivService {
 				c.cast.cancel();
 				break;
 			case ActorControlCategory.Death:
-				const combatants = this.parser.combatants.value;
-				const idx = combatants.indexOf(c);
-				if (idx >= 0) {
-					combatants.splice(idx, 1);
-					this.parser.combatants.next(combatants);
-				}
+				this.parser.removeCombatant(c);
 				break;
+			case ActorControlCategory.UpdateEffect:
 			case ActorControlCategory.GainEffect: {
-				console.log('GAIN EFFECT', ctrl);
 				const statusId = ctrl.param1;
 				const duration = ctrl.param2;
 				const appliedBy = ctrl.param3;
-				c.updateAura(statusId, null, 1, appliedBy ,duration);
+				c.updateAura(statusId, null, 1, appliedBy, duration);
 				break;
 			}
 			case ActorControlCategory.LoseEffect: {
@@ -371,12 +356,7 @@ export class XivService {
 
 	async actorChanged(ev: { data: ActorChangedEvent }) {
 		if (ev.data.removed) {
-			const combatants = this.parser.combatants.value;
-			const idx = combatants.findIndex(c => c.id === ev.data.actorId);
-			if (idx >= 0) {
-				combatants.splice(idx, 1);
-				this.parser.combatants.next(combatants);
-			}
+			this.parser.removeCombatant(ev.data.actorId);
 			return;
 		}
 
@@ -496,12 +476,21 @@ export class XivService {
 	// TODO: Needed to disable certain events when they are hooked from NU Plugin
 	async progressiveUpgrade() {
 		// Remove ability use handler
-		this.parser.removeHandler(0x14);
 		this.parser.removeHandler(0x00);
 		this.parser.removeHandler(0x01);
 		this.parser.removeHandler(0x02);
 		this.parser.removeHandler(0x03);
 		this.parser.removeHandler(0x04);
+		this.parser.removeHandler(0x14);
+		this.parser.removeHandler(0x15);
+		this.parser.removeHandler(0x16);
+		this.parser.removeHandler(0x17);
+		this.parser.removeHandler(0x19);
+		this.parser.removeHandler(0x1A);
+		this.parser.removeHandler(0x1E);
+		this.parser.removeHandler(0x25);
+		this.parser.removeHandler(0x26);
+		this.parser.removeHandler(0x27);
 	}
 
 	generateGuid() {
@@ -509,13 +498,11 @@ export class XivService {
 	}
 
 	async getPlayer(): Promise<Actor> {
-		const response = await this.doRequest('getPlayer');
-		return response.data;
+		return await this.doRequest('getPlayer');
 	}
 
 	async getParty(): Promise<PartyMember[]> {
-		const response = await this.doRequest('getParty');
-		return response.data;
+		return await this.doRequest('getParty');
 	}
 
 	async watchActor(id: number) {
@@ -554,7 +541,6 @@ export class XivService {
 			null,
 			'xiv-actor-changed'
 		);
-		console.log('UU', a.position)
 	}
 
 	updateCombatantFromPartyMember(pm: PartyMember) {
@@ -577,7 +563,7 @@ export class XivService {
 
 	async loadCombatants() {
 		const actors = await this.getActors();
-		for (const actor of actors.data) {
+		for (const actor of actors) {
 			this.updateCombatantFromActor(actor);
 		}
 	}
@@ -621,7 +607,7 @@ export class XivService {
 					const response = JSON.parse(event.data);
 					if (response.guid === guid) {
 						clearTimeout(tim);
-						resolve(response);
+						resolve(response.data);
 						this.socket.removeEventListener('message', oneTime);
 					}
 				}
@@ -643,19 +629,16 @@ export class XivService {
 		});
 	}
 
-	async getActors(): Promise<EventActorsList> {
-		const resp = await this.doRequest('getActors');
-		return resp.data;
+	async getActors(): Promise<Actor[]> {
+		return await this.doRequest('getActors');
 	}
 
 	async getActor(id: number) {
-		const resp = await this.doRequest('getActor', { request: { requestFor: id } });
-		return resp.data;
+		return await this.doRequest('getActor', { request: { requestFor: id } });
 	}
 
 	async getActorStatuses(id: number): Promise<AppliedStatus[]> {
-		const resp = await this.doRequest('getActorStatuses', { request: { requestFor: id } });
-		return resp.data;
+		return await this.doRequest('getActorStatuses', { request: { requestFor: id } });
 	}
 
 	onOpen() {

@@ -24,7 +24,7 @@ export class Cast {
 		if (!name || isNaN(duration)) {
 			action = actions.find(a => a.id === id);
 		}
-		this.name = name ?? action.name;
+		this.name = name ?? action?.name ?? 'Interacting';
 		this.duration = (!isNaN(duration) ? duration : action.castTime) + (delay || 0);
 		this.delay = delay || 0;
 		this.started.next(startTime);
