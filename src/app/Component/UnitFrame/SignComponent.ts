@@ -1,6 +1,18 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription }                                                   from 'rxjs';
-import { Combatant }                                                      from 'src/app/Model/Combatant';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	Inject,
+	Input,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	SimpleChanges
+}                       from '@angular/core';
+import { Subscription } from 'rxjs';
+import {
+	Combatant
+}                       from 'src/app/Model/Combatant';
 
 @Component({
 	selector: 'sign-icon',
@@ -10,9 +22,10 @@ import { Combatant }                                                      from '
 			[style.width.px]="size"
 			[style.height.px]="size"
 		>
-	`
+	`,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignComponent implements OnInit, OnDestroy {
+export class SignComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() combatant: Combatant;
 	@Input() size = 24;
 	signUrl = '';
@@ -29,6 +42,16 @@ export class SignComponent implements OnInit, OnDestroy {
 		this.cd.detach();
 		this.setSignUrl();
 		this.signSub = this.combatant.sign.subscribe(this.setSignUrl.bind(this));
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.combatant) {
+			this.signSub?.unsubscribe();
+			if (this.combatant) {
+				this.signSub = this.combatant.sign.subscribe(this.setSignUrl.bind(this));
+				this.setSignUrl();
+			}
+		}
 	}
 
 	setSignUrl() {

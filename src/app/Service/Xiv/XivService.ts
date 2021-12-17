@@ -7,26 +7,28 @@ import { Util }                   from 'src/app/Service/LogParser/Util';
 import { ActionEffect1 }          from 'src/app/Service/Xiv/Interface/ActionEffect';
 import { AppliedStatus }          from 'src/app/Service/Xiv/Interface/AppliedStatus';
 import { UpdatePositionInstance } from 'src/app/Service/Xiv/Interface/UpdatePositionInstance';
-import { EffectResultBasic }      from './Interface/EffectResultBasic';
-import { UpdatePosition }         from './Interface/UpdatePosition';
-import { EffectResult }           from './Interface/EffectResult';
-import { NpcSpawn }               from './Interface/NpcSpawn';
-import { UpdateHpMpTp }           from './Interface/UpdateHpMpTp';
-import { PlayerSpawn }            from './Interface/PlayerSpawn';
-import { ActorChangedEvent }      from './Interface/ActorChangedEvent';
-import { ChatMessageEvent }       from './Interface/ChatMessageEvent';
-import { NetworkEvent }           from './Interface/NetworkEvent';
-import { TargetChangedEvent }     from './Interface/TargetChangedEvent';
-import { ActorSetPos }            from './Interface/ActorSetPos';
-import { PartyMember }            from './Interface/PartyMember';
 import { Actor }                  from './Interface/Actor';
 import { ActorCast }              from './Interface/ActorCast';
-import { ActorMove }              from './Interface/ActorMove';
-import { ObjectDespawn }          from './Interface/ObjectDespawn';
-
-import { StatusEffectList, StatusEffectList2, StatusEffectList3 } from './Interface/StatusEffectList';
+import { ActorChangedEvent }      from './Interface/ActorChangedEvent';
 
 import { ActorControl, ActorControlCategory, ActorControlSelf, ActorControlTarget } from './Interface/ActorControl';
+import { ActorMove }                                                                from './Interface/ActorMove';
+import { ActorSetPos }                                                              from './Interface/ActorSetPos';
+import { ChatMessageEvent }                                                         from './Interface/ChatMessageEvent';
+import { EffectResult }                                                             from './Interface/EffectResult';
+import {
+	EffectResultBasic
+}                                                                                   from './Interface/EffectResultBasic';
+import { NetworkEvent }                                                             from './Interface/NetworkEvent';
+import { NpcSpawn }                                                                 from './Interface/NpcSpawn';
+import { ObjectDespawn }                                                            from './Interface/ObjectDespawn';
+import { PartyMember }                                                              from './Interface/PartyMember';
+import { PlayerSpawn }                                                              from './Interface/PlayerSpawn';
+
+import { StatusEffectList, StatusEffectList2, StatusEffectList3 } from './Interface/StatusEffectList';
+import { TargetChangedEvent }                                     from './Interface/TargetChangedEvent';
+import { UpdateHpMpTp }                                           from './Interface/UpdateHpMpTp';
+import { UpdatePosition }                                         from './Interface/UpdatePosition';
 
 export type XivSocketCommand = 'setTarget' | 'setFocus' | 'setMouseOver' | 'setMouseOverEx' | 'clearMouseOverEx';
 
@@ -90,16 +92,25 @@ export class XivService {
 		this.events.targetChanged.subscribe(this.targetChanged.bind(this));
 		this.events.chatMessage.subscribe(this.chatMessage.bind(this));
 		this.events.actorCast.subscribe(this.actorCast.bind(this));
+
 		this.events.actorControl.subscribe(this.actorControl.bind(this));
+		this.events.actorControlSelf.subscribe(this.actorControlSelf.bind(this));
+		this.events.actorControlTarget.subscribe(this.actorControlTarget.bind(this));
+
 		this.events.zoneChanged.subscribe(this.zoneChanged.bind(this));
+
 		this.events.objectDespawn.subscribe(this.objectDespawn.bind(this));
 		this.events.playerSpawn.subscribe(this.playerSpawn.bind(this));
 		this.events.npcSpawn.subscribe(this.npcSpawn.bind(this));
+
 		this.events.updateHpMpTp.subscribe(this.updateHpMpTp.bind(this));
+
 		this.events.effectResult.subscribe(this.effectResult.bind(this));
 		this.events.effectResultBasic.subscribe(this.effectResultBasic.bind(this));
+
 		this.events.partyChanged.subscribe(this.partyChanged.bind(this));
 		this.events.enmityListChanged.subscribe(this.enmityListChanged.bind(this));
+
 		this.events.actorMove.subscribe(this.actorMove.bind(this));
 		this.events.updatePosition.subscribe(this.updatePosition.bind(this));
 		this.events.updatePositionInstance.subscribe(this.updatePositionInstance.bind(this));
@@ -209,18 +220,21 @@ export class XivService {
 			return;
 		}
 
+		const timestamp = new Date();
 		for (let i = 0; i < effectCount; i++) {
 			const status = data.statusEntries[i];
 			if (!status.id) {
 				continue;
 			}
 
+			console.log(status);
 			c.updateAura(
 				status.id,
 				null,
 				1,
 				status.sourceActorId,
-				status.duration
+				status.duration,
+				timestamp
 			);
 		}
 	}
@@ -323,9 +337,32 @@ export class XivService {
 		);
 	}
 
+	async actorControlSelf(ev: { data: ActorControlSelf }) {
+		const ctrl = ev.data;
+		const c = this.parser.player.value;
+
+		await this.actorControlGeneric(c, ctrl);
+	}
+
+	async actorControlTarget(ev: { data: ActorControlTarget}) {
+		const ctrl = ev.data;
+		// For now we dont support other stuff than STS
+		if (ctrl.category !== ActorControlCategory.SetTargetSign) {
+			return;
+		}
+		const c = this.parser.target.value;
+
+		await this.actorControlGeneric(c, ctrl);
+	}
+
 	async actorControl(ev: { data: ActorControl }) {
 		const ctrl = ev.data;
 		const c = this.parser.findCombatant(ctrl.targetActorId, ctrl.targetActorName);
+
+		await this.actorControlGeneric(c, ctrl);
+	}
+
+	async actorControlGeneric(c: Combatant, ctrl: ActorControl | ActorControlTarget | ActorControlTarget) {
 		if (!c) {
 			return;
 		}
@@ -335,9 +372,12 @@ export class XivService {
 				c.cast.cancel();
 				break;
 			case ActorControlCategory.Death:
-				this.parser.removeCombatant(c);
+				if (c.isNPC) {
+					this.parser.removeCombatant(c);
+				}
 				break;
 			case ActorControlCategory.KeyItem:
+				//TODO: its not good one
 				console.log('KEY ITEM', ctrl);
 				c.cast.start(ctrl.param1, null, 3);
 				break;
@@ -359,7 +399,14 @@ export class XivService {
 				// TODO
 				break;
 			case ActorControlCategory.SetTargetSign:
-				// TODO
+				const newSign = c.sign.value === ctrl.param1 ? null : ctrl.param1;
+				if (newSign !== null) {
+					const oldC = this.parser.combatants.value.find(c => c.sign.value === newSign);
+					if (oldC) {
+						oldC.sign.next(null);
+					}
+				}
+				c.sign.next(c.sign.value === ctrl.param1 ? null : ctrl.param1);
 				break;
 			case ActorControlCategory.OverTime:
 			case ActorControlCategory.Tether:
@@ -367,9 +414,8 @@ export class XivService {
 				// No action
 				break;
 			default:
-				console.log('UNRECOGNIZED AC', ctrl);
+				//console.log('UNRECOGNIZED AC', ctrl);
 		}
-
 	}
 
 	chatMessage(ev: { data: ChatMessageEvent }) {
@@ -383,7 +429,10 @@ export class XivService {
 
 	async actorChanged(ev: { data: ActorChangedEvent }) {
 		if (ev.data.removed) {
-			this.parser.removeCombatant(ev.data.actorId);
+			const player = this.parser.player.value;
+			if (!player || player.id !== ev.data.actorId) {
+				this.parser.removeCombatant(ev.data.actorId);
+			}
 			return;
 		}
 
