@@ -385,13 +385,21 @@ export class XivService {
 			case ActorControlCategory.GainEffect: {
 				const statusId = ctrl.param1;
 				const duration = ctrl.param2;
-				const appliedBy = ctrl.param3;
+				let appliedBy = ctrl.param3;
+				if (appliedBy === 0 || appliedBy === 0xE0000000) {
+					appliedBy = ctrl.targetActorId;
+				}
+
 				c.updateAura(statusId, null, 1, appliedBy, duration);
 				break;
 			}
 			case ActorControlCategory.LoseEffect: {
 				const statusId = ctrl.param1;
-				const appliedBy = ctrl.param3;
+				let appliedBy = ctrl.param3;
+				if (appliedBy === 0 || appliedBy === 0xE0000000) {
+					appliedBy = ctrl.targetActorId;
+				}
+
 				c.removeAura(statusId, null, appliedBy);
 				break;
 			}

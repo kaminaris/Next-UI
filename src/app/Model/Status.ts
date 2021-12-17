@@ -48,19 +48,10 @@ export class Status {
 		const a = new Status(id);
 		a.name = name;
 		a.stacks.next(stacks);
-		if (appliedBy) {
+		if (!isNaN(appliedBy)) {
 			a.appliedBy = appliedBy;
 		}
 		a.gainedAt.next(gainedAt ? gainedAt : new Date());
-
-		if (duration) {
-			a.duration.next(duration);
-			a.expiresAt.next(duration > 9990 ? null : new Date(a.gainedAt.value.valueOf() + duration * 1000));
-		}
-		if (priority) {
-			a.priority = priority;
-		}
-
 		const statusDef = statuses.find(s => s.id === a.id);
 		if (statusDef) {
 			a.iconId = statusDef.iconId;
@@ -70,7 +61,21 @@ export class Status {
 			if (!a.name) {
 				a.name = statusDef.name;
 			}
+			// TODO: check this out
+			if (statusDef.isPermanent) {
+				duration = 0;
+			}
 		}
+
+		if (duration) {
+			a.duration.next(duration);
+			a.expiresAt.next(duration > 9990 ? null : new Date(a.gainedAt.value.valueOf() + duration * 1000));
+		}
+		if (priority) {
+			a.priority = priority;
+		}
+
+
 
 		return a;
 	}
