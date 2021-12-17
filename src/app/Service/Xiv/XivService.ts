@@ -65,7 +65,8 @@ export class XivService {
 		statusEffectList3: new Subject<NetworkEvent & { data: StatusEffectList3 }>(),
 
 		zoneChanged: new Subject<{ zone: number }>(),
-		partyChanged: new Subject<{ data: PartyMember[] }>()
+		partyChanged: new Subject<{ data: PartyMember[] }>(),
+		enmityListChanged: new Subject<{ data: Actor[] }>()
 	};
 
 	constructor(
@@ -98,6 +99,7 @@ export class XivService {
 		this.events.effectResult.subscribe(this.effectResult.bind(this));
 		this.events.effectResultBasic.subscribe(this.effectResultBasic.bind(this));
 		this.events.partyChanged.subscribe(this.partyChanged.bind(this));
+		this.events.enmityListChanged.subscribe(this.enmityListChanged.bind(this));
 		this.events.actorMove.subscribe(this.actorMove.bind(this));
 		this.events.updatePosition.subscribe(this.updatePosition.bind(this));
 		this.events.updatePositionInstance.subscribe(this.updatePositionInstance.bind(this));
@@ -132,7 +134,6 @@ export class XivService {
 				ev.data.position.z
 			);
 		}
-		console.log('PM', ev.data.targetActorId, ev.data.targetActorName, ev.data.position);
 	}
 
 	updatePositionInstance(ev: { data: UpdatePositionInstance }) {
@@ -155,6 +156,17 @@ export class XivService {
 				ev.data.position.z
 			);
 		}
+	}
+
+	async enmityListChanged(ev: { data: Actor[] }) {
+		console.log('ENMITY CHANGED', ev.data);
+		const newEnemies: Combatant[] = [];
+		for (const enemy of ev.data) {
+			let e = this.updateCombatantFromActor(enemy);
+			newEnemies.push(e);
+		}
+
+		await this.parser.setAggroList(newEnemies);
 	}
 
 	async partyChanged(ev: { data: PartyMember[] }) {
@@ -211,7 +223,6 @@ export class XivService {
 				status.duration
 			);
 		}
-		console.log('effectResult', ev.data);
 	}
 
 	effectResultBasic(ev: { data: EffectResultBasic }) {
@@ -224,7 +235,6 @@ export class XivService {
 			null,
 			null
 		);
-		console.log('effectResultBasic', ev.data);
 	}
 
 	updateHpMpTp(ev: { data: UpdateHpMpTp }) {
@@ -327,6 +337,10 @@ export class XivService {
 			case ActorControlCategory.Death:
 				this.parser.removeCombatant(c);
 				break;
+			case ActorControlCategory.KeyItem:
+				console.log('KEY ITEM', ctrl);
+				c.cast.start(ctrl.param1, null, 3);
+				break;
 			case ActorControlCategory.UpdateEffect:
 			case ActorControlCategory.GainEffect: {
 				const statusId = ctrl.param1;
@@ -341,6 +355,19 @@ export class XivService {
 				c.removeAura(statusId, null, appliedBy);
 				break;
 			}
+			case ActorControlCategory.LimitBreak:
+				// TODO
+				break;
+			case ActorControlCategory.SetTargetSign:
+				// TODO
+				break;
+			case ActorControlCategory.OverTime:
+			case ActorControlCategory.Tether:
+			case ActorControlCategory.DirectorUpdate:
+				// No action
+				break;
+			default:
+				console.log('UNRECOGNIZED AC', ctrl);
 		}
 
 	}
@@ -439,7 +466,7 @@ export class XivService {
 					'chatMessage', 'actorCast', 'actorMove', 'actorControl', 'targetChanged',
 					'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
 					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
-					'partyChanged', 'updatePositionInstance'
+					'partyChanged', 'updatePositionInstance', 'enmityListChanged'
 				]
 			}
 		});

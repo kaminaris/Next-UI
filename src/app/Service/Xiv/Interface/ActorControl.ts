@@ -1,6 +1,7 @@
 import { NetworkEventData } from './NetworkEventData';
 
 export enum ActorControlCategory {
+	KeyItem = 0x03,
 	OverTime = 0x17,
 	CancelAbility = 0x0f,
 	Death = 0x06,

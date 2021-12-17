@@ -204,10 +204,7 @@ export class LogParser {
 	) {
 		if (type === 'target') {
 			for (const combatant of this.combatants.value) {
-				if (
-					c === null && combatant.isTarget ||
-					c instanceof Combatant && c.id !== combatant.id && c.name !== combatant.name
-				) {
+				if (combatant.isTarget) {
 					combatant.isTarget = false;
 					combatant.changeTrigger.next(true);
 				}
