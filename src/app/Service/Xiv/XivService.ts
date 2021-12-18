@@ -133,7 +133,7 @@ export class XivService {
 	}
 
 	statusEffectList(ev: { data: StatusEffectList }) {
-		console.log('STATUS EF LIST', ev.data);
+		// console.log('STATUS EF LIST', ev.data);
 	}
 
 	updatePosition(ev: { data: UpdatePosition }) {
@@ -170,7 +170,6 @@ export class XivService {
 	}
 
 	async enmityListChanged(ev: { data: Actor[] }) {
-		console.log('ENMITY CHANGED', ev.data);
 		const newEnemies: Combatant[] = [];
 		for (const enemy of ev.data) {
 			let e = this.updateCombatantFromActor(enemy);
@@ -181,7 +180,6 @@ export class XivService {
 	}
 
 	async partyChanged(ev: { data: PartyMember[] }) {
-		console.log('PARTY CHANGED', ev.data);
 		const newParty: Combatant[] = [];
 		for (const pm of ev.data) {
 			let nc = this.updateCombatantFromPartyMember(pm);
@@ -227,7 +225,6 @@ export class XivService {
 				continue;
 			}
 
-			console.log(status);
 			c.updateAura(
 				status.id,
 				null,
@@ -378,7 +375,7 @@ export class XivService {
 				break;
 			case ActorControlCategory.KeyItem:
 				//TODO: its not good one
-				console.log('KEY ITEM', ctrl);
+				// console.log('KEY ITEM', ctrl);
 				c.cast.start(ctrl.param1, null, 3);
 				break;
 			case ActorControlCategory.UpdateEffect:
@@ -386,7 +383,7 @@ export class XivService {
 				const statusId = ctrl.param1;
 				const duration = ctrl.param2;
 				let appliedBy = ctrl.param3;
-				if (appliedBy === 0 || appliedBy === 0xE0000000) {
+				if (appliedBy === 0 || appliedBy === Combatant.ENV_ID) {
 					appliedBy = ctrl.targetActorId;
 				}
 
@@ -396,7 +393,7 @@ export class XivService {
 			case ActorControlCategory.LoseEffect: {
 				const statusId = ctrl.param1;
 				let appliedBy = ctrl.param3;
-				if (appliedBy === 0 || appliedBy === 0xE0000000) {
+				if (appliedBy === 0 || appliedBy === Combatant.ENV_ID) {
 					appliedBy = ctrl.targetActorId;
 				}
 
@@ -415,6 +412,15 @@ export class XivService {
 					}
 				}
 				c.sign.next(c.sign.value === ctrl.param1 ? null : ctrl.param1);
+				break;
+			case ActorControlCategory.TargetIcon:
+				// Head marker (log line 34)
+				// TODO: which ones is marker id?
+				this.parser.eventDispatcher.headMarker.next({
+					headMarkerId: ctrl.param1,
+					targetId: c.id,
+					targetName: c.name
+				});
 				break;
 			case ActorControlCategory.OverTime:
 			case ActorControlCategory.Tether:

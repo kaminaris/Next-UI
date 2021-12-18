@@ -13,7 +13,7 @@ export const crafters = ['CRP', 'BSM', 'ARM', 'GSM', 'LTW', 'WVR', 'ALC', 'CUL']
 export const gatherer = ['BTN', 'MIN', 'FSH'];
 
 export class Combatant {
-	static ENV_ID = 3758096384;
+	static ENV_ID = 0xE0000000;
 
 	id: number = null;
 	name: string = '';
