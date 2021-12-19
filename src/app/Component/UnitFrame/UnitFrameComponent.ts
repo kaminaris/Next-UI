@@ -4,15 +4,15 @@ import {
 	Component, HostListener, Input,
 	OnDestroy,
 	OnInit
-}                                        from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { Status }                        from 'src/app/Model/Status';
-import { Combatant }                     from 'src/app/Model/Combatant';
-import { ConfigService }                 from 'src/app/Service/ConfigService';
-import { LogParser }                     from 'src/app/Service/LogParser/LogParser';
-import { Util }                          from 'src/app/Service/LogParser/Util';
-import { MainService }                   from 'src/app/Service/MainService';
-import { StatusService }                 from 'src/app/Service/StatusService';
+}                                                from '@angular/core';
+import { BehaviorSubject, config, Subscription } from 'rxjs';
+import { Status }                                from 'src/app/Model/Status';
+import { Combatant }                             from 'src/app/Model/Combatant';
+import { ConfigService }                         from 'src/app/Service/ConfigService';
+import { LogParser }                             from 'src/app/Service/LogParser/LogParser';
+import { Util }                                  from 'src/app/Service/LogParser/Util';
+import { MainService }                           from 'src/app/Service/MainService';
+import { StatusService }                         from 'src/app/Service/StatusService';
 
 @Component({
 	selector: 'unit-frame',
@@ -28,6 +28,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	manaMax = 10000;
 	manaPct = 100;
 
+	blurName = false;
 	name = '';
 	job = 'NONE';
 	level = 1;
@@ -98,13 +99,12 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.cd.detectChanges();
 		}));
 
-		this.subs.push(this.conf.config.colorConfig.anyChanged.subscribe(() => {
-			this.setBarColor();
+		this.subs.push(this.conf.config.anyChanged.subscribe(() => {
+			this.update();
 			this.cd.detectChanges();
 		}));
 
 		this.subs.push(this.ownConfig.anyChangedRecursive.subscribe(() => {
-			console.log('DOES THIS?');
 			this.cd.detectChanges();
 		}));
 	}
@@ -125,9 +125,6 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 				this.inRange = this.ownConfig.distance.threshold >= this.distanceToPlayer;
 			}
 
-			// console.log('DISTANCE', this.distanceToPlayer, this.combatant.name,)
-			// console.log('PLAYER', {x: player.x, y: player.y, z: player.z})
-			// console.log('TRG', {x: this.combatant.x, y: this.combatant.y, z: this.combatant.z})
 			this.cd.detectChanges();
 		}, this.distanceInterval);
 	}
@@ -232,8 +229,13 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	update() {
+		this.copyFrom(this.combatant);
+	}
+
 	copyFrom(c: Combatant) {
-		this.name = c.name;
+		this.name = this.formatName(c);
+		this.blurName = !c.isNPC && this.config.blurNames && (c.isPlayer ? !this.config.replaceYourName : true);
 		this.hp = c.hp.value;
 		this.hpMax = c.hpMax;
 		this.mana = c.mana.value;
@@ -248,6 +250,14 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.setBarColor(c);
 
 		this.cd.detectChanges();
+	}
+
+	formatName(c: Combatant) {
+		if (c.isPlayer && this.config.replaceYourName) {
+			return this.config.replaceYourName;
+		}
+
+		return c.name;
 	}
 
 	setBarColor(c?: Combatant) {

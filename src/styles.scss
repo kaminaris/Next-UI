@@ -161,6 +161,10 @@ input, button {
 	@include stroke(#000, 2px);
 }
 
+.blur-3 {
+	filter: blur(3px);
+}
+
 .nav-pills {
 	display:               grid;
 	grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));

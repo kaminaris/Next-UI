@@ -59,7 +59,7 @@
 			[barStyle]="ownConfig.healthBar.barStyle"
 			[barDirection]="ownConfig.healthBar.barDirection"
 	>
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name">
+		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name" [class.blur-3]="blurName">
 			{{ name }}
 		</div>
 

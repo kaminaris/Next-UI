@@ -8,6 +8,8 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 			<config-input [configObj]="config" prop="fontFamily" label="Font family"></config-input>
 			<config-select [configObj]="config" [items]="conf.numberFormats" prop="numberFormat" bindLabel="name"
 				bindValue="value" label="Number Format"></config-select>
+			<config-checkbox [configObj]="config" prop="blurNames" label="Blur Names"></config-checkbox>
+			<config-input [configObj]="config" prop="replaceYourName" label="Replace Your Name"></config-input>
 		</config-group>
 
 		<config-group title="Number Templates">
@@ -38,6 +40,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 
 		<config-group title="Actions">
 			<button type="button" class="btn btn-danger d-block" (click)="resetAll()">Reset All config</button>
+			<button type="button" class="btn btn-warning d-block" (click)="reload()">Reload Overlay</button>
 		</config-group>
 	`
 })
@@ -46,6 +49,10 @@ export class ConfigWindowMainComponent {
 	config = this.conf.config;
 
 	constructor(public conf: ConfigService) {}
+
+	reload() {
+		window.location.reload();
+	}
 
 	resetConfig(prop: string) {
 		this.conf.resetConfig(prop, '');

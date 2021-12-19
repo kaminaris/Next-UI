@@ -49,6 +49,14 @@ export class MainConfig implements SerializableConfig {
 	get castDelay(): number { return this.castDelaySub.value; }
 	set castDelay(v: number) { this.castDelaySub.next(v); }
 	castDelaySub = new DistinctBehaviorSubject<number>(300);
+
+	get blurNames(): boolean { return this.blurNamesSub.value; }
+	set blurNames(v: boolean) { this.blurNamesSub.next(v); }
+	blurNamesSub = new DistinctBehaviorSubject<boolean>(false);
+
+	get replaceYourName(): string { return this.replaceYourNameSub.value; }
+	set replaceYourName(v: string) { this.replaceYourNameSub.next(v); }
+	replaceYourNameSub = new DistinctBehaviorSubject<string>('');
 	// @formatter:on
 
 	ttsConfig = new TTSConfig();
