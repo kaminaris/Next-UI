@@ -558,7 +558,7 @@ export class XivService {
 					'chatMessage', 'actorCast', 'actorMove', 'actorControl', 'targetChanged',
 					'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
 					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
-					'partyChanged', 'updatePositionInstance', 'enmityListChanged'
+					'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged'
 				]
 			}
 		});
