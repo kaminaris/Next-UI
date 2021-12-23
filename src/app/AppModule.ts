@@ -42,6 +42,7 @@ import { UnitFrameSignConfigComponent }        from 'src/app/Component/Config/Wi
 import { UnitFrameStatusConfigComponent }      from 'src/app/Component/Config/Window/Partial/UnitFrameStatusConfigComponent';
 
 import { ConfigComponent }                          from 'src/app/Component/ConfigComponent';
+import { ContextMenuComponent }                     from 'src/app/Component/ContextMenuComponent';
 import { ControlComponent }                         from 'src/app/Component/ControlComponent';
 import { CustomElementActionConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementActionConfigComponent';
 import { CustomElementExportConfigComponent }       from 'src/app/Component/CustomElement/Config/CustomElementExportConfigComponent';
@@ -111,6 +112,7 @@ export function getBaseUrl() {
 		AuraIconComponent,
 		TooltipComponent,
 		TabsComponent,
+		ContextMenuComponent,
 
 		// Unit Frame components
 		UnitFrameComponent,

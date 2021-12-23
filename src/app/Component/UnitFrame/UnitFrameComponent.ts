@@ -1,18 +1,21 @@
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
-	Component, HostListener, Input,
+	Component, ElementRef, HostListener, Input,
 	OnDestroy,
 	OnInit
 }                                                from '@angular/core';
 import { BehaviorSubject, config, Subscription } from 'rxjs';
+import { ContextMenuItem }                       from 'src/app/Interface/ContextMenuItem';
 import { Status }                                from 'src/app/Model/Status';
 import { Combatant }                             from 'src/app/Model/Combatant';
 import { ConfigService }                         from 'src/app/Service/ConfigService';
+import { ContextMenuService }                    from 'src/app/Service/ContextMenuService';
 import { LogParser }                             from 'src/app/Service/LogParser/LogParser';
 import { Util }                                  from 'src/app/Service/LogParser/Util';
 import { MainService }                           from 'src/app/Service/MainService';
 import { StatusService }                         from 'src/app/Service/StatusService';
+import { XivService }                            from 'src/app/Service/Xiv/XivService';
 
 @Component({
 	selector: 'unit-frame',
@@ -55,17 +58,97 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	distanceTimer: number = null;
 	inRange = true;
 
+	baseContextMenuActions: ContextMenuItem[] = [
+		{
+			label: 'Examine', action: this.examineAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Send Tell', action: this.sendTellAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Trade', action: this.tradeAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Promote', action: this.promoteAction.bind(this), hidden: () => {
+				return !this.parser.isPlayerPartyLeader() || !this.combatant?.inParty.value;
+			}
+		},
+		{
+			label: 'Kick from Party', action: this.kickAction.bind(this), hidden: () => {
+				return !this.parser.isPlayerPartyLeader() || !this.combatant?.inParty.value;
+			}
+		},
+		{
+			label: 'Invite to Party', action: this.inviteAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC || !this.parser.target.value || this.parser.target.value.inParty.value;
+			}
+		},
+		{
+			label: 'Follow', action: this.followAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Request Meld', action: this.requestMeldAction.bind(this), hidden: () => {
+				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Leave', action: this.leavePartyAction.bind(this), hidden: () => {
+				return this.parser.party.value.length === 0;
+			}
+		},
+		{
+			label: 'Disband', action: this.disbandPartyAction.bind(this), hidden: () => {
+				return !this.parser.isPlayerPartyLeader() || this.parser.party.value.length === 0;
+			}
+		},
+		{ label: 'Emote', action: this.showEmoteWindow.bind(this) },
+		{ label: 'Mark', action: this.showSignsWindow.bind(this) },
+		{
+			label: 'Focus Target', action: this.setFocusAction.bind(this), hidden: () => {
+				return this.combatant?.id === Combatant.ENV_ID;
+			}
+		},
+		{
+			label: 'Clear Focus', action: this.clearFocusAction.bind(this), hidden: () => {
+				return this.parser.focus.value == null;
+			}
+		},
+		{ label: 'Close', action: () => { this.contextMenuService.hideContextMenu();} }
+	];
+
 	constructor(
 		public conf: ConfigService,
 		protected parser: LogParser,
+		protected ref: ElementRef,
 		protected main: MainService,
 		protected cd: ChangeDetectorRef,
-		protected auraService: StatusService
+		protected auraService: StatusService,
+		protected xiv: XivService,
+		protected contextMenuService: ContextMenuService
 	) {}
+
+	/**
+	 * Override in sub components to filter available functions
+	 */
+	getContextActions(): ContextMenuItem[] {
+		return this.baseContextMenuActions;
+	}
 
 	@HostListener('contextmenu', ['$event'])
 	onRightClick(event: MouseEvent) {
 		event.preventDefault();
+		if (!this.xiv.connected) {
+			return;
+		}
+		this.contextMenuService.displayContextMenu(event, this.ref, this.getContextActions());
 	}
 
 	ngOnInit(): void {
@@ -136,27 +219,131 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	setTarget() {
+	async examineAction() {
+		this.contextMenuService.hideContextMenu();
 		if (!this.combatant || !this.combatant.id) {
 			return;
 		}
 
-		this.main.setTarget(this.combatant.id);
+		await this.xiv.examine(this.combatant.id);
 	}
 
-	setMouseOver() {
+	async sendTellAction() {
+		this.contextMenuService.hideContextMenu();
 		if (!this.combatant || !this.combatant.id) {
 			return;
 		}
 
-		this.main.setTarget(this.combatant.id, 'setMouseOverEx');
+		await this.xiv.sendTell(this.combatant.id);
 	}
 
-	clearMouseOver() {
+	async tradeAction() {
+		this.contextMenuService.hideContextMenu();
 		if (!this.combatant || !this.combatant.id) {
 			return;
 		}
-		this.main.setTarget(this.combatant.id, 'clearMouseOverEx');
+
+		await this.xiv.trade();
+	}
+
+	async promoteAction() {
+		this.contextMenuService.hideContextMenu();
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.promote(this.combatant.id);
+	}
+
+	async kickAction() {
+		this.contextMenuService.hideContextMenu();
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.kick(this.combatant.id);
+	}
+
+	async inviteAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.invite();
+	}
+
+	async followAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.follow();
+	}
+
+	async requestMeldAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.meldRequest();
+	}
+
+	async leavePartyAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.leaveParty();
+	}
+
+	async disbandPartyAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.disbandParty();
+	}
+
+	async showEmoteWindow() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.showEmoteWindow();
+	}
+
+	async showSignsWindow() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.showSignsWindow();
+	}
+
+	async setFocusAction() {
+		this.contextMenuService.hideContextMenu();
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.setFocus(this.combatant.id);
+	}
+
+	async clearFocusAction() {
+		this.contextMenuService.hideContextMenu();
+
+		await this.xiv.setFocus(0);
+	}
+
+	async setTarget() {
+		this.contextMenuService.hideContextMenu();
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.setTarget(this.combatant.id);
+	}
+
+	async setMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.setMouseOver(this.combatant.id);
+	}
+
+	async clearMouseOver() {
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.clearMouseOver();
 	}
 
 	initializeCombatant() {
@@ -234,6 +421,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	}
 
 	copyFrom(c: Combatant) {
+		if (!c) {
+			this.cd.detectChanges();
+			return;
+		}
+
 		this.name = this.formatName(c);
 		this.blurName = !c.isNPC && this.config.blurNames && (c.isPlayer ? !this.config.replaceYourName : true);
 		this.hp = c.hp.value;
@@ -253,6 +445,9 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	}
 
 	formatName(c: Combatant) {
+		if (!c) {
+			return '';
+		}
 		if (c.isPlayer && this.config.replaceYourName) {
 			return this.config.replaceYourName;
 		}

@@ -10,25 +10,22 @@ import { UpdatePositionInstance } from 'src/app/Service/Xiv/Interface/UpdatePosi
 import { Actor }                  from './Interface/Actor';
 import { ActorCast }              from './Interface/ActorCast';
 import { ActorChangedEvent }      from './Interface/ActorChangedEvent';
+import { ActorMove }              from './Interface/ActorMove';
+import { ActorSetPos }            from './Interface/ActorSetPos';
+import { ChatMessageEvent }       from './Interface/ChatMessageEvent';
+import { EffectResult }           from './Interface/EffectResult';
+import { EffectResultBasic }      from './Interface/EffectResultBasic';
+import { NetworkEvent }           from './Interface/NetworkEvent';
+import { NpcSpawn }               from './Interface/NpcSpawn';
+import { ObjectDespawn }          from './Interface/ObjectDespawn';
+import { PartyMember }            from './Interface/PartyMember';
+import { PlayerSpawn }            from './Interface/PlayerSpawn';
+import { TargetChangedEvent }     from './Interface/TargetChangedEvent';
+import { UpdateHpMpTp }           from './Interface/UpdateHpMpTp';
+import { UpdatePosition }         from './Interface/UpdatePosition';
 
 import { ActorControl, ActorControlCategory, ActorControlSelf, ActorControlTarget } from './Interface/ActorControl';
-import { ActorMove }                                                                from './Interface/ActorMove';
-import { ActorSetPos }                                                              from './Interface/ActorSetPos';
-import { ChatMessageEvent }                                                         from './Interface/ChatMessageEvent';
-import { EffectResult }                                                             from './Interface/EffectResult';
-import {
-	EffectResultBasic
-}                                                                                   from './Interface/EffectResultBasic';
-import { NetworkEvent }                                                             from './Interface/NetworkEvent';
-import { NpcSpawn }                                                                 from './Interface/NpcSpawn';
-import { ObjectDespawn }                                                            from './Interface/ObjectDespawn';
-import { PartyMember }                                                              from './Interface/PartyMember';
-import { PlayerSpawn }                                                              from './Interface/PlayerSpawn';
-
-import { StatusEffectList, StatusEffectList2, StatusEffectList3 } from './Interface/StatusEffectList';
-import { TargetChangedEvent }                                     from './Interface/TargetChangedEvent';
-import { UpdateHpMpTp }                                           from './Interface/UpdateHpMpTp';
-import { UpdatePosition }                                         from './Interface/UpdatePosition';
+import { StatusEffectList, StatusEffectList2, StatusEffectList3 }                   from './Interface/StatusEffectList';
 
 export type XivSocketCommand = 'setTarget' | 'setFocus' | 'setMouseOver' | 'setMouseOverEx' | 'clearMouseOverEx';
 
@@ -40,35 +37,37 @@ export class XivService {
 	connected = false;
 
 	events = {
-		playerLogin: new Subject<{ player: Actor }>(),
+		playerLogin: new Subject<Actor>(),
 		playerLogout: new Subject<any>(),
 
-		chatMessage: new Subject<{ data: ChatMessageEvent }>(),
-		actorChanged: new Subject<{ data: ActorChangedEvent }>(),
-		targetChanged: new Subject<{ data: TargetChangedEvent }>(),
-		actorCast: new Subject<NetworkEvent & { data: ActorCast }>(),
-		actorMove: new Subject<NetworkEvent & { data: ActorMove }>(),
-		actorSetPos: new Subject<NetworkEvent & { data: ActorSetPos }>(),
-		actorControl: new Subject<NetworkEvent & { data: ActorControl }>(),
-		actorControlSelf: new Subject<NetworkEvent & { data: ActorControlSelf }>(),
-		actorControlTarget: new Subject<NetworkEvent & { data: ActorControlTarget }>(),
-		objectDespawn: new Subject<NetworkEvent & { data: ObjectDespawn }>(),
-		playerSpawn: new Subject<NetworkEvent & { data: PlayerSpawn }>(),
-		npcSpawn: new Subject<NetworkEvent & { data: NpcSpawn }>(),
-		updateHpMpTp: new Subject<NetworkEvent & { data: UpdateHpMpTp }>(),
-		effectResult: new Subject<NetworkEvent & { data: EffectResult }>(),
-		effectResultBasic: new Subject<NetworkEvent & { data: EffectResultBasic }>(),
-		updatePosition: new Subject<NetworkEvent & { data: UpdatePosition }>(),
-		updatePositionInstance: new Subject<NetworkEvent & { data: UpdatePositionInstance }>(),
+		chatMessage: new Subject<ChatMessageEvent>(),
+		actorChanged: new Subject<ActorChangedEvent>(),
+		targetChanged: new Subject<TargetChangedEvent>(),
+		uiVisibilityChanged: new Subject<boolean>(),
 
-		actionEffect1: new Subject<NetworkEvent & { data: ActionEffect1 }>(),
-		statusEffectList: new Subject<NetworkEvent & { data: StatusEffectList }>(),
-		statusEffectList2: new Subject<NetworkEvent & { data: StatusEffectList2 }>(),
-		statusEffectList3: new Subject<NetworkEvent & { data: StatusEffectList3 }>(),
+		actorCast: new Subject<NetworkEvent<ActorCast>>(),
+		actorMove: new Subject<NetworkEvent<ActorMove>>(),
+		actorSetPos: new Subject<NetworkEvent<ActorSetPos>>(),
+		actorControl: new Subject<NetworkEvent<ActorControl>>(),
+		actorControlSelf: new Subject<NetworkEvent<ActorControlSelf>>(),
+		actorControlTarget: new Subject<NetworkEvent<ActorControlTarget>>(),
+		objectDespawn: new Subject<NetworkEvent<ObjectDespawn>>(),
+		playerSpawn: new Subject<NetworkEvent<PlayerSpawn>>(),
+		npcSpawn: new Subject<NetworkEvent<NpcSpawn>>(),
+		updateHpMpTp: new Subject<NetworkEvent<UpdateHpMpTp>>(),
+		effectResult: new Subject<NetworkEvent<EffectResult>>(),
+		effectResultBasic: new Subject<NetworkEvent<EffectResultBasic>>(),
+		updatePosition: new Subject<NetworkEvent<UpdatePosition>>(),
+		updatePositionInstance: new Subject<NetworkEvent<UpdatePositionInstance>>(),
 
-		zoneChanged: new Subject<{ zone: number }>(),
-		partyChanged: new Subject<{ data: PartyMember[] }>(),
-		enmityListChanged: new Subject<{ data: Actor[] }>()
+		actionEffect1: new Subject<NetworkEvent<ActionEffect1>>(),
+		statusEffectList: new Subject<NetworkEvent<StatusEffectList>>(),
+		statusEffectList2: new Subject<NetworkEvent<StatusEffectList2>>(),
+		statusEffectList3: new Subject<NetworkEvent<StatusEffectList3>>(),
+
+		zoneChanged: new Subject<number>(),
+		partyChanged: new Subject<{ currentParty: PartyMember[], partyLeader: number }>(),
+		enmityListChanged: new Subject<Actor[]>()
 	};
 
 	constructor(
@@ -92,6 +91,7 @@ export class XivService {
 		this.events.targetChanged.subscribe(this.targetChanged.bind(this));
 		this.events.chatMessage.subscribe(this.chatMessage.bind(this));
 		this.events.actorCast.subscribe(this.actorCast.bind(this));
+		this.events.uiVisibilityChanged.subscribe(this.uiVisibilityChanged.bind(this));
 
 		this.events.actorControl.subscribe(this.actorControl.bind(this));
 		this.events.actorControlSelf.subscribe(this.actorControlSelf.bind(this));
@@ -128,15 +128,19 @@ export class XivService {
 			.join(' ');
 	}
 
+	uiVisibilityChanged(visible: boolean) {
+		this.config.uiVisible = visible;
+	}
+
 	actionEffect1() {
 
 	}
 
-	statusEffectList(ev: { data: StatusEffectList }) {
+	statusEffectList(ev: NetworkEvent<StatusEffectList>) {
 		// console.log('STATUS EF LIST', ev.data);
 	}
 
-	updatePosition(ev: { data: UpdatePosition }) {
+	updatePosition(ev: NetworkEvent<UpdatePosition>) {
 		const p = this.parser.player.value;
 		if (p) {
 			p.updatePosition(
@@ -147,7 +151,7 @@ export class XivService {
 		}
 	}
 
-	updatePositionInstance(ev: { data: UpdatePositionInstance }) {
+	updatePositionInstance(ev: NetworkEvent<UpdatePositionInstance>) {
 		const p = this.parser.player.value;
 		if (p) {
 			p.updatePosition(
@@ -158,7 +162,7 @@ export class XivService {
 		}
 	}
 
-	actorMove(ev: { data: ActorMove }) {
+	actorMove(ev: NetworkEvent<ActorMove>) {
 		const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
 		if (c) {
 			c.updatePosition(
@@ -169,9 +173,9 @@ export class XivService {
 		}
 	}
 
-	async enmityListChanged(ev: { data: Actor[] }) {
+	async enmityListChanged(data: Actor[]) {
 		const newEnemies: Combatant[] = [];
-		for (const enemy of ev.data) {
+		for (const enemy of data) {
 			let e = this.updateCombatantFromActor(enemy);
 			newEnemies.push(e);
 		}
@@ -179,30 +183,58 @@ export class XivService {
 		await this.parser.setAggroList(newEnemies);
 	}
 
-	async partyChanged(ev: { data: PartyMember[] }) {
+	async partyChanged(ev: { currentParty: PartyMember[], partyLeader: number }) {
 		const newParty: Combatant[] = [];
-		for (const pm of ev.data) {
+		for (const pm of ev.currentParty) {
 			let nc = this.updateCombatantFromPartyMember(pm);
 			newParty.push(nc);
 		}
 
-		await this.setParty(newParty);
+		await this.setParty(newParty, ev.partyLeader);
 	}
 
-	async setParty(newParty: Combatant[]) {
-		const partyIds = this.parser.party.value.map(c => c.id);
-		if (partyIds.length > 0) {
-			await this.unwatchActors(partyIds);
+	/**
+	 * TODO: OPTIMIZE THIS
+	 * TODO: OPTIMIZE THIS
+	 * TODO: OPTIMIZE THIS
+	 * TODO: OPTIMIZE THIS
+	 * TODO: OPTIMIZE THIS
+	 */
+	async setParty(newParty: Combatant[], partyLeader?: number) {
+		const oldParty = this.parser.party.value;
+		if (oldParty != null) {
+			const oldPartyIds: number[] = [];
+			for (const oldP of oldParty) {
+				if (oldP.inParty.value) {
+					oldP.inParty.next(false);
+					oldPartyIds.push(oldP.id);
+				}
+			}
+
+			if (oldPartyIds.length > 0) {
+				await this.unwatchActors(oldPartyIds);
+			}
 		}
 
 		this.parser.setParty(newParty);
+		for (const p of newParty) {
+			p.inParty.next(true);
+		}
+
 		const newPartyIds = newParty.map(npm => npm.id);
 		if (newPartyIds.length > 0) {
 			await this.watchActors(newPartyIds);
 		}
+
+		if (newParty.length === 0) {
+			this.parser.partyLeader.next(null);
+		}
+		else if (partyLeader >= 0 && newParty[partyLeader]) {
+			this.parser.partyLeader.next(newParty[partyLeader]);
+		}
 	}
 
-	effectResult(ev: { data: EffectResult }) {
+	effectResult(ev: NetworkEvent<EffectResult>) {
 		const data = ev.data;
 		const c = this.parser.updateCombatant(
 			data.targetActorId,
@@ -236,7 +268,7 @@ export class XivService {
 		}
 	}
 
-	effectResultBasic(ev: { data: EffectResultBasic }) {
+	effectResultBasic(ev: NetworkEvent<EffectResultBasic>) {
 		const data = ev.data;
 		this.parser.updateCombatant(
 			data.targetActorId,
@@ -248,7 +280,7 @@ export class XivService {
 		);
 	}
 
-	updateHpMpTp(ev: { data: UpdateHpMpTp }) {
+	updateHpMpTp(ev: NetworkEvent<UpdateHpMpTp>) {
 		const data = ev.data;
 		this.parser.updateCombatant(
 			data.targetActorId,
@@ -260,7 +292,7 @@ export class XivService {
 		);
 	}
 
-	npcSpawn(ev: { data: NpcSpawn }) {
+	npcSpawn(ev: NetworkEvent<NpcSpawn>) {
 		const npc = ev.data;
 		if (!npc.targetId || !npc.name) {
 			return;
@@ -282,7 +314,7 @@ export class XivService {
 		);
 	}
 
-	playerSpawn(ev: { data: PlayerSpawn }) {
+	playerSpawn(ev: NetworkEvent<PlayerSpawn>) {
 		const player = ev.data;
 		this.parser.updateCombatant(
 			player.targetId,
@@ -301,14 +333,14 @@ export class XivService {
 		);
 	}
 
-	objectDespawn(ev: { data: ObjectDespawn }) {
+	objectDespawn(ev: NetworkEvent<ObjectDespawn>) {
 		if (ev.data.actorId) {
 			this.parser.removeCombatant(ev.data.actorId);
 		}
 	}
 
-	zoneChanged(data: { zone: number }) {
-		console.log('Zone changed: ' + data.zone);
+	zoneChanged(zone: number) {
+		console.log('Zone changed: ' + zone);
 
 		const combatants = this.parser.combatants.value;
 		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));
@@ -318,7 +350,7 @@ export class XivService {
 		}
 	}
 
-	async actorCast(ev: NetworkEvent & { data: ActorCast }) {
+	async actorCast(ev: NetworkEvent<ActorCast>) {
 		const cast = ev.data;
 		const c = this.parser.findCombatant(cast.targetActorId, cast.targetActorName);
 		if (!c) {
@@ -334,14 +366,14 @@ export class XivService {
 		);
 	}
 
-	async actorControlSelf(ev: { data: ActorControlSelf }) {
+	async actorControlSelf(ev: NetworkEvent<ActorControlSelf>) {
 		const ctrl = ev.data;
 		const c = this.parser.player.value;
 
 		await this.actorControlGeneric(c, ctrl);
 	}
 
-	async actorControlTarget(ev: { data: ActorControlTarget}) {
+	async actorControlTarget(ev: NetworkEvent<ActorControlTarget>) {
 		const ctrl = ev.data;
 		// For now we dont support other stuff than STS
 		if (ctrl.category !== ActorControlCategory.SetTargetSign) {
@@ -352,7 +384,7 @@ export class XivService {
 		await this.actorControlGeneric(c, ctrl);
 	}
 
-	async actorControl(ev: { data: ActorControl }) {
+	async actorControl(ev: NetworkEvent<ActorControl>) {
 		const ctrl = ev.data;
 		const c = this.parser.findCombatant(ctrl.targetActorId, ctrl.targetActorName);
 
@@ -428,38 +460,36 @@ export class XivService {
 				// No action
 				break;
 			default:
-				//console.log('UNRECOGNIZED AC', ctrl);
+			//console.log('UNRECOGNIZED AC', ctrl);
 		}
 	}
 
-	chatMessage(ev: { data: ChatMessageEvent }) {
+	chatMessage(data: ChatMessageEvent) {
 		const type = 'say';
-		this.parser.eventDispatcher.chat.next({ type, speaker: ev.data.sender, message: ev.data.message });
+		this.parser.eventDispatcher.chat.next({ type, speaker: data.sender, message: data.message });
 
-		if (ev.data.sender) {
-			this.parser.tts.say(type, ev.data.sender, ev.data.message);
+		if (data.sender) {
+			this.parser.tts.say(type, data.sender, data.message);
 		}
 	}
 
-	async actorChanged(ev: { data: ActorChangedEvent }) {
-		if (ev.data.removed) {
+	async actorChanged(data: ActorChangedEvent) {
+		if (data.removed) {
 			const player = this.parser.player.value;
-			if (!player || player.id !== ev.data.actorId) {
-				this.parser.removeCombatant(ev.data.actorId);
+			if (!player || player.id !== data.actorId) {
+				this.parser.removeCombatant(data.actorId);
 			}
 			return;
 		}
 
-		if (!ev.data.actor) {
+		if (!data.actor) {
 			return;
 		}
 
-		this.updateCombatantFromActor(ev.data.actor);
+		this.updateCombatantFromActor(data.actor);
 	}
 
-	async targetChanged(ev: { data: TargetChangedEvent }) {
-		const data = ev.data;
-
+	async targetChanged(data: TargetChangedEvent) {
 		let c: Combatant;
 		if (data.actor) {
 			c = this.updateCombatantFromActor(data.actor);
@@ -489,8 +519,7 @@ export class XivService {
 	/**
 	 * Fetch necessary data after player login
 	 */
-	async playerLogin(data: { player: Actor }) {
-		let player: Actor = data.player;
+	async playerLogin(player: Actor) {
 		if (!player) {
 			// We did not get player from event, can happen
 			await new Promise(resolve => setTimeout(resolve, 400));
@@ -514,12 +543,12 @@ export class XivService {
 
 		const party = await this.getParty();
 		const newParty: Combatant[] = [];
-		for (const pm of party) {
+		for (const pm of party.currentParty) {
 			let nc = this.updateCombatantFromPartyMember(pm);
 			newParty.push(nc);
 		}
 
-		await this.setParty(newParty);
+		await this.setParty(newParty, party.partyLeader);
 	}
 
 	async subscribeEvents() {
@@ -591,7 +620,7 @@ export class XivService {
 		return await this.doRequest('getPlayer');
 	}
 
-	async getParty(): Promise<PartyMember[]> {
+	async getParty(): Promise<{ currentParty: PartyMember[], partyLeader: number }> {
 		return await this.doRequest('getParty');
 	}
 
@@ -658,17 +687,77 @@ export class XivService {
 		}
 	}
 
-	setTarget(targetId: number, type: XivSocketCommand = 'setTarget') {
-		if (!this.connected) {
-			return;
-		}
+	async examine(id: number) {
+		await this.doRequest('examine', { request: { requestFor: id } });
+	}
 
-		this.socket.send(JSON.stringify({
-			guid: this.generateGuid(),
-			type: type,
-			target: targetId,
-			message: ''
-		}));
+	async sendTell(id: number) {
+		await this.doRequest('sendTell', { request: { requestFor: id } });
+	}
+
+	/**
+	 * Trade is only possible with target
+	 */
+	async trade() {
+		await this.doRequest('tradeRequest');
+	}
+
+	async promote(id: number) {
+		await this.doRequest('promotePartyMember', { request: { requestFor: id } });
+	}
+
+	async kick(id: number) {
+		await this.doRequest('kickFromParty', { request: { requestFor: id } });
+	}
+
+	/**
+	 * Can only invite target
+	 */
+	async invite() {
+		await this.doRequest('inviteToParty');
+	}
+
+	async follow() {
+		await this.doRequest('followTarget');
+	}
+
+	async meldRequest() {
+		await this.doRequest('meldRequest');
+	}
+
+	async disbandParty() {
+		await this.doRequest('disbandParty');
+	}
+
+	async showEmoteWindow() {
+		await this.doRequest('showEmoteWindow');
+	}
+
+	async showSignsWindow() {
+		await this.doRequest('showSignsWindow');
+	}
+
+	async leaveParty() {
+		await this.doRequest('leaveParty');
+	}
+
+	/**
+	 * Zero to clear target/focus/mouseOver
+	 */
+	async setTarget(targetId: number) {
+		await this.doRequest('setTarget', { target: targetId });
+	}
+
+	async setFocus(targetId: number) {
+		await this.doRequest('setFocus', { target: targetId });
+	}
+
+	async setMouseOver(targetId: number) {
+		await this.doRequest('setMouseOverEx', { target: targetId });
+	}
+
+	async clearMouseOver() {
+		await this.doRequest('clearMouseOverEx');
 	}
 
 	setAcceptFocus(accept: boolean) {
@@ -695,6 +784,11 @@ export class XivService {
 			const oneTime = (event: any) => {
 				try {
 					const response = JSON.parse(event.data);
+					if (typeof response.data?.success === 'boolean' && !response.data?.success) {
+						console.log('REQUEST FAILED');
+						console.log(data);
+						console.log(response);
+					}
 					if (response.guid === guid) {
 						clearTimeout(tim);
 						resolve(response.data);
@@ -748,14 +842,13 @@ export class XivService {
 
 	onMessage(event: any) {
 		try {
-			const data = JSON.parse(event.data);
-			if (data.event) {
-				const ev = (this.events as any)[data.event] as Subject<any>;
+			const response = JSON.parse(event.data);
+			if (response.event) {
+				const ev = (this.events as any)[response.event] as Subject<any>;
 				if (ev) {
-					ev.next(data);
+					ev.next(response.data);
 				}
 			}
-			//console.log('XiVPlugin', data);
 		}
 		catch (e) {
 			console.log(e);

@@ -55,6 +55,7 @@ export class LogParser {
 	 */
 	combatants = new BehaviorSubject<Combatant[]>([]);
 	party = new BehaviorSubject<Combatant[]>([]);
+	partyLeader = new BehaviorSubject<Combatant>(null);
 	aggroList = new BehaviorSubject<Combatant[]>([]);
 
 	handlers: HandlerInterface[] = [
@@ -257,4 +258,11 @@ export class LogParser {
 		}
 	}
 
+	isPlayerPartyLeader() {
+		if (!this.player.value || !this.partyLeader.value) {
+			return false;
+		}
+
+		return this.player.value.id === this.partyLeader.value.id;
+	}
 }

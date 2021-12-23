@@ -24,9 +24,9 @@ export class TestService {
 		player.updateHp(500, 1000);
 		player.updateMana(3000);
 
-		this.addCombatant();
-		this.addCombatant();
-		this.addCombatant();
+		for (let i = 0; i < 50; i++) {
+			this.addCombatant();
+		}
 
 		// add each of the job
 		for (const j of Util.jobsArray()) {
@@ -84,7 +84,9 @@ export class TestService {
 		for (let i = 1; i < count; i++) {
 			let pick: Combatant;
 			do {
-				pick = this.randomElement(this.parser.combatants.value);
+				pick = this.randomElement(this.parser.combatants.value, (v: Combatant) => {
+					return !v.isNPC;
+				});
 			} while (combs.indexOf(pick) >= 0 || pick.job.value === 'NONE');
 			combs.push(pick);
 		}
@@ -131,7 +133,8 @@ export class TestService {
 			this.randomRange(-50, 50),
 			this.randomRange(-50, 50),
 			job,
-			level
+			level,
+			enemy
 		);
 	}
 
@@ -161,13 +164,16 @@ export class TestService {
 
 	randomAggroList() {
 		const combatants = this.parser.combatants.value;
-		const rCombatants = [
-			this.randomElement(combatants),
-			this.randomElement(combatants),
-			this.randomElement(combatants),
-			this.randomElement(combatants)
-		];
+		const rCombatants = [];
 
+		for (let i = 0; i < 5; i++) {
+			rCombatants.push(
+				this.randomElement(combatants, (v: Combatant) => {
+					return v.isNPC;
+				}),
+			);
+		}
+console.log(rCombatants)
 		this.parser.setAggroList(rCombatants);
 	}
 
@@ -224,7 +230,10 @@ export class TestService {
 	}
 
 	// Utils
-	randomElement(arr: any[]) {
+	randomElement(arr: any[], filter?: (value: any) => boolean) {
+		if (filter) {
+			arr = arr.filter(filter);
+		}
 		return arr[Math.floor(Math.random() * arr.length)];
 	}
 

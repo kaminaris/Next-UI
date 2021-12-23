@@ -11,8 +11,8 @@ import { MainConfig }           from 'src/app/Model/Config/MainConfig';
 import { CustomElement }        from 'src/app/Model/CustomElement/CustomElement';
 import { CustomElementGroup }   from 'src/app/Model/CustomElement/CustomElementGroup';
 import { ConfigService }        from 'src/app/Service/ConfigService';
+import { ContextMenuService }   from 'src/app/Service/ContextMenuService';
 import { CustomElementService } from 'src/app/Service/CustomElementService';
-import { LogParser }            from 'src/app/Service/LogParser/LogParser';
 import { MainService }          from 'src/app/Service/MainService';
 import { TestService }          from 'src/app/Service/TestService';
 
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 		public main: MainService,
 		public conf: ConfigService,
 		public elementService: CustomElementService,
+		public contextMenuService: ContextMenuService,
 		protected t: TestService,
 		protected renderer: Renderer2,
 		protected cd: ChangeDetectorRef
