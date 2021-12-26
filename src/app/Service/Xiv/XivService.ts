@@ -42,7 +42,11 @@ export class XivService {
 
 		chatMessage: new Subject<ChatMessageEvent>(),
 		actorChanged: new Subject<ActorChangedEvent>(),
+
 		targetChanged: new Subject<TargetChangedEvent>(),
+		targetOfTargetChanged: new Subject<TargetChangedEvent>(),
+		focusChanged: new Subject<TargetChangedEvent>(),
+
 		uiVisibilityChanged: new Subject<boolean>(),
 
 		actorCast: new Subject<NetworkEvent<ActorCast>>(),
@@ -88,7 +92,11 @@ export class XivService {
 
 		this.events.playerLogin.subscribe(this.playerLogin.bind(this));
 		this.events.actorChanged.subscribe(this.actorChanged.bind(this));
+
 		this.events.targetChanged.subscribe(this.targetChanged.bind(this));
+		this.events.targetOfTargetChanged.subscribe(this.targetChanged.bind(this));
+		this.events.focusChanged.subscribe(this.targetChanged.bind(this));
+
 		this.events.chatMessage.subscribe(this.chatMessage.bind(this));
 		this.events.actorCast.subscribe(this.actorCast.bind(this));
 		this.events.uiVisibilityChanged.subscribe(this.uiVisibilityChanged.bind(this));
@@ -495,13 +503,8 @@ export class XivService {
 			c = this.updateCombatantFromActor(data.actor);
 		}
 
-		if (data.targetType === 'hover') {
-			// For now, no support for hover
-			return;
-		}
-
 		if (!data.actorId) {
-			this.parser.setTarget(data.targetType as any, null);
+			this.parser.setTarget(data.unit as any, null);
 			return;
 		}
 
@@ -513,7 +516,7 @@ export class XivService {
 			);
 		}
 
-		this.parser.setTarget(data.targetType as any, c, data.actorName);
+		this.parser.setTarget(data.unit as any, c, data.actorName);
 	}
 
 	/**
@@ -555,7 +558,8 @@ export class XivService {
 		const response = await this.doRequest('subscribeTo', {
 			request: {
 				events: [
-					'chatMessage', 'actorCast', 'actorMove', 'actorControl', 'targetChanged',
+					'chatMessage', 'actorCast', 'actorMove', 'actorControl',
+					'targetChanged', 'targetOfTargetChanged', 'focusChanged',
 					'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
 					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
 					'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged'
