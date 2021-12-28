@@ -1,7 +1,8 @@
-import { Position }     from './Position';
-import { StatusEffect } from './StatusEffect';
+import { NetworkEventData } from './NetworkEventData';
+import { Position }         from './Position';
+import { StatusEffect }     from './StatusEffect';
 
-export interface NpcSpawn {
+export interface NpcSpawn extends NetworkEventData {
 	gimmickId: number; // needs to be existing in the map, mob will snap to it
 	u2b: number;
 	u2ab: number;

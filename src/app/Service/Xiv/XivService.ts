@@ -305,8 +305,9 @@ export class XivService {
 		if (!npc.targetId || !npc.name) {
 			return;
 		}
+
 		this.parser.updateCombatant(
-			npc.spawnerId,
+			npc.targetActorId,
 			this.toPascalCase(npc.name),
 			npc.hp,
 			npc.hpMax,
