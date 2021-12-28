@@ -7,7 +7,7 @@ import { default as config } from '../../../package.json';
 	template: `
 		<ng-content></ng-content>
 
-		<window-panel (close)="closeConfig()">
+		<window-panel (close)="closeConfig()" style="font-family: 'Segoe UI', sans-serif">
 			<ng-container header>
 				<img [src]="logoUrl" style="width: 39px; background: #fff;" alt="NextUI">
 				<h4 class="mt-1 ms-2">

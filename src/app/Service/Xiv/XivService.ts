@@ -556,15 +556,13 @@ export class XivService {
 
 	async subscribeEvents() {
 		const response = await this.doRequest('subscribeTo', {
-			request: {
-				events: [
-					'chatMessage', 'actorCast', 'actorMove', 'actorControl',
-					'targetChanged', 'targetOfTargetChanged', 'focusChanged',
-					'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
-					'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
-					'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged'
-				]
-			}
+			events: [
+				'chatMessage', 'actorCast', 'actorMove', 'actorControl',
+				'targetChanged', 'targetOfTargetChanged', 'focusChanged',
+				'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
+				'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
+				'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged'
+			]
 		});
 		console.log('Events subscribed', response);
 	}
@@ -629,7 +627,7 @@ export class XivService {
 	}
 
 	async watchActor(id: number) {
-		await this.doRequest('watchActor', { request: { requestFor: id } });
+		await this.doRequest('watchActor', { id });
 	}
 
 	async watchActors(ids: number[]) {
@@ -639,7 +637,7 @@ export class XivService {
 	}
 
 	async unwatchActor(id: number) {
-		await this.doRequest('unwatchActor', { request: { requestFor: id } });
+		await this.doRequest('unwatchActor', { id });
 	}
 
 	async unwatchActors(ids: number[]) {
@@ -692,11 +690,11 @@ export class XivService {
 	}
 
 	async examine(id: number) {
-		await this.doRequest('examine', { request: { requestFor: id } });
+		await this.doRequest('examine', { id });
 	}
 
 	async sendTell(id: number) {
-		await this.doRequest('sendTell', { request: { requestFor: id } });
+		await this.doRequest('sendTell', { id });
 	}
 
 	/**
@@ -707,11 +705,11 @@ export class XivService {
 	}
 
 	async promote(id: number) {
-		await this.doRequest('promotePartyMember', { request: { requestFor: id } });
+		await this.doRequest('promotePartyMember', { id });
 	}
 
 	async kick(id: number) {
-		await this.doRequest('kickFromParty', { request: { requestFor: id } });
+		await this.doRequest('kickFromParty', { id });
 	}
 
 	/**
@@ -748,16 +746,16 @@ export class XivService {
 	/**
 	 * Zero to clear target/focus/mouseOver
 	 */
-	async setTarget(targetId: number) {
-		await this.doRequest('setTarget', { target: targetId });
+	async setTarget(id: number) {
+		await this.doRequest('setTarget', { id });
 	}
 
-	async setFocus(targetId: number) {
-		await this.doRequest('setFocus', { target: targetId });
+	async setFocus(id: number) {
+		await this.doRequest('setFocus', { id });
 	}
 
-	async setMouseOver(targetId: number) {
-		await this.doRequest('setMouseOverEx', { target: targetId });
+	async setMouseOver(id: number) {
+		await this.doRequest('setMouseOverEx', { id });
 	}
 
 	async clearMouseOver() {
@@ -805,10 +803,14 @@ export class XivService {
 			};
 
 			this.socket.addEventListener('message', oneTime);
-			const dataToSend = Object.assign({
+			let dataToSend = {
 				guid: guid,
 				type: type
-			}, data);
+			};
+			if (data) {
+				dataToSend = Object.assign(dataToSend, { request: data });
+			}
+
 			this.socket.send(JSON.stringify(dataToSend));
 			tim = setTimeout(() => {
 				resolve(null);
@@ -822,11 +824,11 @@ export class XivService {
 	}
 
 	async getActor(id: number) {
-		return await this.doRequest('getActor', { request: { requestFor: id } });
+		return await this.doRequest('getActor', { id });
 	}
 
 	async getActorStatuses(id: number): Promise<AppliedStatus[]> {
-		return await this.doRequest('getActorStatuses', { request: { requestFor: id } });
+		return await this.doRequest('getActorStatuses', { id });
 	}
 
 	onOpen() {
