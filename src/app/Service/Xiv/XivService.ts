@@ -337,7 +337,7 @@ export class XivService {
 			player.position.z,
 			null,
 			player.level,
-			true,
+			false,
 			'player-spawn'
 		);
 	}
