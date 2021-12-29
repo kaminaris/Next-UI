@@ -145,7 +145,18 @@ export class XivService {
 	}
 
 	statusEffectList(ev: NetworkEvent<StatusEffectList>) {
-		// console.log('STATUS EF LIST', ev.data);
+		const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
+		if (!c) {
+			return;
+		}
+
+		for (const effect of ev.data.effects) {
+			if (!effect.effectId) {
+				continue;
+			}
+
+			c.updateAura(effect.effectId, null, 1, effect.sourceActorId, effect.duration);
+		}
 	}
 
 	updatePosition(ev: NetworkEvent<UpdatePosition>) {
@@ -424,6 +435,10 @@ export class XivService {
 				const statusId = ctrl.param1;
 				const duration = ctrl.param2;
 				let appliedBy = ctrl.param3;
+				// Hidden statuses
+				if (appliedBy === 1) {
+					return;
+				}
 				if (appliedBy === 0 || appliedBy === Combatant.ENV_ID) {
 					appliedBy = ctrl.targetActorId;
 				}
