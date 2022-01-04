@@ -150,12 +150,13 @@ export class XivService {
 			return;
 		}
 
+		const timestamp = new Date();
 		for (const effect of ev.data.effects) {
 			if (!effect.effectId) {
 				continue;
 			}
 
-			c.updateAura(effect.effectId, null, 1, effect.sourceActorId, effect.duration);
+			c.updateStatus(effect.effectId, null, 1, effect.sourceActorId, effect.duration, timestamp);
 		}
 	}
 
@@ -276,7 +277,7 @@ export class XivService {
 				continue;
 			}
 
-			c.updateAura(
+			c.updateStatus(
 				status.id,
 				null,
 				1,
@@ -361,13 +362,7 @@ export class XivService {
 
 	zoneChanged(zone: number) {
 		console.log('Zone changed: ' + zone);
-
-		const combatants = this.parser.combatants.value;
-		this.parser.combatants.next(combatants.filter(c => c.isPlayer || c.inParty.value));
-
-		for (const c of this.parser.combatants.value) {
-			c.clearPermaAuras();
-		}
+		this.parser.changeZone(zone);
 	}
 
 	async actorCast(ev: NetworkEvent<ActorCast>) {
@@ -443,7 +438,7 @@ export class XivService {
 					appliedBy = ctrl.targetActorId;
 				}
 
-				c.updateAura(statusId, null, 1, appliedBy, duration);
+				c.updateStatus(statusId, null, 1, appliedBy, duration, new Date());
 				break;
 			}
 			case ActorControlCategory.LoseEffect: {
@@ -453,7 +448,7 @@ export class XivService {
 					appliedBy = ctrl.targetActorId;
 				}
 
-				c.removeAura(statusId, null, appliedBy);
+				c.removeStatus(statusId, null, appliedBy);
 				break;
 			}
 			case ActorControlCategory.LimitBreak:
@@ -555,7 +550,7 @@ export class XivService {
 
 		const statuses = await this.getActorStatuses(player.id);
 		for (const status of statuses) {
-			c.updateAura(status.id, status.name, status.stack, status.sourceId, status.remains);
+			c.updateStatus(status.id, status.name, status.stack, status.sourceId, status.remains, new Date());
 		}
 
 		await this.watchActor(player.id);

@@ -1,6 +1,6 @@
-import { AuraDefinition } from 'src/app/Interface/AuraDefinition';
+import { StatusDefinition } from 'src/app/Interface/StatusDefinition';
 
-export const statuses: AuraDefinition[] = [
+export const statuses: StatusDefinition[] = [
 	{
 		id: 1,
 		name: 'Petrification',

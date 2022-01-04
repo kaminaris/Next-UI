@@ -30,16 +30,6 @@ export class AuraLostHandler implements HandlerInterface {
 		const targetHp = parseInt(event[indexes.targetHp] ?? '');
 		const hp = parseInt(event[indexes.sourceHp] ?? '');
 
-		const timestamp = new Date(event[1] ?? '0');
-
-		this.parser.eventDispatcher.status.next({
-			type: 'lost',
-			statusId,
-			statusName,
-			targetId,
-			targetName
-		});
-
 		if (!targetId) {
 			return;
 		}
@@ -50,7 +40,7 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		combatant.removeAura(statusId, statusName);
+		combatant.removeStatus(statusId, statusName);
 
 		if (this.parser.debugMode) {
 			console.log(`Combatant: ${ combatant.name } lost aura ${ statusName }`, combatant);

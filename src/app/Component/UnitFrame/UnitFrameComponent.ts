@@ -368,7 +368,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.copyFrom(this.combatant);
 		}));
 
-		this.combatantSubs.push(this.combatant.auras.subscribe(this.filterAuras.bind(this)));
+		this.combatantSubs.push(this.combatant.statuses.subscribe(this.filterAuras.bind(this)));
 
 		this.combatantSubs.push(this.ownConfig.healthBar.useJobColorSub.subscribe(() => {
 			this.copyFrom(this.combatant);

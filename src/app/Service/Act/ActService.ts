@@ -189,14 +189,8 @@ export class ActService {
 			let combatant = this.parser.findCombatant(newMemberId);
 
 			if (!combatant) {
-				combatant = new Combatant();
-				combatant.id = newMemberId;
-				combatant.name = partyMember.name;
+				const combatant = this.parser.createAndAddCombatant(newMemberId, partyMember.name);
 				combatant.job.next(Util.jobEnumToJob(partyMember.job));
-
-				// Add it back to list of all actors
-				combatants.push(combatant);
-				this.parser.combatants.next(combatants);
 			}
 
 			combatant.inParty.next(true);

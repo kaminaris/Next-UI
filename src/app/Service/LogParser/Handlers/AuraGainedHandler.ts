@@ -33,18 +33,6 @@ export class AuraGainedHandler implements HandlerInterface {
 		const targetHp = parseInt(event[indexes.targetHp] ?? '');
 		const hp = parseInt(event[indexes.sourceHp] ?? '');
 
-		// TODO: Figure this out
-		// const timestamp = new Date(event[1] ?? '0');
-		const timestamp = new Date();
-
-		this.parser.eventDispatcher.status.next({
-			type: 'gained',
-			statusId,
-			statusName,
-			targetId,
-			targetName
-		});
-
 		if (!targetId || !id) {
 			return;
 		}
@@ -55,7 +43,8 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const aura = combatant.updateAura(statusId, statusName, stacks, id, duration, timestamp);
+		const timestamp = new Date();
+		const aura = combatant.updateStatus(statusId, statusName, stacks, id, duration, timestamp);
 
 		if (this.parser.debugMode) {
 			console.log(`Combatant: ${ combatant.name } gained aura ${ statusName }`, combatant, aura, event);

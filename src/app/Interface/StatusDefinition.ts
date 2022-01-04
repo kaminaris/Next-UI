@@ -1,4 +1,4 @@
-export interface AuraDefinition {
+export interface StatusDefinition {
 	id: number;
 	name: string;
 	iconId: number;

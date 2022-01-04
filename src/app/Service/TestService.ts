@@ -173,21 +173,22 @@ export class TestService {
 				}),
 			);
 		}
-console.log(rCombatants)
+
 		this.parser.setAggroList(rCombatants);
 	}
 
 	randomAuras(duration = 5) {
 		const combatants = this.parser.combatants.value;
 		const randomActor = this.randomElement(combatants);
+		const timestamp = new Date();
 		for (const comb of this.parser.combatants.value) {
-
-			comb.updateAura(
+			comb.updateStatus(
 				this.randomRange(100, 200),
 				'',
 				this.randomRange(1, 3),
 				randomActor.id,
-				duration
+				duration,
+				timestamp
 			);
 		}
 	}
@@ -212,17 +213,14 @@ console.log(rCombatants)
 
 	addPlayerAura(id: number, duration = 30, stacks = 1) {
 		const s = statuses.find(s => s.id === id);
-		this.parser.player.value.updateAura(
+		this.parser.player.value.updateStatus(
 			s.id,
 			s.name,
 			stacks,
 			this.parser.player.value.id,
-			duration
+			duration,
+			new Date()
 		);
-
-		setTimeout(() => {
-			this.parser.player.value.removeAura(s.id, s.name);
-		}, duration * 1000);
 	}
 
 	clearTarget() {

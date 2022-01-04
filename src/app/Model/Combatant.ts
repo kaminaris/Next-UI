@@ -43,11 +43,16 @@ export class Combatant {
 
 	role: 'tank' | 'healer' | 'dps' = null;
 
-	auras = new BehaviorSubject<Status[]>([]);
+	statuses = new BehaviorSubject<Status[]>([]);
 
 	cast = new Cast();
 
 	changeTrigger = new Subject<boolean>();
+
+	statusGained = new Subject<Status>();
+	statusLost = new Subject<Status>();
+	statusUpdated = new Subject<Status>();
+
 	anyChanged: Observable<any>;
 	anyChangedDelayed: Observable<any>;
 
@@ -58,7 +63,7 @@ export class Combatant {
 			this.inParty,
 			this.hp,
 			this.mana,
-			this.auras,
+			this.statuses,
 			this.changeTrigger
 		);
 
@@ -152,12 +157,12 @@ export class Combatant {
 		this.mana.next(mana);
 	}
 
-	getAura(id?: number, name?: string, filter?: (a: Status) => boolean) {
-		const auras = filter ? this.auras.value.filter(filter) : this.auras.value;
+	getStatus(id?: number, name?: string, filter?: (a: Status) => boolean) {
+		const auras = filter ? this.statuses.value.filter(filter) : this.statuses.value;
 		return auras.find(a => (id && a.id === id) || (name && a.name === name));
 	}
 
-	updateAura(
+	updateStatus(
 		id: number,
 		name: string = null,
 		stacks: number,
@@ -165,57 +170,70 @@ export class Combatant {
 		duration: number,
 		gainedAt?: Date
 	) {
-		const auras = this.auras.value;
+		const statuses = this.statuses.value;
 		if (name === null) {
-			name = auras.find(a => a.id === id)?.name;
+			name = statuses.find(a => a.id === id)?.name;
 		}
-		let aura = auras.find(a => {
+		let status = statuses.find(a => {
 			return a.appliedBy === appliedBy && (a.id === id || a.name === name);
 		});
-		if (!aura) {
-			aura = Status.createStatus(id, name, stacks, appliedBy, duration, gainedAt);
-			auras.push(aura);
-			this.auras.next(auras);
+		if (!status) {
+			status = Status.createStatus(id, name, stacks, appliedBy, duration, gainedAt);
+			statuses.push(status);
+			this.statuses.next(statuses);
+			this.statusGained.next(status);
 		}
 		else {
-			aura.updateStatus(
+			status.updateStatus(
 				name,
 				stacks,
 				appliedBy,
 				duration,
 				gainedAt
 			);
+			this.statusUpdated.next(status);
 		}
 
-		aura?.expired.asObservable().pipe(first()).subscribe(() => {
-			this.removeAura(aura.id, aura.name);
+		status?.expired.asObservable().pipe(first()).subscribe(() => {
+			this.removeStatus(status.id, status.name);
 		});
-		return aura;
+		return status;
 	}
 
-	removeAura(id: number, name?: string, appliedBy?: number) {
-		const auras = this.auras.value;
-		let auraIdx = auras.findIndex(
+	removeStatus(id: number, name?: string, appliedBy?: number) {
+		const statuses = this.statuses.value;
+		let statusIndex = statuses.findIndex(
 			a => (appliedBy ? a.appliedBy === appliedBy : true) && (a.id === id || a.name === name)
 		);
-		if (auraIdx < 0) {
+		if (statusIndex < 0) {
 			return;
 		}
 
-		auras.splice(auraIdx, 1);
-		this.auras.next(auras);
+		const status = statuses[statusIndex];
+		this.statusLost.next(status);
+
+		statuses.splice(statusIndex, 1);
+		this.statuses.next(statuses);
 	}
 
-	clearAuras() {
-		if (this.auras.value.length === 0) {
+	clearStatuses() {
+		if (this.statuses.value.length === 0) {
 			return;
 		}
 
-		this.auras.next([]);
+		for (const status of this.statuses.value) {
+			this.statusLost.next(status);
+		}
+
+		this.statuses.next([]);
 	}
 
-	clearPermaAuras() {
-		const auras = this.auras.value.filter(a => a.expiresAt.value);
-		this.auras.next(auras);
+	clearPermaStatuses() {
+		const statuses = this.statuses.value.filter(a => a.expiresAt.value);
+		for (const status of statuses) {
+			this.statusLost.next(status);
+		}
+
+		this.statuses.next(statuses);
 	}
 }

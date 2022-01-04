@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { AuraDefinition } from 'src/app/Interface/AuraDefinition';
-import { StatusFilter }   from 'src/app/Interface/StatusFilter';
+import { StatusDefinition }  from 'src/app/Interface/StatusDefinition';
+import { StatusFilter }      from 'src/app/Interface/StatusFilter';
 import { ConfigService }  from 'src/app/Service/ConfigService';
 import { statuses }          from 'src/app/Data/statuses';
 
@@ -102,7 +102,7 @@ export class ConfigWindowAuraFilterComponent {
 	exportInput = '';
 
 	allStatuses = statuses;
-	auraMatchMap: { [x: number]: AuraDefinition } = {};
+	auraMatchMap: { [x: number]: StatusDefinition } = {};
 	auraMatchIcon: { [x: number]: string } = {};
 
 	constructor(
@@ -149,7 +149,7 @@ export class ConfigWindowAuraFilterComponent {
 	}
 
 	findMatch(i: number, f: { raw: string; id: number; name: string }) {
-		const matched: AuraDefinition = this.allStatuses.find(
+		const matched: StatusDefinition = this.allStatuses.find(
 			s => s.name.toLowerCase().indexOf(f.raw.toLowerCase()) >= 0 || s.id === +f.raw
 		);
 

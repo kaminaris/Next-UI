@@ -1,9 +1,10 @@
+import { Combatant } from 'src/app/Model/Combatant';
+import { Status }    from 'src/app/Model/Status';
+
 export type StatusEventType = 'gained' | 'lost';
 
 export interface StatusEvent {
 	type: StatusEventType;
-	statusId: number;
-	statusName: string;
-	targetId: number;
-	targetName: string;
+	status: Status,
+	target: Combatant;
 }

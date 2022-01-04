@@ -1,7 +1,6 @@
 import { Injectable }               from '@angular/core';
 import { BehaviorSubject }          from 'rxjs';
 import { EffectData }               from 'src/app/Interface/EffectData';
-import { PartyMember }              from 'src/app/Interface/PartyMember';
 import { ConfigService }            from 'src/app/Service/ConfigService';
 import { AbilityHitCloneHandler }   from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
 import { EventDispatcher }          from './EventDispatcher';
@@ -39,7 +38,7 @@ export class LogParser {
 	/**
 	 * Zone Events
 	 */
-	zoneId = new BehaviorSubject<string>('');
+	zoneId = new BehaviorSubject<number>(0);
 	zoneName = new BehaviorSubject<string>('');
 
 	/**
@@ -108,6 +107,23 @@ export class LogParser {
 		}
 	}
 
+	changeZone(zoneId: number, zoneName?: string) {
+		this.zoneId.next(zoneId);
+		if (zoneName) {
+			this.zoneName.next(zoneName);
+		}
+
+		const combatants = this.combatants.value;
+		const toRemove = combatants.filter(c => !c.isPlayer && !c.inParty.value);
+		for (const c of toRemove) {
+			this.removeCombatant(c);
+		}
+
+		for (const c of this.combatants.value) {
+			c.clearPermaStatuses();
+		}
+	}
+
 	removeHandler(eventId: number) {
 		const idx = this.handlers.findIndex(v => v.eventId === eventId);
 		if (idx >= 0) {
@@ -118,10 +134,7 @@ export class LogParser {
 	registerPlayer(name: string, id: number) {
 		let player = this.findCombatant(id, name);
 		if (!player) {
-			player = new Combatant();
-			const combatants = this.combatants.value;
-			combatants.push(player);
-			this.combatants.next(combatants);
+			player = this.createAndAddCombatant(id, name);
 		}
 
 		player.isPlayer = true;
@@ -129,6 +142,41 @@ export class LogParser {
 		player.id = id;
 
 		this.player.next(player);
+	}
+
+	createCombatant(id: number, name?: string) {
+		const c = new Combatant();
+		c.id = id;
+		if (name) {
+			c.name = name;
+		}
+
+		c.statusGained.subscribe((s) => {
+			this.eventDispatcher.status.next({
+				type: 'gained',
+				status: s,
+				target: c
+			});
+		});
+
+		c.statusLost.subscribe((s) => {
+			this.eventDispatcher.status.next({
+				type: 'lost',
+				status: s,
+				target: c
+			});
+		});
+
+		return c;
+	}
+
+	createAndAddCombatant(id: number, name?: string) {
+		const c = this.createCombatant(id, name);
+		const combatants = this.combatants.value;
+		combatants.push(c);
+		this.combatants.next(combatants);
+
+		return c;
 	}
 
 	updateCombatant(
@@ -151,8 +199,7 @@ export class LogParser {
 
 		let shouldAdd = false;
 		if (!combatant) {
-			combatant = new Combatant();
-			combatant.id = id;
+			combatant = this.createCombatant(id, name);
 			combatant.isNPC = isNpc || !Combatant.isPlayerId(id);
 			shouldAdd = true;
 		}
@@ -163,10 +210,9 @@ export class LogParser {
 		combatant.updatePosition(x, y, z);
 		combatant.updateJob(job);
 		combatant.updateLevel(level);
-		// if (hp > combatant.hpMax) {
-		// 	console.log(source, hp, combatant.hpMax);
-		// }
 		combatant.updateHp(hp, hpMax);
+
+		// TODO: fix this, cactbot supposedly have this
 		if ((mana || manaMax) && !(source === 'hp-updated' && combatant.isCrafterOrGatherer)) {
 			combatant.updateMana(
 				mana, combatant.isCrafterOrGatherer && source === 'action-sync' ? null : manaMax
@@ -185,6 +231,16 @@ export class LogParser {
 		const combatants = this.combatants.value;
 		const idx = id instanceof Combatant ? combatants.indexOf(id) : combatants.findIndex(c => c.id === id);
 		if (idx >= 0) {
+			const c = combatants[idx];
+			c.statusGained.unsubscribe();
+			c.changeTrigger.unsubscribe();
+			c.inParty.unsubscribe();
+			c.sign.unsubscribe();
+			c.hp.unsubscribe();
+			c.job.unsubscribe();
+			c.level.unsubscribe();
+			c.mana.unsubscribe();
+
 			combatants.splice(idx, 1);
 			this.combatants.next(combatants);
 		}
@@ -254,7 +310,7 @@ export class LogParser {
 
 	updateEffectsFromEnmity(c: Combatant, effects: EffectData[]) {
 		for (const effect of effects) {
-			c.updateAura(effect.BuffID, null, effect.Stack, effect.ActorID, null, null);
+			c.updateStatus(effect.BuffID, null, effect.Stack, effect.ActorID, null, null);
 		}
 	}
 
