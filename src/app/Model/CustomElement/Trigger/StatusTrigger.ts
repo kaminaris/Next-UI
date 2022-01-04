@@ -15,6 +15,7 @@ export interface StatusTriggerOptions {
 
 export class StatusTrigger extends Trigger {
 	type: TriggerType = 'status';
+	hasTick = true;
 
 	options: StatusTriggerOptions = {
 		statusId: 0,
@@ -86,6 +87,8 @@ export class StatusTrigger extends Trigger {
 		// if status has duration, activate tick
 		if (status.duration.value > 0) {
 			this.duration = status.duration.value;
+			this.activatedAt = new Date().valueOf();
+			this.clearTick();
 			this.startTick();
 		}
 

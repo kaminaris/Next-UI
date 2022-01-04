@@ -140,8 +140,8 @@ export class XivService {
 		this.config.uiVisible = visible;
 	}
 
-	actionEffect1() {
-
+	actionEffect1(ev: NetworkEvent<ActionEffect1>) {
+		// console.log(ev)
 	}
 
 	statusEffectList(ev: NetworkEvent<StatusEffectList>) {
@@ -151,6 +151,8 @@ export class XivService {
 		}
 
 		const timestamp = new Date();
+		// TODO: NOT SURE ABOUT THIS
+		c.clearStatuses();
 		for (const effect of ev.data.effects) {
 			if (!effect.effectId) {
 				continue;
@@ -285,6 +287,8 @@ export class XivService {
 				status.duration,
 				timestamp
 			);
+
+			console.log('STA', status.id, status.duration)
 		}
 	}
 
@@ -572,7 +576,7 @@ export class XivService {
 				'targetChanged', 'targetOfTargetChanged', 'focusChanged',
 				'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
 				'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
-				'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged'
+				'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged', 'statusEffectList'
 			]
 		});
 		console.log('Events subscribed', response);
