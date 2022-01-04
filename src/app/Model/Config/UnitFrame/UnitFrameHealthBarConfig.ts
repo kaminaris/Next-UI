@@ -5,9 +5,9 @@ import { DistinctBehaviorSubject } from 'src/app/Model/DistinctBehaviorSubject';
 
 export class UnitFrameHealthBarConfig extends BaseConfig {
 	// @formatter:off
-	get useClassColor(): boolean { return this.useClassColorSub.value; }
-	set useClassColor(v: boolean) { this.useClassColorSub.next(v); }
-	useClassColorSub = new DistinctBehaviorSubject<boolean>(true);
+	get useJobColor(): boolean { return this.useJobColorSub.value; }
+	set useJobColor(v: boolean) { this.useJobColorSub.next(v); }
+	useJobColorSub = new DistinctBehaviorSubject<boolean>(true);
 
 	get barColor(): string { return this.barColorSub.value; }
 	set barColor(v: string) { this.barColorSub.next(v); }

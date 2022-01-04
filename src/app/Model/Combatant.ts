@@ -30,6 +30,7 @@ export class Combatant {
 	z = 0;
 
 	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
+	get isDummy() { return this.id.toString(16).startsWith('4'); }
 
 	inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);

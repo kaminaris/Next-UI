@@ -23,6 +23,10 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	set fontColor(v: string) { this.fontColorSub.next(v); }
 	fontColorSub = new DistinctBehaviorSubject<string>('');
 
+	get useCustomColor(): boolean { return this.useCustomColorSub.value; }
+	set useCustomColor(v: boolean) { this.useCustomColorSub.next(v); }
+	useCustomColorSub = new DistinctBehaviorSubject<boolean>(false);
+
 	get fontSize(): string { return this.fontSizeSub.value; }
 	set fontSize(v: string) { this.fontSizeSub.next(v); }
 	fontSizeSub = new DistinctBehaviorSubject<string>('');

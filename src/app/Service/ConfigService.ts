@@ -9,7 +9,6 @@ import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctB
 import { CompressionService }                      from 'src/app/Service/CompressionService';
 import { defaultConfig }                           from 'src/app/Data/Config/defaultConfig';
 import extend                                      from 'just-extend';
-import { XivService }                              from 'src/app/Service/Xiv/XivService';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {

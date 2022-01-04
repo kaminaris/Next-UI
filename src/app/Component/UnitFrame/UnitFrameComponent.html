@@ -1,5 +1,5 @@
 <ng-content></ng-content>
-<div class="d-flex flex-column player-frame cursor-pointer"
+<div class="d-flex flex-column unit-frame cursor-pointer"
 		*ngIf="combatant"
 		style="height: 100%; border-style: solid"
 		[class.is-target]="combatant?.isTarget"
@@ -52,31 +52,48 @@
 	</cast-bar>
 
 	<progress-bar
-			class="flex-fill"
+			class="flex-fill hp-bar"
 			[percent]="hpPct"
-			[fillColor]="barColor"
+			[fillColor]="hpBarColor"
 			[bgColor]="ownConfig.basic.backgroundColor"
 			[barStyle]="ownConfig.healthBar.barStyle"
 			[barDirection]="ownConfig.healthBar.barDirection"
 	>
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.name" [class.blur-3]="blurName">
+		<div class="position-absolute z10 text-widget-name"
+				text-widget
+				[config]="ownConfig.widgets.name"
+				[class.blur-3]="blurName"
+				[customColor]="jobColor"
+		>
 			{{ name }}
 		</div>
 
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.job">
+		<div class="position-absolute z10 text-widget-job"
+				text-widget
+				[config]="ownConfig.widgets.job"
+				[customColor]="jobColor"
+		>
 			{{ job }}
 		</div>
 
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.level">
+		<div class="position-absolute z10 text-widget-level"
+				text-widget
+				[config]="ownConfig.widgets.level"
+				[customColor]="jobColor"
+		>
 			{{ level }}
 		</div>
 
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.hp">
+		<div class="position-absolute z10 text-widget-hp"
+				text-widget
+				[config]="ownConfig.widgets.hp"
+				[customColor]="jobColor"
+		>
 			{{ hpText }}
 		</div>
 	</progress-bar>
 	<progress-bar
-			class="flex-shrink-0"
+			class="flex-shrink-0 mana-bar"
 			*ngIf="ownConfig.manaBar.show"
 			[style.height]="ownConfig.manaBar.height"
 			[fillColor]="ownConfig.manaBar.barColor"
@@ -85,7 +102,11 @@
 			[barStyle]="ownConfig.manaBar.barStyle"
 			[barDirection]="ownConfig.manaBar.barDirection"
 	>
-		<div class="position-absolute z10" text-widget [config]="ownConfig.widgets.mana">
+		<div class="position-absolute z10 text-widget-mana"
+				text-widget
+				[config]="ownConfig.widgets.mana"
+				[customColor]="jobColor"
+		>
 			{{ manaText }}
 		</div>
 	</progress-bar>

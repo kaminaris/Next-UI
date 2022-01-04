@@ -713,6 +713,10 @@ export class XivService {
 		await this.doRequest('sendTell', { id });
 	}
 
+	async resetEnmity(id: number) {
+		await this.doRequest('resetEnmity', { id });
+	}
+
 	/**
 	 * Trade is only possible with target
 	 */

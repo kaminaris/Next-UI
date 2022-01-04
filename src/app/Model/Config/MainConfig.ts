@@ -2,9 +2,10 @@ import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                from 'rxjs/operators';
 import { getSubjects }                                 from 'src/app/Function/getSubjects';
 import { serialize }                                   from 'src/app/Function/serialize';
-import { unserialize }        from 'src/app/Function/unserialize';
-import { StatusFilter }       from 'src/app/Interface/StatusFilter';
-import { SerializableConfig } from 'src/app/Interface/SerializableConfig';
+import { unserialize }                                 from 'src/app/Function/unserialize';
+import { ClassLike }                                   from 'src/app/Interface/ClassLike';
+import { StatusFilter }                                from 'src/app/Interface/StatusFilter';
+import { SerializableConfig }                          from 'src/app/Interface/SerializableConfig';
 import { AggroListFrameConfig }                        from 'src/app/Model/Config/AggroListFrameConfig';
 import { AuraBarFrameConfig }                          from 'src/app/Model/Config/AuraBarFrameConfig';
 import { ColorConfig }                                 from 'src/app/Model/Config/ColorConfig';
@@ -18,9 +19,12 @@ import { TargetFrameConfig }                           from 'src/app/Model/Confi
 import { TargetOfTargetFrameConfig }                   from 'src/app/Model/Config/TargetOfTargetFrameConfig';
 import { TooltipConfig }                               from 'src/app/Model/Config/TooltipConfig';
 import { TTSConfig }                                   from 'src/app/Model/Config/TTSConfig';
+import { UnitFrameHealthBarConfig }                    from 'src/app/Model/Config/UnitFrame/UnitFrameHealthBarConfig';
 import { DistinctBehaviorSubject }                     from 'src/app/Model/DistinctBehaviorSubject';
 
 export class MainConfig implements SerializableConfig {
+	version = 1;
+
 	// @formatter:off
 	get fontFamily(): string { return this.fontFamilySub.value; }
 	set fontFamily(v: string) { this.fontFamilySub.next(v); }
@@ -92,7 +96,35 @@ export class MainConfig implements SerializableConfig {
 	}
 
 	unserialize(value: any): void {
+		value = this.upgradeConfig(value);
 		unserialize(this, value);
+	}
+
+	protected upgradeConfig(cfg: ClassLike<MainConfig>) {
+		let configVersion = cfg.version ?? 0;
+
+		if (configVersion < 1) {
+			cfg = this.upgradeConfigTo1(cfg);
+			configVersion = 1;
+		}
+		return cfg;
+	}
+
+	protected upgradeConfigTo1(cfg: ClassLike<MainConfig>) {
+		cfg.version = 1;
+		const healthBarConfigs: UnitFrameHealthBarConfig[] = [
+			cfg.frames.party.healthBar,
+			cfg.frames.player.healthBar,
+			cfg.frames.target.healthBar,
+			cfg.frames.focus.healthBar,
+			cfg.frames.targetOfTarget.healthBar,
+			cfg.frames.aggroList.healthBar,
+		];
+		for (const hbCfg of healthBarConfigs) {
+			hbCfg.useJobColor = (hbCfg as any).useClassColor;
+		}
+
+		return cfg;
 	}
 
 }

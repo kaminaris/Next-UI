@@ -1,0 +1,1 @@
+export type ClassLike<T> = Partial<T> & { [prop: string]: any; };

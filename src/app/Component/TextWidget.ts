@@ -11,6 +11,7 @@ import { ConfigService }    from 'src/app/Service/ConfigService';
 })
 export class TextWidget implements OnChanges, OnInit {
 	@Input() config: TextWidgetConfig;
+	@Input() customColor: string;
 
 	@HostBinding('style.display') display: string;
 	@HostBinding('style.top') top: string;
@@ -48,7 +49,12 @@ export class TextWidget implements OnChanges, OnInit {
 		this.left = left;
 		this.transform = transform;
 
-		this.fontColor = this.config.fontColor;
+		if (this.config.useCustomColor && this.customColor) {
+			this.fontColor = this.customColor;
+		} else {
+			this.fontColor = this.config.fontColor;
+		}
+
 		this.fontSize = this.config.fontSize;
 		this.outline = this.config.outline;
 

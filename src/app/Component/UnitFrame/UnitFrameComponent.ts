@@ -51,7 +51,8 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 	auras: Status[] = [];
 
-	barColor = this.ownConfig.healthBar.barColor;
+	jobColor = this.ownConfig.healthBar.barColor;
+	hpBarColor = this.ownConfig.healthBar.barColor;
 
 	distanceToPlayer = 0;
 	distanceInterval = 200;
@@ -67,6 +68,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		{
 			label: 'Send Tell', action: this.sendTellAction.bind(this), hidden: () => {
 				return this.combatant?.isNPC;
+			}
+		},
+		{
+			label: 'Reset Striking Dummy Enmity', action: this.resetEnmityAction.bind(this), hidden: () => {
+				return !this.combatant?.isDummy;
 			}
 		},
 		{
@@ -237,6 +243,15 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		await this.xiv.sendTell(this.combatant.id);
 	}
 
+	async resetEnmityAction() {
+		this.contextMenuService.hideContextMenu();
+		if (!this.combatant || !this.combatant.id) {
+			return;
+		}
+
+		await this.xiv.resetEnmity(this.combatant.id);
+	}
+
 	async tradeAction() {
 		this.contextMenuService.hideContextMenu();
 		if (!this.combatant || !this.combatant.id) {
@@ -355,7 +370,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 		this.combatantSubs.push(this.combatant.auras.subscribe(this.filterAuras.bind(this)));
 
-		this.combatantSubs.push(this.ownConfig.healthBar.useClassColorSub.subscribe(() => {
+		this.combatantSubs.push(this.ownConfig.healthBar.useJobColorSub.subscribe(() => {
 			this.copyFrom(this.combatant);
 		}));
 	}
@@ -457,11 +472,13 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 	setBarColor(c?: Combatant) {
 		c ??= this.combatant;
-		if (this.ownConfig.healthBar.useClassColor && c && c.job.value !== 'NONE') {
-			this.barColor = this.config.colorConfig.getJobColorByName(c.job.value);
+		if (c && c.job.value !== 'NONE') {
+			this.jobColor = this.config.colorConfig.getJobColorByName(c.job.value);
 		}
 		else {
-			this.barColor = this.ownConfig.healthBar.barColor;
+			this.jobColor = this.ownConfig.healthBar.barColor;
 		}
+
+		this.hpBarColor = this.ownConfig.healthBar.useJobColor ? this.jobColor : this.ownConfig.healthBar.barColor;
 	}
 }

@@ -11,7 +11,7 @@ export const defaultPlayerConfig: RecursivePartial<PlayerFrameConfig> = {
 		borderColor: 'rgba(16,16,16,1)',
 	},
 	healthBar: {
-		useClassColor: true,
+		useJobColor: true,
 		barStyle: 'horizontal',
 		barDirection: 'start',
 		barColor: '#02A502',
