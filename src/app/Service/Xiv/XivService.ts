@@ -152,7 +152,7 @@ export class XivService {
 
 		const timestamp = new Date();
 		// TODO: NOT SURE ABOUT THIS
-		c.clearStatuses();
+		// c.clearStatuses();
 		for (const effect of ev.data.effects) {
 			if (!effect.effectId) {
 				continue;
