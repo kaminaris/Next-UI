@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -13,7 +13,7 @@ const indexes = {
 export class SignHandler implements HandlerInterface {
 	eventId = 0x1D;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.targetId] || '0', 16);
@@ -25,19 +25,19 @@ export class SignHandler implements HandlerInterface {
 			return;
 		}
 
-		const combatant = this.parser.findCombatant(id, name);
+		const combatant = this.act.parser.findCombatant(id, name);
 		if (combatant) {
 			combatant.sign.next(operation === 'add' ? markerId : null);
 		}
 
-		this.parser.eventDispatcher.playerMarker.next({
+		this.act.parser.eventDispatcher.playerMarker.next({
 			markerId: markerId,
 			operation: operation as any,
 			targetId: id,
 			targetName: name
 		});
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				`Sign ${ operation } ${ markerId } set on ${ name } ${ id }`
 			);

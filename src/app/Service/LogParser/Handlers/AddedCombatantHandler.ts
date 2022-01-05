@@ -1,5 +1,5 @@
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { Util }             from '../Util';
-import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -27,7 +27,7 @@ const indexes = {
 export class AddedCombatantHandler implements HandlerInterface {
 	eventId = 0x03;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -53,11 +53,11 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const heading = parseFloat(event[indexes.heading] ?? '');
 		const timestamp = new Date(event[1] ?? '0');
 
-		this.parser.updateCombatant(
+		this.act.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax, x, y, z, job, level, null, 'added-combatant'
 		);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				':Added new combatant ' + name +
 				'.  Job: ' + job +
@@ -65,7 +65,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 				' HP: ' + hp +
 				' MP: ' + mana +
 				' Pos: (' + x + ',' + y + ',' + z + ')',
-				this.parser.combatants.value
+				this.act.parser.combatants.value
 			);
 		}
 	}

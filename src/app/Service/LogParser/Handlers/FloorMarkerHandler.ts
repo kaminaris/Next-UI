@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -14,7 +14,7 @@ const indexes = {
 export class FloorMarkerHandler implements HandlerInterface {
 	eventId = 0x1C;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const operation = event[indexes.operation] ?? '';
@@ -25,7 +25,7 @@ export class FloorMarkerHandler implements HandlerInterface {
 		const y = event[indexes.y] ?? '';
 		const z = event[indexes.z] ?? '';
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				`Floor marker ${ operation }: ${ waymark } by ${ id } ${ name } (${ x }:${ y }:${ z })`
 			);

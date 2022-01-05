@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -23,8 +23,7 @@ const indexes = {
 export class PlayerStatsHandler implements HandlerInterface {
 	eventId = 0x0C;
 
-	constructor(public parser: LogParser) {
-	}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const playerClass = event[indexes.class] ?? '';
@@ -44,7 +43,7 @@ export class PlayerStatsHandler implements HandlerInterface {
 		const spellSpeed = event[indexes.spellSpeed] ?? '';
 		const tenacity = event[indexes.tenacity] ?? '';
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				'Player Stats: ' + event.slice(2, event.length - 1).join(':').replace(/\|/g, ':')
 			);

@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -19,7 +19,7 @@ const indexes = {
 export class HpUpdatedHandler implements HandlerInterface {
 	eventId = 0x27;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -35,9 +35,9 @@ export class HpUpdatedHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
-		this.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax, x, y, z, null, null, null, 'hp-updated');
+		this.act.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax, x, y, z, null, null, null, 'hp-updated');
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			// console.log(`HP updated: ${name} (${id}): ${hp} / ${hpMax}`);
 		}
 	}

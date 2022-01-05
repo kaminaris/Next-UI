@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -9,14 +9,14 @@ const indexes = {
 export class LimitGaugeHandler implements HandlerInterface {
 	eventId = 0x24;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const valueHex = event[indexes.valueHex] ?? '';
 		const valueDec = parseInt(valueHex, 16);
 		const bars = event[indexes.bars] ?? '';
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log('Limit Break: ' + valueDec, bars);
 		}
 	}

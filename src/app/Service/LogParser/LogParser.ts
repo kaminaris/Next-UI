@@ -1,35 +1,10 @@
-import { Injectable }               from '@angular/core';
-import { BehaviorSubject }          from 'rxjs';
-import { EffectData }               from 'src/app/Interface/EffectData';
-import { ConfigService }            from 'src/app/Service/ConfigService';
-import { AbilityHitCloneHandler }   from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
-import { EventDispatcher }          from './EventDispatcher';
-import { TTSService }               from '../TTSService';
-import { Combatant }                from '../../Model/Combatant';
-import { FloorMarkerHandler }       from './Handlers/FloorMarkerHandler';
-import { HeadMarkerHandler }        from './Handlers/HeadMarkerHandler';
-import { JobGaugeHandler }          from './Handlers/JobGaugeHandler';
-import { HpUpdatedHandler }         from './Handlers/HpUpdatedHandler';
-import { AuraGainedHandler }        from './Handlers/AuraGainedHandler';
-import { AuraLostHandler }          from './Handlers/AuraLostHandler';
-import { PlayerChangedHandler }     from './Handlers/PlayerChangedHandler';
-import { RemovedCombatantHandler }  from './Handlers/RemovedCombatantHandler';
-import { AddedCombatantHandler }    from './Handlers/AddedCombatantHandler';
-import { ChatEventHandler }         from './Handlers/ChatEventHandler';
-import { HandlerInterface }         from './Handlers/HandlerInterface';
-import { ZoneChangedHandler }       from './Handlers/ZoneChangedHandler';
-import { AbilityHitHandler }        from './Handlers/AbilityHitHandler';
-import { AbilityUseHandler }        from './Handlers/AbilityUseHandler';
-import { ActionSyncHandler }        from './Handlers/ActionSyncHandler';
-import { CombatantDefeatedHandler } from './Handlers/CombatantDefeatedHandler';
-import { NetworkStatusHandler }     from './Handlers/NetworkStatusHandler';
-import { OverTimeTickHandler }      from './Handlers/OverTimeTickHandler';
-import { PlayerStatsHandler }       from './Handlers/PlayerStatsHandler';
-import { LimitGaugeHandler }        from './Handlers/LimitGaugeHandler';
-import { NameplateToggleHandler }   from './Handlers/NameplateToggleHandler';
-import { TetherHandler }            from './Handlers/TetherHandler';
-import { AbilityCancelHandler }     from './Handlers/AbilityCancelHandler';
-import { SignHandler }              from './Handlers/SignHandler';
+import { Injectable }      from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { EffectData }      from 'src/app/Interface/EffectData';
+import { ConfigService }   from 'src/app/Service/ConfigService';
+import { EventDispatcher } from './EventDispatcher';
+import { TTSService }      from '../TTSService';
+import { Combatant }       from '../../Model/Combatant';
 
 @Injectable({ providedIn: 'root' })
 export class LogParser {
@@ -57,33 +32,6 @@ export class LogParser {
 	partyLeader = new BehaviorSubject<Combatant>(null);
 	aggroList = new BehaviorSubject<Combatant[]>([]);
 
-	handlers: HandlerInterface[] = [
-		new ChatEventHandler(this), // 0x00
-		new ZoneChangedHandler(this), // 0x01
-		new PlayerChangedHandler(this), // 0x02
-		new AddedCombatantHandler(this), // 0x03
-		new RemovedCombatantHandler(this), // 0x04
-		new PlayerStatsHandler(this), // 0x0C
-		new AbilityUseHandler(this), // 0x14
-		new AbilityHitHandler(this), // 0x15,
-		new AbilityHitCloneHandler(this), // 0x16
-		new AbilityCancelHandler(this), // 0x17
-		new OverTimeTickHandler(this), // 0x18
-		new CombatantDefeatedHandler(this), // 0x19
-		new AuraGainedHandler(this), // 0x1A
-		new HeadMarkerHandler(this), // 0x1B
-		new FloorMarkerHandler(this), // 0x1C
-		new SignHandler(this), // 0x1D
-		new AuraLostHandler(this), // 0x1E
-		new JobGaugeHandler(this), // 0x1F
-		new NameplateToggleHandler(this), // 0x22
-		new TetherHandler(this), // 0x23
-		new LimitGaugeHandler(this), // 0x24
-		new ActionSyncHandler(this), // 0x25
-		new NetworkStatusHandler(this), // 0x26
-		new HpUpdatedHandler(this) // 0x27
-	];
-
 	constructor(
 		public tts: TTSService,
 		public eventDispatcher: EventDispatcher,
@@ -95,16 +43,6 @@ export class LogParser {
 				this.targetOfTarget.next(null);
 			}
 		});
-	}
-
-	parse(event: string[]) {
-		const eventId = +event[0];
-		for (const handler of this.handlers) {
-			if (handler.eventId === eventId) {
-				handler.handle(event);
-				return;
-			}
-		}
 	}
 
 	changeZone(zoneId: number, zoneName?: string) {
@@ -121,13 +59,6 @@ export class LogParser {
 
 		for (const c of this.combatants.value) {
 			c.clearPermaStatuses();
-		}
-	}
-
-	removeHandler(eventId: number) {
-		const idx = this.handlers.findIndex(v => v.eventId === eventId);
-		if (idx >= 0) {
-			this.handlers.splice(idx, 1);
 		}
 	}
 
@@ -320,5 +251,14 @@ export class LogParser {
 		}
 
 		return this.player.value.id === this.partyLeader.value.id;
+	}
+
+	chatMessage(type: string, speaker: string, message: string) {
+		this.eventDispatcher.chat.next({ type, speaker, message });
+
+		// so far we don't need that
+		if (speaker) {
+			this.tts.say(type, speaker, message);
+		}
 	}
 }

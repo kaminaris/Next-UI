@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -8,14 +8,14 @@ const indexes = {
 export class RemovedCombatantHandler implements HandlerInterface {
 	eventId = 0x04;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
 
-		this.parser.removeCombatant(id);
+		this.act.parser.removeCombatant(id);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log('Removed combatant ' + id);
 		}
 	}

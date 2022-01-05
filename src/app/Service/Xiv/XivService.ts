@@ -84,7 +84,6 @@ export class XivService {
 		if (!connected) {
 			return false;
 		}
-		await this.progressiveUpgrade();
 
 		this.config.acceptFocus.subscribe(value => {
 			this.setAcceptFocus(value);
@@ -607,26 +606,6 @@ export class XivService {
 				resolve(false);
 			}
 		});
-	}
-
-	// TODO: Needed to disable certain events when they are hooked from NU Plugin
-	async progressiveUpgrade() {
-		// Remove ability use handler
-		this.parser.removeHandler(0x00);
-		this.parser.removeHandler(0x01);
-		this.parser.removeHandler(0x02);
-		this.parser.removeHandler(0x03);
-		this.parser.removeHandler(0x04);
-		this.parser.removeHandler(0x14);
-		this.parser.removeHandler(0x15);
-		this.parser.removeHandler(0x16);
-		this.parser.removeHandler(0x17);
-		this.parser.removeHandler(0x19);
-		this.parser.removeHandler(0x1A);
-		this.parser.removeHandler(0x1E);
-		this.parser.removeHandler(0x25);
-		this.parser.removeHandler(0x26);
-		this.parser.removeHandler(0x27);
 	}
 
 	generateGuid() {

@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -12,7 +12,7 @@ const indexes = {
 export class NameplateToggleHandler implements HandlerInterface {
 	eventId = 0x22;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -21,7 +21,7 @@ export class NameplateToggleHandler implements HandlerInterface {
 		const targetName = event[indexes.targetName] ?? '';
 		const targetable = !!parseInt(event[indexes.targetable] ?? '', 16);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				`Nameplate toggle ${ id } ${ name } target: ${ targetId } ${ targetName }`
 			);

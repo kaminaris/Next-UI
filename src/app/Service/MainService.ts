@@ -21,7 +21,7 @@ export class MainService {
 	}
 
 	async connectXiv() {
-		const connected = await this.xiv.initialize();
+		await this.xiv.initialize();
 	}
 
 	async connectAct() {

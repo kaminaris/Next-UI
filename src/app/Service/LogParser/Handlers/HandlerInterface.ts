@@ -1,7 +1,7 @@
-import { LogParser } from '../LogParser';
+import { ActService } from 'src/app/Service/Act/ActService';
 
 export interface HandlerInterface {
-	parser: LogParser;
+	act: ActService;
 	eventId: number;
 
 	handle(event: string[]): void;

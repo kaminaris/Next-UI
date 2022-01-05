@@ -6,6 +6,31 @@ import { PartyMember }                      from 'src/app/Interface/PartyMember'
 import { PlayerDetails }                    from 'src/app/Interface/PlayerDetails';
 import { Combatant }                        from 'src/app/Model/Combatant';
 import { ConfigService }                    from 'src/app/Service/ConfigService';
+import { AbilityCancelHandler }             from 'src/app/Service/LogParser/Handlers/AbilityCancelHandler';
+import { AbilityHitCloneHandler }           from 'src/app/Service/LogParser/Handlers/AbilityHitCloneHandler';
+import { AbilityHitHandler }                from 'src/app/Service/LogParser/Handlers/AbilityHitHandler';
+import { AbilityUseHandler }                from 'src/app/Service/LogParser/Handlers/AbilityUseHandler';
+import { ActionSyncHandler }                from 'src/app/Service/LogParser/Handlers/ActionSyncHandler';
+import { AddedCombatantHandler }            from 'src/app/Service/LogParser/Handlers/AddedCombatantHandler';
+import { AuraGainedHandler }                from 'src/app/Service/LogParser/Handlers/AuraGainedHandler';
+import { AuraLostHandler }                  from 'src/app/Service/LogParser/Handlers/AuraLostHandler';
+import { ChatEventHandler }                 from 'src/app/Service/LogParser/Handlers/ChatEventHandler';
+import { CombatantDefeatedHandler }         from 'src/app/Service/LogParser/Handlers/CombatantDefeatedHandler';
+import { FloorMarkerHandler }               from 'src/app/Service/LogParser/Handlers/FloorMarkerHandler';
+import { HandlerInterface }                 from 'src/app/Service/LogParser/Handlers/HandlerInterface';
+import { HeadMarkerHandler }                from 'src/app/Service/LogParser/Handlers/HeadMarkerHandler';
+import { HpUpdatedHandler }                 from 'src/app/Service/LogParser/Handlers/HpUpdatedHandler';
+import { JobGaugeHandler }                  from 'src/app/Service/LogParser/Handlers/JobGaugeHandler';
+import { LimitGaugeHandler }                from 'src/app/Service/LogParser/Handlers/LimitGaugeHandler';
+import { NameplateToggleHandler }           from 'src/app/Service/LogParser/Handlers/NameplateToggleHandler';
+import { NetworkStatusHandler }             from 'src/app/Service/LogParser/Handlers/NetworkStatusHandler';
+import { OverTimeTickHandler }              from 'src/app/Service/LogParser/Handlers/OverTimeTickHandler';
+import { PlayerChangedHandler }             from 'src/app/Service/LogParser/Handlers/PlayerChangedHandler';
+import { PlayerStatsHandler }               from 'src/app/Service/LogParser/Handlers/PlayerStatsHandler';
+import { RemovedCombatantHandler }          from 'src/app/Service/LogParser/Handlers/RemovedCombatantHandler';
+import { SignHandler }                      from 'src/app/Service/LogParser/Handlers/SignHandler';
+import { TetherHandler }                    from 'src/app/Service/LogParser/Handlers/TetherHandler';
+import { ZoneChangedHandler }               from 'src/app/Service/LogParser/Handlers/ZoneChangedHandler';
 import { LogParser }                        from 'src/app/Service/LogParser/LogParser';
 import { Util }                             from 'src/app/Service/LogParser/Util';
 
@@ -21,8 +46,35 @@ export class ActService {
 
 	win = (window as any);
 
+	handlers: HandlerInterface[] = [
+		new ChatEventHandler(this), // 0x00
+		new ZoneChangedHandler(this), // 0x01
+		new PlayerChangedHandler(this), // 0x02
+		new AddedCombatantHandler(this), // 0x03
+		new RemovedCombatantHandler(this), // 0x04
+		new PlayerStatsHandler(this), // 0x0C
+		new AbilityUseHandler(this), // 0x14
+		new AbilityHitHandler(this), // 0x15,
+		new AbilityHitCloneHandler(this), // 0x16
+		new AbilityCancelHandler(this), // 0x17
+		new OverTimeTickHandler(this), // 0x18
+		new CombatantDefeatedHandler(this), // 0x19
+		new AuraGainedHandler(this), // 0x1A
+		new HeadMarkerHandler(this), // 0x1B
+		new FloorMarkerHandler(this), // 0x1C
+		new SignHandler(this), // 0x1D
+		new AuraLostHandler(this), // 0x1E
+		new JobGaugeHandler(this), // 0x1F
+		new NameplateToggleHandler(this), // 0x22
+		new TetherHandler(this), // 0x23
+		new LimitGaugeHandler(this), // 0x24
+		new ActionSyncHandler(this), // 0x25
+		new NetworkStatusHandler(this), // 0x26
+		new HpUpdatedHandler(this) // 0x27
+	];
+
 	constructor(
-		protected parser: LogParser,
+		public parser: LogParser,
 		protected config: ConfigService
 	) {}
 
@@ -155,7 +207,13 @@ export class ActService {
 	}
 
 	logLine(e: { line: string[] }) {
-		this.parser.parse(e.line);
+		const eventId = +e.line[0];
+		for (const handler of this.handlers) {
+			if (handler.eventId === eventId) {
+				handler.handle(e.line);
+				return;
+			}
+		}
 	}
 
 	changePrimaryPlayer(e: { charName: string, charID: number }) {

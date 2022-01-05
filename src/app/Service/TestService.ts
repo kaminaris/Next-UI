@@ -101,7 +101,7 @@ export class TestService {
 	}
 
 	chatMessage(m: string, s: string = 'player') {
-		this.parser.parse(['0', '', 'type', s, m, '']);
+		this.parser.chatMessage('type', s, m);
 	}
 
 	setParty(full = false) {
@@ -221,21 +221,22 @@ export class TestService {
 	}
 
 	abilityUse(abilityId: number, abilityName: string) {
-		this.parser.parse([
-			0x14.toString(),
-			'',
-
-			this.parser.player.value.id.toString(16),
-			this.parser.player.value.name,
-
-			abilityId.toString(16),
-			abilityName,
-
-			this.parser.target.value.id.toString(16),
-			this.parser.target.value.name,
-
-			'5'
-		]);
+		// TODO: fix this
+		// this.parser.parse([
+		// 	0x14.toString(),
+		// 	'',
+		//
+		// 	this.parser.player.value.id.toString(16),
+		// 	this.parser.player.value.name,
+		//
+		// 	abilityId.toString(16),
+		// 	abilityName,
+		//
+		// 	this.parser.target.value.id.toString(16),
+		// 	this.parser.target.value.name,
+		//
+		// 	'5'
+		// ]);
 	}
 
 	addPlayerAura(id: number, duration = 30, stacks = 1) {

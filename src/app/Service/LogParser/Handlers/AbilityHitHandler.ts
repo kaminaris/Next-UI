@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -31,7 +31,7 @@ const indexes = {
 export class AbilityHitHandler implements HandlerInterface {
 	eventId = 0x15;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -67,7 +67,7 @@ export class AbilityHitHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z + fieldOffset] ?? '');
 		const heading = parseFloat(event[indexes.heading + fieldOffset] ?? '');
 
-		this.parser.eventDispatcher.ability.next({
+		this.act.parser.eventDispatcher.ability.next({
 			type: 'hit',
 			abilityName,
 			abilityId,
@@ -78,7 +78,7 @@ export class AbilityHitHandler implements HandlerInterface {
 			sourceName: name
 		});
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			// tested
 			console.log(
 				`Ability hit, ${ id }, ${ name }, ${ abilityId }, ${ abilityName } on ${ targetName }`

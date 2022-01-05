@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -20,8 +20,7 @@ const indexes = {
 export class ActionSyncHandler implements HandlerInterface {
 	eventId = 0x25;
 
-	constructor(public parser: LogParser) {
-	}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -38,7 +37,7 @@ export class ActionSyncHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
-		this.parser.updateCombatant(
+		this.act.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax, x, y, z, null, null, null, 'action-sync'
 		);
 	}

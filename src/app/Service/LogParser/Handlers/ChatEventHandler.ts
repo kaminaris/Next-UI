@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -9,18 +9,13 @@ const indexes = {
 export class ChatEventHandler implements HandlerInterface {
 	eventId = 0x00;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const type = event[indexes.type] ?? '';
 		const speaker = event[indexes.speaker] ?? '';
 		const message = event.slice(4, -1).join('|');
 
-		this.parser.eventDispatcher.chat.next({ type, speaker, message });
-
-		// so far we don't need that
-		if (speaker) {
-			this.parser.tts.say(type, speaker, message);
-		}
+		this.act.parser.chatMessage(type, speaker, message);
 	}
 }

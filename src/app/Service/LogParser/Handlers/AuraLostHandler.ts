@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -16,7 +16,8 @@ const indexes = {
 
 export class AuraLostHandler implements HandlerInterface {
 	eventId = 0x1E;
-	constructor(public parser: LogParser) {}
+
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const statusId = parseInt(event[indexes.statusId]?.toUpperCase() ?? '');
@@ -34,7 +35,7 @@ export class AuraLostHandler implements HandlerInterface {
 			return;
 		}
 
-		const combatant = this.parser.findCombatant(targetId, targetName);
+		const combatant = this.act.parser.findCombatant(targetId, targetName);
 		if (!combatant) {
 			console.log('WOT?');
 			return;
@@ -42,7 +43,7 @@ export class AuraLostHandler implements HandlerInterface {
 
 		combatant.removeStatus(statusId, statusName);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(`Combatant: ${ combatant.name } lost aura ${ statusName }`, combatant);
 		}
 	}

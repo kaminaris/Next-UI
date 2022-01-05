@@ -1,5 +1,5 @@
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { Util }             from 'src/app/Service/LogParser/Util';
-import { LogParser }        from '../LogParser';
 import { HandlerInterface } from './HandlerInterface';
 
 const reverseBytes = (s: string) => {
@@ -31,7 +31,7 @@ const fields = {
 export class JobGaugeHandler implements HandlerInterface {
 	eventId = 0x1F;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = event[fields.id]?.toUpperCase() ?? '';
@@ -49,7 +49,7 @@ export class JobGaugeHandler implements HandlerInterface {
 		const dataBytes3 = zeroPad(event[fields.dataBytes3] ?? '');
 		const dataBytes4 = zeroPad(event[fields.dataBytes4] ?? '');
 
-		// if (this.parser.debugMode) {
+		// if (this.act.parser.debugMode) {
 		console.log(
 			'Job gauge: ' +
 			id + ':' +

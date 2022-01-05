@@ -1,5 +1,4 @@
-import { Status }    from 'src/app/Model/Status';
-import { LogParser } from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -18,7 +17,7 @@ const indexes = {
 export class AuraGainedHandler implements HandlerInterface {
 	eventId = 0x1A;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -37,7 +36,7 @@ export class AuraGainedHandler implements HandlerInterface {
 			return;
 		}
 
-		const combatant = this.parser.findCombatant(targetId, targetName);
+		const combatant = this.act.parser.findCombatant(targetId, targetName);
 		if (!combatant) {
 			console.log('WOT?', targetId, targetName);
 			return;
@@ -46,7 +45,7 @@ export class AuraGainedHandler implements HandlerInterface {
 		const timestamp = new Date();
 		const aura = combatant.updateStatus(statusId, statusName, stacks, id, duration, timestamp);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(`Combatant: ${ combatant.name } gained aura ${ statusName }`, combatant, aura, event);
 		}
 	}

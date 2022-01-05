@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -14,7 +14,7 @@ const indexes = {
 export class AbilityUseHandler implements HandlerInterface {
 	eventId = 0x14;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -30,7 +30,7 @@ export class AbilityUseHandler implements HandlerInterface {
 
 		const target = targetName.length === 0 ? 'Unknown' : targetName;
 
-		this.parser.eventDispatcher.ability.next({
+		this.act.parser.eventDispatcher.ability.next({
 			type: 'use',
 			abilityName,
 			abilityId,
@@ -41,19 +41,19 @@ export class AbilityUseHandler implements HandlerInterface {
 			sourceName: name
 		});
 
-		const combatant = this.parser.findCombatant(id, name);
+		const combatant = this.act.parser.findCombatant(id, name);
 		if (!combatant) {
 			return;
 		}
 
 		if (duration > 0) {
-			// if (!(this.parser.xiv.connected && combatant.isPlayer)) {
+			// if (!(this.act.parser.xiv.connected && combatant.isPlayer)) {
 				// Approximately 300ms is needed for cast bars if working with network event
 				combatant.cast.start(
 					abilityId,
 					abilityName,
 					duration,
-					(this.parser.config.config.castDelay / 1000)
+					(this.act.parser.config.config.castDelay / 1000)
 				);
 			// }
 		}
@@ -64,7 +64,7 @@ export class AbilityUseHandler implements HandlerInterface {
 			);
 		}
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				abilityId +
 				':' + name +

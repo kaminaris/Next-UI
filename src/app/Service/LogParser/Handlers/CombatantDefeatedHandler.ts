@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -11,7 +11,7 @@ const indexes = {
 export class CombatantDefeatedHandler implements HandlerInterface {
 	eventId = 0x19;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -19,7 +19,7 @@ export class CombatantDefeatedHandler implements HandlerInterface {
 		const targetId = event[indexes.targetId]?.toUpperCase() ?? '';
 		const targetName = event[indexes.targetName] ?? '';
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			// tested
 			console.log(
 				'Combatant defeated: ' + name + ' was defeated by ' + targetName + '.'

@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -22,7 +22,7 @@ const indexes = {
 export class OverTimeTickHandler implements HandlerInterface {
 	eventId = 0x18;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -53,7 +53,7 @@ export class OverTimeTickHandler implements HandlerInterface {
 		// if (effectName)
 		// 	effectPart = effectName + ' ';
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			// tested
 			console.log(
 				`DOT/HOT: ${ type } tick for ${ damage } damage to ${ id } ${ name }. ${ heading }`

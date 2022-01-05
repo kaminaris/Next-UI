@@ -1,4 +1,4 @@
-import { LogParser }        from '../LogParser';
+import { ActService }       from 'src/app/Service/Act/ActService';
 import { HandlerInterface } from './HandlerInterface';
 
 const indexes = {
@@ -12,7 +12,7 @@ const indexes = {
 export class AbilityCancelHandler implements HandlerInterface {
 	eventId = 0x17;
 
-	constructor(public parser: LogParser) {}
+	constructor(public act: ActService) {}
 
 	handle(event: string[]) {
 		const id = parseInt(event[indexes.id] || '0', 16);
@@ -23,7 +23,7 @@ export class AbilityCancelHandler implements HandlerInterface {
 
 		const reason = event[indexes.reason] ?? '';
 
-		this.parser.eventDispatcher.ability.next({
+		this.act.parser.eventDispatcher.ability.next({
 			type: 'cancel',
 			abilityName,
 			abilityId,
@@ -34,14 +34,14 @@ export class AbilityCancelHandler implements HandlerInterface {
 			sourceName: name
 		});
 
-		const combatant = this.parser.findCombatant(id, name);
+		const combatant = this.act.parser.findCombatant(id, name);
 		if (!combatant) {
 			return;
 		}
 		console.log(event);
 		combatant.cast.stop(true, reason, abilityId);
 
-		if (this.parser.debugMode) {
+		if (this.act.parser.debugMode) {
 			console.log(
 				`Cancel ability: ${ id }, ${ name }, ${ abilityId }, ${ abilityName }, ${ reason }`
 			);
