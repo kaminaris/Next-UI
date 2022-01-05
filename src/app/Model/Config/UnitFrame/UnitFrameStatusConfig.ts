@@ -11,11 +11,12 @@ export class UnitFrameStatusConfig extends BaseConfig {
 
 	get anchor(): Anchor { return this.anchorSub.value; }
 	set anchor(v: Anchor) { this.anchorSub.next(v); }
-	anchorSub = new DistinctBehaviorSubject<Anchor>('bottomLeft');
+	anchorSub: DistinctBehaviorSubject<Anchor> = new DistinctBehaviorSubject<Anchor>('bottomLeft');
 
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
-	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
+	positionSub: DistinctBehaviorSubject<FramePositionInterface> =
+		new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	get filters(): string[] { return this.filtersSub.value; }
 	set filters(v: string[]) { this.filtersSub.next(v); }

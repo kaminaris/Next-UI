@@ -1,22 +1,34 @@
-import { Injectable } from '@angular/core';
-import { statuses }   from 'src/app/Data/statuses';
-import { Combatant }  from 'src/app/Model/Combatant';
-import { LogParser }  from 'src/app/Service/LogParser/LogParser';
-import { Util }       from 'src/app/Service/LogParser/Util';
+import { Injectable }        from '@angular/core';
+import { statuses }          from 'src/app/Data/statuses';
+import { Combatant }         from 'src/app/Model/Combatant';
+import { BaseFrameConfig }   from 'src/app/Model/Config/BaseFrameConfig';
+import { MainConfig }        from 'src/app/Model/Config/MainConfig';
+import { PlayerFrameConfig } from 'src/app/Model/Config/PlayerFrameConfig';
+import { ActService }        from 'src/app/Service/Act/ActService';
+import { ConfigService }     from 'src/app/Service/ConfigService';
+import { LogParser }         from 'src/app/Service/LogParser/LogParser';
+import { Util }              from 'src/app/Service/LogParser/Util';
+import { XivService }        from 'src/app/Service/Xiv/XivService';
 
 @Injectable({ providedIn: 'root' })
 export class TestService {
 	playerHpInterval: number;
 
 	constructor(
-		protected parser: LogParser
+		protected parser: LogParser,
+		protected config: ConfigService,
+		protected xiv: XivService,
+		protected act: ActService,
 	) {
 		(window as any).testService = this;
-		(window as any).testMode = this.testMode.bind(this);
+	}
+
+	setBackground(url: string) {
+		document.body.style.backgroundImage = `url(${url})`;
 	}
 
 	testMode() {
-		document.body.style.backgroundImage = 'url(https://i.imgur.com/fP3kF8J.jpeg)';
+		this.setBackground('https://i.imgur.com/fP3kF8J.jpeg');
 		this.parser.registerPlayer('Player Name', 1);
 		const player = this.parser.player.value;
 		player.job.next('MCH');
@@ -32,8 +44,6 @@ export class TestService {
 		for (const j of Util.jobsArray()) {
 			this.addCombatant(false, j.job, 'Player ' + j.job);
 		}
-
-		// this.toggleAnimatePlayerHp();
 	}
 
 	fullTest() {
@@ -73,6 +83,23 @@ export class TestService {
 		}
 	}
 
+	setFramePos(frame: keyof Omit<MainConfig['frames'], "auraBar">, x: number, y: number) {
+		const f = this.config.config.frames[frame];
+		if (!f) {
+			return;
+		}
+
+		if (f instanceof BaseFrameConfig) {
+			f.position = { x, y };
+		} else if (f instanceof PlayerFrameConfig) {
+			f.basic.position = { x, y };
+		} else {
+			console.log(`Position not set, unable to find ${frame}`);
+			return;
+		}
+		console.log(`Position set, for frame ${frame} x: ${x} y: ${y}`);
+	}
+
 	chatMessage(m: string, s: string = 'player') {
 		this.parser.parse(['0', '', 'type', s, m, '']);
 	}
@@ -85,7 +112,7 @@ export class TestService {
 			let pick: Combatant;
 			do {
 				pick = this.randomElement(this.parser.combatants.value, (v: Combatant) => {
-					return !v.isNPC;
+					return !v.isNPC && !v.isCrafterOrGatherer;
 				});
 			} while (combs.indexOf(pick) >= 0 || pick.job.value === 'NONE');
 			combs.push(pick);

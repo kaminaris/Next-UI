@@ -83,6 +83,12 @@ export class ActService {
 				};
 			}
 			else {
+				if (!this.win.OverlayPluginApi) {
+					this.connected = false;
+					console.log('ACT Is not present!');
+					return;
+				}
+
 				this.connected = true;
 				console.log('ACT Connected!');
 

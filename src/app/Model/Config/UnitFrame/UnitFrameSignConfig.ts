@@ -11,11 +11,12 @@ export class UnitFrameSignConfig extends BaseConfig {
 
 	get anchor(): Anchor { return this.anchorSub.value; }
 	set anchor(v: Anchor) { this.anchorSub.next(v); }
-	anchorSub = new DistinctBehaviorSubject<Anchor>('topRight');
+	anchorSub: DistinctBehaviorSubject<Anchor> = new DistinctBehaviorSubject<Anchor>('topRight');
 
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
-	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
+	positionSub: DistinctBehaviorSubject<FramePositionInterface> =
+		new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
 
 	get size(): number { return this.sizeSub.value; }
 	set size(v: number) { this.sizeSub.next(v); }

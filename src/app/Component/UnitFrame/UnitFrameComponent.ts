@@ -7,6 +7,7 @@ import {
 }                                                from '@angular/core';
 import { BehaviorSubject, config, Subscription } from 'rxjs';
 import { ContextMenuItem }                       from 'src/app/Interface/ContextMenuItem';
+import { PlayerFrameConfig }                     from 'src/app/Model/Config/PlayerFrameConfig';
 import { Status }                                from 'src/app/Model/Status';
 import { Combatant }                             from 'src/app/Model/Combatant';
 import { ConfigService }                         from 'src/app/Service/ConfigService';
@@ -44,7 +45,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	combatantSubs: Subscription[] = [];
 
 	config = this.conf.config;
-	ownConfig = this.config.frames.player;
+	ownConfig: PlayerFrameConfig = this.config.frames.player;
 
 	@Input() combatantSubject: BehaviorSubject<Combatant>;
 	@Input() combatant: Combatant;
