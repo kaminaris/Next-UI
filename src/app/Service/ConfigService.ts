@@ -1,18 +1,20 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, merge, Subject }         from 'rxjs';
 import { debounceTime }                            from 'rxjs/operators';
+import { classicConfig }                           from 'src/app/Data/Config/Profiles/Classic/classicConfig';
+import { miniConfig }                              from 'src/app/Data/Config/Profiles/Mini/miniConfig';
 import { sorters }                                 from 'src/app/Data/sorters';
 import { ConfigProfile }                           from 'src/app/Interface/ConfigProfile';
 import { Combatant }                               from 'src/app/Model/Combatant';
 import { MainConfig }                              from 'src/app/Model/Config/MainConfig';
 import { DistinctBehaviorSubject }                 from 'src/app/Model/DistinctBehaviorSubject';
 import { CompressionService }                      from 'src/app/Service/CompressionService';
-import { defaultConfig }                           from 'src/app/Data/Config/defaultConfig';
 import extend                                      from 'just-extend';
+import { WebFontService }                          from 'src/app/Service/WebFontService';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-	defaultConfig = defaultConfig;
+	defaultConfig = miniConfig;
 
 	numberFormats = [
 		{ name: 'Full', value: 'full' },
@@ -53,8 +55,11 @@ export class ConfigService {
 	constructor(
 		protected rendererFactory: RendererFactory2,
 		protected compressionService: CompressionService,
+		protected webFontService: WebFontService
 	) {
 		this.renderer = rendererFactory.createRenderer(null, null);
+
+		this.loadProfiles();
 
 		let c: any = localStorage.getItem('cfg') || '';
 		try {
@@ -79,8 +84,6 @@ export class ConfigService {
 			});
 
 		this.applyConfig();
-
-		this.loadProfiles();
 		this.makeFormatHPFunction();
 		this.makeFormatManaFunction();
 		this.setSorters();
@@ -181,6 +184,7 @@ export class ConfigService {
 
 		console.log('config saved', this.config);
 		document.body.style.fontFamily = this.config.fontFamily;
+		this.webFontService.loadWebfont(this.config.webFont);
 		this.configChanged.next(true);
 	}
 
@@ -290,6 +294,17 @@ export class ConfigService {
 				this.profiles = parsed;
 			}
 		}
+		else {
+			this.resetProfiles();
+		}
+	}
+
+	resetProfiles() {
+		this.profiles = [
+			{ name: 'Mini', config: JSON.stringify(miniConfig) },
+			{ name: 'Classic', config: JSON.stringify(classicConfig) }
+		];
+		this.saveProfiles();
 	}
 
 	saveAsProfile(profileName: string) {

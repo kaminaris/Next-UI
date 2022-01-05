@@ -1,9 +1,9 @@
 import extend                        from 'just-extend';
-import { defaultPlayerConfig }       from 'src/app/Data/Config/defaultPlayerConfig';
 import { RecursivePartial }          from 'src/app/Interface/RecursivePartial';
 import { TargetOfTargetFrameConfig } from 'src/app/Model/Config/TargetOfTargetFrameConfig';
+import { classicPlayerConfig }       from './classicPlayerConfig';
 
-const playerClone = extend(true, {}, defaultPlayerConfig);
+const playerClone = extend(true, {}, classicPlayerConfig);
 const targetOfTargetConfig: RecursivePartial<TargetOfTargetFrameConfig> = {
 	basic: {
 		position: { x: 1180, y: 500 },
@@ -13,7 +13,7 @@ const targetOfTargetConfig: RecursivePartial<TargetOfTargetFrameConfig> = {
 		show: false
 	},
 	status: {
-		position: { x: 0, y: -30 },
+		position: { x: 0, y: -30 }
 	},
 	sign: {
 		show: false
@@ -34,5 +34,5 @@ const targetOfTargetConfig: RecursivePartial<TargetOfTargetFrameConfig> = {
 	}
 };
 
-export const defaultTargetOfTargetConfig: RecursivePartial<TargetOfTargetFrameConfig> =
+export const classicTargetOfTargetConfig: RecursivePartial<TargetOfTargetFrameConfig> =
 	extend(true, playerClone, targetOfTargetConfig);

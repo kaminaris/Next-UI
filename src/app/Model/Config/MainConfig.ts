@@ -30,6 +30,10 @@ export class MainConfig implements SerializableConfig {
 	set fontFamily(v: string) { this.fontFamilySub.next(v); }
 	fontFamilySub = new DistinctBehaviorSubject<string>('');
 
+	get webFont(): string { return this.webFontSub.value; }
+	set webFont(v: string) { this.webFontSub.next(v); }
+	webFontSub = new DistinctBehaviorSubject<string>('');
+
 	get customCss(): string { return this.customCssSub.value; }
 	set customCss(v: string) { this.customCssSub.next(v); }
 	customCssSub = new DistinctBehaviorSubject<string>('');

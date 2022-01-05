@@ -6,6 +6,7 @@ import { ConfigService } from 'src/app/Service/ConfigService';
 	template: `
 		<config-group title="Main Configuration">
 			<config-input [configObj]="config" prop="fontFamily" label="Font family"></config-input>
+			<config-input [configObj]="config" prop="webFont" label="Web font path"></config-input>
 			<config-select [configObj]="config" [items]="conf.numberFormats" prop="numberFormat" bindLabel="name"
 				bindValue="value" label="Number Format"></config-select>
 			<config-checkbox [configObj]="config" prop="blurNames" label="Blur Names"></config-checkbox>

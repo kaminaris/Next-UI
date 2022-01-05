@@ -1,13 +1,13 @@
-import { defaultAggroList }            from 'src/app/Data/Config/defaultAggroList';
-import { defaultFocusConfig }          from 'src/app/Data/Config/defaultFocusConfig';
-import { defaultPartyConfig }          from 'src/app/Data/Config/defaultPartyConfig';
-import { defaultTargetOfTargetConfig } from 'src/app/Data/Config/defaultTargetOfTargetConfig';
 import { RecursivePartial }            from 'src/app/Interface/RecursivePartial';
 import { MainConfig }                  from 'src/app/Model/Config/MainConfig';
-import { defaultPlayerConfig }         from './defaultPlayerConfig';
-import { defaultTargetConfig }         from './defaultTargetConfig';
+import { classicPlayerConfig }         from './classicPlayerConfig';
+import { classicTargetConfig }         from './classicTargetConfig';
+import { classicFocusConfig }          from './classicFocusConfig';
+import { classicTargetOfTargetConfig } from './classicTargetOfTargetConfig';
+import { classicAggroListConfig }      from './classicAggroListConfig';
+import { classicPartyConfig }          from './classicPartyConfig';
 
-export const defaultConfig: RecursivePartial<MainConfig> = {
+export const classicConfig: RecursivePartial<MainConfig> = {
 	fontFamily: 'Segoe UI',
 	customCss: '',
 	numberFormat: 'full',
@@ -76,11 +76,11 @@ export const defaultConfig: RecursivePartial<MainConfig> = {
 				}
 			}
 		},
-		player: defaultPlayerConfig,
-		target: defaultTargetConfig,
-		focus: defaultFocusConfig,
-		targetOfTarget: defaultTargetOfTargetConfig,
-		party: defaultPartyConfig,
-		aggroList: defaultAggroList
+		player: classicPlayerConfig,
+		target: classicTargetConfig,
+		focus: classicFocusConfig,
+		targetOfTarget: classicTargetOfTargetConfig,
+		party: classicPartyConfig,
+		aggroList: classicAggroListConfig
 	}
 };

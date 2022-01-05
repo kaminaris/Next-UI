@@ -83,6 +83,22 @@ export class TestService {
 		}
 	}
 
+	exportProfile(name: string) {
+		const p = this.config.profiles.find(p => p.name === name);
+		if (!p) {
+			console.log('Profile not found: ' + name);
+			return;
+		}
+
+		console.log(JSON.parse(p.config));
+	}
+
+	exportCurrentConfig() {
+		const c = this.config.config;
+		console.log(c);
+		return c;
+	}
+
 	setFramePos(frame: keyof Omit<MainConfig['frames'], "auraBar">, x: number, y: number) {
 		const f = this.config.config.frames[frame];
 		if (!f) {

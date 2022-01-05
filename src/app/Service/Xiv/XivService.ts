@@ -488,11 +488,7 @@ export class XivService {
 
 	chatMessage(data: ChatMessageEvent) {
 		const type = 'say';
-		this.parser.eventDispatcher.chat.next({ type, speaker: data.sender, message: data.message });
-
-		if (data.sender) {
-			this.parser.tts.say(type, data.sender, data.message);
-		}
+		this.parser.chatMessage(type, data.sender, data.message);
 	}
 
 	async actorChanged(data: ActorChangedEvent) {

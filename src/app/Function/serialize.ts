@@ -8,6 +8,11 @@ export function serialize(instance: any) {
 			continue;
 		}
 
+		//TODO: maybe some better way
+		if (key === 'anyChangedCache' || key === 'anyChangedRecursiveCache') {
+			continue;
+		}
+
 		const value = instance[key];
 		if (value instanceof BehaviorSubject) {
 			if (!key.endsWith('Sub')) {
@@ -19,18 +24,23 @@ export function serialize(instance: any) {
 
 			if (Array.isArray(instance[propKey])) {
 				out[propKey] = [...instance[propKey]];
-			} else if (typeof instance[propKey] === 'object') {
+			}
+			else if (typeof instance[propKey] === 'object') {
 				out[propKey] = Object.assign({}, instance[propKey]);
-			} else {
+			}
+			else {
 				out[propKey] = instance[propKey];
 			}
-		} else if (typeof value === 'object') {
+		}
+		else if (typeof value === 'object') {
 			if ('serialize' in value) {
 				out[key] = value.serialize();
-			} else {
+			}
+			else {
 				out[key] = serialize(value);
 			}
-		} else if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
+		}
+		else if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
 			out[key] = value;
 		}
 	}

@@ -1,16 +1,16 @@
 import extend                  from 'just-extend';
-import { defaultPlayerConfig } from 'src/app/Data/Config/defaultPlayerConfig';
 import { RecursivePartial }    from 'src/app/Interface/RecursivePartial';
 import { PartyFrameConfig }    from 'src/app/Model/Config/PartyFrameConfig';
+import { classicPlayerConfig } from './classicPlayerConfig';
 
-const playerClone = extend(true, {}, defaultPlayerConfig);
+const playerClone = extend(true, {}, classicPlayerConfig);
 const partyConfig: RecursivePartial<PartyFrameConfig> = {
 	basic: {
 		position: { x: 100, y: 200 },
 		size: { width: 250, height: 300 }
 	},
 	manaBar: {
-		height: '2px',
+		height: '2px'
 	},
 	direction: 'vertical',
 	unitFrameHeight: '50px',
@@ -21,7 +21,7 @@ const partyConfig: RecursivePartial<PartyFrameConfig> = {
 
 	status: {
 		position: { x: 270, y: 0 },
-		anchor: 'left',
+		anchor: 'left'
 	},
 	role: {
 		show: true
@@ -49,4 +49,4 @@ const partyConfig: RecursivePartial<PartyFrameConfig> = {
 	}
 };
 
-export const defaultPartyConfig: RecursivePartial<PartyFrameConfig> = extend(true, playerClone, partyConfig);
+export const classicPartyConfig: RecursivePartial<PartyFrameConfig> = extend(true, playerClone, partyConfig);

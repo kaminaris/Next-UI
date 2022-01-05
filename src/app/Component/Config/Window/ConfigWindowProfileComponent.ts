@@ -32,9 +32,10 @@ import { ConfigService }      from 'src/app/Service/ConfigService';
 			</div>
 			<div>
 				<div class="btn-group">
-					<button class="btn btn-success" (click)="loadProfile()">Load</button>
+					<button class="btn btn-warning" (click)="loadProfile()">Load</button>
 					<button class="btn btn-success" (click)="saveProfile()">Save</button>
 					<button class="btn btn-success" (click)="deleteProfile()">Delete</button>
+					<button class="btn btn-danger" (click)="resetProfiles()">ResetAll</button>
 				</div>
 			</div>
 			<div>
@@ -78,6 +79,11 @@ export class ConfigWindowProfileComponent {
 		}
 
 		this.conf.deleteProfile(this.selectedProfile);
+		this.profiles = this.conf.profiles;
+	}
+
+	resetProfiles() {
+		this.conf.resetProfiles();
 		this.profiles = this.conf.profiles;
 	}
 
