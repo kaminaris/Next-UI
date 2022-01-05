@@ -1,7 +1,7 @@
 import { BehaviorSubject, first, merge, Observable, Subject } from 'rxjs';
 import { debounceTime }                                       from 'rxjs/operators';
-import { Cast }   from 'src/app/Model/Cast';
-import { Status } from 'src/app/Model/Status';
+import { Cast }                                               from 'src/app/Model/Cast';
+import { Status }                                             from 'src/app/Model/Status';
 
 export const healers = ['CNJ', 'WHM', 'SCH', 'AST', 'SGE'];
 export const tanks = ['GLA', 'MRD', 'PLD', 'WAR', 'DRK', 'GNB'];
@@ -31,6 +31,21 @@ export class Combatant {
 
 	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
 	get isDummy() { return this.id.toString(16).startsWith('4'); }
+
+	get firstName() {
+		const spaceIdx = this.name.indexOf(' ');
+		return spaceIdx < 0 ? this.name : this.name.slice(0, spaceIdx);
+	}
+
+	get lastName() {
+		const spaceIdx = this.name.indexOf(' ');
+		return spaceIdx < 0 ? '' : this.name.slice(spaceIdx + 1);
+	}
+
+	get hpDeficit() { return this.hpMax - this.hp.value; }
+	get hpPercent() { return 100 * this.hp.value / this.hpMax; }
+	get manaDeficit() { return this.manaMax - this.mana.value; }
+	get manaPercent() { return 100 * this.mana.value / this.manaMax; }
 
 	inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);

@@ -4,19 +4,20 @@ import {
 	Component, ElementRef, HostListener, Input,
 	OnDestroy,
 	OnInit
-}                                                from '@angular/core';
-import { BehaviorSubject, config, Subscription } from 'rxjs';
-import { ContextMenuItem }                       from 'src/app/Interface/ContextMenuItem';
-import { PlayerFrameConfig }                     from 'src/app/Model/Config/PlayerFrameConfig';
-import { Status }                                from 'src/app/Model/Status';
-import { Combatant }                             from 'src/app/Model/Combatant';
-import { ConfigService }                         from 'src/app/Service/ConfigService';
-import { ContextMenuService }                    from 'src/app/Service/ContextMenuService';
-import { LogParser }                             from 'src/app/Service/LogParser/LogParser';
-import { Util }                                  from 'src/app/Service/LogParser/Util';
-import { MainService }                           from 'src/app/Service/MainService';
-import { StatusService }                         from 'src/app/Service/StatusService';
-import { XivService }                            from 'src/app/Service/Xiv/XivService';
+}                                        from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ContextMenuItem }               from 'src/app/Interface/ContextMenuItem';
+import { PlayerFrameConfig }             from 'src/app/Model/Config/PlayerFrameConfig';
+import { Status }                        from 'src/app/Model/Status';
+import { Combatant }                     from 'src/app/Model/Combatant';
+import { ConfigService }                 from 'src/app/Service/ConfigService';
+import { ContextMenuService }            from 'src/app/Service/ContextMenuService';
+import { LogParser }                     from 'src/app/Service/LogParser/LogParser';
+import { Util }                          from 'src/app/Service/LogParser/Util';
+import { MainService }                   from 'src/app/Service/MainService';
+import { StatusService }                 from 'src/app/Service/StatusService';
+import { TemplateService }               from 'src/app/Service/TemplateService';
+import { XivService }                    from 'src/app/Service/Xiv/XivService';
 
 @Component({
 	selector: 'unit-frame',
@@ -139,7 +140,8 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		protected cd: ChangeDetectorRef,
 		protected auraService: StatusService,
 		protected xiv: XivService,
-		protected contextMenuService: ContextMenuService
+		protected contextMenuService: ContextMenuService,
+		protected templateService: TemplateService,
 	) {}
 
 	/**
@@ -190,13 +192,30 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(this.conf.config.anyChanged.subscribe(() => {
+			console.log('does this fire2?')
 			this.update();
 			this.cd.detectChanges();
 		}));
 
 		this.subs.push(this.ownConfig.anyChangedRecursive.subscribe(() => {
+			console.log('does this fire?')
+			this.update();
 			this.cd.detectChanges();
 		}));
+
+		// TODO: think about this
+		this.subs.push(this.ownConfig.widgets.name.anyChanged.subscribe(() => {
+			this.name = this.formatName(this.combatant);
+			this.cd.detectChanges();
+		}))
+		this.subs.push(this.ownConfig.widgets.hp.anyChanged.subscribe(() => {
+			this.calcHp();
+			this.cd.detectChanges();
+		}))
+		this.subs.push(this.ownConfig.widgets.mana.anyChanged.subscribe(() => {
+			this.calcMana();
+			this.cd.detectChanges();
+		}))
 	}
 
 	startDistanceTimer() {
@@ -389,6 +408,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			this.hpPct = 100;
 		}
 
+		if (this.ownConfig.widgets.hp.template) {
+			this.hpText = this.templateService.format(this.ownConfig.widgets.hp.template, this.combatant);
+			return;
+		}
+
 		const data = {
 			hpRaw: this.hp,
 			hpMaxRaw: this.hpMax,
@@ -406,6 +430,12 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		if (this.manaPct > 100) {
 			this.manaPct = 100;
 		}
+
+		if (this.ownConfig.widgets.mana.template) {
+			this.hpText = this.templateService.format(this.ownConfig.widgets.mana.template, this.combatant);
+			return;
+		}
+
 		const data = {
 			manaRaw: this.mana,
 			manaMaxRaw: this.manaMax,
@@ -466,6 +496,11 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}
 		if (c.isPlayer && this.config.replaceYourName) {
 			return this.config.replaceYourName;
+		}
+
+		const nameTemplate = this.ownConfig.widgets.name.template;
+		if (nameTemplate) {
+			return this.templateService.format(nameTemplate, c);
 		}
 
 		return c.name;

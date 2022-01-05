@@ -11,6 +11,7 @@ export abstract class BaseConfigComponent {
 	@Input() reset = true;
 	value: any;
 
+	@Input() helpUrl = '';
 	@Input() configObj: any = {};
 	@Input() configPath: string;
 	@Input() updateSubject: Subject<any>;
@@ -33,6 +34,14 @@ export abstract class BaseConfigComponent {
 			this.value = this.getValue();
 			console.log('WAS UPDATED', this.getValue())
 		});
+	}
+
+	openHelp() {
+		window.open(
+			this.helpUrl,
+			'nu-help',
+			'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=400,height=350'
+		);
 	}
 
 	resetConfig(prop: string) {

@@ -35,6 +35,10 @@ export class TextWidgetConfig implements SerializableConfig, TextWidgetConfigInt
 	set outline(v: boolean) { this.outlineSub.next(v); }
 	outlineSub = new DistinctBehaviorSubject<boolean>(true);
 
+	get template(): string { return this.templateSub.value; }
+	set template(v: string) { this.templateSub.next(v); }
+	templateSub = new DistinctBehaviorSubject<string>('');
+
 	get position(): FramePositionInterface { return this.positionSub.value; }
 	set position(v: FramePositionInterface) { this.positionSub.next(v); }
 	positionSub = new DistinctBehaviorSubject<FramePositionInterface>({ x: 0, y: 0 });
