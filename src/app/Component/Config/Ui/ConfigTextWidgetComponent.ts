@@ -22,5 +22,5 @@ export class ConfigTextWidgetComponent {
 	@Input() configPath: string;
 	@Input() title: string;
 	anchors = anchors;
-	helpUrl = '';
+	helpUrl = 'https://kaminaris.github.io/mdrender.html?url=https://raw.githubusercontent.com/kaminaris/Next-UI/master/TemplateTags.md';
 }

@@ -32,15 +32,19 @@ export abstract class BaseConfigComponent {
 		this.value = this.getValue();
 		this.updateSubject?.subscribe(() => {
 			this.value = this.getValue();
-			console.log('WAS UPDATED', this.getValue())
+			console.log('WAS UPDATED', this.getValue());
 		});
 	}
 
 	openHelp() {
-		window.open(
+		const w = 800;
+		const h = 600;
+		const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+		const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
+		return window.open(
 			this.helpUrl,
 			'nu-help',
-			'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=400,height=350'
+			`toolbar=no, location=no, directories=no, status=no, menubar=no, copyhistory=no, width=${ w }, height=${ h }, top=${ y }, left=${ x }`
 		);
 	}
 

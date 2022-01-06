@@ -15,7 +15,6 @@ some examples:
 * `[name:s]` - short name, first 5 characters ex. `Playe`
 * `[name:m]` - medium name, first 10 characters ex. `Player Sur`
 * `[name:l]` - long name, first 15 characters ex. `Longerplayer Su`
-
 * `[name:first]` - first name (up to first space) ex. `Longerplayer`
 * `[name:first:i]` - first name initial first letter. `L`
 * `[name:last]` - last nameex. `Name`

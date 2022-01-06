@@ -5,8 +5,8 @@ import { BaseConfigComponent } from 'src/app/Component/Config/Ui/BaseConfigCompo
 	selector: 'config-input',
 	template: `
 		<div class="config-label">{{ label }}</div>
-		<div class="config-input">
-			<button *ngIf="helpUrl" class="btn btn-outline-info" (click)="openHelp()">?</button>
+		<div class="config-input d-flex flex-row">
+			<button *ngIf="helpUrl" class="btn btn-sm btn-info" (click)="openHelp()">?</button>
 			<input class="form-control form-control-sm w100p" 
 				[type]="inputType" 
 				[(ngModel)]="value"
