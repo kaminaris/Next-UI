@@ -8,13 +8,12 @@ import { miniAggroListConfig }      from './miniAggroListConfig';
 import { miniPartyConfig }          from './miniPartyConfig';
 
 export const miniConfig: RecursivePartial<MainConfig> = {
-	version: 1,
+	version: 2,
 	fontFamily: 'Inter',
 	webFont: 'https://fonts.googleapis.com/css2?family=Inter&display=swap',
 	customCss: '.progress-bar-fill {\nbackground-image: linear-gradient(rgba(50, 50, 50, 0.1), rgba(200, 200, 200, 0.3));\n}',
-	numberFormat: 'full',
-	hpTemplate: '[hpPct]%',
-	manaTemplate: '[manaPct]%',
+	hpTemplate: '[hp:pct:f]%',
+	manaTemplate: '[mana:pct:f]%',
 	castDelay: 400,
 	blurNames: false,
 

@@ -43,9 +43,9 @@ export class Combatant {
 	}
 
 	get hpDeficit() { return this.hpMax - this.hp.value; }
-	get hpPercent() { return 100 * this.hp.value / this.hpMax; }
+	get hpPercent() { return Math.min(100 * this.hp.value / this.hpMax, 100); }
 	get manaDeficit() { return this.manaMax - this.mana.value; }
-	get manaPercent() { return 100 * this.mana.value / this.manaMax; }
+	get manaPercent() { return Math.min(100 * this.mana.value / this.manaMax); }
 
 	inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);

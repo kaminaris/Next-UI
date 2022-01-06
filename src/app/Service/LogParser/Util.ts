@@ -60,18 +60,4 @@ export class Util {
 
 		return out;
 	}
-
-	static formatNumber(n: number, format: string) {
-		switch (format) {
-			case 'prec0':
-				return (Math.round(n / 1000)).toString() + 'k';
-			case 'prec1':
-				return (Math.round(n * 10 / 1000) / 10).toString() + 'k';
-			case 'prec2':
-				return (Math.round(n * 100 / 1000) / 100).toString() + 'k';
-			default:
-			case 'full':
-				return n.toString();
-		}
-	}
 }

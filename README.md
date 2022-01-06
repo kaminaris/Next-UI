@@ -6,15 +6,18 @@
 
 ## TODO
 
-- [ ] Role icons
-- [ ] Profiles for settings
-- [ ] Aura timers over 1 minute
-- [ ] Fix empty aura sometimes on target
-- [ ] Main configuration
+- [x] ~~Role icons~~
+- [x] ~~Profiles for settings~~
+- [x] ~~Aura timers over 1 minute~~
+- [x] ~~Fix empty aura sometimes on target~~
+- [x] ~~Main configuration~~
 - [x] ~~Disabling specific frames~~
 - [x] ~~Disabling auras on frames~~
 - [x] ~~toggle whole ui?~~
 - [x] ~~custom css?~~
+- [ ] Finish templates
+- [ ] Trust system compatibility
+- [ ] Cross world party
 
 ## Development server
 

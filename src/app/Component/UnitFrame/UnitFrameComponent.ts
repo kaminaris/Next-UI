@@ -25,22 +25,17 @@ import { XivService }                    from 'src/app/Service/Xiv/XivService';
 	templateUrl: 'UnitFrameComponent.html'
 })
 export class UnitFrameComponent implements OnInit, OnDestroy {
-	hp = 100;
-	hpMax = 100;
 	hpPct = 100;
-
-	mana = 10000;
-	manaMax = 10000;
 	manaPct = 100;
 
 	blurName = false;
 	name = '';
 	job = 'NONE';
+	jobText = 'NONE';
 	level = 1;
 
-	hpText = '100 / 100 (100%)';
-
-	manaText = '10000 / 10000 (100%)';
+	hpText = '';
+	manaText = '';
 
 	subs: Subscription[] = [];
 	combatantSubs: Subscription[] = [];
@@ -192,28 +187,35 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subs.push(this.conf.config.anyChanged.subscribe(() => {
-			console.log('does this fire2?')
 			this.update();
 			this.cd.detectChanges();
 		}));
 
 		this.subs.push(this.ownConfig.anyChangedRecursive.subscribe(() => {
-			console.log('does this fire?')
 			this.update();
 			this.cd.detectChanges();
 		}));
 
 		// TODO: think about this
 		this.subs.push(this.ownConfig.widgets.name.anyChanged.subscribe(() => {
+			if (!this.combatant) {
+				return;
+			}
 			this.name = this.formatName(this.combatant);
 			this.cd.detectChanges();
 		}))
 		this.subs.push(this.ownConfig.widgets.hp.anyChanged.subscribe(() => {
-			this.calcHp();
+			if (!this.combatant) {
+				return;
+			}
+			this.calcHp(this.combatant);
 			this.cd.detectChanges();
 		}))
 		this.subs.push(this.ownConfig.widgets.mana.anyChanged.subscribe(() => {
-			this.calcMana();
+			if (!this.combatant) {
+				return;
+			}
+			this.calcMana(this.combatant);
 			this.cd.detectChanges();
 		}))
 	}
@@ -401,50 +403,18 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.cd.detectChanges();
 	}
 
-	calcHp() {
-		// noinspection DuplicatedCode
-		this.hpPct = Math.round((this.hp / this.hpMax) * 100);
-		if (this.hpPct > 100) {
-			this.hpPct = 100;
-		}
+	calcHp(c?: Combatant) {
+		this.hpPct = Math.round(c.hpPercent);
 
-		if (this.ownConfig.widgets.hp.template) {
-			this.hpText = this.templateService.format(this.ownConfig.widgets.hp.template, this.combatant);
-			return;
-		}
-
-		const data = {
-			hpRaw: this.hp,
-			hpMaxRaw: this.hpMax,
-			hp: Util.formatNumber(this.hp, this.config.numberFormat),
-			hpMax: Util.formatNumber(this.hpMax, this.config.numberFormat),
-			hpPct: this.hpPct
-		};
-
-		this.hpText = this.conf.formatHP(data);
+		const temp = this.ownConfig.widgets.hp.template ?? this.config.hpTemplate;
+		this.hpText = this.templateService.format(temp, this.combatant);
 	}
 
-	calcMana() {
-		// noinspection DuplicatedCode
-		this.manaPct = Math.round((this.mana / this.manaMax) * 100);
-		if (this.manaPct > 100) {
-			this.manaPct = 100;
-		}
+	calcMana(c?: Combatant) {
+		this.manaPct = Math.round(c.manaPercent);
 
-		if (this.ownConfig.widgets.mana.template) {
-			this.hpText = this.templateService.format(this.ownConfig.widgets.mana.template, this.combatant);
-			return;
-		}
-
-		const data = {
-			manaRaw: this.mana,
-			manaMaxRaw: this.manaMax,
-			mana: Util.formatNumber(this.mana, this.config.numberFormat),
-			manaMax: Util.formatNumber(this.manaMax, this.config.numberFormat),
-			manaPct: this.manaPct
-		};
-
-		this.manaText = this.conf.formatMana(data);
+		const temp = this.ownConfig.widgets.mana.template ?? this.config.manaTemplate;
+		this.manaText = this.templateService.format(temp, this.combatant);
 	}
 
 	ngOnDestroy() {
@@ -474,20 +444,27 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 
 		this.name = this.formatName(c);
 		this.blurName = !c.isNPC && this.config.blurNames && (c.isPlayer ? !this.config.replaceYourName : true);
-		this.hp = c.hp.value;
-		this.hpMax = c.hpMax;
-		this.mana = c.mana.value;
-		this.manaMax = c.manaMax;
 		this.job = c.job.value;
-		if (this.job === 'NONE') {
-			this.job = '';
-		}
+		this.jobText = this.formatJob(c);
 		this.level = c.level.value;
-		this.calcHp();
-		this.calcMana();
+		this.calcHp(c);
+		this.calcMana(c);
 		this.setBarColor(c);
 
 		this.cd.detectChanges();
+	}
+
+	formatJob(c: Combatant) {
+		if (!c || c.job.value === 'NONE') {
+			return '';
+		}
+
+		const jobTemplate = this.ownConfig.widgets.job.template;
+		if (jobTemplate) {
+			return this.templateService.format(jobTemplate, c);
+		}
+
+		return c.job.value;
 	}
 
 	formatName(c: Combatant) {

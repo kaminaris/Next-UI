@@ -40,15 +40,11 @@ export class MainConfig implements SerializableConfig {
 
 	get hpTemplate(): string { return this.hpTemplateSub.value; }
 	set hpTemplate(v: string) { this.hpTemplateSub.next(v); }
-	hpTemplateSub = new DistinctBehaviorSubject<string>('[hp] / [hpMax] ([hpPct]%)');
+	hpTemplateSub = new DistinctBehaviorSubject<string>('[hp:pct:f]%');
 
 	get manaTemplate(): string { return this.manaTemplateSub.value; }
 	set manaTemplate(v: string) { this.manaTemplateSub.next(v); }
-	manaTemplateSub = new DistinctBehaviorSubject<string>('[mana] / [manaMax] ([manaPct]%)');
-
-	get numberFormat(): string { return this.numberFormatSub.value; }
-	set numberFormat(v: string) { this.numberFormatSub.next(v); }
-	numberFormatSub = new DistinctBehaviorSubject<string>('');
+	manaTemplateSub = new DistinctBehaviorSubject<string>('[mana:pct:f]%');
 
 	get filters(): StatusFilter[] { return this.filtersSub.value; }
 	set filters(v: StatusFilter[]) { this.filtersSub.next(v); }
@@ -105,12 +101,14 @@ export class MainConfig implements SerializableConfig {
 	}
 
 	protected upgradeConfig(cfg: ClassLike<MainConfig>) {
-		let configVersion = cfg.version ?? 0;
-
-		if (configVersion < 1) {
+		if ((cfg.version ?? 0) < 1) {
 			cfg = this.upgradeConfigTo1(cfg);
-			configVersion = 1;
 		}
+
+		if (cfg.version < 2) {
+			cfg = this.upgradeConfigTo2(cfg);
+		}
+
 		return cfg;
 	}
 
@@ -122,7 +120,7 @@ export class MainConfig implements SerializableConfig {
 			cfg.frames.target.healthBar,
 			cfg.frames.focus.healthBar,
 			cfg.frames.targetOfTarget.healthBar,
-			cfg.frames.aggroList.healthBar,
+			cfg.frames.aggroList.healthBar
 		];
 		for (const hbCfg of healthBarConfigs) {
 			hbCfg.useJobColor = (hbCfg as any).useClassColor;
@@ -131,4 +129,20 @@ export class MainConfig implements SerializableConfig {
 		return cfg;
 	}
 
+	protected upgradeConfigTo2(cfg: ClassLike<MainConfig>) {
+		cfg.hpTemplate = cfg
+			.hpTemplate
+			.replace('[hpMax]', '[hp:max]')
+			.replace('[hpPct]', '[hp:pct:f]')
+		;
+
+		cfg.manaTemplate = cfg
+			.manaTemplate
+			.replace('[manaMax]', '[mana:max]')
+			.replace('[manaPct]', '[mana:pct:f]')
+		;
+		cfg.version = 2;
+
+		return cfg;
+	}
 }

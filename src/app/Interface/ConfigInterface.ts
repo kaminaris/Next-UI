@@ -39,22 +39,3 @@ export interface PlayerConfigInterface extends FrameConfigInterface {
 export interface TargetConfigInterface extends PlayerConfigInterface {
 
 }
-
-export interface AuraBarInterface extends FrameConfigInterface {
-	iconSize: string;
-	cooldownPrecision: number;
-	cooldownOutline: boolean;
-}
-
-export interface ConfigInterface {
-	fontFamily: string;
-	numberFormat: string;
-
-	frames: {
-		player: PlayerConfigInterface,
-		target: TargetConfigInterface,
-		aura: AuraBarInterface,
-
-		[name: string]: FrameConfigInterface
-	}
-}

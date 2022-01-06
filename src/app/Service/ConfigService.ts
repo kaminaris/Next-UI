@@ -16,20 +16,6 @@ import { WebFontService }                          from 'src/app/Service/WebFont
 export class ConfigService {
 	defaultConfig = miniConfig;
 
-	numberFormats = [
-		{ name: 'Full', value: 'full' },
-		{ name: '2k', value: 'prec0' },
-		{ name: '2.1k', value: 'prec1' },
-		{ name: '2.13k', value: 'prec2' }
-	];
-
-	numberTemplates = [
-		{ name: 'Full', value: 'full' },
-		{ name: '2k', value: 'prec0' },
-		{ name: '2.1k', value: 'prec1' },
-		{ name: '2.13k', value: 'prec2' }
-	];
-
 	profiles: ConfigProfile[] = [];
 	config: MainConfig;
 
@@ -42,9 +28,6 @@ export class ConfigService {
 	renderer: Renderer2;
 
 	configChanged = new Subject();
-
-	formatHP: (data: any) => string;
-	formatMana: (data: any) => string;
 
 	/**
 	 * Sorters
@@ -84,46 +67,14 @@ export class ConfigService {
 			});
 
 		this.applyConfig();
-		this.makeFormatHPFunction();
-		this.makeFormatManaFunction();
 		this.setSorters();
 
-		this.config.hpTemplateSub.subscribe(this.makeFormatHPFunction.bind(this));
-		this.config.manaTemplateSub.subscribe(this.makeFormatManaFunction.bind(this));
 		this.config.frames.party.sorterSub.subscribe(this.setSorters.bind(this));
 		this.config.frames.aggroList.sorterSub.subscribe(this.setSorters.bind(this));
 	}
 
 	cloneDefaultConfig() {
 		return extend(true, {}, this.defaultConfig);
-	}
-
-	replaceTemplate(t: string) {
-		return t.replace(/\[(\w+)\]/g, (match: string, capture: string) => {
-			return '${data.' + capture + '}';
-		});
-	}
-
-	makeFormatHPFunction() {
-		try {
-			const hpTemplate = this.replaceTemplate(this.config.hpTemplate);
-			this.formatHP = new Function('data', 'return `' + hpTemplate + '`') as any;
-		}
-		catch (e) {
-			console.log(e);
-			this.formatHP = new Function('data', 'return `INV - ${data.hp}`') as any;
-		}
-	}
-
-	makeFormatManaFunction() {
-		try {
-			const manaTemplate = this.replaceTemplate(this.config.manaTemplate);
-			this.formatMana = new Function('data', 'return `' + manaTemplate + '`') as any;
-		}
-		catch (e) {
-			console.log(e);
-			this.formatMana = new Function('data', 'return `INV - ${data.mana}`') as any;
-		}
 	}
 
 	setSorters() {

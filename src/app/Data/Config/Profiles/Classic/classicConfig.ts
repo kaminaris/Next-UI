@@ -8,11 +8,11 @@ import { classicAggroListConfig }      from './classicAggroListConfig';
 import { classicPartyConfig }          from './classicPartyConfig';
 
 export const classicConfig: RecursivePartial<MainConfig> = {
+	version: 2,
 	fontFamily: 'Segoe UI',
 	customCss: '',
-	numberFormat: 'full',
-	hpTemplate: '[hp] / [hpMax] ([hpPct]%)',
-	manaTemplate: '[mana] / [manaMax] ([manaPct]%)',
+	hpTemplate: '[hp:f] / [hp:max:f] ([hp:pct:f]%)',
+	manaTemplate: '[mana:f] / [mana:max:f] ([mana:pct:f]%)',
 	castDelay: 400,
 
 	ttsConfig: {
