@@ -18,6 +18,7 @@
 - [ ] Finish templates
 - [ ] Trust system compatibility
 - [ ] Cross world party
+- [ ] Job icons
 
 ## Development server
 
