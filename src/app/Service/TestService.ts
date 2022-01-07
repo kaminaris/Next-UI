@@ -170,15 +170,18 @@ export class TestService {
 		const hp = Math.ceil(hpMax / 2);
 		const level = 5 + Math.ceil(Math.random() * 50);
 
-		this.parser.updateCombatant(
+		const c = this.parser.updateCombatant(
 			id, name, hp, hpMax, 10000, 10000,
-			this.randomRange(-50, 50),
-			this.randomRange(-50, 50),
-			this.randomRange(-50, 50),
 			job,
 			level,
 			enemy
 		);
+		this.parser.updateCombatantPosition(
+			c,
+			this.randomRange(-50, 50),
+			this.randomRange(-50, 50),
+			this.randomRange(-50, 50)
+		)
 	}
 
 	randomTarget() {

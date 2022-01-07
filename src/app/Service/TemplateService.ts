@@ -1,6 +1,7 @@
 import { Injectable }   from '@angular/core';
 import { formatNumber } from 'src/app/Function/formatNumber';
 import { Combatant }    from 'src/app/Model/Combatant';
+import { LogParser }    from 'src/app/Service/LogParser/LogParser';
 
 export interface TemplateTag {
 	tag: string;
@@ -180,7 +181,114 @@ export class TemplateService {
 			tag: 'mana:pct:f:2',
 			fn: (c: Combatant) => { return formatNumber(c.manaPercent, 2); }
 		},
+
+		{
+			tag: 'job',
+			fn: (c: Combatant) => { return c.job.value; }
+		},
+		{
+			tag: 'job:lower',
+			fn: (c: Combatant) => { return c.job.value.toLowerCase(); }
+		},
+
+		{
+			tag: 'level',
+			fn: (c: Combatant) => { return c.level.value.toString(); }
+		},
+
+		{
+			tag: 'id',
+			fn: (c: Combatant) => { return c.id.toString(); }
+		},
+		{
+			tag: 'id:hex',
+			fn: (c: Combatant) => { return c.id.toString(16); }
+		},
+
+		{
+			tag: 'sign',
+			fn: (c: Combatant) => { return c.sign.value.toString(); }
+		},
+
+		{
+			tag: 'role',
+			fn: (c: Combatant) => { return c.role; }
+		},
+		{
+			tag: 'role:upper',
+			fn: (c: Combatant) => { return c.role.toUpperCase(); }
+		},
+		{
+			tag: 'distance',
+			fn: (c: Combatant) => { return this.parser.getDistanceFromPlayer(c).toString(); }
+		},
+		{
+			tag: 'distance:f',
+			fn: (c: Combatant) => { return this.parser.getDistanceFromPlayer(c).toFixed(0); }
+		},
+		{
+			tag: 'distance:f:1',
+			fn: (c: Combatant) => { return this.parser.getDistanceFromPlayer(c).toFixed(1); }
+		},
+		{
+			tag: 'distance:f:2',
+			fn: (c: Combatant) => { return this.parser.getDistanceFromPlayer(c).toFixed(2); }
+		},
+
+		{
+			tag: 'pos:x',
+			fn: (c: Combatant) => { return c.x.toString(); }
+		},
+		{
+			tag: 'pos:x:f',
+			fn: (c: Combatant) => { return c.x.toFixed(0); }
+		},
+		{
+			tag: 'pos:x:f:1',
+			fn: (c: Combatant) => { return c.x.toFixed(1); }
+		},
+		{
+			tag: 'pos:x:f:2',
+			fn: (c: Combatant) => { return c.x.toFixed(2); }
+		},
+
+		{
+			tag: 'pos:y',
+			fn: (c: Combatant) => { return c.y.toString(); }
+		},
+		{
+			tag: 'pos:y:f',
+			fn: (c: Combatant) => { return c.y.toFixed(0); }
+		},
+		{
+			tag: 'pos:y:f:1',
+			fn: (c: Combatant) => { return c.y.toFixed(1); }
+		},
+		{
+			tag: 'pos:y:f:2',
+			fn: (c: Combatant) => { return c.y.toFixed(2); }
+		},
+
+		{
+			tag: 'pos:z',
+			fn: (c: Combatant) => { return c.z.toString(); }
+		},
+		{
+			tag: 'pos:z:f',
+			fn: (c: Combatant) => { return c.z.toFixed(0); }
+		},
+		{
+			tag: 'pos:z:f:1',
+			fn: (c: Combatant) => { return c.z.toFixed(1); }
+		},
+		{
+			tag: 'pos:z:f:2',
+			fn: (c: Combatant) => { return c.z.toFixed(2); }
+		},
+
 	];
+
+	constructor(protected parser: LogParser) {}
 
 	format(template: string, data: any): string {
 		return template.replace(this.reg, (match: string, capture: string) => {

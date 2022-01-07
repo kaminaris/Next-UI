@@ -16,6 +16,7 @@ export class Combatant {
 	static ENV_ID = 0xE0000000;
 
 	id: number = null;
+	contentId: number = null;
 	name: string = '';
 	job = new BehaviorSubject<string>('NONE');
 	level = new BehaviorSubject<number>(1);
@@ -24,12 +25,17 @@ export class Combatant {
 	isTarget = false;
 	isGatherer = false;
 	isCrafter = false;
+	crossWorldMember = false;
+
+	// has incomplete id
+	provisional = false;
 
 	x = 0;
 	y = 0;
 	z = 0;
 
 	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
+
 	get isDummy() { return this.id.toString(16).startsWith('4'); }
 
 	get firstName() {
@@ -43,11 +49,14 @@ export class Combatant {
 	}
 
 	get hpDeficit() { return this.hpMax - this.hp.value; }
+
 	get hpPercent() { return Math.min(100 * this.hp.value / this.hpMax, 100); }
+
 	get manaDeficit() { return this.manaMax - this.mana.value; }
+
 	get manaPercent() { return Math.min(100 * this.mana.value / this.manaMax); }
 
-	inParty = new BehaviorSubject<boolean>(false);
+	// inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);
 
 	hp = new BehaviorSubject<number>(100);
@@ -75,7 +84,7 @@ export class Combatant {
 		this.anyChanged = merge(
 			this.job,
 			this.level,
-			this.inParty,
+			// this.inParty,
 			this.hp,
 			this.mana,
 			this.statuses,
@@ -103,22 +112,6 @@ export class Combatant {
 
 	static isPlayerId(id: number) {
 		return id.toString(16).startsWith('1');
-	}
-
-	calcDistance(to: Combatant) {
-		return Math.hypot(this.x - to.x, this.y - to.y, this.z - to.z);
-	}
-
-	updatePosition(x: number, y: number, z: number) {
-		if (typeof x !== 'undefined' && x !== null) {
-			this.x = x;
-		}
-		if (typeof y !== 'undefined' && y !== null) {
-			this.y = y;
-		}
-		if (typeof z !== 'undefined' && z !== null) {
-			this.z = z;
-		}
 	}
 
 	updateJob(job: string) {
@@ -250,5 +243,15 @@ export class Combatant {
 		}
 
 		this.statuses.next(statuses);
+	}
+
+	static nameHash(name: string) {
+		let hash = 0;
+		let i = 0;
+		const len = name.length;
+		while (i < len) {
+			hash = ((hash << 5) - hash + name.charCodeAt(i++)) << 0;
+		}
+		return hash + 2147483647 + 1;
 	}
 }

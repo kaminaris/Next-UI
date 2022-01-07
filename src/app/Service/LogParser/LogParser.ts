@@ -2,6 +2,7 @@ import { Injectable }      from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { EffectData }      from 'src/app/Interface/EffectData';
 import { ConfigService }   from 'src/app/Service/ConfigService';
+import { Util }            from 'src/app/Service/LogParser/Util';
 import { EventDispatcher } from './EventDispatcher';
 import { TTSService }      from '../TTSService';
 import { Combatant }       from '../../Model/Combatant';
@@ -52,7 +53,7 @@ export class LogParser {
 		}
 
 		const combatants = this.combatants.value;
-		const toRemove = combatants.filter(c => !c.isPlayer && !c.inParty.value);
+		const toRemove = combatants.filter(c => !c.isPlayer && !this.isInParty(c));
 		for (const c of toRemove) {
 			this.removeCombatant(c);
 		}
@@ -73,6 +74,30 @@ export class LogParser {
 		player.id = id;
 
 		this.player.next(player);
+	}
+
+	/**
+	 * Check whenever combatat is still on frames somewhere
+	 */
+	isOnFrames(c: Combatant) {
+		if (
+			c == this.player.value ||
+			c == this.target.value ||
+			c == this.targetOfTarget.value ||
+			c == this.focus.value
+		) {
+			return true;
+		}
+
+		if (this.isInParty(c)) {
+			return true;
+		}
+
+		return this.aggroList.value.indexOf(c) >= 0;
+	}
+
+	isInParty(c: Combatant) {
+		return this.party.value.indexOf(c) >= 0;
 	}
 
 	createCombatant(id: number, name?: string) {
@@ -110,6 +135,29 @@ export class LogParser {
 		return c;
 	}
 
+	updateCombatantProvisional(
+		contentId: number,
+		name?: string,
+		jobId?: number,
+		level?: number,
+	) {
+		// const id = Combatant.nameHash(name);
+		let combatant = this.combatants.value.find(c => c.contentId === contentId);
+		if (!combatant) {
+			combatant = this.createAndAddCombatant(0, name);
+			combatant.contentId = contentId;
+		} else {
+			combatant.name = name;
+		}
+
+		if (jobId) {
+			combatant.updateJob(Util.jobEnumToJob(jobId));
+		}
+		combatant.updateLevel(level);
+
+		return combatant;
+	}
+
 	updateCombatant(
 		id: number,
 		name?: string,
@@ -117,15 +165,17 @@ export class LogParser {
 		hpMax: number = 1,
 		mana: number = 10000,
 		manaMax: number = 10000,
-		x?: number,
-		y?: number,
-		z?: number,
 		job?: string,
 		level?: number,
 		isNpc = false,
-		source = 'any'
+		source = 'any',
+		contentId?: number
 	) {
 		const combatants = this.combatants.value;
+		if (id === 0) {
+			return null;
+		}
+
 		let combatant = this.findCombatant(id, name);
 
 		let shouldAdd = false;
@@ -138,7 +188,8 @@ export class LogParser {
 		if (name) {
 			combatant.name = name;
 		}
-		combatant.updatePosition(x, y, z);
+
+		combatant.contentId = contentId;
 		combatant.updateJob(job);
 		combatant.updateLevel(level);
 		combatant.updateHp(hp, hpMax);
@@ -158,6 +209,25 @@ export class LogParser {
 		return combatant;
 	}
 
+	updateCombatantPosition(c: Combatant | number, x: number, y: number, z: number) {
+		c = c instanceof Combatant ? c : this.findCombatant(c);
+
+		// No point of checking other numbers
+		if (c && typeof x !== 'undefined' && x !== null) {
+			c.x = x;
+			c.y = y;
+			c.z = z;
+		}
+	}
+
+	getDistanceFromPlayer(c: Combatant) {
+		const p = this.player.value;
+		if (p) {
+			return Math.hypot(c.x - p.x, c.y - p.y, c.z - p.z);
+		}
+		return 0;
+	}
+
 	removeCombatant(id: number | Combatant) {
 		const combatants = this.combatants.value;
 		const idx = id instanceof Combatant ? combatants.indexOf(id) : combatants.findIndex(c => c.id === id);
@@ -165,7 +235,7 @@ export class LogParser {
 			const c = combatants[idx];
 			c.statusGained.unsubscribe();
 			c.changeTrigger.unsubscribe();
-			c.inParty.unsubscribe();
+			// c.inParty.unsubscribe();
 			c.sign.unsubscribe();
 			c.hp.unsubscribe();
 			c.job.unsubscribe();

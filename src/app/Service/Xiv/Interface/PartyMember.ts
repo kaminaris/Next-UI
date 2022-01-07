@@ -1,5 +1,6 @@
 export interface PartyMember {
 	id: number;
+	contentId: number;
 	name: string;
 	hp: number;
 	hpMax: number;
@@ -10,6 +11,7 @@ export interface PartyMember {
 	worldName: string,
 	worldId: number;
 	territoryId: number;
+	provisional?: boolean;
 	position: {
 		x: number,
 		y: number,

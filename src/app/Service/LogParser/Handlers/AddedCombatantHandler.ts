@@ -53,9 +53,10 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const heading = parseFloat(event[indexes.heading] ?? '');
 		const timestamp = new Date(event[1] ?? '0');
 
-		this.act.parser.updateCombatant(
-			id, name, hp, hpMax, mana, manaMax, x, y, z, job, level, null, 'added-combatant'
+		const c = this.act.parser.updateCombatant(
+			id, name, hp, hpMax, mana, manaMax, job, level, null, 'added-combatant'
 		);
+		this.act.parser.updateCombatantPosition(c, x, y, z);
 
 		if (this.act.parser.debugMode) {
 			console.log(

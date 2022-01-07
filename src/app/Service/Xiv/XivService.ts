@@ -4,9 +4,10 @@ import { Combatant }              from 'src/app/Model/Combatant';
 import { ConfigService }          from 'src/app/Service/ConfigService';
 import { LogParser }              from 'src/app/Service/LogParser/LogParser';
 import { Util }                   from 'src/app/Service/LogParser/Util';
-import { ActionEffect1 }          from 'src/app/Service/Xiv/Interface/ActionEffect';
-import { AppliedStatus }          from 'src/app/Service/Xiv/Interface/AppliedStatus';
-import { UpdatePositionInstance } from 'src/app/Service/Xiv/Interface/UpdatePositionInstance';
+import { ActionEffect1 }          from './Interface/ActionEffect';
+import { AppliedStatus }          from './Interface/AppliedStatus';
+import { CrossWorldPartyMember }  from './Interface/CrossWorldPartyMember';
+import { UpdatePositionInstance } from './Interface/UpdatePositionInstance';
 import { Actor }                  from './Interface/Actor';
 import { ActorCast }              from './Interface/ActorCast';
 import { ActorChangedEvent }      from './Interface/ActorChangedEvent';
@@ -71,6 +72,7 @@ export class XivService {
 
 		zoneChanged: new Subject<number>(),
 		partyChanged: new Subject<{ currentParty: PartyMember[], partyLeader: number }>(),
+		crossWorldPartyChanged: new Subject<{ currentParty: CrossWorldPartyMember[] }>(),
 		enmityListChanged: new Subject<Actor[]>()
 	};
 
@@ -116,6 +118,7 @@ export class XivService {
 		this.events.effectResultBasic.subscribe(this.effectResultBasic.bind(this));
 
 		this.events.partyChanged.subscribe(this.partyChanged.bind(this));
+		this.events.crossWorldPartyChanged.subscribe(this.crossWorldPartyChanged.bind(this));
 		this.events.enmityListChanged.subscribe(this.enmityListChanged.bind(this));
 
 		this.events.actorMove.subscribe(this.actorMove.bind(this));
@@ -162,36 +165,31 @@ export class XivService {
 	}
 
 	updatePosition(ev: NetworkEvent<UpdatePosition>) {
-		const p = this.parser.player.value;
-		if (p) {
-			p.updatePosition(
-				ev.data.position.x,
-				ev.data.position.y,
-				ev.data.position.z
-			);
-		}
+		this.parser.updateCombatantPosition(
+			this.parser.player.value,
+			ev.data.position.x,
+			ev.data.position.y,
+			ev.data.position.z
+		);
 	}
 
 	updatePositionInstance(ev: NetworkEvent<UpdatePositionInstance>) {
-		const p = this.parser.player.value;
-		if (p) {
-			p.updatePosition(
-				ev.data.position.x,
-				ev.data.position.y,
-				ev.data.position.z
-			);
-		}
+		this.parser.updateCombatantPosition(
+			this.parser.player.value,
+			ev.data.position.x,
+			ev.data.position.y,
+			ev.data.position.z
+		);
 	}
 
 	actorMove(ev: NetworkEvent<ActorMove>) {
-		const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
-		if (c) {
-			c.updatePosition(
-				ev.data.position.x,
-				ev.data.position.y,
-				ev.data.position.z
-			);
-		}
+		// const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
+		this.parser.updateCombatantPosition(
+			ev.data.targetActorId,
+			ev.data.position.x,
+			ev.data.position.y,
+			ev.data.position.z
+		);
 	}
 
 	async enmityListChanged(data: Actor[]) {
@@ -206,6 +204,7 @@ export class XivService {
 
 	async partyChanged(ev: { currentParty: PartyMember[], partyLeader: number }) {
 		const newParty: Combatant[] = [];
+		console.log('party ch', ev.currentParty)
 		for (const pm of ev.currentParty) {
 			let nc = this.updateCombatantFromPartyMember(pm);
 			newParty.push(nc);
@@ -214,38 +213,33 @@ export class XivService {
 		await this.setParty(newParty, ev.partyLeader);
 	}
 
-	/**
-	 * TODO: OPTIMIZE THIS
-	 * TODO: OPTIMIZE THIS
-	 * TODO: OPTIMIZE THIS
-	 * TODO: OPTIMIZE THIS
-	 * TODO: OPTIMIZE THIS
-	 */
+	async crossWorldPartyChanged(ev: { currentParty: CrossWorldPartyMember[] }) {
+		const newParty: Combatant[] = [];
+		console.log('cw party ch', ev.currentParty)
+
+		for (const pm of ev.currentParty) {
+			let nc = this.updateCombatantFromCrossWorldPartyMember(pm);
+			nc.crossWorldMember = true;
+			newParty.push(nc);
+		}
+
+		await this.setParty(newParty);
+	}
+
+	async setXWorldParty(newParty: Combatant[]) {
+		const oldParty = this.parser.party.value;
+		const regularMembers = oldParty.filter(c => !c.crossWorldMember && newParty.indexOf(c) < 0);
+		this.parser.setParty([...newParty, ...regularMembers]);
+
+	}
+
 	async setParty(newParty: Combatant[], partyLeader?: number) {
 		const oldParty = this.parser.party.value;
-		if (oldParty != null) {
-			const oldPartyIds: number[] = [];
-			for (const oldP of oldParty) {
-				if (oldP.inParty.value) {
-					oldP.inParty.next(false);
-					oldPartyIds.push(oldP.id);
-				}
-			}
 
-			if (oldPartyIds.length > 0) {
-				await this.unwatchActors(oldPartyIds);
-			}
-		}
-
+		const xworldMembers = oldParty.filter(c => c.crossWorldMember && newParty.indexOf(c) < 0);
+		console.log(xworldMembers, oldParty.filter(c => c.crossWorldMember))
+		newParty.push(...xworldMembers);
 		this.parser.setParty(newParty);
-		for (const p of newParty) {
-			p.inParty.next(true);
-		}
-
-		const newPartyIds = newParty.map(npm => npm.id);
-		if (newPartyIds.length > 0) {
-			await this.watchActors(newPartyIds);
-		}
 
 		if (newParty.length === 0) {
 			this.parser.partyLeader.next(null);
@@ -286,8 +280,6 @@ export class XivService {
 				status.duration,
 				timestamp
 			);
-
-			console.log('STA', status.id, status.duration)
 		}
 	}
 
@@ -296,10 +288,7 @@ export class XivService {
 		this.parser.updateCombatant(
 			data.targetActorId,
 			null,
-			data.currentHp,
-			null,
-			null,
-			null
+			data.currentHp
 		);
 	}
 
@@ -310,8 +299,7 @@ export class XivService {
 			null,
 			data.currentHp,
 			null,
-			data.currentMp,
-			null
+			data.currentMp
 		);
 	}
 
@@ -321,40 +309,36 @@ export class XivService {
 			return;
 		}
 
-		this.parser.updateCombatant(
+		const c = this.parser.updateCombatant(
 			npc.targetActorId,
 			this.toPascalCase(npc.name),
 			npc.hp,
 			npc.hpMax,
 			10000,
 			10000,
-			npc.position.x,
-			npc.position.y,
-			npc.position.z,
 			null,
 			npc.level,
 			true,
 			'npc-spawn'
 		);
+		this.parser.updateCombatantPosition(c, npc.position.x, npc.position.y, npc.position.z);
 	}
 
 	playerSpawn(ev: NetworkEvent<PlayerSpawn>) {
 		const player = ev.data;
-		this.parser.updateCombatant(
+		const c = this.parser.updateCombatant(
 			player.targetId,
 			player.name,
 			player.hp,
 			player.hpMax,
 			player.mana,
 			player.manaMax,
-			player.position.x,
-			player.position.y,
-			player.position.z,
 			null,
 			player.level,
 			false,
 			'player-spawn'
 		);
+		this.parser.updateCombatantPosition(c, player.position.x, player.position.y, player.position.z);
 	}
 
 	objectDespawn(ev: NetworkEvent<ObjectDespawn>) {
@@ -562,6 +546,15 @@ export class XivService {
 		}
 
 		await this.setParty(newParty, party.partyLeader);
+
+		const xwParty = await this.getCrossWorldParty();
+		const newxWParty: Combatant[] = [];
+		for (const cwpm of xwParty.currentParty) {
+			let nc = this.updateCombatantFromCrossWorldPartyMember(cwpm);
+			newxWParty.push(nc);
+		}
+
+		await this.setXWorldParty(newxWParty);
 	}
 
 	async subscribeEvents() {
@@ -571,7 +564,8 @@ export class XivService {
 				'targetChanged', 'targetOfTargetChanged', 'focusChanged',
 				'playerSpawn', 'npcSpawn', 'effectResult', 'effectResultBasic', 'updatePosition',
 				'actorControlSelf', 'actorControlTarget', 'actorSetPos', 'updateHpMpTp',
-				'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged', 'statusEffectList'
+				'partyChanged', 'updatePositionInstance', 'enmityListChanged', 'uiVisibilityChanged',
+				'statusEffectList', 'crossWorldPartyChanged'
 			]
 		});
 		console.log('Events subscribed', response);
@@ -616,6 +610,10 @@ export class XivService {
 		return await this.doRequest('getParty');
 	}
 
+	async getCrossWorldParty(): Promise<{ currentParty: CrossWorldPartyMember[] }> {
+		return await this.doRequest('getCrossWorldParty');
+	}
+
 	async watchActor(id: number) {
 		await this.doRequest('watchActor', { id });
 	}
@@ -637,39 +635,54 @@ export class XivService {
 	}
 
 	updateCombatantFromActor(a: Actor) {
-		return this.parser.updateCombatant(
+		const c = this.parser.updateCombatant(
 			a.id,
 			a.name,
 			a.hp,
 			a.hpMax,
 			a.mana,
 			a.manaMax,
-			a.position.x,
-			a.position.y,
-			a.position.z,
 			Util.jobEnumToJob(a.jobId),
 			a.level,
 			null,
 			'xiv-actor-changed'
 		);
+
+		this.parser.updateCombatantPosition(c, a.position.x, a.position.y, a.position.z);
+		return c;
+	}
+
+	updateCombatantFromCrossWorldPartyMember(cwpm: CrossWorldPartyMember) {
+		return this.parser.updateCombatantProvisional(
+			cwpm.contentId,
+			cwpm.name,
+			cwpm.jobId,
+			cwpm.level
+		);
 	}
 
 	updateCombatantFromPartyMember(pm: PartyMember) {
-		return this.parser.updateCombatant(
+		// Data is severely incomplete, gotta fix that
+		if (pm.provisional) {
+			return this.parser.updateCombatantProvisional(pm.contentId, pm.name);
+		}
+
+		const c = this.parser.updateCombatant(
 			pm.id,
 			pm.name,
 			pm.hp,
 			pm.hpMax,
 			pm.mana,
 			pm.manaMax,
-			pm.position.x,
-			pm.position.y,
-			pm.position.z,
 			Util.jobEnumToJob(pm.jobId),
 			pm.level,
 			null,
-			'xiv-party-member-changed'
+			'xiv-party-member-changed',
+			pm.contentId
 		);
+
+		this.parser.updateCombatantPosition(c, pm.position.x, pm.position.y, pm.position.z);
+		return c;
 	}
 
 	async loadCombatants() {

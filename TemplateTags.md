@@ -81,4 +81,63 @@ some examples:
 * `[mana:pct:f:1]` - mana percentage formatted with 1 precision ex `58.1`
 * `[mana:pct:f:2]` - mana percentage formatted with 1 precision ex `58.14`
 
+---
+
+### Job
+
+* `[job]` - character job ex `MCH`
+* `[job:lower]` - character job in lowercase ex `mch`
+
+### Level
+
+* `[level]` - character level ex `87`
+
+### Id
+
+* `[id]` - character id ex `12356563`
+* `[id:hex]` - character id in hex ex `1002453A`
+
+### Sign
+
+* `[sign]` - character sign id (mark over the head) ex `3`
+
+### Role
+
+* `[role]` - character role either 'tank' or 'healer' or 'dps' ex `tank`
+* `[role:upper]` - character role in upper case ex `TANK`
+
+### Distance
+
+* `[distance]` - raw distance to character ex `22.231451`
+* `[distance:f]` - distance to character formatted with 0 digit precsion `22`
+* `[distance:f:1]` - distance to character formatted with 1 digit precsion `22.2`
+* `[distance:f:2]` - distance to character formatted with 2 digit precsion `22.23`
+
+
+---
+
+### Position
+
+It does not correspond with map coordinates, those are actual game coordinates
+
+#### X
+
+* `[pos:x]` - raw character position x `12.215362345`
+* `[pos:x:f]` - character position x formatted with 0 digit precsion `12`
+* `[pos:x:f:1]` - character position x formatted with 1 digit precsion `12.2`
+* `[pos:x:f:2]` - character position x formatted with 2 digit precsion `12.21`
+
+#### Y
+
+* `[pos:y]` - raw character position y `12.215362345`
+* `[pos:y:f]` - character position y formatted with 0 digit precsion `12`
+* `[pos:y:f:1]` - character position y formatted with 1 digit precsion `12.2`
+* `[pos:y:f:2]` - character position y formatted with 2 digit precsion `12.21`
+
+#### Z
+
+* `[pos:z]` - raw character position z `12.215362345`
+* `[pos:z:f]` - character position z formatted with 0 digit precsion `12`
+* `[pos:z:f:1]` - character position z formatted with 1 digit precsion `12.2`
+* `[pos:z:f:2]` - character position z formatted with 2 digit precsion `12.21`
 

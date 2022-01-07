@@ -35,7 +35,8 @@ export class HpUpdatedHandler implements HandlerInterface {
 		const z = parseFloat(event[indexes.z] ?? '');
 		const heading = parseFloat(event[indexes.heading] ?? '');
 
-		this.act.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax, x, y, z, null, null, null, 'hp-updated');
+		const c = this.act.parser.updateCombatant(id, name, hp, hpMax, mana, manaMax, null, null, null, 'hp-updated');
+		this.act.parser.updateCombatantPosition(c, x, y, z);
 
 		if (this.act.parser.debugMode) {
 			// console.log(`HP updated: ${name} (${id}): ${hp} / ${hpMax}`);

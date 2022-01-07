@@ -32,7 +32,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	name = '';
 	job = 'NONE';
 	jobText = 'NONE';
-	level = 1;
+	levelText = '1';
 
 	hpText = '';
 	manaText = '';
@@ -51,7 +51,6 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	jobColor = this.ownConfig.healthBar.barColor;
 	hpBarColor = this.ownConfig.healthBar.barColor;
 
-	distanceToPlayer = 0;
 	distanceInterval = 200;
 	distanceTimer: number = null;
 	inRange = true;
@@ -79,17 +78,17 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		},
 		{
 			label: 'Promote', action: this.promoteAction.bind(this), hidden: () => {
-				return !this.parser.isPlayerPartyLeader() || !this.combatant?.inParty.value;
+				return !this.parser.isPlayerPartyLeader() || !this.parser.isInParty(this.combatant);
 			}
 		},
 		{
 			label: 'Kick from Party', action: this.kickAction.bind(this), hidden: () => {
-				return !this.parser.isPlayerPartyLeader() || !this.combatant?.inParty.value;
+				return !this.parser.isPlayerPartyLeader() || !this.parser.isInParty(this.combatant);
 			}
 		},
 		{
 			label: 'Invite to Party', action: this.inviteAction.bind(this), hidden: () => {
-				return this.combatant?.isNPC || !this.parser.target.value || this.parser.target.value.inParty.value;
+				return this.combatant?.isNPC || !this.parser.target.value || this.parser.isInParty(this.combatant);
 			}
 		},
 		{
@@ -136,7 +135,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		protected auraService: StatusService,
 		protected xiv: XivService,
 		protected contextMenuService: ContextMenuService,
-		protected templateService: TemplateService,
+		protected templateService: TemplateService
 	) {}
 
 	/**
@@ -203,21 +202,35 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 			}
 			this.name = this.formatName(this.combatant);
 			this.cd.detectChanges();
-		}))
+		}));
 		this.subs.push(this.ownConfig.widgets.hp.anyChanged.subscribe(() => {
 			if (!this.combatant) {
 				return;
 			}
 			this.calcHp(this.combatant);
 			this.cd.detectChanges();
-		}))
+		}));
 		this.subs.push(this.ownConfig.widgets.mana.anyChanged.subscribe(() => {
 			if (!this.combatant) {
 				return;
 			}
 			this.calcMana(this.combatant);
 			this.cd.detectChanges();
-		}))
+		}));
+		this.subs.push(this.ownConfig.widgets.level.anyChanged.subscribe(() => {
+			if (!this.combatant) {
+				return;
+			}
+			this.levelText = this.formatLevel(this.combatant);
+			this.cd.detectChanges();
+		}));
+		this.subs.push(this.ownConfig.widgets.job.anyChanged.subscribe(() => {
+			if (!this.combatant) {
+				return;
+			}
+			this.jobText = this.formatJob(this.combatant);
+			this.cd.detectChanges();
+		}));
 	}
 
 	startDistanceTimer() {
@@ -228,14 +241,15 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 				return;
 			}
 
-			if (this.combatant.id === Combatant.ENV_ID) {
+			if (this.combatant.isPlayer || this.combatant.id === Combatant.ENV_ID) {
 				this.inRange = true;
 			}
 			else {
-				this.distanceToPlayer = player.calcDistance(this.combatant);
-				this.inRange = this.ownConfig.distance.threshold >= this.distanceToPlayer;
+				this.inRange = this.ownConfig.distance.threshold >= this.parser.getDistanceFromPlayer(this.combatant);
 			}
 
+			this.calcHp(this.combatant);
+			this.calcMana(this.combatant);
 			this.cd.detectChanges();
 		}, this.distanceInterval);
 	}
@@ -446,12 +460,20 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		this.blurName = !c.isNPC && this.config.blurNames && (c.isPlayer ? !this.config.replaceYourName : true);
 		this.job = c.job.value;
 		this.jobText = this.formatJob(c);
-		this.level = c.level.value;
+		this.levelText = this.formatLevel(c);
 		this.calcHp(c);
 		this.calcMana(c);
 		this.setBarColor(c);
 
 		this.cd.detectChanges();
+	}
+
+	formatLevel(c: Combatant) {
+		const levelTemp = this.ownConfig.widgets.level.template;
+		if (levelTemp) {
+			return this.templateService.format(levelTemp, c);
+		}
+		return c.level.value.toString();
 	}
 
 	formatJob(c: Combatant) {

@@ -236,7 +236,7 @@ export class ActService {
 			}
 
 			// not a member anymore
-			member.inParty.next(false);
+			// member.inParty.next(false);
 			hasChange = true;
 		}
 
@@ -257,7 +257,7 @@ export class ActService {
 				combatant.job.next(Util.jobEnumToJob(partyMember.job));
 			}
 
-			combatant.inParty.next(true);
+			// combatant.inParty.next(true);
 			newMembers.push(combatant);
 
 			hasChange = true;
@@ -276,21 +276,19 @@ export class ActService {
 		}
 
 		const player = this.parser.player.value;
-		this.parser.updateCombatant(
+		const c = this.parser.updateCombatant(
 			details.id,
 			details.name,
 			details.currentHP,
 			details.maxHP,
 			player.isGatherer || player.isCrafter ? null : details.currentMP,
 			player.isGatherer || player.isCrafter ? null : details.maxMP,
-			details.pos.x,
-			details.pos.y,
-			details.pos.z,
 			details.job,
 			details.level,
 			null,
 			'player-changed'
 		);
+		this.parser.updateCombatantPosition(c, details.pos.x, details.pos.y, details.pos.z);
 	}
 
 	enmityAggroList(e: EnmityAggroList) {
@@ -351,13 +349,16 @@ export class ActService {
 				hpMax,
 				null,
 				null,
-				(actor as ActorInterface).PosX ?? null,
-				(actor as ActorInterface).PosZ ?? null,
-				(actor as ActorInterface).PosY ?? null,
 				job,
 				null,
 				isNpc
 			);
+			this.parser.updateCombatantPosition(
+				combatant,
+				(actor as ActorInterface).PosX ?? null,
+				(actor as ActorInterface).PosZ ?? null,
+				(actor as ActorInterface).PosY ?? null,
+			)
 		}
 
 		return combatant;
@@ -369,19 +370,17 @@ export class ActService {
 		});
 
 		for (const actor of actors.combatants as CombatantData[]) {
-			this.parser.updateCombatant(
+			const c = this.parser.updateCombatant(
 				actor.ID,
 				actor.Name,
 				actor.CurrentHP,
 				actor.MaxHP,
 				actor.CurrentMP,
 				actor.MaxMP,
-				actor.PosX,
-				actor.PosY,
-				actor.PosZ,
 				Util.jobEnumToJob(actor.Job),
 				actor.Level
 			);
+			this.parser.updateCombatantPosition(c, actor.PosX, actor.PosY, actor.PosZ);
 		}
 	}
 }
