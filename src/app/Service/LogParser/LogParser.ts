@@ -51,7 +51,7 @@ export class LogParser {
 		if (zoneName) {
 			this.zoneName.next(zoneName);
 		}
-return;
+
 		const combatants = this.combatants.value;
 		const toRemove = combatants.filter(c => !c.isPlayer && !this.isInParty(c));
 		for (const c of toRemove) {
