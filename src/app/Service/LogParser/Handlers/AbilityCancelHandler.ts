@@ -38,7 +38,6 @@ export class AbilityCancelHandler implements HandlerInterface {
 		if (!combatant) {
 			return;
 		}
-		console.log(event);
 		combatant.cast.stop(true, reason, abilityId);
 
 		if (this.act.parser.debugMode) {

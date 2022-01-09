@@ -32,9 +32,6 @@ export function unserialize(instance: any, data: any) {
 				instance[key].unserialize(data[key]);
 			}
 			else {
-				if (key === 'source') {
-					console.log('WTFFFF', data, instance, origValue)
-				}
 				unserialize(instance[key], data[key]);
 			}
 

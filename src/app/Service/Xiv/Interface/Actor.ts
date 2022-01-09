@@ -4,6 +4,8 @@ export interface Actor {
 	hp: number;
 	hpMax: number;
 	id: number;
+	contentId?: string;
+	nameId: number;
 	jobId: number;
 	level: number;
 	mana: number;

@@ -1,7 +1,8 @@
-import { Position }     from 'src/app/Service/Xiv/Interface/Position';
-import { StatusEffect } from 'src/app/Service/Xiv/Interface/StatusEffect';
+import { NetworkEventData } from 'src/app/Service/Xiv/Interface/NetworkEventData';
+import { Position }         from 'src/app/Service/Xiv/Interface/Position';
+import { StatusEffect }     from './StatusEffect';
 
-export interface PlayerSpawn {
+export interface PlayerSpawn extends NetworkEventData {
 	title: number;
 	u1b: number;
 	currentWorldId: number;

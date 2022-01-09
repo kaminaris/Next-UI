@@ -68,7 +68,7 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 		},
 		{
 			label: 'Reset Striking Dummy Enmity', action: this.resetEnmityAction.bind(this), hidden: () => {
-				return !this.combatant?.isDummy;
+				return !this.combatant?.isBattleNpc;
 			}
 		},
 		{

@@ -202,43 +202,60 @@ export class XivService {
 		await this.parser.setAggroList(newEnemies);
 	}
 
+	regularParty: Combatant[] = [];
+	xworldParty: Combatant[] = [];
+
 	async partyChanged(ev: { currentParty: PartyMember[], partyLeader: number }) {
 		const newParty: Combatant[] = [];
-		console.log('party ch', ev.currentParty)
 		for (const pm of ev.currentParty) {
 			let nc = this.updateCombatantFromPartyMember(pm);
 			newParty.push(nc);
 		}
+		this.regularParty = newParty;
 
-		await this.setParty(newParty, ev.partyLeader);
+		const party = this.mergeCrossWorldParty(this.regularParty, this.xworldParty);
+		await this.setParty(party, ev.partyLeader);
 	}
 
 	async crossWorldPartyChanged(ev: { currentParty: CrossWorldPartyMember[] }) {
 		const newParty: Combatant[] = [];
-		console.log('cw party ch', ev.currentParty)
-
 		for (const pm of ev.currentParty) {
 			let nc = this.updateCombatantFromCrossWorldPartyMember(pm);
-			nc.crossWorldMember = true;
 			newParty.push(nc);
 		}
+		this.xworldParty = newParty;
 
-		await this.setParty(newParty);
+		const party = this.mergeCrossWorldParty(this.regularParty, this.xworldParty);
+		await this.setParty(party);
+	}
+
+	mergeCrossWorldParty(regularParty: Combatant[], xworldParty: Combatant[]) {
+		const p = [...regularParty];
+		for (const pm of p) {
+			pm.crossWorldMember = false;
+		}
+
+		for (const pm of xworldParty) {
+			if (p.indexOf(pm) < 0) {
+				p.push(pm);
+				pm.crossWorldMember = true;
+			}
+		}
+
+		return p;
 	}
 
 	async setXWorldParty(newParty: Combatant[]) {
 		const oldParty = this.parser.party.value;
 		const regularMembers = oldParty.filter(c => !c.crossWorldMember && newParty.indexOf(c) < 0);
 		this.parser.setParty([...newParty, ...regularMembers]);
-
 	}
 
 	async setParty(newParty: Combatant[], partyLeader?: number) {
-		const oldParty = this.parser.party.value;
+		if (newParty.length === 1 && newParty[0].isPlayer) {
+			newParty = [];
+		}
 
-		const xworldMembers = oldParty.filter(c => c.crossWorldMember && newParty.indexOf(c) < 0);
-		console.log(xworldMembers, oldParty.filter(c => c.crossWorldMember))
-		newParty.push(...xworldMembers);
 		this.parser.setParty(newParty);
 
 		if (newParty.length === 0) {
@@ -285,6 +302,10 @@ export class XivService {
 
 	effectResultBasic(ev: NetworkEvent<EffectResultBasic>) {
 		const data = ev.data;
+		if (!this.parser.hasCombatantId(data.targetActorId)) {
+			return;
+		}
+
 		this.parser.updateCombatant(
 			data.targetActorId,
 			null,
@@ -294,6 +315,10 @@ export class XivService {
 
 	updateHpMpTp(ev: NetworkEvent<UpdateHpMpTp>) {
 		const data = ev.data;
+		if (!this.parser.hasCombatantId(data.targetActorId)) {
+			return;
+		}
+
 		this.parser.updateCombatant(
 			data.targetActorId,
 			null,
@@ -321,13 +346,16 @@ export class XivService {
 			true,
 			'npc-spawn'
 		);
+		c.nameId = npc.bNPCName;
 		this.parser.updateCombatantPosition(c, npc.position.x, npc.position.y, npc.position.z);
 	}
 
 	playerSpawn(ev: NetworkEvent<PlayerSpawn>) {
+		//TODO: do we need it even?
+		return;
 		const player = ev.data;
 		const c = this.parser.updateCombatant(
-			player.targetId,
+			player.targetActorId,
 			player.name,
 			player.hp,
 			player.hpMax,
@@ -409,7 +437,6 @@ export class XivService {
 				break;
 			case ActorControlCategory.KeyItem:
 				//TODO: its not good one
-				// console.log('KEY ITEM', ctrl);
 				c.cast.start(ctrl.param1, null, 3);
 				break;
 			case ActorControlCategory.UpdateEffect:
@@ -544,8 +571,7 @@ export class XivService {
 			let nc = this.updateCombatantFromPartyMember(pm);
 			newParty.push(nc);
 		}
-
-		await this.setParty(newParty, party.partyLeader);
+		this.regularParty = newParty;
 
 		const xwParty = await this.getCrossWorldParty();
 		const newxWParty: Combatant[] = [];
@@ -553,8 +579,10 @@ export class XivService {
 			let nc = this.updateCombatantFromCrossWorldPartyMember(cwpm);
 			newxWParty.push(nc);
 		}
+		this.xworldParty = newxWParty;
 
-		await this.setXWorldParty(newxWParty);
+		const partyMerged = this.mergeCrossWorldParty(this.regularParty, this.xworldParty);
+		await this.setParty(partyMerged, party.partyLeader);
 	}
 
 	async subscribeEvents() {
@@ -647,6 +675,10 @@ export class XivService {
 			null,
 			'xiv-actor-changed'
 		);
+		c.nameId = a.nameId;
+		if (a.contentId) {
+			c.contentId = a.contentId;
+		}
 
 		this.parser.updateCombatantPosition(c, a.position.x, a.position.y, a.position.z);
 		return c;

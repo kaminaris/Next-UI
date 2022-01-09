@@ -39,7 +39,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const ownerId = event[indexes.ownerId]?.toUpperCase() ?? '';
 		const worldId = event[indexes.worldId] ?? '';
 		const worldName = event[indexes.worldName] ?? '';
-		const npcNameId = event[indexes.npcNameId] ?? '';
+		const npcNameId = parseInt(event[indexes.npcNameId] ?? '');
 		const npcBaseId = event[indexes.npcBaseId] ?? '';
 		const hp = parseFloat(event[indexes.currentHp] ?? '');
 		const hpMax = parseFloat(event[indexes.hpMaxString] ?? '');
@@ -56,6 +56,7 @@ export class AddedCombatantHandler implements HandlerInterface {
 		const c = this.act.parser.updateCombatant(
 			id, name, hp, hpMax, mana, manaMax, job, level, null, 'added-combatant'
 		);
+		c.nameId = npcNameId;
 		this.act.parser.updateCombatantPosition(c, x, y, z);
 
 		if (this.act.parser.debugMode) {

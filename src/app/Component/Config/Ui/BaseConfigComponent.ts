@@ -32,7 +32,6 @@ export abstract class BaseConfigComponent {
 		this.value = this.getValue();
 		this.updateSubject?.subscribe(() => {
 			this.value = this.getValue();
-			console.log('WAS UPDATED', this.getValue());
 		});
 	}
 

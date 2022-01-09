@@ -1,5 +1,5 @@
 export interface CrossWorldPartyMember {
-	contentId: number;
+	contentId: string;
 	name: string;
 	jobId: number;
 	level: number;

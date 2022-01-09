@@ -17,7 +17,6 @@ export class CustomElementGeneralConfigComponent implements OnChanges {
 	constructor(protected cd: ChangeDetectorRef) {}
 
 	ngOnChanges(changes: SimpleChanges) {
-		console.log('UPD');
 		this.updated.next(true);
 	}
 

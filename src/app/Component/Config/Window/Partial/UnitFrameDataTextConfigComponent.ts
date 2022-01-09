@@ -32,7 +32,6 @@ export class UnitFrameDataTextConfigComponent implements OnInit {
 	paths: any = {};
 
 	ngOnInit() {
-		console.log(this.configObj, this.configPath);
 		for (const key in this.configObj) {
 			this.paths[key] = this.configPath + '.' + key;
 		}

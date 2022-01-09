@@ -16,8 +16,9 @@ export class Combatant {
 	static ENV_ID = 0xE0000000;
 
 	id: number = null;
-	contentId: number = null;
+	contentId: string = null;
 	name: string = '';
+	nameId: number = null;
 	job = new BehaviorSubject<string>('NONE');
 	level = new BehaviorSubject<number>(1);
 	isPlayer = false;
@@ -33,28 +34,6 @@ export class Combatant {
 	x = 0;
 	y = 0;
 	z = 0;
-
-	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
-
-	get isDummy() { return this.id.toString(16).startsWith('4'); }
-
-	get firstName() {
-		const spaceIdx = this.name.indexOf(' ');
-		return spaceIdx < 0 ? this.name : this.name.slice(0, spaceIdx);
-	}
-
-	get lastName() {
-		const spaceIdx = this.name.indexOf(' ');
-		return spaceIdx < 0 ? '' : this.name.slice(spaceIdx + 1);
-	}
-
-	get hpDeficit() { return this.hpMax - this.hp.value; }
-
-	get hpPercent() { return Math.min(100 * this.hp.value / this.hpMax, 100); }
-
-	get manaDeficit() { return this.manaMax - this.mana.value; }
-
-	get manaPercent() { return Math.min(100 * this.mana.value / this.manaMax); }
 
 	// inParty = new BehaviorSubject<boolean>(false);
 	sign = new BehaviorSubject<number>(null);
@@ -79,6 +58,31 @@ export class Combatant {
 
 	anyChanged: Observable<any>;
 	anyChangedDelayed: Observable<any>;
+
+	get isCrafterOrGatherer() { return this.isCrafter || this.isGatherer; }
+
+	get isBattleNpc() { return this.id.toString(16).startsWith('4'); }
+
+	get isDummy() { return this.nameId === 541; }
+
+	get firstName() {
+		const spaceIdx = this.name.indexOf(' ');
+		return spaceIdx < 0 ? this.name : this.name.slice(0, spaceIdx);
+	}
+
+	get lastName() {
+		const spaceIdx = this.name.indexOf(' ');
+		return spaceIdx < 0 ? '' : this.name.slice(spaceIdx + 1);
+	}
+
+	get hpDeficit() { return this.hpMax - this.hp.value; }
+
+	get hpPercent() { return Math.min(100 * this.hp.value / this.hpMax, 100); }
+
+	get manaDeficit() { return this.manaMax - this.mana.value; }
+
+	get manaPercent() { return Math.min(100 * this.mana.value / this.manaMax); }
+
 
 	constructor() {
 		this.anyChanged = merge(

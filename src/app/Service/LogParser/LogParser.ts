@@ -51,7 +51,7 @@ export class LogParser {
 		if (zoneName) {
 			this.zoneName.next(zoneName);
 		}
-
+return;
 		const combatants = this.combatants.value;
 		const toRemove = combatants.filter(c => !c.isPlayer && !this.isInParty(c));
 		for (const c of toRemove) {
@@ -136,13 +136,13 @@ export class LogParser {
 	}
 
 	updateCombatantProvisional(
-		contentId: number,
+		contentId: string,
 		name?: string,
 		jobId?: number,
 		level?: number,
 	) {
 		// const id = Combatant.nameHash(name);
-		let combatant = this.combatants.value.find(c => c.contentId === contentId);
+		let combatant = this.combatants.value.find(c => c.contentId === contentId || c.name === name);
 		if (!combatant) {
 			combatant = this.createAndAddCombatant(0, name);
 			combatant.contentId = contentId;
@@ -169,18 +169,25 @@ export class LogParser {
 		level?: number,
 		isNpc = false,
 		source = 'any',
-		contentId?: number
+		contentId?: string
 	) {
 		const combatants = this.combatants.value;
 		if (id === 0) {
 			return null;
 		}
 
-		let combatant = this.findCombatant(id, name);
+		// Content id is far more unique
+		let combatant: Combatant;
+		if (contentId) {
+			combatant = this.combatants.value.find(c => c.contentId === contentId || c.id === id);
+		} else {
+			combatant = this.findCombatant(id, name);
+		}
 
 		let shouldAdd = false;
 		if (!combatant) {
 			combatant = this.createCombatant(id, name);
+
 			combatant.isNPC = isNpc || !Combatant.isPlayerId(id);
 			shouldAdd = true;
 		}
@@ -189,7 +196,10 @@ export class LogParser {
 			combatant.name = name;
 		}
 
-		combatant.contentId = contentId;
+		combatant.id = id;
+		if (contentId) {
+			combatant.contentId = contentId;
+		}
 		combatant.updateJob(job);
 		combatant.updateLevel(level);
 		combatant.updateHp(hp, hpMax);
@@ -330,5 +340,9 @@ export class LogParser {
 		if (speaker) {
 			this.tts.say(type, speaker, message);
 		}
+	}
+
+	hasCombatantId(id: number) {
+		return this.combatants.value.findIndex(c => c.id === id) >= 0;
 	}
 }

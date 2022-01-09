@@ -1,6 +1,6 @@
 export interface PartyMember {
 	id: number;
-	contentId: number;
+	contentId: string;
 	name: string;
 	hp: number;
 	hpMax: number;
