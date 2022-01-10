@@ -481,6 +481,15 @@ export class XivService {
 				});
 				break;
 			case ActorControlCategory.OverTime:
+				const amount = ctrl.param3;
+				const type = ctrl.param2;
+				if (type === 4) {
+					c.hp.next(c.hp.value + amount);
+				} else if (type === 3) {
+					c.hp.next(c.hp.value - amount);
+				}
+
+				break;
 			case ActorControlCategory.Tether:
 			case ActorControlCategory.DirectorUpdate:
 				// No action
