@@ -302,30 +302,23 @@ export class XivService {
 
 	effectResultBasic(ev: NetworkEvent<EffectResultBasic>) {
 		const data = ev.data;
-		if (!this.parser.hasCombatantId(data.targetActorId)) {
+		const c = this.parser.findCombatant(data.targetActorId);
+		if (!c) {
 			return;
 		}
 
-		this.parser.updateCombatant(
-			data.targetActorId,
-			null,
-			data.currentHp
-		);
+		c.hp.next(data.currentHp);
 	}
 
 	updateHpMpTp(ev: NetworkEvent<UpdateHpMpTp>) {
 		const data = ev.data;
-		if (!this.parser.hasCombatantId(data.targetActorId)) {
+		const c = this.parser.findCombatant(data.targetActorId);
+		if (!c) {
 			return;
 		}
 
-		this.parser.updateCombatant(
-			data.targetActorId,
-			null,
-			data.currentHp,
-			null,
-			data.currentMp
-		);
+		c.hp.next(data.currentHp);
+		c.mana.next(data.currentMp);
 	}
 
 	npcSpawn(ev: NetworkEvent<NpcSpawn>) {

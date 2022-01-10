@@ -131,6 +131,10 @@ export class Combatant {
 	}
 
 	updateHp(hp: number, hpMax?: number) {
+		if (this.id === Combatant.ENV_ID || this.id === 0) {
+			return;
+		}
+
 		let hpMaxChanged = false;
 		if (hpMax) {
 			// first update hpMax if it changed
