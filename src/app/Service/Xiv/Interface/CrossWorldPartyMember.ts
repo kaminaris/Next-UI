@@ -5,4 +5,6 @@ export interface CrossWorldPartyMember {
 	level: number;
 	homeWorld: number;
 	currentWorld: number;
+	memberIndex: number;
+	isPartyLeader: boolean;
 }

@@ -36,6 +36,12 @@ export const miniPlayerConfig: RecursivePartial<PlayerFrameConfig> = {
 		position: { x: 50, y: 0 },
 		size: 20
 	},
+	leader: {
+		show: false,
+		anchor: 'left',
+		position: { x: -16, y: -18 },
+		size: 16
+	},
 	distance: {
 		enabled: false,
 		opacity: 60,

@@ -26,6 +26,9 @@ const partyConfig: RecursivePartial<PartyFrameConfig> = {
 	role: {
 		show: true
 	},
+	leader: {
+		show: true
+	},
 	distance: {
 		enabled: true
 	},

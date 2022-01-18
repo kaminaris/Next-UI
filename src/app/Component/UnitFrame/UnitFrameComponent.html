@@ -30,6 +30,15 @@
 			[size]="ownConfig.sign.size"
 	></sign-icon>
 
+	<leader-icon class="position-absolute z30"
+			*ngIf="ownConfig.leader.show"
+			anchor-element
+			[anchorSub]="ownConfig.leader.anchorSub"
+			[positionSub]="ownConfig.leader.positionSub"
+			[combatant]="combatant"
+			[size]="ownConfig.leader.size"
+	></leader-icon>
+
 	<div class="d-flex position-absolute z10"
 			*ngIf="ownConfig.status.show"
 			anchor-element

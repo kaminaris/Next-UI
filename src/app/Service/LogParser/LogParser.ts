@@ -140,6 +140,7 @@ export class LogParser {
 		name?: string,
 		jobId?: number,
 		level?: number,
+		isLeader?: boolean
 	) {
 		// const id = Combatant.nameHash(name);
 		let combatant = this.combatants.value.find(c => c.contentId === contentId || c.name === name);
@@ -154,6 +155,9 @@ export class LogParser {
 			combatant.updateJob(Util.jobEnumToJob(jobId));
 		}
 		combatant.updateLevel(level);
+		if (typeof isLeader === 'boolean') {
+			this.partyLeader.next(combatant);
+		}
 
 		return combatant;
 	}

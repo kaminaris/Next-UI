@@ -4,6 +4,8 @@ import { Combatant }              from 'src/app/Model/Combatant';
 import { ConfigService }          from 'src/app/Service/ConfigService';
 import { LogParser }              from 'src/app/Service/LogParser/LogParser';
 import { Util }                   from 'src/app/Service/LogParser/Util';
+import { Conditions }             from 'src/app/Service/Xiv/Interface/Conditions';
+import { StatusFlags }            from 'src/app/Service/Xiv/Interface/StatusFlags';
 import { ActionEffect1 }          from './Interface/ActionEffect';
 import { AppliedStatus }          from './Interface/AppliedStatus';
 import { CrossWorldPartyMember }  from './Interface/CrossWorldPartyMember';
@@ -73,7 +75,9 @@ export class XivService {
 		zoneChanged: new Subject<number>(),
 		partyChanged: new Subject<{ currentParty: PartyMember[], partyLeader: number }>(),
 		crossWorldPartyChanged: new Subject<{ currentParty: CrossWorldPartyMember[] }>(),
-		enmityListChanged: new Subject<Actor[]>()
+		enmityListChanged: new Subject<Actor[]>(),
+		conditionChanged: new Subject<{ condition: keyof Conditions, value: boolean }>(),
+		statusFlagsChanged: new Subject<StatusFlags>()
 	};
 
 	constructor(
@@ -127,6 +131,9 @@ export class XivService {
 
 		this.events.actionEffect1.subscribe(this.actionEffect1.bind(this));
 		this.events.statusEffectList.subscribe(this.statusEffectList.bind(this));
+
+		this.events.conditionChanged.subscribe(this.conditionChanged.bind(this));
+		this.events.statusFlagsChanged.subscribe(this.statusFlagsChanged.bind(this));
 		await this.subscribeEvents();
 		return connected;
 	}
@@ -136,6 +143,14 @@ export class XivService {
 			.split(' ')
 			.map(word => word[0].toUpperCase().concat(word.slice(1)))
 			.join(' ');
+	}
+
+	conditionChanged(c: { condition: keyof Conditions, value: boolean }) {
+		console.log('cond', c.condition, c.value);
+	}
+
+	statusFlagsChanged(c: StatusFlags) {
+		console.log('fl', c);
 	}
 
 	uiVisibilityChanged(visible: boolean) {
@@ -219,10 +234,15 @@ export class XivService {
 
 	async crossWorldPartyChanged(ev: { currentParty: CrossWorldPartyMember[] }) {
 		const newParty: Combatant[] = [];
+		let leader: Combatant = null;
 		for (const pm of ev.currentParty) {
 			let nc = this.updateCombatantFromCrossWorldPartyMember(pm);
+			if (pm.isPartyLeader) {
+				leader = nc;
+			}
 			newParty.push(nc);
 		}
+
 		this.xworldParty = newParty;
 
 		const party = this.mergeCrossWorldParty(this.regularParty, this.xworldParty);
@@ -485,7 +505,8 @@ export class XivService {
 				const type = ctrl.param2;
 				if (type === 4) {
 					c.hp.next(c.hp.value + amount);
-				} else if (type === 3) {
+				}
+				else if (type === 3) {
 					c.hp.next(c.hp.value - amount);
 				}
 
@@ -598,6 +619,7 @@ export class XivService {
 				'statusEffectList', 'crossWorldPartyChanged'
 			]
 		});
+		// , 'conditionChanged', 'statusFlagsChanged' - dont need that for plugin
 		console.log('Events subscribed', response);
 	}
 
@@ -634,6 +656,14 @@ export class XivService {
 
 	async getPlayer(): Promise<Actor> {
 		return await this.doRequest('getPlayer');
+	}
+
+	async getConditions(): Promise<Conditions> {
+		return await this.doRequest('getConditions');
+	}
+
+	async getStatusFlags(): Promise<Conditions> {
+		return await this.doRequest('getStatusFlags');
 	}
 
 	async getParty(): Promise<{ currentParty: PartyMember[], partyLeader: number }> {
@@ -691,7 +721,8 @@ export class XivService {
 			cwpm.contentId,
 			cwpm.name,
 			cwpm.jobId,
-			cwpm.level
+			cwpm.level,
+			cwpm.isPartyLeader
 		);
 	}
 

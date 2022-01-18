@@ -134,7 +134,9 @@ export class TestService {
 			combs.push(pick);
 		}
 
+		const leader = this.randomElement(combs);
 		this.parser.setParty(combs);
+		this.parser.partyLeader.next(leader);
 	}
 
 	resetParty() {

@@ -36,6 +36,12 @@ export const classicPlayerConfig: RecursivePartial<PlayerFrameConfig> = {
 		position: { x: 50, y: 0 },
 		size: 48,
 	},
+	leader: {
+		show: false,
+		anchor: 'topLeft',
+		position: { x: -18, y: 0 },
+		size: 16
+	},
 	distance: {
 		enabled: false,
 		opacity: 60,

@@ -5,6 +5,7 @@ import { UnitFrameBasicConfig }     from 'src/app/Model/Config/UnitFrame/UnitFra
 import { UnitFrameCastBarConfig }   from 'src/app/Model/Config/UnitFrame/UnitFrameCastBarConfig';
 import { UnitFrameDistanceConfig }  from 'src/app/Model/Config/UnitFrame/UnitFrameDistanceConfig';
 import { UnitFrameHealthBarConfig } from 'src/app/Model/Config/UnitFrame/UnitFrameHealthBarConfig';
+import { UnitFrameLeaderConfig }    from 'src/app/Model/Config/UnitFrame/UnitFrameLeaderConfig';
 import { UnitFrameManaBarConfig }   from 'src/app/Model/Config/UnitFrame/UnitFrameManaBarConfig';
 import { UnitFrameRoleConfig }      from 'src/app/Model/Config/UnitFrame/UnitFrameRoleConfig';
 import { UnitFrameSignConfig }      from 'src/app/Model/Config/UnitFrame/UnitFrameSignConfig';
@@ -16,6 +17,7 @@ export class PlayerFrameConfig extends BaseConfig implements SerializableConfig 
 	manaBar = new UnitFrameManaBarConfig();
 	role = new UnitFrameRoleConfig();
 	sign = new UnitFrameSignConfig();
+	leader = new UnitFrameLeaderConfig();
 	distance = new UnitFrameDistanceConfig();
 	status = new UnitFrameStatusConfig();
 	castBar = new UnitFrameCastBarConfig();

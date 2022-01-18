@@ -36,6 +36,9 @@ import { UnitFrameCastBarComponent }           from 'src/app/Component/Config/Wi
 import { UnitFrameDataTextConfigComponent }    from 'src/app/Component/Config/Window/Partial/UnitFrameDataTextConfigComponent';
 import { UnitFrameDistanceConfigComponent }    from 'src/app/Component/Config/Window/Partial/UnitFrameDistanceConfigComponent';
 import { UnitFrameHealthBarConfigComponent }   from 'src/app/Component/Config/Window/Partial/UnitFrameHealthBarConfigComponent';
+import {
+	UnitFrameLeaderConfigComponent
+}                                              from 'src/app/Component/Config/Window/Partial/UnitFrameLeaderConfigComponent';
 import { UnitFrameManaBarConfigComponent }     from 'src/app/Component/Config/Window/Partial/UnitFrameManaBarConfigComponent';
 import { UnitFrameRoleConfigComponent }        from 'src/app/Component/Config/Window/Partial/UnitFrameRoleConfigComponent';
 import { UnitFrameSignConfigComponent }        from 'src/app/Component/Config/Window/Partial/UnitFrameSignConfigComponent';
@@ -80,6 +83,7 @@ import { AggroListComponent }      from 'src/app/Component/UnitFrame/AggroListCo
 import { AggroMemberComponent }    from 'src/app/Component/UnitFrame/AggroMemberComponent';
 import { AuraIconComponent }       from 'src/app/Component/UnitFrame/AuraIconComponent';
 import { FocusComponent }          from 'src/app/Component/UnitFrame/FocusComponent';
+import { LeaderComponent }         from 'src/app/Component/UnitFrame/LeaderComponent';
 import { PartyComponent }          from 'src/app/Component/UnitFrame/PartyComponent';
 import { PartyMemberComponent }    from 'src/app/Component/UnitFrame/PartyMemberComponent';
 import { PlayerComponent }         from 'src/app/Component/UnitFrame/PlayerComponent';
@@ -140,6 +144,7 @@ export function getBaseUrl() {
 		UnitFrameBasicConfigComponent, UnitFrameHealthBarConfigComponent, UnitFrameManaBarConfigComponent,
 		UnitFrameRoleConfigComponent, UnitFrameSignConfigComponent, UnitFrameDistanceConfigComponent,
 		UnitFrameStatusConfigComponent, UnitFrameCastBarComponent, UnitFrameDataTextConfigComponent,
+		UnitFrameLeaderConfigComponent,
 
 		// Custom Elements
 		CustomElementComponent,
@@ -174,7 +179,7 @@ export function getBaseUrl() {
 
 		// Role icons
 		RoleIconComponent, IconDps, IconTank, IconHealer,
-		SignComponent,
+		SignComponent, LeaderComponent,
 
 		// Config UI
 		ConfigGroupComponent, ConfigInputComponent, ConfigSizeComponent, ConfigPositionComponent,

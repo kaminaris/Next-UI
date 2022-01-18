@@ -58,7 +58,12 @@ import { ConfigService }         from 'src/app/Service/ConfigService';
 				[configPath]="configPath"
 			></unit-frame-data-text>
 
-			<config-group title="Party Settings" class="d-block pt-2" *ngSwitchCase="9">
+			<unit-frame-leader class="d-block pt-2" *ngSwitchCase="9"
+				[configObj]="configObj.leader"
+				[configPath]="configPath"
+			></unit-frame-leader>
+
+			<config-group title="Party Settings" class="d-block pt-2" *ngSwitchCase="10">
 				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameHeight" label="Frame Height"></config-input>
 				<config-input [configObj]="configObj" [configPath]="configPath" prop="unitFrameWidth" label="Frame Width"></config-input>
 				<config-input [configObj]="configObj" [configPath]="configPath" inputType="number" prop="unitFrameMargin" label="Frame Margin"></config-input>
@@ -83,6 +88,7 @@ export class ConfigWindowPartyComponent extends ConfigWindowUnitFrame {
 	constructor(public conf: ConfigService) {
 		super();
 		this.conf.config.filtersSub.subscribe(v => this.filters = v);
+		this.tabs.push({ name: 'Leader Icon' });
 		this.tabs.push({ name: 'Party Settings' });
 	}
 }
