@@ -382,7 +382,12 @@ export class UnitFrameComponent implements OnInit, OnDestroy {
 	}
 
 	async setMouseOver() {
-		if (!this.combatant || !this.combatant.id) {
+		if (
+			!this.combatant ||
+			!this.combatant.id ||
+			this.combatant.id === Combatant.ENV_ID ||
+			this.combatant.id === 0
+		) {
 			return;
 		}
 
