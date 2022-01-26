@@ -119053,7 +119053,7 @@ export const actions: ActionDefinition[] = [
 		id: 16003,
 		name: 'Standard Finish',
 		iconId: 3459,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -119061,7 +119061,7 @@ export const actions: ActionDefinition[] = [
 		id: 16004,
 		name: 'Technical Finish',
 		iconId: 3474,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120477,7 +120477,7 @@ export const actions: ActionDefinition[] = [
 		id: 16191,
 		name: 'Single Standard Finish',
 		iconId: 3459,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120485,7 +120485,7 @@ export const actions: ActionDefinition[] = [
 		id: 16192,
 		name: 'Double Standard Finish',
 		iconId: 3459,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120493,7 +120493,7 @@ export const actions: ActionDefinition[] = [
 		id: 16193,
 		name: 'Single Technical Finish',
 		iconId: 3474,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120501,7 +120501,7 @@ export const actions: ActionDefinition[] = [
 		id: 16194,
 		name: 'Double Technical Finish',
 		iconId: 3474,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120509,7 +120509,7 @@ export const actions: ActionDefinition[] = [
 		id: 16195,
 		name: 'Triple Technical Finish',
 		iconId: 3474,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -120517,7 +120517,7 @@ export const actions: ActionDefinition[] = [
 		id: 16196,
 		name: 'Quadruple Technical Finish',
 		iconId: 3474,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -162666,6 +162666,62 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 22003,
+		name: 'Rush',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22004,
+		name: 'Spinning Slash',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22005,
+		name: 'Inkblot',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22006,
+		name: 'Black Tide',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22007,
+		name: 'Black Tide',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22008,
+		name: 'Rush',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 22009,
+		name: 'Spinning Slash',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
 		id: 22010,
 		name: 'Deluge of Darkness',
 		iconId: 405,
@@ -189205,7 +189261,7 @@ export const actions: ActionDefinition[] = [
 		id: 25776,
 		name: 'Hollow Nozuchi',
 		iconId: 2930,
-		category: 3,
+		category: 4,
 		castTime: 0.0,
 		cooldown: 0.0
 	},
@@ -189317,7 +189373,7 @@ export const actions: ActionDefinition[] = [
 		id: 25790,
 		name: 'Tillana',
 		iconId: 3480,
-		category: 4,
+		category: 3,
 		castTime: 0.0,
 		cooldown: 2.5
 	},
@@ -191378,6 +191434,654 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 26073,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26074,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26075,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26076,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26077,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26078,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26079,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26080,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26081,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26082,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26083,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26084,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26085,
+		name: 'Pitiless Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26086,
+		name: 'True Holy',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26087,
+		name: 'True Holy',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26088,
+		name: '懲罰連撃・聖爆鎖',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26089,
+		name: 'Shining Cells',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26090,
+		name: 'Slam Shut',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26091,
+		name: 'Aetherchain',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26092,
+		name: 'Powerful Fire',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26093,
+		name: 'Powerful Light',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26094,
+		name: 'Intemperance',
+		iconId: 405,
+		category: 4,
+		castTime: 2.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26095,
+		name: 'Intemperate Torment',
+		iconId: 405,
+		category: 4,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26096,
+		name: 'Hot Spell',
+		iconId: 405,
+		category: 2,
+		castTime: 1.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26097,
+		name: 'Cold Spell',
+		iconId: 405,
+		category: 2,
+		castTime: 1.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26098,
+		name: 'Painful Flux',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26099,
+		name: 'Heavy Hand',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26100,
+		name: 'Warder\'s Wrath',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26102,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26103,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26104,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26105,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26106,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26107,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26108,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26109,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26110,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26111,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26112,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26113,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26114,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26115,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26116,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26117,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26118,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26119,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 11.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26120,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26121,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26122,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26123,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26124,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26125,
+		name: 'Aetherflail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26126,
+		name: 'Pitiless Flail of Grace',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26127,
+		name: 'Pitiless Flail of Purgation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26128,
+		name: 'True Holy',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26129,
+		name: 'True Flare',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26130,
+		name: 'True Holy',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26131,
+		name: 'True Flare',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26132,
+		name: 'Pitiless Aetherflail of Grace',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26133,
+		name: 'Pitiless Aetherflail of Purgation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26134,
+		name: 'Shining Cells',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26135,
+		name: 'Slam Shut',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26136,
+		name: 'Lethe',
+		iconId: 405,
+		category: 4,
+		castTime: 12.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26137,
+		name: 'Aetherchain',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26138,
+		name: 'Powerful Fire',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26139,
+		name: 'Powerful Light',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26140,
+		name: 'Shackles of Time',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26141,
+		name: 'Out of Time',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26142,
+		name: 'Intemperance',
+		iconId: 405,
+		category: 4,
+		castTime: 2.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26143,
+		name: 'Intemperate Torment',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26144,
+		name: 'Intemperate Torment',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26145,
+		name: 'Hot Spell',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26146,
+		name: 'Cold Spell',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26147,
+		name: 'Disastrous Spell',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26148,
+		name: 'Painful Flux',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26149,
+		name: 'Aetherial Shackles',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26150,
+		name: 'Fourfold Shackles',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26151,
+		name: 'Chain Pain',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26152,
+		name: 'Chain Pain',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26153,
+		name: 'Heavy Hand',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26154,
+		name: 'Warder\'s Wrath',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
 		id: 26155,
 		name: 'Exodus',
 		iconId: 405,
@@ -192055,6 +192759,902 @@ export const actions: ActionDefinition[] = [
 		iconId: 405,
 		category: 4,
 		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26262,
+		name: 'Experimental Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26263,
+		name: 'Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26264,
+		name: 'Experimental Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26265,
+		name: 'Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26266,
+		name: 'Experimental Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26267,
+		name: 'Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26268,
+		name: 'Experimental Charplume',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26269,
+		name: 'Charplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26270,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26271,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26272,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26273,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26274,
+		name: 'Blazing Rain',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26275,
+		name: 'Flames of Undeath',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26276,
+		name: 'Joint Pyre',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26277,
+		name: 'Joint Pyre',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26278,
+		name: '強襲滑空',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26279,
+		name: 'Fore Carve',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26280,
+		name: 'Rear Carve',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26281,
+		name: 'Dead Rebirth',
+		iconId: 405,
+		category: 3,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26282,
+		name: 'Fledgling Flight',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26283,
+		name: 'Ashen Eye',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26285,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 3.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26286,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 3.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26287,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 4.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26288,
+		name: 'Flare of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26289,
+		name: '獄炎の火花',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26290,
+		name: 'Heat of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26291,
+		name: 'Heat of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26292,
+		name: 'Right Cinderwing',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26293,
+		name: 'Left Cinderwing',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26294,
+		name: 'Searing Breeze',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26295,
+		name: 'Searing Breeze',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26296,
+		name: 'Scorched Exaltation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26297,
+		name: 'Darkened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26298,
+		name: 'Darkened Blaze',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26299,
+		name: 'Darkened Blaze',
+		iconId: 405,
+		category: 3,
+		castTime: 22.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26300,
+		name: 'Brightened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26301,
+		name: 'Brightened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26302,
+		name: 'Experimental Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26303,
+		name: 'Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26304,
+		name: 'Experimental Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26305,
+		name: 'Fireplume',
+		iconId: 405,
+		category: 3,
+		castTime: 2.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26306,
+		name: 'Experimental Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26307,
+		name: 'Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26308,
+		name: 'Experimental Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26309,
+		name: 'Ashplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26310,
+		name: 'Experimental Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26311,
+		name: 'Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26312,
+		name: 'Experimental Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26313,
+		name: 'Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26314,
+		name: 'Experimental Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26315,
+		name: 'Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26316,
+		name: 'Experimental Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26317,
+		name: 'Gloryplume',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26318,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26319,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26320,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26321,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26322,
+		name: 'Blazing Rain',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26323,
+		name: 'Great Whirlwind',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26324,
+		name: 'Great Whirlwind',
+		iconId: 405,
+		category: 3,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26325,
+		name: 'Great Whirlwind',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26326,
+		name: 'Flames of Undeath',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26327,
+		name: 'Joint Pyre',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26328,
+		name: 'Joint Pyre',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26329,
+		name: 'Joint Pyre',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26330,
+		name: '呪火',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26331,
+		name: '前方猛襲乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26332,
+		name: '後方猛襲乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26333,
+		name: '強襲滑空',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26334,
+		name: '前方乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26335,
+		name: '後方乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26336,
+		name: 'Fireglide Sweep',
+		iconId: 405,
+		category: 3,
+		castTime: 11.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26337,
+		name: 'Fireglide Sweep',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26338,
+		name: '前方乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26339,
+		name: '後方乱流',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26340,
+		name: 'Dead Rebirth',
+		iconId: 405,
+		category: 3,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26341,
+		name: 'Burst',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26342,
+		name: 'Ashen Eye',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26343,
+		name: 'Fountain of Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26344,
+		name: 'Fountain of Life',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26345,
+		name: 'Fountain of Death',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26346,
+		name: 'Sun\'s Pinion',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26347,
+		name: 'Sun\'s Pinion',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26348,
+		name: 'Fireglide',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26349,
+		name: 'Death\'s Toll',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26350,
+		name: 'Life\'s Agonies',
+		iconId: 405,
+		category: 3,
+		castTime: 24.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26351,
+		name: '石化の瞳',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26352,
+		name: 'Firestorms of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26353,
+		name: 'Flames of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26354,
+		name: 'Flames of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26355,
+		name: 'Flames of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26356,
+		name: 'Flames of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26357,
+		name: 'Storms of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26358,
+		name: 'Winds of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26359,
+		name: 'Beacons of Asphodelos',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26360,
+		name: 'Darkblaze Twister',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26361,
+		name: 'Dark Twister',
+		iconId: 405,
+		category: 3,
+		castTime: 17.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26362,
+		name: 'Burning Twister',
+		iconId: 405,
+		category: 3,
+		castTime: 19.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26363,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26364,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26365,
+		name: 'Trail of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26366,
+		name: 'Flare of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26367,
+		name: 'Sparks of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26368,
+		name: 'Heat of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26369,
+		name: 'Heat of Condemnation',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26370,
+		name: 'Right Cinderwing',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26371,
+		name: 'Left Cinderwing',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26372,
+		name: 'Searing Breeze',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26373,
+		name: 'Searing Breeze',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26374,
+		name: 'Scorched Exaltation',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
 		cooldown: 0.0
 	},
 	{
@@ -193514,6 +195114,38 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 26614,
+		name: 'Sewage Deluge',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26615,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26616,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26617,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
 		id: 26618,
 		name: 'Elegeia',
 		iconId: 405,
@@ -193538,12 +195170,428 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 26621,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26622,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
 		id: 26623,
 		name: 'Enchanted Reprise',
 		iconId: 405,
 		category: 3,
 		castTime: 0.0,
 		cooldown: 2.0
+	},
+	{
+		id: 26624,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26625,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26626,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26628,
+		name: 'Dissociation',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26630,
+		name: 'Dissociation',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26631,
+		name: 'Shockwave',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26632,
+		name: 'Tainted Flood',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26633,
+		name: 'Tainted Flood',
+		iconId: 405,
+		category: 2,
+		castTime: 5.2,
+		cooldown: 0.0
+	},
+	{
+		id: 26634,
+		name: 'Predatory Sight',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26635,
+		name: 'Predatory Sight',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26636,
+		name: 'Sewage Eruption',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26637,
+		name: 'Sewage Eruption',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26638,
+		name: 'Doubled Impact',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26639,
+		name: 'Murky Depths',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26640,
+		name: 'Sewage Deluge',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26641,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26642,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26643,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26644,
+		name: 'Winged Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26645,
+		name: 'Winged Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26646,
+		name: 'Winged Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26647,
+		name: 'Spoken Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26648,
+		name: 'Winged Cataract',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26649,
+		name: 'Elegant Evisceration',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26650,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26651,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 12.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26652,
+		name: 'Coherence',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26654,
+		name: 'Channeling Flow',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26655,
+		name: 'Greater Typhoon',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26656,
+		name: 'Great Typhoon',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26657,
+		name: 'Crash',
+		iconId: 405,
+		category: 4,
+		castTime: 0.2,
+		cooldown: 0.0
+	},
+	{
+		id: 26659,
+		name: 'Kampeos Harma',
+		iconId: 405,
+		category: 3,
+		castTime: 8.5,
+		cooldown: 0.0
+	},
+	{
+		id: 26660,
+		name: 'Kampeos Harma',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26661,
+		name: 'Kampeos Harma',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26662,
+		name: 'Kampeos Harma',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26663,
+		name: 'Predatory Avarice',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26664,
+		name: 'Hard Water',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26665,
+		name: 'Deadly Current',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26666,
+		name: 'Ominous Bubbling',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26667,
+		name: 'Ominous Bubbling',
+		iconId: 405,
+		category: 2,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26668,
+		name: 'Dissociation',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26670,
+		name: 'Dissociation',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26671,
+		name: 'Shockwave',
+		iconId: 405,
+		category: 3,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26672,
+		name: 'Sewage Eruption',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26673,
+		name: 'Sewage Eruption',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26674,
+		name: 'Doubled Impact',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26675,
+		name: 'Murky Depths',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26676,
+		name: 'Sewage Deluge',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26679,
+		name: 'Tainted Flood',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 26680,
+		name: 'Tainted Flood',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
 	},
 	{
 		id: 26681,
@@ -196458,6 +198506,998 @@ export const actions: ActionDefinition[] = [
 		cooldown: 12.0
 	},
 	{
+		id: 27083,
+		name: 'Setting the Scene',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27087,
+		name: 'Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27088,
+		name: 'Acid Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27089,
+		name: 'Lava Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27090,
+		name: 'Well Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27091,
+		name: 'Levinstrike Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27092,
+		name: 'Acid Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27093,
+		name: 'Lava Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27094,
+		name: 'Well Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27095,
+		name: 'Levinstrike Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27096,
+		name: 'Bloodrake',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27097,
+		name: 'Belone Bursts',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27098,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27099,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27100,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27101,
+		name: 'Belone Coils',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27102,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27103,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27104,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27105,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27106,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27107,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27108,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27109,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27110,
+		name: 'Director\'s Belone',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27112,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27113,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27114,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27115,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27116,
+		name: 'Aetheric Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27117,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27118,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27119,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27120,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27121,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27122,
+		name: 'Elemental Belone',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27124,
+		name: 'Periaktoi',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27125,
+		name: 'Acid Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27126,
+		name: 'Lava Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27127,
+		name: 'Well Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27128,
+		name: 'Levinstrike Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27129,
+		name: 'Acid Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27130,
+		name: 'Lava Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27131,
+		name: 'Well Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27132,
+		name: 'Levinstrike Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27133,
+		name: 'Northerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27134,
+		name: 'Southerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27135,
+		name: 'Easterly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27136,
+		name: 'Westerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27137,
+		name: 'Shifting Strike',
+		iconId: 405,
+		category: 4,
+		castTime: 9.7,
+		cooldown: 0.0
+	},
+	{
+		id: 27138,
+		name: 'Northerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27139,
+		name: 'Southerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27140,
+		name: 'Easterly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27141,
+		name: 'Westerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27142,
+		name: 'Shifting Strike',
+		iconId: 405,
+		category: 4,
+		castTime: 9.5,
+		cooldown: 0.0
+	},
+	{
+		id: 27143,
+		name: 'Hell Skewer',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27144,
+		name: 'Elegant Evisceration',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27145,
+		name: 'Decollation',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27147,
+		name: 'Decollation',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27148,
+		name: 'Akanthai: Act 1',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27149,
+		name: 'Hemitheos\'s Fire IV',
+		iconId: 405,
+		category: 4,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27150,
+		name: 'Hemitheos\'s Thunder III',
+		iconId: 405,
+		category: 4,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27151,
+		name: 'Hemitheos\'s Thunder III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27152,
+		name: 'Hemitheos\'s Water IV',
+		iconId: 405,
+		category: 4,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27156,
+		name: 'Hemitheos\'s Water III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27157,
+		name: 'Hemitheos\'s Water III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27158,
+		name: 'Hemitheos\'s Dark IV',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27159,
+		name: 'Hemitheos\'s Dark IV',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27160,
+		name: 'Hemitheos\'s Fire III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27161,
+		name: 'Hemitheos\'s Fire III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27162,
+		name: 'Hemitheos\'s Aero III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27163,
+		name: 'Hemitheos\'s Aero III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27164,
+		name: 'Fleeting Impulse',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27166,
+		name: 'Hell\'s Sting',
+		iconId: 405,
+		category: 4,
+		castTime: 2.4,
+		cooldown: 0.0
+	},
+	{
+		id: 27167,
+		name: 'Hell\'s Sting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27168,
+		name: 'Hell\'s Sting',
+		iconId: 405,
+		category: 4,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27169,
+		name: 'Hell\'s Sting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.6,
+		cooldown: 0.0
+	},
+	{
+		id: 27170,
+		name: 'Kothornos Kick',
+		iconId: 405,
+		category: 4,
+		castTime: 4.9,
+		cooldown: 0.0
+	},
+	{
+		id: 27171,
+		name: 'Kothornos Kick',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27172,
+		name: 'Kothornos Quake',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27173,
+		name: 'Kothornos Quake',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27174,
+		name: '_rsv_27174_-1_1_C0_0Action',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27175,
+		name: '_rsv_27175_-1_1_C0_0Action',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27176,
+		name: '_rsv_27176_-1_1_C0_0Action',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27177,
+		name: 'Dark Design',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27178,
+		name: 'Dark Design',
+		iconId: 405,
+		category: 4,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27179,
+		name: 'Heart Stake',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27180,
+		name: 'Ultimate Impulse',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27181,
+		name: 'Searing Stream',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27183,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27184,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27185,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 8.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27186,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27187,
+		name: 'Akanthai: Act 5',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27188,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27189,
+		name: 'Wreath of Thorns',
+		iconId: 405,
+		category: 4,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27190,
+		name: 'Akanthai: Curtain Call',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27191,
+		name: 'Ultimate Impulse',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27192,
+		name: 'Acid Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27193,
+		name: 'Lava Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27194,
+		name: 'Well Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27195,
+		name: 'Levinstrike Mekhane',
+		iconId: 405,
+		category: 4,
+		castTime: 2.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27196,
+		name: 'Acid Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27197,
+		name: 'Lava Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27198,
+		name: 'Well Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27199,
+		name: 'Levinstrike Pinax',
+		iconId: 405,
+		category: 4,
+		castTime: 9.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27200,
+		name: 'Bloodrake',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27201,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27202,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27203,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27204,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27205,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27206,
+		name: 'Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27207,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27208,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27209,
+		name: 'Dramatic Burst',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27210,
+		name: 'Northerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27211,
+		name: 'Southerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27212,
+		name: 'Easterly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27213,
+		name: 'Westerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27214,
+		name: 'Shifting Strike',
+		iconId: 405,
+		category: 4,
+		castTime: 8.5,
+		cooldown: 0.0
+	},
+	{
+		id: 27215,
+		name: 'Hell Skewer',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27216,
+		name: 'Elegant Evisceration',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27217,
+		name: 'Decollation',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27218,
 		name: 'Run Amok',
 		iconId: 405,
@@ -197098,12 +200138,84 @@ export const actions: ActionDefinition[] = [
 		cooldown: 16.0
 	},
 	{
+		id: 27307,
+		name: 'Quintuple Inhale',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27308,
+		name: 'Quintuple Inhale',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27309,
+		name: 'Quintuple Sneeze',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27310,
+		name: 'Quintuple Sneeze',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27311,
+		name: 'ライトスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27312,
+		name: 'レフトスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27313,
+		name: 'Rotten Spores',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27314,
+		name: 'Uppercut',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27315,
 		name: 'Medical Kit',
 		iconId: 405,
 		category: 4,
 		castTime: 0.0,
 		cooldown: 2.5
+	},
+	{
+		id: 27316,
+		name: 'Trolling',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
 	},
 	{
 		id: 27317,
@@ -199042,6 +202154,142 @@ export const actions: ActionDefinition[] = [
 		cooldown: 15.0
 	},
 	{
+		id: 27617,
+		name: 'Gnaw',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27618,
+		name: 'Infusion',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27619,
+		name: 'Caterwaul',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27620,
+		name: 'Brace',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27621,
+		name: 'Brace',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27622,
+		name: 'Brace',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27623,
+		name: 'Brace',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27624,
+		name: 'Lickwhip Stance',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27625,
+		name: 'Whiplick Stance',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27626,
+		name: 'Long Lick',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27627,
+		name: 'Long Lick',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27628,
+		name: 'Long Lick',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27629,
+		name: 'Long Lick',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27630,
+		name: 'Hind Whip',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27631,
+		name: 'Hind Whip',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27632,
+		name: 'Hind Whip',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27633,
+		name: 'Hind Whip',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27635,
 		name: 'Minax Glare',
 		iconId: 405,
@@ -199482,6 +202730,38 @@ export const actions: ActionDefinition[] = [
 		cooldown: 5.0
 	},
 	{
+		id: 27691,
+		name: 'Final Exaltation',
+		iconId: 405,
+		category: 3,
+		castTime: 10.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27692,
+		name: 'Quintuple Inhale',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27693,
+		name: 'Quintuple Sneeze',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 27694,
+		name: 'ライトクインティプルスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27695,
 		name: 'Darkness',
 		iconId: 405,
@@ -199615,6 +202895,22 @@ export const actions: ActionDefinition[] = [
 		iconId: 405,
 		category: 2,
 		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27714,
+		name: 'Long Lick',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27715,
+		name: 'Hind Whip',
+		iconId: 405,
+		category: 3,
+		castTime: 1.0,
 		cooldown: 0.0
 	},
 	{
@@ -199966,6 +203262,22 @@ export const actions: ActionDefinition[] = [
 		name: 'attack',
 		iconId: 405,
 		category: 1,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27765,
+		name: 'Intemperate Flames',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27766,
+		name: 'Intemperate Ice',
+		iconId: 405,
+		category: 2,
 		castTime: 0.0,
 		cooldown: 0.0
 	},
@@ -200539,7 +203851,7 @@ export const actions: ActionDefinition[] = [
 	},
 	{
 		id: 27845,
-		name: '魔力解放・火',
+		name: 'Hot Spell',
 		iconId: 405,
 		category: 2,
 		castTime: 4.0,
@@ -200547,7 +203859,7 @@ export const actions: ActionDefinition[] = [
 	},
 	{
 		id: 27846,
-		name: '魔力解放・氷',
+		name: 'Cold Spell',
 		iconId: 405,
 		category: 2,
 		castTime: 4.0,
@@ -200658,6 +203970,22 @@ export const actions: ActionDefinition[] = [
 		cooldown: 7.0
 	},
 	{
+		id: 27862,
+		name: 'Hemitheos\'s Water III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27863,
+		name: 'Hemitheos\'s Fire III',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27864,
 		name: 'Rail Cannon',
 		iconId: 405,
@@ -200719,6 +204047,14 @@ export const actions: ActionDefinition[] = [
 		iconId: 405,
 		category: 4,
 		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27873,
+		name: 'レフトクインティプルスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
 		cooldown: 0.0
 	},
 	{
@@ -201010,6 +204346,46 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 27913,
+		name: '連続吸引',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27914,
+		name: 'クインティプルスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27920,
+		name: '吸引',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27921,
+		name: 'ライトスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27922,
+		name: 'レフトスニーズ',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
 		id: 27923,
 		name: 'Dragonfire Dive',
 		iconId: 405,
@@ -201104,6 +204480,334 @@ export const actions: ActionDefinition[] = [
 		category: 2,
 		castTime: 1.5,
 		cooldown: 2.5
+	},
+	{
+		id: 27980,
+		name: 'attack',
+		iconId: 405,
+		category: 2,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27981,
+		name: 'Heart on Fire IV',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27982,
+		name: 'Temper\'s Flare',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27983,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27984,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27985,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27986,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27987,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27988,
+		name: 'Heart on Fire II',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27989,
+		name: 'Left in the Dark',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27990,
+		name: 'Left in the Dark',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27991,
+		name: 'Right in the Dark',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27992,
+		name: 'Right in the Dark',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27993,
+		name: 'Left in the Dark',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27994,
+		name: 'Left in the Dark',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27995,
+		name: 'Right in the Dark',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27996,
+		name: 'Right in the Dark',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27997,
+		name: 'Quake in Your Boots',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27998,
+		name: 'Quake in Your Boots',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 27999,
+		name: 'Quake Me Away',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28000,
+		name: 'Quake Me Away',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28001,
+		name: 'Heart on Fire II',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28002,
+		name: 'Heart on Fire III',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28003,
+		name: 'Riddle of Flame',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28004,
+		name: 'Riddle of Flame',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28005,
+		name: 'Riddle of Frost',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28006,
+		name: 'Riddle of Frost',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28007,
+		name: 'Icebomb Burst',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28008,
+		name: 'Icebomb Burst',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28009,
+		name: 'Icewind Twister',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28010,
+		name: 'Icewind Twister',
+		iconId: 405,
+		category: 3,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28011,
+		name: 'Icedrop Blast',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28012,
+		name: 'Gold Thunder',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28013,
+		name: 'Gold Thunder',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28014,
+		name: 'Gold Thunder',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28015,
+		name: 'Superheat',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28016,
+		name: 'Superheat',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28017,
+		name: 'Lightning Bolt',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28018,
+		name: 'Lightning Bolt',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28019,
+		name: 'Crackling Current',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28020,
+		name: 'Crackling Current',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
 	},
 	{
 		id: 28021,
@@ -201202,6 +204906,22 @@ export const actions: ActionDefinition[] = [
 		cooldown: 15.0
 	},
 	{
+		id: 28034,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 14.5,
+		cooldown: 0.0
+	},
+	{
+		id: 28035,
+		name: 'Devouring Brand',
+		iconId: 405,
+		category: 3,
+		castTime: 20.0,
+		cooldown: 0.0
+	},
+	{
 		id: 28036,
 		name: 'Dissever',
 		iconId: 405,
@@ -201298,6 +205018,142 @@ export const actions: ActionDefinition[] = [
 		cooldown: 10.0
 	},
 	{
+		id: 28066,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.7,
+		cooldown: 0.0
+	},
+	{
+		id: 28067,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.7,
+		cooldown: 0.0
+	},
+	{
+		id: 28068,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.7,
+		cooldown: 0.0
+	},
+	{
+		id: 28069,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 8.7,
+		cooldown: 0.0
+	},
+	{
+		id: 28070,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 12.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28071,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 12.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28072,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 12.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28073,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 12.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28074,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28075,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28076,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28077,
+		name: 'Gaoler\'s Flail',
+		iconId: 405,
+		category: 3,
+		castTime: 0.3,
+		cooldown: 0.0
+	},
+	{
+		id: 28078,
+		name: 'Northerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28079,
+		name: 'Southerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28080,
+		name: 'Easterly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28081,
+		name: 'Westerly Shift',
+		iconId: 405,
+		category: 4,
+		castTime: 7.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28082,
+		name: 'Shifting Strike',
+		iconId: 405,
+		category: 4,
+		castTime: 8.7,
+		cooldown: 0.0
+	},
+	{
 		id: 28083,
 		name: 'attack',
 		iconId: 405,
@@ -201354,11 +205210,35 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 28090,
+		name: 'Quake in Your Boots',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28091,
+		name: 'Quake Me Away',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
 		id: 28092,
 		name: 'Print Workers',
 		iconId: 405,
 		category: 3,
 		castTime: 3.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28093,
+		name: 'Merry Go-round',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
 		cooldown: 0.0
 	},
 	{
@@ -201384,6 +205264,14 @@ export const actions: ActionDefinition[] = [
 		category: 3,
 		castTime: 4.0,
 		cooldown: 30.0
+	},
+	{
+		id: 28098,
+		name: 'Channeling Overflow',
+		iconId: 405,
+		category: 2,
+		castTime: 5.0,
+		cooldown: 0.0
 	},
 	{
 		id: 28101,
@@ -201546,6 +205434,30 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 28123,
+		name: '_rsv_28123_-1_1_C0_0Action',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28126,
+		name: 'Firedrop Blast',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28127,
+		name: 'Firedrop Blast',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
 		id: 28129,
 		name: 'Cannon Shot',
 		iconId: 405,
@@ -201674,11 +205586,339 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 28147,
+		name: 'Stone Skull',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28148,
+		name: 'Plaincracker',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28149,
+		name: 'Earthen Heart',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28150,
+		name: 'Magnetism',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28151,
+		name: 'Sewer Water',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28152,
+		name: 'Sewer Water',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28153,
+		name: 'Fire II',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28154,
+		name: 'Dark',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28155,
+		name: 'Leech',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 25.0
+	},
+	{
+		id: 28156,
+		name: 'Needle Spaser',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28157,
+		name: 'Gravity Thrust',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28158,
+		name: 'Appendicular Disseverment',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28159,
+		name: 'Flame Hammer',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28160,
+		name: 'Shatter',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28162,
+		name: 'Aetherial Spark',
+		iconId: 405,
+		category: 2,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28163,
+		name: 'Detonator',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28164,
+		name: 'Giant Leap',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28165,
+		name: 'Landslip',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28166,
+		name: 'Stone Skull',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28167,
+		name: 'Earthen Heart',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28168,
+		name: 'Headspin',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28169,
+		name: 'Carpomission',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28170,
+		name: 'Isle Drop',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28171,
+		name: 'Welding Attachment',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28172,
+		name: 'Fire Fighter',
+		iconId: 405,
+		category: 3,
+		castTime: 4.0,
+		cooldown: 20.0
+	},
+	{
+		id: 28173,
+		name: 'Double Ray',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28175,
+		name: 'Empty Beleaguer',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28176,
+		name: 'Empty Cutter',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 12.0
+	},
+	{
+		id: 28177,
+		name: 'Negative Whirl',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28178,
+		name: 'Orogenic Storm',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28179,
+		name: 'Slicing Sickle',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28180,
+		name: 'Retinal Glare',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28181,
+		name: 'La Vie en Epines',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28182,
+		name: 'Acrid Stream',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28183,
+		name: 'Acid Mist',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28185,
+		name: 'Passive Infrared Guidance System',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28186,
+		name: 'Lithifying Light',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
+		id: 28187,
+		name: 'Sanctification',
+		iconId: 405,
+		category: 3,
+		castTime: 3.0,
+		cooldown: 15.0
+	},
+	{
 		id: 28188,
 		name: 'Fatal Poison',
 		iconId: 405,
 		category: 3,
 		castTime: 26.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28189,
+		name: 'Quake in Your Boots',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28190,
+		name: 'Quake Me Away',
+		iconId: 405,
+		category: 2,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28191,
+		name: 'Lightning Bolt',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
 		cooldown: 0.0
 	},
 	{
@@ -201696,6 +205936,38 @@ export const actions: ActionDefinition[] = [
 		category: 3,
 		castTime: 3.0,
 		cooldown: 18.0
+	},
+	{
+		id: 28194,
+		name: 'Vengeful Belone',
+		iconId: 405,
+		category: 4,
+		castTime: 4.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28196,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28197,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28198,
+		name: 'Cursed Casting',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
 	},
 	{
 		id: 28199,
@@ -202258,6 +206530,14 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 28276,
+		name: 'Kothornos Quake',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
 		id: 28277,
 		name: 'Thelema',
 		iconId: 405,
@@ -202272,6 +206552,22 @@ export const actions: ActionDefinition[] = [
 		category: 4,
 		castTime: 0.0,
 		cooldown: 2.5
+	},
+	{
+		id: 28279,
+		name: 'Heart Stake',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28280,
+		name: '_rsv_28280_-1_1_C0_0Action',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
 	},
 	{
 		id: 28284,
@@ -202706,6 +207002,46 @@ export const actions: ActionDefinition[] = [
 		cooldown: 2.5
 	},
 	{
+		id: 28340,
+		name: 'Akanthai: Act 2',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28341,
+		name: 'Akanthai: Act 3',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28342,
+		name: 'Akanthai: Act 4',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28343,
+		name: 'Akanthai: Finale',
+		iconId: 405,
+		category: 4,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28344,
+		name: 'Fleeting Impulse',
+		iconId: 405,
+		category: 4,
+		castTime: 4.9,
+		cooldown: 0.0
+	},
+	{
 		id: 28345,
 		name: 'Piercing Talon',
 		iconId: 405,
@@ -202759,6 +207095,22 @@ export const actions: ActionDefinition[] = [
 		iconId: 405,
 		category: 3,
 		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28353,
+		name: 'Inevitable Flame',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28354,
+		name: 'Inevitable Light',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
 		cooldown: 0.0
 	},
 	{
@@ -202834,6 +207186,14 @@ export const actions: ActionDefinition[] = [
 		cooldown: 0.0
 	},
 	{
+		id: 28365,
+		name: 'Kothornos Quake',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
 		id: 28366,
 		name: 'Rampart',
 		iconId: 405,
@@ -202904,6 +207264,46 @@ export const actions: ActionDefinition[] = [
 		category: 2,
 		castTime: 0.0,
 		cooldown: 2.5
+	},
+	{
+		id: 28378,
+		name: 'Darkened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 6.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28379,
+		name: 'Darkened Blaze',
+		iconId: 405,
+		category: 3,
+		castTime: 15.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28380,
+		name: 'Brightened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 5.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28381,
+		name: 'Brightened Fire',
+		iconId: 405,
+		category: 3,
+		castTime: 0.0,
+		cooldown: 0.0
+	},
+	{
+		id: 28382,
+		name: 'Dead Rebirth',
+		iconId: 405,
+		category: 3,
+		castTime: 10.0,
+		cooldown: 0.0
 	},
 	{
 		id: 28385,
@@ -203079,6 +207479,14 @@ export const actions: ActionDefinition[] = [
 		iconId: 405,
 		category: 4,
 		castTime: 5.5,
+		cooldown: 0.0
+	},
+	{
+		id: 28437,
+		name: 'Inversive Chlamys',
+		iconId: 405,
+		category: 4,
+		castTime: 0.0,
 		cooldown: 0.0
 	},
 	{

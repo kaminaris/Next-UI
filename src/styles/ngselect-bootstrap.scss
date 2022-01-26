@@ -1,6 +1,6 @@
 //@import "theme/variables";
 @import '~bootstrap/scss/variables';
-@import "~@ng-select/ng-select/scss/mixins";
+//@import "~@ng-select/ng-select/scss/mixins";
 
 //.form-control.ng-invalid {
 //	border-color:        #dc3545;
@@ -104,19 +104,19 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 			.ng-value-container {
 				padding-left: $input-padding-x;
 				//padding-right: $input-padding-x + 2.5rem;
-				@include rtl {
-					padding-right: $input-padding-x;
-					//padding-left: $input-padding-x + 2.5rem;
-				}
+				//@include rtl {
+				//	padding-right: $input-padding-x;
+				//	//padding-left: $input-padding-x + 2.5rem;
+				//}
 
 				.ng-input {
 					width: auto !important;
 					left: $input-padding-x !important;
 					right: $input-padding-x + 2.5rem;
-					@include rtl {
-						right: $input-padding-x;
-						left: $input-padding-x + 2.5rem;
-					}
+					//@include rtl {
+					//	right: $input-padding-x;
+					//	left: $input-padding-x + 2.5rem;
+					//}
 				}
 			}
 		}
@@ -126,19 +126,19 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 			.ng-value-container {
 				padding-left: $input-padding-x-sm;
 				//padding-right: $input-padding-x-sm + 2.5rem;
-				@include rtl {
-					padding-right: $input-padding-x-sm;
-					//padding-left: $input-padding-x-sm + 2.5rem;
-				}
+				//@include rtl {
+				//	padding-right: $input-padding-x-sm;
+				//	//padding-left: $input-padding-x-sm + 2.5rem;
+				//}
 
 				.ng-input {
 					width: auto !important;
 					left: $input-padding-x-sm !important;
 					right: $input-padding-x-sm + 2.5rem;
-					@include rtl {
-						right: $input-padding-x-sm;
-						left: $input-padding-x-sm + 2.5rem;
-					}
+					//@include rtl {
+					//	right: $input-padding-x-sm;
+					//	left: $input-padding-x-sm + 2.5rem;
+					//}
 				}
 			}
 		}
@@ -148,19 +148,19 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 			.ng-value-container {
 				padding-left: $input-padding-x-lg;
 				//padding-right: $input-padding-x-lg + 2.5rem;
-				@include rtl {
-					padding-right: $input-padding-x-lg;
-					//padding-left: $input-padding-x-lg + 2.5rem;
-				}
+				//@include rtl {
+				//	padding-right: $input-padding-x-lg;
+				//	//padding-left: $input-padding-x-lg + 2.5rem;
+				//}
 
 				.ng-input {
 					width: auto !important;
 					left: $input-padding-x-lg !important;
 					right: $input-padding-x-lg + 2.5rem;
-					@include rtl {
-						right: $input-padding-x-lg;
-						left: $input-padding-x-lg + 2.5rem;
-					}
+					//@include rtl {
+					//	right: $input-padding-x-lg;
+					//	left: $input-padding-x-lg + 2.5rem;
+					//}
 				}
 			}
 		}
@@ -187,28 +187,28 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 			.ng-value-container {
 				padding-top: 5px;
 				padding-left: 7px;
-				@include rtl {
-					padding-right: 7px;
-					padding-left: 0
-				}
+				//@include rtl {
+				//	padding-right: 7px;
+				//	padding-left: 0
+				//}
 				.ng-value {
 					//font-size: 0.9em;
 					margin-bottom: 5px;
 					background-color: $ng-select-selected;
 					//border-radius: 2px;
 					margin-right: 5px;
-					@include rtl {
-						margin-right: 0;
-						margin-left: 5px;
-					}
+					//@include rtl {
+					//	margin-right: 0;
+					//	margin-left: 5px;
+					//}
 					&.ng-value-disabled {
 						background-color: $ng-select-disabled-text;
 						.ng-value-label {
 							padding-left: 5px;
-							@include rtl {
-								padding-left: 0;
-								padding-right: 5px;
-							}
+							//@include rtl {
+							//	padding-left: 0;
+							//	padding-right: 5px;
+							//}
 						}
 					}
 					.ng-value-label {
@@ -223,34 +223,34 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 						}
 						&.left {
 							border-right: 1px solid darken($ng-select-selected, 10);
-							@include rtl {
-								border-left: 1px solid darken($ng-select-selected, 10);
-								border-right: none;
-							}
+							//@include rtl {
+							//	border-left: 1px solid darken($ng-select-selected, 10);
+							//	border-right: none;
+							//}
 						}
 						&.right {
 							border-left: 1px solid darken($ng-select-selected, 10);
-							@include rtl {
-								border-left: 0;
-								border-right: 1px solid darken($ng-select-selected, 10);
-							}
+							//@include rtl {
+							//	border-left: 0;
+							//	border-right: 1px solid darken($ng-select-selected, 10);
+							//}
 						}
 					}
 				}
 				.ng-input {
 					padding: 0 0 3px 3px;
-					@include rtl {
-						padding: 0 3px 3px 0;
-					}
+					//@include rtl {
+					//	padding: 0 3px 3px 0;
+					//}
 				}
 				.ng-placeholder {
 					top: 5px;
 					padding-bottom: 5px;
 					padding-left: 3px;
-					@include rtl {
-						padding-right: 3px;
-						padding-left: 0;
-					}
+					//@include rtl {
+					//	padding-right: 3px;
+					//	padding-left: 0;
+					//}
 				}
 			}
 		}
@@ -264,17 +264,17 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 	.ng-spinner-zone {
 		padding: 5px 5px 0 0;
 
-		@include rtl {
-			padding: 5px 0 0 5px;
-		}
+		//@include rtl {
+		//	padding: 5px 0 0 5px;
+		//}
 	}
 	.ng-arrow-wrapper {
 		width: 25px;
 		padding-right: 5px;
-		@include rtl {
-			padding-left: 5px;
-			padding-right: 0;
-		}
+		//@include rtl {
+		//	padding-left: 5px;
+		//	padding-right: 0;
+		//}
 		&:hover {
 			.ng-arrow {
 				border-top-color: darken($ng-select-border, 40);
@@ -369,27 +369,27 @@ $ng-select-marked: $dropdown-link-active-bg !default;
 			}
 			&.ng-option-child {
 				padding-left: 22px;
-				@include rtl {
-					padding-right: 22px;
-					padding-left: 0;
-				}
+				//@include rtl {
+				//	padding-right: 22px;
+				//	padding-left: 0;
+				//}
 			}
 			.ng-tag-label {
 				font-size: 80%;
 				font-weight: 400;
 				padding-right: 5px;
-				@include rtl {
-					padding-left: 5px;
-					padding-right: 0;
-				}
+				//@include rtl {
+				//	padding-left: 5px;
+				//	padding-right: 0;
+				//}
 			}
 		}
 	}
 
-	@include rtl {
-		direction: rtl;
-		text-align: right;
-	}
+	//@include rtl {
+	//	direction: rtl;
+	//	text-align: right;
+	//}
 }
 
 .form-control-sm .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {

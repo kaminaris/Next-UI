@@ -44,7 +44,7 @@ import { default as config } from '../../../package.json';
 })
 export class ConfigComponent {
 	version = config.version;
-	logoUrl = this.baseUrl + '/assets/nu.png';
+	logoUrl = this.baseUrl + 'assets/nu.png';
 
 	categories = [
 		{ value: 'main', label: 'General settings' },

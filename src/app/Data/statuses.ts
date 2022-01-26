@@ -24672,6 +24672,16 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 100
 	},
 	{
+		id: 2540,
+		name: 'Freezing Up',
+		iconId: 15355,
+		description: 'Growing colder by the moment. Failure to continue moving until this effect expires will result in Deep Freeze.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 99
+	},
+	{
 		id: 2541,
 		name: '不浄の侵食',
 		iconId: 15363,
@@ -26043,9 +26053,9 @@ export const statuses: StatusDefinition[] = [
 	},
 	{
 		id: 2690,
-		name: 'Forked Raiju Ready',
+		name: 'Raiju Ready',
 		iconId: 17597,
-		description: 'Able to execute Forked Raiju.',
+		description: 'Able to execute Forked Raiju and Fleeting Raiju.',
 		category: 1,
 		isPermanent: false,
 		maxStacks: 3,
@@ -26512,6 +26522,76 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 0
 	},
 	{
+		id: 2739,
+		name: 'Cold Spell',
+		iconId: 15373,
+		description: 'Overwhelmed by the power of ice.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2740,
+		name: 'Hot Spell',
+		iconId: 15374,
+		description: 'Overwhelmed by the power of fire.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2741,
+		name: 'Shackles of Time',
+		iconId: 15372,
+		description: 'Bound by chains containing light- and fire-aspected aether.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2742,
+		name: 'Shackles of Companionship',
+		iconId: 15375,
+		description: 'Wrapped in chains binding you ever tighter to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2743,
+		name: 'Shackles of Loneliness',
+		iconId: 15377,
+		description: 'Wrapped in chains binding you ever tighter to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2744,
+		name: 'Inescapable Companionship',
+		iconId: 15376,
+		description: 'Fully bound to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2745,
+		name: 'Inescapable Loneliness',
+		iconId: 15378,
+		description: 'Fully bound to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
 		id: 2751,
 		name: 'Fire Alchemy',
 		iconId: 15396,
@@ -26562,6 +26642,26 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 100
 	},
 	{
+		id: 2761,
+		name: 'Darkened Fire',
+		iconId: 17551,
+		description: 'Burning with a dark flame that nullifies damage taken. Stacks of this effect are reduced by contact with flames of an opposing nature.',
+		category: 1,
+		isPermanent: true,
+		maxStacks: 4,
+		partyListPriority: 200
+	},
+	{
+		id: 2762,
+		name: 'Death\'s Toll',
+		iconId: 17556,
+		description: 'Cursed to die. Know the pain of death or face it in sooth.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 4,
+		partyListPriority: 200
+	},
+	{
 		id: 2763,
 		name: 'Smiley Face',
 		iconId: 17311,
@@ -26590,6 +26690,86 @@ export const statuses: StatusDefinition[] = [
 		isPermanent: true,
 		maxStacks: 0,
 		partyListPriority: 0
+	},
+	{
+		id: 2767,
+		name: 'Mark of Easy Prey',
+		iconId: 15729,
+		description: 'Damage taken is greatly increased when separated from similarly marked allies.',
+		category: 2,
+		isPermanent: true,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2768,
+		name: 'Mark of the Tides',
+		iconId: 15903,
+		description: 'Servant to the tides. Damage to those in proximity will occur when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2769,
+		name: 'Mark of the Depths',
+		iconId: 15696,
+		description: 'Servant to the deep. Damage to those in proximity will occur when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2770,
+		name: 'Fore Mark of the Tides',
+		iconId: 15387,
+		description: 'Servant to the tides. Will be swept forward when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2771,
+		name: 'Rear Mark of the Tides',
+		iconId: 15387,
+		description: 'Servant to the tides. Will be swept backward when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2772,
+		name: 'Left Mark of the Tides',
+		iconId: 15387,
+		description: 'Servant to the tides. Will be swept leftward when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2773,
+		name: 'Right Mark of the Tides',
+		iconId: 15387,
+		description: 'Servant to the tides. Will be swept rightward when this effect expires.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2774,
+		name: 'Dropsy',
+		iconId: 15529,
+		description: 'Sustaining water damage over time.',
+		category: 2,
+		isPermanent: true,
+		maxStacks: 0,
+		partyListPriority: 10
 	},
 	{
 		id: 2778,
@@ -26780,6 +26960,66 @@ export const statuses: StatusDefinition[] = [
 		isPermanent: false,
 		maxStacks: 0,
 		partyListPriority: 50
+	},
+	{
+		id: 2799,
+		name: 'Aethersucker',
+		iconId: 15429,
+		description: 'Absorbing and storing aether.',
+		category: 1,
+		isPermanent: true,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2800,
+		name: '_rsv_2800_-1_1_C0_0Status',
+		iconId: 15430,
+		description: '_rsv_2800_-1_1_C1_0Status',
+		category: 1,
+		isPermanent: true,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2801,
+		name: '_rsv_2801_-1_1_C0_0Status',
+		iconId: 15431,
+		description: '_rsv_2801_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 199
+	},
+	{
+		id: 2802,
+		name: '_rsv_2802_-1_1_C0_0Status',
+		iconId: 15432,
+		description: '_rsv_2802_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2803,
+		name: '_rsv_2803_-1_1_C0_0Status',
+		iconId: 15433,
+		description: '_rsv_2803_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2804,
+		name: '_rsv_2804_-1_1_C0_0Status',
+		iconId: 15386,
+		description: '_rsv_2804_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
 	},
 	{
 		id: 2805,
@@ -27002,6 +27242,46 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 200
 	},
 	{
+		id: 2835,
+		name: 'Forward Bearing',
+		iconId: 15423,
+		description: 'Aiming to attack in a forward direction relative to most recent lickwhip or whiplick stance.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2836,
+		name: 'Backward Bearing',
+		iconId: 15424,
+		description: 'Aiming to attack in a backward direction relative to most recent lickwhip or whiplick stance.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 199
+	},
+	{
+		id: 2837,
+		name: 'Leftward Bearing',
+		iconId: 15425,
+		description: 'Aiming to attack in a leftward direction relative to most recent lickwhip or whiplick stance.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 198
+	},
+	{
+		id: 2838,
+		name: 'Rightward Bearing',
+		iconId: 15426,
+		description: 'Aiming to attack in a rightward direction relative to most recent lickwhip or whiplick stance.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 197
+	},
+	{
 		id: 2839,
 		name: 'Suiton',
 		iconId: 12906,
@@ -27110,6 +27390,16 @@ export const statuses: StatusDefinition[] = [
 		isPermanent: true,
 		maxStacks: 0,
 		partyListPriority: 100
+	},
+	{
+		id: 2852,
+		name: 'HP Recovery Down',
+		iconId: 15427,
+		description: 'Healing effects received are reduced.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
 	},
 	{
 		id: 2853,
@@ -27323,9 +27613,9 @@ export const statuses: StatusDefinition[] = [
 	},
 	{
 		id: 2874,
-		name: '時限の魔鎖',
+		name: 'Shackles of Time',
 		iconId: 15372,
-		description: '光属性と火属性のエーテルを宿した魔法の鎖が縛り付けられた状態。',
+		description: 'Bound by chains containing light- and fire-aspected aether.',
 		category: 2,
 		isPermanent: false,
 		maxStacks: 0,
@@ -27333,9 +27623,9 @@ export const statuses: StatusDefinition[] = [
 	},
 	{
 		id: 2875,
-		name: '時限の魔鎖',
+		name: 'Shackles of Time',
 		iconId: 15372,
-		description: '光属性と火属性のエーテルを宿した魔法の鎖が縛り付けられた状態。',
+		description: 'Bound by chains containing light- and fire-aspected aether.',
 		category: 2,
 		isPermanent: false,
 		maxStacks: 0,
@@ -27422,6 +27712,66 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 0
 	},
 	{
+		id: 2885,
+		name: 'Shackles of Companionship',
+		iconId: 15375,
+		description: 'Wrapped in chains binding you ever tighter to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2886,
+		name: 'Shackles of Companionship',
+		iconId: 15375,
+		description: 'Wrapped in chains binding you ever tighter to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2887,
+		name: 'Shackles of Companionship',
+		iconId: 15375,
+		description: 'Wrapped in chains binding you ever tighter to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2888,
+		name: 'Shackles of Loneliness',
+		iconId: 15377,
+		description: 'Wrapped in chains binding you ever tighter to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2889,
+		name: 'Shackles of Loneliness',
+		iconId: 15377,
+		description: 'Wrapped in chains binding you ever tighter to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2890,
+		name: 'Shackles of Loneliness',
+		iconId: 15377,
+		description: 'Wrapped in chains binding you ever tighter to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
 		id: 2891,
 		name: 'Spearfisher\'s Intuition',
 		iconId: 11101,
@@ -27448,6 +27798,16 @@ export const statuses: StatusDefinition[] = [
 		description: 'The next phenomenon to occur will be recorded.',
 		category: 1,
 		isPermanent: true,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2905,
+		name: 'Revolutionary',
+		iconId: 15422,
+		description: 'Fighting backward. Areas of effect are inverted.',
+		category: 1,
+		isPermanent: false,
 		maxStacks: 0,
 		partyListPriority: 200
 	},
@@ -27622,6 +27982,76 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 100
 	},
 	{
+		id: 2923,
+		name: 'Shackles of Companionship',
+		iconId: 15375,
+		description: 'Wrapped in chains binding you ever tighter to nearby allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2924,
+		name: 'Shackles of Loneliness',
+		iconId: 15377,
+		description: 'Wrapped in chains binding you ever tighter to faraway allies.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2925,
+		name: '_rsv_2925_-1_1_C0_0Status',
+		iconId: 15434,
+		description: '_rsv_2925_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2926,
+		name: '_rsv_2926_-1_1_C0_0Status',
+		iconId: 15435,
+		description: '_rsv_2926_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2927,
+		name: '_rsv_2927_-1_1_C0_0Status',
+		iconId: 15436,
+		description: '_rsv_2927_-1_1_C1_0Status',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2928,
+		name: 'Fountain of Fire',
+		iconId: 15383,
+		description: 'Flames are enhancing target capabilities. Damage dealt and healing potency are increased.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
+		id: 2929,
+		name: 'Trickle of Fire',
+		iconId: 15383,
+		description: 'Flames are enhancing target capabilities. Healing potency is increased.',
+		category: 1,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
+	},
+	{
 		id: 2932,
 		name: 'Fleet-footed',
 		iconId: 16520,
@@ -27652,6 +28082,16 @@ export const statuses: StatusDefinition[] = [
 		partyListPriority: 0
 	},
 	{
+		id: 2935,
+		name: 'Sustained Damage',
+		iconId: 15067,
+		description: 'Sustaining damage over time.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 100
+	},
+	{
 		id: 2936,
 		name: 'Temporary Misdirection',
 		iconId: 15809,
@@ -27660,6 +28100,16 @@ export const statuses: StatusDefinition[] = [
 		isPermanent: false,
 		maxStacks: 0,
 		partyListPriority: 100
+	},
+	{
+		id: 2937,
+		name: 'Fire Resistance Down II',
+		iconId: 15595,
+		description: 'Fire resistance is significantly reduced.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 200
 	},
 	{
 		id: 2938,
@@ -28000,6 +28450,16 @@ export const statuses: StatusDefinition[] = [
 		isPermanent: false,
 		maxStacks: 0,
 		partyListPriority: 0
+	},
+	{
+		id: 2983,
+		name: 'Sleep',
+		iconId: 15013,
+		description: 'Overwhelming drowsiness is preventing the execution of actions.',
+		category: 2,
+		isPermanent: false,
+		maxStacks: 0,
+		partyListPriority: 100
 	},
 	{
 		id: 2999,

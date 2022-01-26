@@ -128,7 +128,7 @@ import { anchors }              from 'src/app/Data/anchors';
 export class CustomElementsPanelComponent {
 	currentElement: CustomElement;
 	currentGroup: CustomElementGroup;
-	logoUrl = this.baseUrl + '/assets/nu.png';
+	logoUrl = this.baseUrl + 'assets/nu.png';
 
 	categories: TabDef[] = [
 		{ name: 'General', active: true },

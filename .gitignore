@@ -47,3 +47,4 @@ Thumbs.db
 # custom
 yarn.lock
 /data
+.angular/cache
