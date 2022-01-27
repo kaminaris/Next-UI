@@ -588,6 +588,8 @@ export class XivService {
 
 		await this.watchActor(player.id);
 
+		await new Promise(resolve => setTimeout(resolve, 400));
+
 		const party = await this.getParty();
 		const newParty: Combatant[] = [];
 		for (const pm of party.currentParty) {
