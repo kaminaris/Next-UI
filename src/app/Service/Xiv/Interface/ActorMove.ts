@@ -1,7 +1,6 @@
-import { Position }         from './Position';
-import { NetworkEventData } from './NetworkEventData';
+import { Position } from './Position';
 
-export interface ActorMove extends NetworkEventData {
+export interface ActorMove {
 	headRotation: number;
 	rotation: number;
 	animationType: number;

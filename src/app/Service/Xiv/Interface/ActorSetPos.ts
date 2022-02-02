@@ -1,7 +1,6 @@
-import { Position }         from './Position';
-import { NetworkEventData } from './NetworkEventData';
+import { Position } from './Position';
 
-export interface ActorSetPos extends NetworkEventData {
+export interface ActorSetPos {
 	r16: number;
 	waitForLoad: number;
 	unknown1: number;

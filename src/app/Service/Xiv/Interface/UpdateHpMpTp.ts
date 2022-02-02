@@ -1,6 +1,4 @@
-import { NetworkEventData } from './NetworkEventData';
-
-export interface UpdateHpMpTp extends NetworkEventData {
+export interface UpdateHpMpTp {
 	currentHp: number;
 	currentMp: number;
 	unknown1: number;

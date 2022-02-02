@@ -1,7 +1,6 @@
-import { Position }         from './Position';
-import { NetworkEventData } from './NetworkEventData';
+import { Position } from './Position';
 
-export interface UpdatePosition extends NetworkEventData {
+export interface UpdatePosition {
 	rotation: number;
 	animationType: number;
 	animationState: number;

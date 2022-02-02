@@ -162,7 +162,7 @@ export class XivService {
 	}
 
 	statusEffectList(ev: NetworkEvent<StatusEffectList>) {
-		const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
+		const c = this.parser.findCombatant(ev.targetActorId);
 		if (!c) {
 			return;
 		}
@@ -198,9 +198,8 @@ export class XivService {
 	}
 
 	actorMove(ev: NetworkEvent<ActorMove>) {
-		// const c = this.parser.findCombatant(ev.data.targetActorId, ev.data.targetActorName);
 		this.parser.updateCombatantPosition(
-			ev.data.targetActorId,
+			ev.targetActorId,
 			ev.data.position.x,
 			ev.data.position.y,
 			ev.data.position.z
@@ -289,8 +288,8 @@ export class XivService {
 	effectResult(ev: NetworkEvent<EffectResult>) {
 		const data = ev.data;
 		const c = this.parser.updateCombatant(
-			data.targetActorId,
-			data.targetActorName,
+			ev.targetActorId,
+			null,
 			data.currentHp,
 			data.maxHp,
 			data.currentMp,
@@ -321,18 +320,17 @@ export class XivService {
 	}
 
 	effectResultBasic(ev: NetworkEvent<EffectResultBasic>) {
-		const data = ev.data;
-		const c = this.parser.findCombatant(data.targetActorId);
+		const c = this.parser.findCombatant(ev.targetActorId);
 		if (!c) {
 			return;
 		}
 
-		c.hp.next(data.currentHp);
+		c.hp.next(ev.data.currentHp);
 	}
 
 	updateHpMpTp(ev: NetworkEvent<UpdateHpMpTp>) {
 		const data = ev.data;
-		const c = this.parser.findCombatant(data.targetActorId);
+		const c = this.parser.findCombatant(ev.targetActorId);
 		if (!c) {
 			return;
 		}
@@ -348,7 +346,7 @@ export class XivService {
 		}
 
 		const c = this.parser.updateCombatant(
-			npc.targetActorId,
+			ev.targetActorId,
 			this.toPascalCase(npc.name),
 			npc.hp,
 			npc.hpMax,
@@ -368,7 +366,7 @@ export class XivService {
 		return;
 		const player = ev.data;
 		const c = this.parser.updateCombatant(
-			player.targetActorId,
+			ev.targetActorId,
 			player.name,
 			player.hp,
 			player.hpMax,
@@ -395,7 +393,7 @@ export class XivService {
 
 	async actorCast(ev: NetworkEvent<ActorCast>) {
 		const cast = ev.data;
-		const c = this.parser.findCombatant(cast.targetActorId, cast.targetActorName);
+		const c = this.parser.findCombatant(ev.targetActorId);
 		if (!c) {
 			return;
 		}
@@ -413,7 +411,7 @@ export class XivService {
 		const ctrl = ev.data;
 		const c = this.parser.player.value;
 
-		await this.actorControlGeneric(c, ctrl);
+		await this.actorControlGeneric(c, ctrl, c.id);
 	}
 
 	async actorControlTarget(ev: NetworkEvent<ActorControlTarget>) {
@@ -424,17 +422,21 @@ export class XivService {
 		}
 		const c = this.parser.target.value;
 
-		await this.actorControlGeneric(c, ctrl);
+		await this.actorControlGeneric(c, ctrl, c.id);
 	}
 
 	async actorControl(ev: NetworkEvent<ActorControl>) {
 		const ctrl = ev.data;
-		const c = this.parser.findCombatant(ctrl.targetActorId, ctrl.targetActorName);
+		const c = this.parser.findCombatant(ev.targetActorId);
 
-		await this.actorControlGeneric(c, ctrl);
+		await this.actorControlGeneric(c, ctrl, ev.targetActorId);
 	}
 
-	async actorControlGeneric(c: Combatant, ctrl: ActorControl | ActorControlTarget | ActorControlTarget) {
+	async actorControlGeneric(
+		c: Combatant,
+		ctrl: ActorControl | ActorControlTarget | ActorControlTarget,
+		targetActorId: number
+	) {
 		if (!c) {
 			return;
 		}
@@ -462,7 +464,7 @@ export class XivService {
 					return;
 				}
 				if (appliedBy === 0 || appliedBy === Combatant.ENV_ID) {
-					appliedBy = ctrl.targetActorId;
+					appliedBy = targetActorId;
 				}
 
 				c.updateStatus(statusId, null, 1, appliedBy, duration, new Date());
@@ -472,7 +474,7 @@ export class XivService {
 				const statusId = ctrl.param1;
 				let appliedBy = ctrl.param3;
 				if (appliedBy === 0 || appliedBy === Combatant.ENV_ID) {
-					appliedBy = ctrl.targetActorId;
+					appliedBy = targetActorId;
 				}
 
 				c.removeStatus(statusId, null, appliedBy);

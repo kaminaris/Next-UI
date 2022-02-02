@@ -1,6 +1,4 @@
-import { NetworkEventData } from './NetworkEventData';
-
-export interface EffectResultBasic extends NetworkEventData {
+export interface EffectResultBasic {
 	unknown1: number;
 	relatedActionSequence: number;
 	actorId: number;

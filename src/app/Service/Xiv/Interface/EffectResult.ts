@@ -1,5 +1,3 @@
-import { NetworkEventData } from 'src/app/Service/Xiv/Interface/NetworkEventData';
-
 export interface StatusEntry {
 	index: number; // which position do i display this
 	id: number;
@@ -7,7 +5,7 @@ export interface StatusEntry {
 	sourceActorId: number;
 }
 
-export interface EffectResult extends NetworkEventData {
+export interface EffectResult {
 	globalSequence: number;
 	relatedActionSequence: number;
 	actorId: number;

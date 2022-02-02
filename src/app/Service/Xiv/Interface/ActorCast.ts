@@ -1,7 +1,6 @@
-import { Position }         from './Position';
-import { NetworkEventData } from './NetworkEventData';
+import { Position } from './Position';
 
-export interface ActorCast extends NetworkEventData {
+export interface ActorCast {
 	actionId: number;
 	actionType: number;
 	castTime: number;

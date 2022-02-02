@@ -1,7 +1,6 @@
-import { NetworkEventData } from './NetworkEventData';
-import { StatusEffect }     from './StatusEffect';
+import { StatusEffect } from './StatusEffect';
 
-export interface StatusEffectList extends NetworkEventData {
+export interface StatusEffectList {
 	jobId: number;
 	level1: number;
 	level2: number;

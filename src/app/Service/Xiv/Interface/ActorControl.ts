@@ -1,5 +1,3 @@
-import { NetworkEventData } from './NetworkEventData';
-
 export enum ActorControlCategory {
 	KeyItem = 0x03,
 	OverTime = 0x17,
@@ -16,7 +14,7 @@ export enum ActorControlCategory {
 	LimitBreak = 0x1f9
 }
 
-export interface ActorControl extends NetworkEventData {
+export interface ActorControl {
 	category: ActorControlCategory;
 	padding: number;
 	param1: number;
@@ -26,7 +24,7 @@ export interface ActorControl extends NetworkEventData {
 	padding1: number;
 }
 
-export interface ActorControlSelf extends NetworkEventData {
+export interface ActorControlSelf {
 	category: ActorControlCategory;
 	padding: number;
 	param1: number;
@@ -38,7 +36,7 @@ export interface ActorControlSelf extends NetworkEventData {
 	padding1: number;
 }
 
-export interface ActorControlTarget extends NetworkEventData {
+export interface ActorControlTarget {
 	category: ActorControlCategory;
 	padding: number;
 	param1: number;
