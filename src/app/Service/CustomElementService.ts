@@ -33,6 +33,28 @@ export class CustomElementService {
 		el.trigger.attach();
 	}
 
+	deleteCustomElement(element: CustomElement, group?: CustomElementGroup) {
+		element.trigger.detach();
+
+		if (group) {
+			group.children = group.children.filter(e => e !== element);
+		}
+		else {
+			this.elements = this.elements.filter(e => e !== element);
+		}
+	}
+
+	deleteCustomElementGroup(group: CustomElementGroup) {
+		const index = this.elementGroups.indexOf(group);
+		if (index > -1) {
+			for (const child of group.children) {
+				child.trigger.detach();
+			}
+
+			this.elementGroups.splice(index, 1);
+		}
+	}
+
 	addCustomElementGroup() {
 		const g = new CustomElementGroup();
 		g.name = 'New Group';

@@ -1,6 +1,6 @@
-import { Component, Input }   from '@angular/core';
-import { CustomElement }      from 'src/app/Model/CustomElement/CustomElement';
-import { CustomElementGroup } from 'src/app/Model/CustomElement/CustomElementGroup';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { CustomElementGroup } from '../../../../Model/CustomElement/CustomElementGroup';
 
 @Component({
 	selector: 'custom-element-group-general-config',
@@ -17,9 +17,11 @@ import { CustomElementGroup } from 'src/app/Model/CustomElement/CustomElementGro
 			>
 		</div>
 		<div class="col-6 mb-3">
+			<button class="btn btn-danger" (click)="delete.emit()">Delete</button>
 		</div>
 	`
 })
 export class CustomElementGroupGeneralConfigComponent {
 	@Input() group: CustomElementGroup;
+	@Output() delete = new EventEmitter();
 }

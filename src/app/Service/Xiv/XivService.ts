@@ -411,7 +411,7 @@ export class XivService {
 		const ctrl = ev.data;
 		const c = this.parser.player.value;
 
-		await this.actorControlGeneric(c, ctrl, c.id);
+		await this.actorControlGeneric(c, ctrl, ev.targetActorId);
 	}
 
 	async actorControlTarget(ev: NetworkEvent<ActorControlTarget>) {
@@ -422,7 +422,7 @@ export class XivService {
 		}
 		const c = this.parser.target.value;
 
-		await this.actorControlGeneric(c, ctrl, c.id);
+		await this.actorControlGeneric(c, ctrl, ev.targetActorId);
 	}
 
 	async actorControl(ev: NetworkEvent<ActorControl>) {

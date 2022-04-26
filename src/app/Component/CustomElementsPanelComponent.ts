@@ -71,6 +71,7 @@ import { anchors }              from 'src/app/Data/anchors';
 				<custom-element-group-general-config class="d-block p-2"
 					*ngIf="currentTab?.name === 'General'"
 					[group]="currentGroup"
+					(delete)="deleteGroup()"
 				>
 				</custom-element-group-general-config>
 
@@ -95,6 +96,7 @@ import { anchors }              from 'src/app/Data/anchors';
 				<custom-element-general-config class="d-block p-2"
 					*ngIf="currentTabIndex === 0"
 					[customElement]="currentElement"
+					(delete)="delete()"
 				>
 				</custom-element-general-config>
 
@@ -189,5 +191,25 @@ export class CustomElementsPanelComponent {
 
 	save() {
 		this.elementService.saveCustomElements();
+	}
+
+	deleteGroup() {
+		if (!this.currentGroup) {
+			return;
+		}
+
+		this.elementService.deleteCustomElementGroup(this.currentGroup);
+		this.currentElement = null;
+		this.currentGroup = null;
+	}
+
+	delete() {
+		if (!this.currentElement) {
+			return;
+		}
+
+		this.elementService.deleteCustomElement(this.currentElement, this.currentGroup);
+		this.currentElement = null;
+		this.currentGroup = null;
 	}
 }

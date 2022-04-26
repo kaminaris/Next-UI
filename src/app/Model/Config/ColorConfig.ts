@@ -11,14 +11,6 @@ export class ColorConfig implements SerializableConfig {
 	enabledSub = new DistinctBehaviorSubject<boolean>(false);
 
 	// @formatter:on
-
-	// CastBarColor = new DistinctBehaviorSubject<string>('rgba(255,158,208,1)');
-	// SlideCastColor = new DistinctBehaviorSubject<string>('rgba(255,0,0,1)');
-	// ShieldColor = new DistinctBehaviorSubject<string>('rgba(255,255,0,1)');
-
-	// NPCColorHostile = new DistinctBehaviorSubject<string>('rgba(205, 25, 25, 1)');
-	// NPCColorNeutral = new DistinctBehaviorSubject<string>('rgba(214, 145, 64, 1)');
-	// NPCColorFriendly = new DistinctBehaviorSubject<string>('rgba(0, 145, 6, 1)');
 	protected jobColor = new Map<number, string>();
 	protected jobColorDefault = new Map<number, string>();
 	jobColorSub = new BehaviorSubject<Map<number, string>>(null);
@@ -31,29 +23,6 @@ export class ColorConfig implements SerializableConfig {
 	};
 
 	constructor() {
-		// this.jobColor.set(Util.jobs.PLD, 'rgba(21,28,100,1)');
-		// this.jobColor.set(Util.jobs.WAR, 'rgba(153,23,23,1)');
-		// this.jobColor.set(Util.jobs.DRK, 'rgba(136,14,79,1)');
-		// this.jobColor.set(Util.jobs.GNB, 'rgba(78,52,46,1)');
-		//
-		// this.jobColor.set(Util.jobs.WHM, 'rgba(150,150,150,1)');
-		// this.jobColor.set(Util.jobs.SCH, 'rgba(121,134,203,1)');
-		// this.jobColor.set(Util.jobs.AST, 'rgba(121,85,72,1)');
-		//
-		// this.jobColor.set(Util.jobs.MNK, 'rgba(78,52,46,1)');
-		// this.jobColor.set(Util.jobs.DRG, 'rgba(63,81,181,1)');
-		// this.jobColor.set(Util.jobs.NIN, 'rgba(211,47,47,1)');
-		// this.jobColor.set(Util.jobs.SAM, 'rgba(255,202,40,1)');
-		//
-		// this.jobColor.set(Util.jobs.BRD, 'rgba(158,157,36,1)');
-		// this.jobColor.set(Util.jobs.MCH, 'rgba(0,151,167,1)');
-		// this.jobColor.set(Util.jobs.DNC, 'rgba(244,143,177,1)');
-		//
-		// this.jobColor.set(Util.jobs.BLM, 'rgba(126,87,194,1)');
-		// this.jobColor.set(Util.jobs.SMN, 'rgba(46,125,50,1)');
-		// this.jobColor.set(Util.jobs.RDM, 'rgba(233,30,99,1)');
-		// this.jobColor.set(Util.jobs.BLU, 'rgba(0,185,247,1)');
-		// const colors = {
 		this.jobColor.set(Util.jobs.PLD, 'rgba(123,154,162,1)');
 		this.jobColor.set(Util.jobs.GLA, 'rgba(123,154,162,1)');
 		this.jobColor.set(Util.jobs.WAR, 'rgba(169,26,22,1)');
@@ -64,8 +33,6 @@ export class ColorConfig implements SerializableConfig {
 		this.jobColor.set(Util.jobs.CNJ, 'rgba(189,189,189,1)');
 		this.jobColor.set(Util.jobs.SCH, 'rgba(50,48,123,1)');
 		this.jobColor.set(Util.jobs.AST, 'rgba(177,86,28,1)');
-		// ds: 'rgb(77,208,225)',
-		// oh: 'rgb(239,83,80)',
 		this.jobColor.set(Util.jobs.MNK, 'rgba(179,137,21,1)');
 		this.jobColor.set(Util.jobs.PGL, 'rgba(179,137,21,1)');
 		this.jobColor.set(Util.jobs.DRG, 'rgba(55,82,216,1)');
@@ -85,8 +52,6 @@ export class ColorConfig implements SerializableConfig {
 		this.jobColor.set(Util.jobs.BLU, 'rgba(24,61,154,1)');
 		this.jobColor.set(Util.jobs.SGE, 'rgba(133,196,212,1)');
 		this.jobColor.set(Util.jobs.RPR, 'rgba(234,221,111,1)');
-		// this.jobColor.set(Util.jobs.LMB, 'rgba(255,187,0,1)');
-		// this.jobColor.set(Util.jobs.CBO, 'rgba(117,117,117,1)');
 		this.jobColor.set(Util.jobs.CRP, 'rgba(69,69,69,1)');
 		this.jobColor.set(Util.jobs.BSM, 'rgba(69,69,69,1)');
 		this.jobColor.set(Util.jobs.ARM, 'rgba(69,69,69,1)');
